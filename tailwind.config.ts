@@ -41,22 +41,22 @@ export default {
     				'monospace'
     			],
     			inter: [
-    				'Inter"',
+    				'Inter',
     				'system-ui',
     				'-apple-system',
     				'BlinkMacSystemFont',
-    				'Segoe UI"',
+    				'Segoe UI',
     				'Roboto',
     				'sans-serif'
     			],
     			playfair: [
-    				'Playfair Display"',
+    				'Playfair Display',
     				'Georgia',
     				'serif'
     			],
     			carbon: [
-    				'IBM Plex Sans"',
-    				'Helvetica Neue"',
+    				'IBM Plex Sans',
+    				'Helvetica Neue',
     				'Arial',
     				'sans-serif'
     			],
