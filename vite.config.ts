@@ -21,5 +21,23 @@ export default defineConfig(({ mode }) => ({
   build: {
     chunkSizeWarningLimit: 1000,
     sourcemap: false,
+    rollupOptions: {
+      external: [
+        'pg',
+        'http-proxy',
+        'drizzle-orm',
+        'drizzle-kit',
+        '@mendable/firecrawl-js',
+      ],
+    },
+  },
+  optimizeDeps: {
+    exclude: [
+      'pg',
+      'http-proxy',
+      'drizzle-orm',
+      'drizzle-kit',
+      '@mendable/firecrawl-js',
+    ],
   },
 }));
