@@ -193,7 +193,7 @@ const AdminDashboard = () => {
             console.warn(`⚠️ Admin dashboard realtime ${status.toLowerCase()}`);
             break;
           default:
-            if (!err && status !== 'CHANNEL_ERROR' && status !== 'CLOSED') {
+            if (!err) {
               setSystemStatus(prev => ({
                 ...prev,
                 realTimeUpdates: 'connected'
