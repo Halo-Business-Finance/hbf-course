@@ -1,16 +1,22 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
-
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-}
+import { 
+  handleCorsPreflightRequest, 
+  getSecurityHeaders,
+  validateOrigin,
+  createSecureJsonResponse,
+  createSecureErrorResponse
+} from '../_shared/corsHelper.ts';
+import { logErrorServerSide } from '../_shared/errorSanitizer.ts';
 
 serve(async (req) => {
-  // Handle CORS preflight requests
-  if (req.method === 'OPTIONS') {
-    return new Response(null, { headers: corsHeaders });
-  }
+  const corsResponse = handleCorsPreflightRequest(req);
+  if (corsResponse) return corsResponse;
+
+  const originError = validateOrigin(req);
+  if (originError) return originError;
+
+  const headers = { ...getSecurityHeaders(req), 'Content-Type': 'application/json' };
 
   try {
     const SUPABASE_URL = Deno.env.get('SUPABASE_URL') ?? '';
@@ -20,85 +26,54 @@ serve(async (req) => {
     // ===== AUTHENTICATION CHECK =====
     const authHeader = req.headers.get('Authorization');
     if (!authHeader) {
-      return new Response(
-        JSON.stringify({ success: false, error: 'Authentication required' }),
-        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 401 }
-      );
+      return createSecureErrorResponse(req, 'Authentication required', 401, 'ERR_401');
     }
 
-    // Verify the user's JWT token
     const authClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
       global: { headers: { Authorization: authHeader } }
     });
     
     const { data: { user }, error: authError } = await authClient.auth.getUser();
     if (authError || !user) {
-      return new Response(
-        JSON.stringify({ success: false, error: 'Invalid or expired authentication token' }),
-        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 401 }
-      );
+      return createSecureErrorResponse(req, 'Invalid or expired authentication token', 401, 'ERR_401');
     }
 
-    // Check if user is super_admin (only super admins can run data retention cleanup)
     const { data: userRole } = await authClient.rpc('get_user_role');
     if (userRole !== 'super_admin') {
-      return new Response(
-        JSON.stringify({ success: false, error: 'Super admin privileges required for data retention operations' }),
-        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 403 }
-      );
+      return createSecureErrorResponse(req, 'Super admin privileges required for data retention operations', 403, 'ERR_403');
     }
     // ===== END AUTHENTICATION CHECK =====
 
     const supabaseClient = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
-      auth: {
-        autoRefreshToken: false,
-        persistSession: false
-      }
+      auth: { autoRefreshToken: false, persistSession: false }
     })
 
-    if (Deno.env.get('ENV') === 'development') {
-      console.log('[SECURITY-RETENTION] Starting automated data retention cleanup...');
-    }
+    logErrorServerSide('security-data-retention', 'Starting automated data retention cleanup...');
 
-    // Call the cleanup function
     const { data, error } = await supabaseClient.rpc('cleanup_old_behavioral_data');
 
     if (error) {
-      if (Deno.env.get('ENV') === 'development') {
-        console.error('[SECURITY-RETENTION] Cleanup failed:', error);
-      }
+      logErrorServerSide('security-data-retention', error);
       throw error;
     }
 
-    if (Deno.env.get('ENV') === 'development') {
-      console.log('[SECURITY-RETENTION] Data retention cleanup completed successfully');
-    }
-
-    // Also clean up old rate limit entries
+    // Clean up old rate limit entries
     const cutoffDate = new Date();
-    cutoffDate.setDate(cutoffDate.getDate() - 7); // Keep 7 days of rate limit data
+    cutoffDate.setDate(cutoffDate.getDate() - 7);
 
     const { error: rateLimitError } = await supabaseClient
       .from('lead_submission_rate_limits')
       .delete()
       .lt('created_at', cutoffDate.toISOString());
 
-    if (rateLimitError) {
-      if (Deno.env.get('ENV') === 'development') {
-        console.warn('[SECURITY-RETENTION] Rate limit cleanup warning:', rateLimitError);
-      }
-    }
+    if (rateLimitError) logErrorServerSide('security-data-retention', rateLimitError);
 
     const { error: advancedRateLimitError } = await supabaseClient
       .from('advanced_rate_limits')
       .delete()
       .lt('created_at', cutoffDate.toISOString());
 
-    if (advancedRateLimitError) {
-      if (Deno.env.get('ENV') === 'development') {
-        console.warn('[SECURITY-RETENTION] Advanced rate limit cleanup warning:', advancedRateLimitError);
-      }
-    }
+    if (advancedRateLimitError) logErrorServerSide('security-data-retention', advancedRateLimitError);
 
     // Log the successful cleanup
     const { error: logError } = await supabaseClient
@@ -112,45 +87,32 @@ serve(async (req) => {
           cleanup_type: 'scheduled_retention',
           automated: true,
           gdpr_compliant: true,
-          rate_limit_cleanup: true,
-          initiated_by: user.email
+          rate_limit_cleanup: true
         },
         logged_via_secure_function: true
       });
 
-    if (logError) {
-      if (Deno.env.get('ENV') === 'development') {
-        console.warn('[SECURITY-RETENTION] Logging warning:', logError);
-      }
-    }
+    if (logError) logErrorServerSide('security-data-retention', logError);
 
     return new Response(
       JSON.stringify({
         success: true,
         message: 'Data retention cleanup completed successfully',
-        timestamp: new Date().toISOString(),
-        initiated_by: user.email
+        timestamp: new Date().toISOString()
       }),
-      {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-      }
+      { headers }
     )
 
   } catch (error) {
-    if (Deno.env.get('ENV') === 'development') {
-      console.error('[SECURITY-RETENTION] Function error:', error);
-    }
+    logErrorServerSide('security-data-retention', error);
     
     return new Response(
       JSON.stringify({
         success: false,
-        error: error.message,
+        error: 'Data retention cleanup failed',
         timestamp: new Date().toISOString()
       }),
-      {
-        status: 500,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-      }
+      { status: 500, headers: { ...getSecurityHeaders(req), 'Content-Type': 'application/json' } }
     )
   }
 })

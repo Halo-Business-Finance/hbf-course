@@ -1,16 +1,22 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.57.2';
-
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
+import { 
+  handleCorsPreflightRequest, 
+  getSecurityHeaders,
+  validateOrigin,
+  createSecureJsonResponse,
+  createSecureErrorResponse
+} from '../_shared/corsHelper.ts';
+import { sanitizeError, logErrorServerSide } from '../_shared/errorSanitizer.ts';
 
 serve(async (req) => {
-  // Handle CORS preflight requests
-  if (req.method === 'OPTIONS') {
-    return new Response(null, { headers: corsHeaders });
-  }
+  const corsResponse = handleCorsPreflightRequest(req);
+  if (corsResponse) return corsResponse;
+
+  const originError = validateOrigin(req);
+  if (originError) return originError;
+
+  const headers = { ...getSecurityHeaders(req), 'Content-Type': 'application/json' };
 
   try {
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
@@ -20,10 +26,7 @@ serve(async (req) => {
     // Get authenticated user from JWT
     const authHeader = req.headers.get('Authorization');
     if (!authHeader) {
-      return new Response(JSON.stringify({ error: 'Authentication required' }), {
-        status: 401,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      });
+      return createSecureErrorResponse(req, 'Authentication required', 401, 'ERR_401');
     }
 
     const supabaseClient = createClient(
@@ -35,22 +38,18 @@ serve(async (req) => {
     const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
     
     if (userError || !user) {
-      return new Response(JSON.stringify({ error: 'Invalid authentication' }), {
-        status: 401,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      });
+      return createSecureErrorResponse(req, 'Invalid authentication', 401, 'ERR_401');
     }
 
-    // Use authenticated user's ID instead of accepting from request
     const user_id = user.id;
     const { ip_address, user_agent } = await req.json();
 
     if (!ip_address) {
-      throw new Error('Missing required parameter: ip_address');
+      return createSecureErrorResponse(req, 'Missing required parameter: ip_address', 400, 'ERR_VALIDATION');
     }
 
     // Get geographic data from IP
-    let locationData = {};
+    let locationData: Record<string, unknown> = {};
     let deviceData = {
       user_agent: user_agent || 'Unknown',
       device_type: getDeviceType(user_agent || ''),
@@ -59,7 +58,6 @@ serve(async (req) => {
     };
 
     try {
-      // Try to get location from ipapi.co (free tier available)
       const locationResponse = await fetch(`https://ipapi.co/${ip_address}/json/`);
       if (locationResponse.ok) {
         const ipData = await locationResponse.json();
@@ -75,21 +73,10 @@ serve(async (req) => {
           is_vpn: ipData.threat?.is_anonymous || false
         };
       } else {
-        // Fallback to basic info
-        locationData = {
-          country: 'Unknown',
-          region: 'Unknown', 
-          city: 'Unknown',
-          is_vpn: false
-        };
+        locationData = { country: 'Unknown', region: 'Unknown', city: 'Unknown', is_vpn: false };
       }
-    } catch (error) {
-      locationData = {
-        country: 'Unknown',
-        region: 'Unknown',
-        city: 'Unknown', 
-        is_vpn: false
-      };
+    } catch (_error) {
+      locationData = { country: 'Unknown', region: 'Unknown', city: 'Unknown', is_vpn: false };
     }
 
     // Store login location
@@ -106,7 +93,7 @@ serve(async (req) => {
         timezone: locationData.timezone,
         isp: locationData.isp,
         is_vpn: locationData.is_vpn,
-        is_known_location: false // Will be updated by baseline analysis
+        is_known_location: false
       })
       .select()
       .single();
@@ -129,39 +116,30 @@ serve(async (req) => {
       p_location_data: locationData,
       p_device_data: deviceData
     }).then(({ error }) => {
-      if (error) {
-        // Silent error - baseline update is non-critical
-      }
+      if (error) { /* Silent - baseline update is non-critical */ }
     });
 
-    // Log successful authentication with location context
+    // Log successful authentication
     await supabase.rpc('log_successful_auth', {
       auth_type: 'geographic_tracked_login',
-      user_email: null // Don't expose email in logs
+      user_email: null
     });
 
-    // Create response
-    const response = {
+    return createSecureJsonResponse(req, {
       success: true,
       location_data: locationData,
       device_data: deviceData,
       anomaly_detection: anomalyResult,
       login_location_id: loginLocation?.id,
       timestamp: new Date().toISOString()
-    };
-
-    return new Response(JSON.stringify(response), {
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
 
   } catch (error) {
+    logErrorServerSide('geographic-location-tracker', error);
     return new Response(JSON.stringify({ 
-      error: error.message || 'Geographic tracking failed',
+      error: sanitizeError(error),
       success: false 
-    }), {
-      status: 500,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-    });
+    }), { status: 500, headers });
   }
 });
 
