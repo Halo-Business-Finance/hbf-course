@@ -1,28 +1,30 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.57.2';
-
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
+import { 
+  handleCorsPreflightRequest, 
+  getSecurityHeaders,
+  validateOrigin,
+  createSecureJsonResponse,
+  createSecureErrorResponse
+} from '../_shared/corsHelper.ts';
 
 serve(async (req) => {
   // Handle CORS preflight requests
-  if (req.method === 'OPTIONS') {
-    return new Response(null, { headers: corsHeaders });
-  }
+  const corsResponse = handleCorsPreflightRequest(req);
+  if (corsResponse) return corsResponse;
+
+  // Validate origin
+  const originError = validateOrigin(req);
+  if (originError) return originError;
+
+  const headers = { ...getSecurityHeaders(req), 'Content-Type': 'application/json' };
 
   try {
     // Authentication check - CRITICAL SECURITY
     const authHeader = req.headers.get('Authorization');
     if (!authHeader) {
-      return new Response(JSON.stringify({ 
-        error: 'Authentication required'
-      }), {
-        status: 401,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      });
+      return createSecureErrorResponse(req, 'Authentication required', 401, 'ERR_401');
     }
 
     const supabaseClient = createClient(
@@ -34,43 +36,22 @@ serve(async (req) => {
     const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
     
     if (userError || !user) {
-      return new Response(JSON.stringify({ 
-        error: 'Invalid authentication credentials'
-      }), {
-        status: 401,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      });
+      return createSecureErrorResponse(req, 'Invalid authentication credentials', 401, 'ERR_401');
     }
 
     const { question, moduleTitle, moduleContext } = await req.json();
     
     // Input validation - CRITICAL SECURITY
     if (!question || typeof question !== 'string') {
-      return new Response(JSON.stringify({ 
-        error: 'Valid question is required'
-      }), {
-        status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      });
+      return createSecureErrorResponse(req, 'Valid question is required', 400, 'ERR_VALIDATION');
     }
 
-    // Length validation
     if (question.length > 1000) {
-      return new Response(JSON.stringify({ 
-        error: 'Question must be less than 1000 characters'
-      }), {
-        status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      });
+      return createSecureErrorResponse(req, 'Question must be less than 1000 characters', 400, 'ERR_VALIDATION');
     }
 
     if (question.length < 3) {
-      return new Response(JSON.stringify({ 
-        error: 'Question must be at least 3 characters'
-      }), {
-        status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      });
+      return createSecureErrorResponse(req, 'Question must be at least 3 characters', 400, 'ERR_VALIDATION');
     }
 
     // Prompt injection detection - basic patterns
@@ -85,28 +66,18 @@ serve(async (req) => {
 
     for (const pattern of suspiciousPatterns) {
       if (pattern.test(question)) {
-        return new Response(JSON.stringify({ 
-          error: 'Invalid question format detected'
-        }), {
-          status: 400,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        });
+        return createSecureErrorResponse(req, 'Invalid question format detected', 400, 'ERR_VALIDATION');
       }
     }
 
-    // Sanitize input - remove excessive whitespace and control characters
+    // Sanitize input
     const sanitizedQuestion = question
-      .replace(/[\x00-\x1F\x7F]/g, '') // Remove control characters
-      .replace(/\s+/g, ' ') // Normalize whitespace
+      .replace(/[\x00-\x1F\x7F]/g, '')
+      .replace(/\s+/g, ' ')
       .trim();
     
     if (!sanitizedQuestion) {
-      return new Response(JSON.stringify({ 
-        error: 'Question cannot be empty'
-      }), {
-        status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      });
+      return createSecureErrorResponse(req, 'Question cannot be empty', 400, 'ERR_VALIDATION');
     }
 
     const openAIApiKey = Deno.env.get('OPENAI_API_KEY');
@@ -152,22 +123,19 @@ Keep answers comprehensive but focused on the student's specific question about 
     const data = await response.json();
     const answer = data.choices[0].message.content;
 
-    return new Response(JSON.stringify({ 
+    return createSecureJsonResponse(req, { 
       answer,
       moduleTitle,
       timestamp: new Date().toISOString()
-    }), {
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
 
   } catch (error) {
-    // Sanitize error messages - don't expose internal details
     return new Response(JSON.stringify({ 
       error: 'Unable to process your question at this time. Please try again.',
       details: 'Service temporarily unavailable'
     }), {
       status: 500,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      headers,
     });
   }
 });

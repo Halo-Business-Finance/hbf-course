@@ -1,38 +1,23 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
-
-// Security headers
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-  'Content-Security-Policy': 'default-src \'self\'; script-src \'self\' \'unsafe-inline\'; style-src \'self\' \'unsafe-inline\'; img-src \'self\' data: https:',
-  'X-Frame-Options': 'DENY', 
-  'X-Content-Type-Options': 'nosniff',
-  'Referrer-Policy': 'strict-origin-when-cross-origin'
-};
-
-const securityHeaders = {
-  ...corsHeaders,
-  'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:",
-  'X-Frame-Options': 'DENY',
-  'X-Content-Type-Options': 'nosniff',
-  'Referrer-Policy': 'strict-origin-when-cross-origin',
-  'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
-  'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
-};
+import { 
+  handleCorsPreflightRequest, 
+  getSecurityHeaders,
+  validateOrigin,
+  createSecureErrorResponse
+} from '../_shared/corsHelper.ts';
+import { sanitizeError, logErrorServerSide } from '../_shared/errorSanitizer.ts';
 
 serve(async (req) => {
-  if (Deno.env.get('ENV') === 'development') {
-    console.log('Security monitor function called:', req.method);
-  }
+  const corsResponse = handleCorsPreflightRequest(req);
+  if (corsResponse) return corsResponse;
 
-  // Handle CORS preflight requests
-  if (req.method === 'OPTIONS') {
-    return new Response(null, { headers: securityHeaders });
-  }
+  const originError = validateOrigin(req);
+  if (originError) return originError;
+
+  const securityHeaders = { ...getSecurityHeaders(req), 'Content-Type': 'application/json' };
 
   try {
-    // Verify this is a POST request
     if (req.method !== 'POST') {
       throw new Error('Method not allowed');
     }
@@ -44,120 +29,69 @@ serve(async (req) => {
     // ===== AUTHENTICATION CHECK =====
     const authHeader = req.headers.get('Authorization');
     if (!authHeader) {
-      return new Response(
-        JSON.stringify({ success: false, error: 'Authentication required' }),
-        { headers: { ...securityHeaders, 'Content-Type': 'application/json' }, status: 401 }
-      );
+      return createSecureErrorResponse(req, 'Authentication required', 401, 'ERR_401');
     }
 
-    // Verify the user's JWT token
     const authClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
       global: { headers: { Authorization: authHeader } }
     });
     
     const { data: { user }, error: authError } = await authClient.auth.getUser();
     if (authError || !user) {
-      return new Response(
-        JSON.stringify({ success: false, error: 'Invalid or expired authentication token' }),
-        { headers: { ...securityHeaders, 'Content-Type': 'application/json' }, status: 401 }
-      );
+      return createSecureErrorResponse(req, 'Invalid or expired authentication token', 401, 'ERR_401');
     }
 
-    // Check if user is admin
     const { data: userRole } = await authClient.rpc('get_user_role');
     if (!['admin', 'super_admin'].includes(userRole)) {
-      return new Response(
-        JSON.stringify({ success: false, error: 'Admin privileges required' }),
-        { headers: { ...securityHeaders, 'Content-Type': 'application/json' }, status: 403 }
-      );
+      return createSecureErrorResponse(req, 'Admin privileges required', 403, 'ERR_403');
     }
     // ===== END AUTHENTICATION CHECK =====
 
     const { action } = await req.json();
 
-    // Create Supabase admin client
     const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
-      auth: {
-        autoRefreshToken: false,
-        persistSession: false
-      }
+      auth: { autoRefreshToken: false, persistSession: false }
     });
 
     let response;
 
     switch (action) {
-      case 'get_security_alerts':
-        // Get unresolved security alerts
+      case 'get_security_alerts': {
         const { data: alerts, error: alertsError } = await supabase
           .from('security_alerts')
           .select('*')
           .eq('is_resolved', false)
           .order('created_at', { ascending: false })
           .limit(50);
-
-        if (alertsError) {
-          throw new Error(`Failed to fetch alerts: ${alertsError.message}`);
-        }
-
+        if (alertsError) throw new Error('Failed to fetch alerts');
         response = { alerts: alerts || [] };
         break;
+      }
 
-      case 'resolve_alert':
+      case 'resolve_alert': {
         const { alertId, resolvedBy } = await req.json();
-        
-        if (!alertId) {
-          throw new Error('Alert ID is required');
-        }
-
-        // Mark alert as resolved
+        if (!alertId) throw new Error('Alert ID is required');
         const { error: resolveError } = await supabase
           .from('security_alerts')
-          .update({
-            is_resolved: true,
-            resolved_at: new Date().toISOString(),
-            resolved_by: resolvedBy || user.id,
-            updated_at: new Date().toISOString()
-          })
+          .update({ is_resolved: true, resolved_at: new Date().toISOString(), resolved_by: resolvedBy || user.id, updated_at: new Date().toISOString() })
           .eq('id', alertId);
-
-        if (resolveError) {
-          throw new Error(`Failed to resolve alert: ${resolveError.message}`);
-        }
-
+        if (resolveError) throw new Error('Failed to resolve alert');
         response = { success: true, message: 'Alert resolved successfully' };
         break;
+      }
 
-      case 'analyze_security_events':
-        // Run security analysis
-        const { error: analysisError } = await supabase
-          .rpc('analyze_security_events');
-
-        if (analysisError) {
-          throw new Error(`Security analysis failed: ${analysisError.message}`);
-        }
-
+      case 'analyze_security_events': {
+        const { error: analysisError } = await supabase.rpc('analyze_security_events');
+        if (analysisError) throw new Error('Security analysis failed');
         response = { success: true, message: 'Security analysis completed' };
         break;
+      }
 
-      case 'get_security_dashboard':
-        // Get comprehensive security dashboard data
+      case 'get_security_dashboard': {
         const [alertsResult, eventsResult, rateLimitsResult] = await Promise.allSettled([
-          supabase
-            .from('security_alerts')
-            .select('*')
-            .order('created_at', { ascending: false })
-            .limit(20),
-          supabase
-            .from('security_events')
-            .select('*')
-            .order('created_at', { ascending: false })
-            .limit(50),
-          supabase
-            .from('rate_limit_attempts')
-            .select('*')
-            .eq('is_blocked', true)
-            .order('created_at', { ascending: false })
-            .limit(20)
+          supabase.from('security_alerts').select('*').order('created_at', { ascending: false }).limit(20),
+          supabase.from('security_events').select('*').order('created_at', { ascending: false }).limit(50),
+          supabase.from('rate_limit_attempts').select('*').eq('is_blocked', true).order('created_at', { ascending: false }).limit(20)
         ]);
 
         response = {
@@ -167,64 +101,36 @@ serve(async (req) => {
           dashboard_generated_at: new Date().toISOString()
         };
         break;
+      }
 
-      case 'create_test_alert':
-        // Create a test security alert for demonstration
+      case 'create_test_alert': {
         const { data: testAlert, error: testError } = await supabase
           .rpc('create_security_alert', {
             p_alert_type: 'test_alert',
             p_severity: 'low',
             p_title: 'Test Security Alert',
             p_description: 'This is a test alert to verify the security monitoring system is working correctly.',
-            p_metadata: JSON.stringify({
-              test: true,
-              created_by: user.email,
-              timestamp: new Date().toISOString()
-            })
+            p_metadata: JSON.stringify({ test: true, timestamp: new Date().toISOString() })
           });
-
-        if (testError) {
-          throw new Error(`Failed to create test alert: ${testError.message}`);
-        }
-
-        response = { 
-          success: true, 
-          message: 'Test alert created successfully',
-          alert_id: testAlert
-        };
+        if (testError) throw new Error('Failed to create test alert');
+        response = { success: true, message: 'Test alert created successfully', alert_id: testAlert };
         break;
+      }
 
       default:
         throw new Error('Invalid action specified');
     }
 
     return new Response(
-      JSON.stringify({ 
-        success: true,
-        data: response,
-        timestamp: new Date().toISOString()
-      }),
-      {
-        headers: { ...securityHeaders, 'Content-Type': 'application/json' },
-        status: 200,
-      }
+      JSON.stringify({ success: true, data: response, timestamp: new Date().toISOString() }),
+      { headers: securityHeaders, status: 200 }
     );
 
   } catch (error: any) {
-    if (Deno.env.get('ENV') === 'development') {
-      console.error('Security monitor error:', error);
-    }
-    
+    logErrorServerSide('security-monitor', error);
     return new Response(
-      JSON.stringify({ 
-        success: false, 
-        error: error.message || 'Security monitoring failed',
-        timestamp: new Date().toISOString()
-      }),
-      {
-        headers: { ...securityHeaders, 'Content-Type': 'application/json' },
-        status: 400,
-      }
+      JSON.stringify({ success: false, error: sanitizeError(error), timestamp: new Date().toISOString() }),
+      { headers: { ...getSecurityHeaders(req), 'Content-Type': 'application/json' }, status: 400 }
     );
   }
 });
