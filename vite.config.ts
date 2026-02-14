@@ -21,22 +21,21 @@ export default defineConfig(({ mode }) => ({
   build: {
     chunkSizeWarningLimit: 1000,
     sourcemap: false,
-    rollupOptions: {
-      external: [
-        'pg',
-        'http-proxy',
-        'drizzle-orm',
-        'drizzle-kit',
-        '@mendable/firecrawl-js',
-      ],
-    },
   },
   optimizeDeps: {
+    // Exclude heavy unused packages from Vite's dependency pre-bundling
+    // to prevent timeouts. None of these are imported in src/.
     exclude: [
       'pg',
+      '@types/pg',
       'http-proxy',
       'drizzle-orm',
       'drizzle-kit',
+      '@react-three/drei',
+      '@react-three/fiber',
+      'three',
+      'terser',
+      'fabric',
       '@mendable/firecrawl-js',
     ],
   },
