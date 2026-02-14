@@ -1,128 +1,147 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+import { 
+  handleCorsPreflightRequest, 
+  getSecurityHeaders 
+} from '../_shared/corsHelper.ts';
+import { sanitizeError } from '../_shared/errorSanitizer.ts';
 
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
-
-const securityHeaders = {
-  ...corsHeaders,
-  'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:",
-  'X-Frame-Options': 'DENY',
-  'X-Content-Type-Options': 'nosniff',
-  'Referrer-Policy': 'strict-origin-when-cross-origin',
-  'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
-  'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
-};
+// UUID validation pattern
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 serve(async (req) => {
   // Handle CORS preflight requests
-  if (req.method === 'OPTIONS') {
-    return new Response(null, { headers: securityHeaders });
-  }
+  const corsResponse = handleCorsPreflightRequest(req);
+  if (corsResponse) return corsResponse;
+
+  const securityHeaders = getSecurityHeaders(req);
 
   try {
     // Verify this is a POST request
     if (req.method !== 'POST') {
-      throw new Error('Method not allowed')
+      return new Response(
+        JSON.stringify({ success: false, error: 'Method not allowed', code: 'ERR_405' }),
+        { headers: { ...securityHeaders, 'Content-Type': 'application/json' }, status: 405 }
+      );
     }
 
-    const { userId, currentUserId } = await req.json()
-
-    if (!userId) {
-      throw new Error('User ID is required')
+    // Verify authentication
+    const authHeader = req.headers.get('Authorization');
+    if (!authHeader) {
+      return new Response(
+        JSON.stringify({ success: false, error: 'Authentication required', code: 'ERR_401' }),
+        { headers: { ...securityHeaders, 'Content-Type': 'application/json' }, status: 401 }
+      );
     }
 
-    if (!currentUserId) {
-      throw new Error('Current user ID is required')
+    let body: unknown;
+    try {
+      body = await req.json();
+    } catch {
+      return new Response(
+        JSON.stringify({ success: false, error: 'Invalid request format', code: 'ERR_400' }),
+        { headers: { ...securityHeaders, 'Content-Type': 'application/json' }, status: 400 }
+      );
+    }
+
+    if (typeof body !== 'object' || body === null) {
+      return new Response(
+        JSON.stringify({ success: false, error: 'Invalid request format', code: 'ERR_400' }),
+        { headers: { ...securityHeaders, 'Content-Type': 'application/json' }, status: 400 }
+      );
+    }
+
+    const { userId, currentUserId } = body as Record<string, unknown>;
+
+    // Validate userId is a valid UUID
+    if (!userId || typeof userId !== 'string' || !UUID_PATTERN.test(userId)) {
+      return new Response(
+        JSON.stringify({ success: false, error: 'Invalid request parameters', code: 'ERR_400' }),
+        { headers: { ...securityHeaders, 'Content-Type': 'application/json' }, status: 400 }
+      );
+    }
+
+    // Validate currentUserId is a valid UUID
+    if (!currentUserId || typeof currentUserId !== 'string' || !UUID_PATTERN.test(currentUserId)) {
+      return new Response(
+        JSON.stringify({ success: false, error: 'Invalid request parameters', code: 'ERR_400' }),
+        { headers: { ...securityHeaders, 'Content-Type': 'application/json' }, status: 400 }
+      );
     }
 
     // Prevent self-deletion
     if (userId === currentUserId) {
-      throw new Error('Cannot delete your own account')
+      return new Response(
+        JSON.stringify({ success: false, error: 'This operation is not permitted', code: 'ERR_403' }),
+        { headers: { ...securityHeaders, 'Content-Type': 'application/json' }, status: 403 }
+      );
     }
-
-    // Create Supabase admin client with service role key
-    const supabaseAdmin = createClient(
-      Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '',
-      {
-        auth: {
-          autoRefreshToken: false,
-          persistSession: false
-        }
-      }
-    )
 
     // Create regular client to verify permissions
     const supabase = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
       Deno.env.get('SUPABASE_ANON_KEY') ?? '',
       {
-        auth: {
-          autoRefreshToken: false,
-          persistSession: false
-        },
-        global: {
-          headers: {
-            Authorization: req.headers.get('Authorization') ?? ''
-          }
-        }
+        auth: { autoRefreshToken: false, persistSession: false },
+        global: { headers: { Authorization: authHeader } }
       }
-    )
+    );
+
+    // Verify the caller's identity matches currentUserId
+    const { data: { user: callerUser } } = await supabase.auth.getUser();
+    if (!callerUser || callerUser.id !== currentUserId) {
+      return new Response(
+        JSON.stringify({ success: false, error: 'Authentication mismatch', code: 'ERR_403' }),
+        { headers: { ...securityHeaders, 'Content-Type': 'application/json' }, status: 403 }
+      );
+    }
 
     // Verify current user can delete the target user using secure function
     const { data: canDelete, error: roleError } = await supabase
-      .rpc('can_delete_user', { target_user_id: userId })
+      .rpc('can_delete_user', { target_user_id: userId });
 
-    if (roleError) {
-      throw new Error('Failed to verify permissions')
+    if (roleError || !canDelete) {
+      return new Response(
+        JSON.stringify({ success: false, error: 'Insufficient permissions', code: 'ERR_403' }),
+        { headers: { ...securityHeaders, 'Content-Type': 'application/json' }, status: 403 }
+      );
     }
 
-    if (!canDelete) {
-      throw new Error('Insufficient permissions. Only super admins can delete users.')
-    }
+    // Create Supabase admin client with service role key
+    const supabaseAdmin = createClient(
+      Deno.env.get('SUPABASE_URL') ?? '',
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '',
+      { auth: { autoRefreshToken: false, persistSession: false } }
+    );
 
-    // Check if target user exists
-    const { data: targetUser, error: userCheckError } = await supabaseAdmin.auth.admin.getUserById(userId)
-
-    if (userCheckError || !targetUser.user) {
-      throw new Error('User not found')
-    }
-
-    // Delete the user from Supabase Auth
-    const { data: deleteResult, error: deleteError } = await supabaseAdmin.auth.admin.deleteUser(userId)
+    // Delete the user from Supabase Auth (don't check existence separately to prevent enumeration)
+    const { error: deleteError } = await supabaseAdmin.auth.admin.deleteUser(userId);
 
     if (deleteError) {
-      throw new Error(`Failed to delete user: ${deleteError.message}`)
+      // Generic error - don't reveal whether user existed
+      return new Response(
+        JSON.stringify({ success: false, error: 'Operation failed. Please try again.', code: 'ERR_500' }),
+        { headers: { ...securityHeaders, 'Content-Type': 'application/json' }, status: 500 }
+      );
     }
 
     return new Response(
       JSON.stringify({ 
         success: true, 
-        message: 'User deleted successfully',
-        deletedUser: {
-          id: userId,
-          email: targetUser.user.email
-        }
+        message: 'User deleted successfully'
+        // Don't return deleted user details to prevent information leakage
       }),
-      {
-        headers: { ...securityHeaders, 'Content-Type': 'application/json' },
-        status: 200,
-      },
-    )
+      { headers: { ...securityHeaders, 'Content-Type': 'application/json' }, status: 200 }
+    );
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     return new Response(
       JSON.stringify({ 
         success: false, 
-        error: error.message || 'An unexpected error occurred' 
+        error: sanitizeError(error),
+        code: 'ERR_500'
       }),
-      {
-        headers: { ...securityHeaders, 'Content-Type': 'application/json' },
-        status: 400,
-      },
-    )
+      { headers: { ...securityHeaders, 'Content-Type': 'application/json' }, status: 500 }
+    );
   }
-})
+});
