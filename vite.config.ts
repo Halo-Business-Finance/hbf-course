@@ -46,33 +46,32 @@ export default defineConfig(({ mode }) => ({
         safari10: true,
       },
     },
-      rollupOptions: {
-        output: {
-          manualChunks: (id) => {
-            // Group all node_modules into vendor chunks
-            if (id.includes('node_modules')) {
-              if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
-                return 'react-vendor';
-              }
-              if (id.includes('@radix-ui')) {
-                return 'ui-vendor';
-              }
-              if (id.includes('@tanstack')) {
-                return 'query-vendor';
-              }
-              if (id.includes('lucide-react')) {
-                return 'icons-vendor';
-              }
-              if (id.includes('framer-motion')) {
-                return 'animation-vendor';
-              }
-              if (id.includes('@supabase')) {
-                return 'supabase-vendor';
-              }
+    rollupOptions: {
+      output: {
+        manualChunks: (id) => {
+          if (id.includes('node_modules')) {
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
+              return 'react-vendor';
             }
-          },
+            if (id.includes('@radix-ui')) {
+              return 'ui-vendor';
+            }
+            if (id.includes('@tanstack')) {
+              return 'query-vendor';
+            }
+            if (id.includes('lucide-react')) {
+              return 'icons-vendor';
+            }
+            if (id.includes('framer-motion')) {
+              return 'animation-vendor';
+            }
+            if (id.includes('@supabase')) {
+              return 'supabase-vendor';
+            }
+          }
         },
       },
+    },
     chunkSizeWarningLimit: 1000,
     sourcemap: false,
   },
