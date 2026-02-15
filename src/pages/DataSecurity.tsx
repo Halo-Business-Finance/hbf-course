@@ -25,10 +25,10 @@ const DataSecurity = () => {
         canonicalUrl="https://finpilot.com/data-security"
       />
       
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+      <div className="min-h-screen bg-background">
         {/* Hero Section */}
         <section className="relative bg-halo-navy text-white py-20">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-navy-800/90"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-halo-navy/90 to-halo-navy/70"></div>
           <div className="relative container mx-auto px-4 text-center">
             <Badge className="mb-4 bg-white/20 text-white border-white/30">
               Data & Security
@@ -46,8 +46,8 @@ const DataSecurity = () => {
           {/* Security Overview */}
           <section className="mb-16">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Security Framework</h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              <h2 className="text-3xl font-bold text-foreground mb-4">Security Framework</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Our multi-layered security approach ensures your data remains protected at every level
               </p>
             </div>
@@ -55,11 +55,11 @@ const DataSecurity = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
               <Card className="text-center">
                 <CardHeader>
-                  <Shield className="h-12 w-12 text-navy-700 mx-auto mb-4" />
+                  <Shield className="h-12 w-12 text-halo-navy mx-auto mb-4" />
                   <CardTitle className="text-lg">Data Encryption</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-muted-foreground">
                     256-bit AES encryption for data at rest and TLS 1.3 for data in transit
                   </p>
                 </CardContent>
@@ -67,11 +67,11 @@ const DataSecurity = () => {
 
               <Card className="text-center">
                 <CardHeader>
-                  <Lock className="h-12 w-12 text-navy-700 mx-auto mb-4" />
+                  <Lock className="h-12 w-12 text-halo-navy mx-auto mb-4" />
                   <CardTitle className="text-lg">Access Control</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-muted-foreground">
                     Multi-factor authentication and role-based access controls
                   </p>
                 </CardContent>
@@ -79,11 +79,11 @@ const DataSecurity = () => {
 
               <Card className="text-center">
                 <CardHeader>
-                  <Eye className="h-12 w-12 text-navy-700 mx-auto mb-4" />
+                  <Eye className="h-12 w-12 text-halo-navy mx-auto mb-4" />
                   <CardTitle className="text-lg">Monitoring</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-muted-foreground">
                     24/7 security monitoring and automated threat detection
                   </p>
                 </CardContent>
@@ -91,11 +91,11 @@ const DataSecurity = () => {
 
               <Card className="text-center">
                 <CardHeader>
-                  <FileCheck className="h-12 w-12 text-navy-700 mx-auto mb-4" />
+                  <FileCheck className="h-12 w-12 text-halo-navy mx-auto mb-4" />
                   <CardTitle className="text-lg">Compliance</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-muted-foreground">
                     GDPR, CCPA, and SOC 2 Type II compliant security practices
                   </p>
                 </CardContent>
@@ -108,7 +108,7 @@ const DataSecurity = () => {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-3">
-                  <Database className="h-6 w-6 text-navy-700" />
+                  <Database className="h-6 w-6 text-halo-navy" />
                   Data Protection & Privacy
                 </CardTitle>
               </CardHeader>
@@ -117,16 +117,16 @@ const DataSecurity = () => {
                   <h3 className="text-lg font-semibold mb-3">What Data We Collect</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <h4 className="font-medium text-gray-900 mb-2">Account Information</h4>
-                      <ul className="text-sm text-gray-600 space-y-1">
+                      <h4 className="font-medium text-foreground mb-2">Account Information</h4>
+                      <ul className="text-sm text-muted-foreground space-y-1">
                         <li>• Name and email address</li>
                         <li>• Profile information</li>
                         <li>• Authentication credentials</li>
                       </ul>
                     </div>
                     <div>
-                      <h4 className="font-medium text-gray-900 mb-2">Learning Data</h4>
-                      <ul className="text-sm text-gray-600 space-y-1">
+                      <h4 className="font-medium text-foreground mb-2">Learning Data</h4>
+                      <ul className="text-sm text-muted-foreground space-y-1">
                         <li>• Course progress and completion</li>
                         <li>• Quiz scores and assessments</li>
                         <li>• Learning preferences</li>
@@ -141,8 +141,8 @@ const DataSecurity = () => {
                   <h3 className="text-lg font-semibold mb-3">How We Protect Your Data</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <h4 className="font-medium text-gray-900 mb-2">Technical Safeguards</h4>
-                      <ul className="text-sm text-gray-600 space-y-1">
+                      <h4 className="font-medium text-foreground mb-2">Technical Safeguards</h4>
+                      <ul className="text-sm text-muted-foreground space-y-1">
                         <li>• End-to-end encryption</li>
                         <li>• Secure data centers</li>
                         <li>• Regular security audits</li>
@@ -150,8 +150,8 @@ const DataSecurity = () => {
                       </ul>
                     </div>
                     <div>
-                      <h4 className="font-medium text-gray-900 mb-2">Administrative Controls</h4>
-                      <ul className="text-sm text-gray-600 space-y-1">
+                      <h4 className="font-medium text-foreground mb-2">Administrative Controls</h4>
+                      <ul className="text-sm text-muted-foreground space-y-1">
                         <li>• Staff security training</li>
                         <li>• Background checks</li>
                         <li>• Need-to-know access</li>
@@ -169,86 +169,86 @@ const DataSecurity = () => {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-3">
-                  <Users className="h-6 w-6 text-navy-700" />
+                  <Users className="h-6 w-6 text-halo-navy" />
                   Your Data Rights
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   <div className="space-y-3">
-                    <h3 className="font-semibold text-gray-900 mb-2">Access & Portability</h3>
-                    <p className="text-sm text-gray-600 mb-3">
+                    <h3 className="font-semibold text-foreground mb-2">Access & Portability</h3>
+                    <p className="text-sm text-muted-foreground mb-3">
                       Request a copy of your personal data in a portable format
                     </p>
                     <Button 
                       onClick={() => handleRightRequest("access-portability")}
                       size="sm"
-                      className="w-full bg-navy-700 hover:bg-navy-800 text-white"
+                      className="w-full bg-halo-navy hover:bg-halo-navy/90 text-white"
                     >
                       Request Data Copy
                     </Button>
                   </div>
                   <div className="space-y-3">
-                    <h3 className="font-semibold text-gray-900 mb-2">Correction</h3>
-                    <p className="text-sm text-gray-600 mb-3">
+                    <h3 className="font-semibold text-foreground mb-2">Correction</h3>
+                    <p className="text-sm text-muted-foreground mb-3">
                       Update or correct inaccurate personal information
                     </p>
                     <Button 
                       onClick={() => handleRightRequest("correction")}
                       size="sm"
-                      className="w-full bg-navy-700 hover:bg-navy-800 text-white"
+                      className="w-full bg-halo-navy hover:bg-halo-navy/90 text-white"
                     >
                       Request Correction
                     </Button>
                   </div>
                   <div className="space-y-3">
-                    <h3 className="font-semibold text-gray-900 mb-2">Deletion</h3>
-                    <p className="text-sm text-gray-600 mb-3">
+                    <h3 className="font-semibold text-foreground mb-2">Deletion</h3>
+                    <p className="text-sm text-muted-foreground mb-3">
                       Request deletion of your personal data when no longer needed
                     </p>
                     <Button 
                       onClick={() => handleRightRequest("deletion")}
                       size="sm"
-                      className="w-full bg-navy-700 hover:bg-navy-800 text-white"
+                      className="w-full bg-halo-navy hover:bg-halo-navy/90 text-white"
                     >
                       Request Deletion
                     </Button>
                   </div>
                   <div className="space-y-3">
-                    <h3 className="font-semibold text-gray-900 mb-2">Restriction</h3>
-                    <p className="text-sm text-gray-600 mb-3">
+                    <h3 className="font-semibold text-foreground mb-2">Restriction</h3>
+                    <p className="text-sm text-muted-foreground mb-3">
                       Limit how we process your personal information
                     </p>
                     <Button 
                       onClick={() => handleRightRequest("restriction")}
                       size="sm"
-                      className="w-full bg-navy-700 hover:bg-navy-800 text-white"
+                      className="w-full bg-halo-navy hover:bg-halo-navy/90 text-white"
                     >
                       Request Restriction
                     </Button>
                   </div>
                   <div className="space-y-3">
-                    <h3 className="font-semibold text-gray-900 mb-2">Objection</h3>
-                    <p className="text-sm text-gray-600 mb-3">
+                    <h3 className="font-semibold text-foreground mb-2">Objection</h3>
+                    <p className="text-sm text-muted-foreground mb-3">
                       Object to processing based on legitimate interests
                     </p>
                     <Button 
                       onClick={() => handleRightRequest("objection")}
                       size="sm"
-                      className="w-full bg-navy-700 hover:bg-navy-800 text-white"
+                      className="w-full bg-halo-navy hover:bg-halo-navy/90 text-white"
                     >
                       Object to Processing
                     </Button>
                   </div>
                   <div className="space-y-3">
-                    <h3 className="font-semibold text-gray-900 mb-2">Withdraw Consent</h3>
-                    <p className="text-sm text-gray-600 mb-3">
+                    <h3 className="font-semibold text-foreground mb-2">Withdraw Consent</h3>
+                    <p className="text-sm text-muted-foreground mb-3">
                       Withdraw consent for data processing at any time
                     </p>
                     <Button 
                       onClick={() => handleRightRequest("withdraw-consent")}
                       size="sm"
-                      className="w-full bg-navy-700 hover:bg-navy-800 text-white"
+                      className="w-full bg-halo-navy hover:bg-halo-navy/90 text-white"
                     >
                       Withdraw Consent
                     </Button>
@@ -263,27 +263,27 @@ const DataSecurity = () => {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-3">
-                  <Globe className="h-6 w-6 text-navy-700" />
+                  <Globe className="h-6 w-6 text-halo-navy" />
                   Compliance & Certifications
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="text-center">
-                    <Badge className="mb-3 text-sm bg-navy-700 text-white">GDPR Compliant</Badge>
-                    <p className="text-sm text-gray-600">
+                    <Badge className="mb-3 text-sm bg-halo-navy text-white">GDPR Compliant</Badge>
+                    <p className="text-sm text-muted-foreground">
                       Full compliance with European data protection regulations
                     </p>
                   </div>
                   <div className="text-center">
-                    <Badge className="mb-3 text-sm bg-navy-700 text-white">CCPA Compliant</Badge>
-                    <p className="text-sm text-gray-600">
+                    <Badge className="mb-3 text-sm bg-halo-navy text-white">CCPA Compliant</Badge>
+                    <p className="text-sm text-muted-foreground">
                       California Consumer Privacy Act compliance for US users
                     </p>
                   </div>
                   <div className="text-center">
-                    <Badge className="mb-3 text-sm bg-navy-700 text-white">SOC 2 Type II</Badge>
-                    <p className="text-sm text-gray-600">
+                    <Badge className="mb-3 text-sm bg-halo-navy text-white">SOC 2 Type II</Badge>
+                    <p className="text-sm text-muted-foreground">
                       Independent audit of security, availability, and confidentiality
                     </p>
                   </div>
@@ -297,26 +297,26 @@ const DataSecurity = () => {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-3">
-                  <AlertTriangle className="h-6 w-6 text-navy-700" />
+                  <AlertTriangle className="h-6 w-6 text-halo-navy" />
                   Security Incident Response
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-gray-600">
+                <p className="text-muted-foreground">
                   In the unlikely event of a security incident, we have established procedures to:
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-2">Immediate Response</h4>
-                    <ul className="text-sm text-gray-600 space-y-1">
+                    <h4 className="font-medium text-foreground mb-2">Immediate Response</h4>
+                    <ul className="text-sm text-muted-foreground space-y-1">
                       <li>• Contain and assess the incident</li>
                       <li>• Preserve evidence for investigation</li>
                       <li>• Implement corrective measures</li>
                     </ul>
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-2">Communication</h4>
-                    <ul className="text-sm text-gray-600 space-y-1">
+                    <h4 className="font-medium text-foreground mb-2">Communication</h4>
+                    <ul className="text-sm text-muted-foreground space-y-1">
                       <li>• Notify affected users within 72 hours</li>
                       <li>• Report to relevant authorities</li>
                       <li>• Provide regular updates</li>
@@ -331,10 +331,10 @@ const DataSecurity = () => {
           <section className="text-center">
             <Card>
               <CardContent className="p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                <h2 className="text-2xl font-bold text-foreground mb-4">
                   Questions About Data & Security?
                 </h2>
-                <p className="text-gray-600 mb-6">
+                <p className="text-muted-foreground mb-6">
                   Our Data Protection Officer is available to address your concerns
                 </p>
                 <div className="space-y-2">
