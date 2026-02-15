@@ -210,7 +210,7 @@ const Support = () => {
         keywords="FinPilot support, customer help, training support, technical assistance, course help, live chat support"
         canonicalUrl="https://finpilot.com/support"
       />
-      <div className="bg-gradient-to-b from-slate-50 to-white min-h-screen">
+      <div className="bg-background min-h-screen">
       {/* Hero Section */}
       <div className="relative h-96 sm:h-[28rem] md:h-[32rem] lg:h-[32rem] overflow-hidden">
         <img 
@@ -218,16 +218,16 @@ const Support = () => {
           alt="Professional customer support environment" 
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/60 to-slate-900/40">
-          <div className="container mx-auto px-4 h-full flex items-center">
-            <div className="max-w-4xl text-white">
-              <Badge className="mb-4 bg-white/20 text-white border-white/30">Support Center</Badge>
+        <div className="absolute inset-0 bg-gradient-to-r from-halo-navy/85 via-halo-navy/60 to-transparent flex items-center">
+          <div className="container mx-auto px-4">
+            <div className="max-w-2xl text-white">
+              <Badge className="mb-4 bg-white/15 text-white border border-white/30 backdrop-blur-sm">
+                <HelpCircle className="h-3.5 w-3.5 mr-2" />
+                Support Center
+              </Badge>
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">We're here to help</h1>
-              <p className="text-xl text-white/90 leading-relaxed">
-                Get the support you need to succeed.
-              </p>
-              <p className="text-xl text-white/90 leading-relaxed">
-                Our dedicated team is ready to assist you every step of the way.
+              <p className="text-lg text-white/90 leading-relaxed">
+                Get the support you need to succeed. Our dedicated team is ready to assist you every step of the way.
               </p>
             </div>
           </div>
@@ -253,8 +253,8 @@ const Support = () => {
         {/* Contact Support Options */}
         <div className="mb-16">
           <div className="text-center mb-12">
-            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-4">Contact Our Support Team</h2>
-            <p className="text-base text-black max-w-2xl mx-auto">
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Contact Our Support Team</h2>
+            <p className="text-base text-muted-foreground max-w-2xl mx-auto">
               Choose the best way to reach us. Our expert support team is ready to help you succeed.
             </p>
           </div>
@@ -269,16 +269,16 @@ const Support = () => {
                     <div className="w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-4">
                       <Icon className="h-6 w-6 text-halo-orange" />
                     </div>
-                    <h3 className="text-lg font-bold text-black mb-2">{option.title}</h3>
-                    <p className="text-sm text-black mb-4">{option.description}</p>
+                    <h3 className="text-lg font-bold text-foreground mb-2">{option.title}</h3>
+                    <p className="text-sm text-muted-foreground mb-4">{option.description}</p>
                     <div className="space-y-1 mb-4">
                       <div className="flex items-center justify-center gap-2 text-xs">
                         <Clock className="h-3 w-3 text-primary" />
-                        <span className="text-black">{option.available}</span>
+                        <span className="text-muted-foreground">{option.available}</span>
                       </div>
                       <div className="flex items-center justify-center gap-2 text-xs">
                         <CheckCircle className="h-3 w-3 text-primary" />
-                        <span className="text-black">{option.responseTime}</span>
+                        <span className="text-muted-foreground">{option.responseTime}</span>
                       </div>
                     </div>
                     <Button 
@@ -305,33 +305,33 @@ const Support = () => {
                   <div className="flex-1">
                     <div className="text-2xl font-bold text-foreground mb-1">Send Message</div>
                     <div className="text-sm font-medium text-primary mb-2">Contact Form</div>
-                    <div className="text-xs text-black leading-relaxed">Can't find what you're looking for? Our team will get back to you within 4 hours.</div>
+                    <div className="text-xs text-muted-foreground leading-relaxed">Can't find what you're looking for? Our team will get back to you within 4 hours.</div>
                   </div>
                 </div>
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <Input 
                       placeholder="First Name" 
-                      className="h-12 border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-lg"
+                      className="h-12 border-border focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-lg"
                     />
                     <Input 
                       placeholder="Last Name" 
-                      className="h-12 border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-lg"
+                      className="h-12 border-border focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-lg"
                     />
                   </div>
                   <Input 
                     type="email" 
                     placeholder="Email Address" 
-                    className="h-12 border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-lg"
+                    className="h-12 border-border focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-lg"
                   />
                   <Input 
                     placeholder="Subject" 
-                    className="h-12 border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-lg"
+                    className="h-12 border-border focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-lg"
                   />
                   <Textarea 
                     placeholder="Tell us how we can help you..." 
                     rows={4} 
-                    className="border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-lg resize-none"
+                    className="border-border focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-lg resize-none"
                   />
                   <Button className="w-full h-12 bg-halo-navy hover:bg-halo-navy/90 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all">
                     Send Message
@@ -353,7 +353,7 @@ const Support = () => {
                 <div className="flex-1">
                   <div className="text-2xl font-bold text-foreground mb-1">Get Answers</div>
                   <div className="text-sm font-medium text-primary mb-2">Frequently Asked Questions</div>
-                  <div className="text-xs text-black leading-relaxed">Find quick answers to common questions about our courses and platform.</div>
+                  <div className="text-xs text-muted-foreground leading-relaxed">Find quick answers to common questions about our courses and platform.</div>
                 </div>
               </div>
               

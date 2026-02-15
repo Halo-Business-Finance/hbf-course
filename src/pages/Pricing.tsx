@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Check, Play, Mail, Star } from "lucide-react";
+import { Check, Play, Mail, Star, Zap } from "lucide-react";
 import { FinPilotBrandFooter } from "@/components/FinPilotBrandFooter";
 import { SEOHead } from "@/components/SEOHead";
 import { useState } from "react";
@@ -131,22 +131,27 @@ const Pricing = () => {
         keywords="FinPilot pricing, business finance training cost, commercial lending course pricing, professional development plans"
         canonicalUrl="https://finpilot.com/pricing"
       />
-      <div className="bg-white min-h-screen">
-      {/* Hero Section with Image */}
+      <div className="bg-background min-h-screen">
+      {/* Hero Section */}
       <div className="relative h-96 sm:h-[28rem] md:h-[32rem] lg:h-[32rem] overflow-hidden">
         <img 
           src={pricingHero} 
           alt="Professional learning online with computer" 
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-black/25 flex items-center justify-center">
-          <div className="text-center text-white px-4">
-            <Badge className="mb-3 md:mb-4 bg-white/20 text-white border-white/30 text-sm">Pricing Plans</Badge>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4 leading-tight">Choose Your Learning Plan</h1>
-            <p className="text-sm sm:text-base md:text-lg max-w-3xl mx-auto leading-relaxed">
-              Invest in your future with our comprehensive finance and lending education programs. 
-              Start with a 3-day free trial and see the difference quality training makes.
-            </p>
+        <div className="absolute inset-0 bg-gradient-to-r from-halo-navy/85 via-halo-navy/60 to-transparent flex items-center">
+          <div className="container mx-auto px-4">
+            <div className="max-w-2xl text-white">
+              <Badge className="mb-4 bg-white/15 text-white border border-white/30 backdrop-blur-sm">
+                <Zap className="h-3.5 w-3.5 mr-2" />
+                Pricing Plans
+              </Badge>
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight">Choose Your Learning Plan</h1>
+              <p className="text-sm sm:text-base md:text-lg max-w-3xl leading-relaxed text-white/90">
+                Invest in your future with our comprehensive finance and lending education programs. 
+                Start with a 3-day free trial and see the difference quality training makes.
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -165,7 +170,7 @@ const Pricing = () => {
         <div className="inline-flex gap-8">
           <button 
             className={`px-4 py-2 text-sm md:text-base font-medium transition-all ${
-              !isAnnual ? 'text-halo-orange underline underline-offset-4 decoration-2 decoration-halo-navy' : 'text-halo-orange hover:scale-105'
+              !isAnnual ? 'text-halo-orange underline underline-offset-4 decoration-2 decoration-halo-navy' : 'text-muted-foreground hover:text-foreground hover:scale-105'
             }`}
             onClick={() => setIsAnnual(false)}
           >
@@ -173,7 +178,7 @@ const Pricing = () => {
           </button>
           <button 
             className={`px-4 py-2 text-sm md:text-base font-medium transition-all ${
-              isAnnual ? 'text-halo-orange underline underline-offset-4 decoration-2 decoration-halo-navy' : 'text-halo-orange hover:scale-105'
+              isAnnual ? 'text-halo-orange underline underline-offset-4 decoration-2 decoration-halo-navy' : 'text-muted-foreground hover:text-foreground hover:scale-105'
             }`}
             onClick={() => setIsAnnual(true)}
           >
@@ -192,26 +197,26 @@ const Pricing = () => {
               </Badge>
             )}
             <CardHeader className="text-center pb-2">
-              <CardTitle className="text-2xl text-black">{plan.name}</CardTitle>
-              <CardDescription className="text-sm text-black">{plan.description}</CardDescription>
+              <CardTitle className="text-2xl text-foreground">{plan.name}</CardTitle>
+              <CardDescription>{plan.description}</CardDescription>
               <div className="mt-4">
-                <span className="text-4xl font-bold text-black">
+                <span className="text-4xl font-bold text-foreground">
                   {isAnnual ? plan.annualPrice : plan.price}
                 </span>
-                <span className="text-black ml-2 text-sm">
+                <span className="text-muted-foreground ml-2 text-sm">
                   {isAnnual ? plan.annualPeriod : plan.period}
                 </span>
               </div>
               {plan.savings && isAnnual && (
-                <div className="text-sm text-black font-medium mt-1">{plan.savings}</div>
+                <div className="text-sm text-halo-orange font-medium mt-1">{plan.savings}</div>
               )}
             </CardHeader>
             <CardContent>
               <ul className="space-y-3 mb-6">
                 {plan.features.map((feature, index) => (
                   <li key={index} className="flex items-start gap-2">
-                    <Check className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-black">{feature}</span>
+                    <Check className="h-4 w-4 text-halo-orange mt-0.5 flex-shrink-0" />
+                    <span className="text-sm text-foreground">{feature}</span>
                   </li>
                 ))}
               </ul>
@@ -226,8 +231,7 @@ const Pricing = () => {
                 </Button>
               ) : (
                 <Button 
-                  className="w-full flex items-center gap-2 bg-halo-navy text-white hover:bg-halo-navy/90 border-halo-navy hover:text-white" 
-                  variant="outline"
+                  className="w-full flex items-center gap-2 bg-halo-orange text-white hover:bg-halo-orange/90" 
                   asChild
                 >
                   <Link to="/signup">
@@ -235,13 +239,8 @@ const Pricing = () => {
                   </Link>
                 </Button>
               )}
-              {plan.name === "Basic" && (
-                <p className="text-xs text-center text-black mt-2">
-                  3-day free trial, no credit card required
-                </p>
-              )}
-              {plan.name === "Professional" && (
-                <p className="text-xs text-center text-black mt-2">
+              {(plan.name === "Basic" || plan.name === "Professional") && (
+                <p className="text-xs text-center text-muted-foreground mt-2">
                   3-day free trial, no credit card required
                 </p>
               )}
@@ -252,7 +251,7 @@ const Pricing = () => {
 
       {/* Testimonials Section */}
       <div className="mb-16">
-        <h2 className="text-2xl font-bold text-center mb-8 text-black">What Our Students Say</h2>
+        <h2 className="text-2xl font-bold text-center mb-8 text-foreground">What Our Students Say</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {testimonials.map((testimonial, index) => (
             <Card key={index} className="p-6">
@@ -261,10 +260,10 @@ const Pricing = () => {
                   <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
-              <p className="text-black italic mb-4">"{testimonial.quote}"</p>
+              <p className="text-foreground italic mb-4">"{testimonial.quote}"</p>
               <div>
-                <p className="font-semibold text-black">{testimonial.name}</p>
-                <p className="text-sm text-black">{testimonial.role}, {testimonial.company}</p>
+                <p className="font-semibold text-foreground">{testimonial.name}</p>
+                <p className="text-sm text-muted-foreground">{testimonial.role}, {testimonial.company}</p>
               </div>
             </Card>
           ))}
@@ -273,12 +272,12 @@ const Pricing = () => {
 
       {/* FAQ Section */}
       <div className="max-w-3xl mx-auto">
-        <h2 className="text-2xl font-bold text-center mb-8 text-black">Frequently Asked Questions</h2>
+        <h2 className="text-2xl font-bold text-center mb-8 text-foreground">Frequently Asked Questions</h2>
         <div className="space-y-4">
           {faqs.map((faq, index) => (
             <Card key={index} className="p-6">
-              <h3 className="font-semibold mb-2 text-black">{faq.question}</h3>
-              <p className="text-black">{faq.answer}</p>
+              <h3 className="font-semibold mb-2 text-foreground">{faq.question}</h3>
+              <p className="text-muted-foreground">{faq.answer}</p>
             </Card>
           ))}
         </div>
