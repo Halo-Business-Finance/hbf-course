@@ -6,15 +6,33 @@ import {
   validateOrigin,
   isOriginAllowed
 } from '../_shared/corsHelper.ts';
+import { validateInput, sanitizeString } from '../_shared/inputValidation.ts';
+
+// Input validation schema for auth security actions
+const authSecuritySchema = {
+  action: { 
+    type: 'string' as const, 
+    required: true, 
+    maxLength: 50, 
+    enum: ['check_rate_limit', 'log_failed_auth', 'log_successful_auth'] 
+  },
+  email: { 
+    type: 'email' as const, 
+    required: false, 
+    maxLength: 255 
+  },
+  endpoint: { 
+    type: 'string' as const, 
+    required: false, 
+    maxLength: 200 
+  },
+};
 
 // Sanitize error messages to prevent information leakage
 function sanitizeError(error: unknown): string {
-  // Log detailed error server-side for debugging
   if (Deno.env.get('ENV') === 'development') {
     console.error('[enhanced-auth-security]', error);
   }
-  
-  // Return generic message to client
   return 'Security check failed. Please try again.';
 }
 
@@ -44,40 +62,26 @@ serve(async (req) => {
                      req.headers.get('x-real-ip') ||
                      'unknown';
 
-    const { action, email, endpoint = '/auth' } = await req.json();
+    const requestBody = await req.json();
 
-    // Input validation
-    if (!action || typeof action !== 'string') {
+    // Validate inputs using shared validation module
+    const validation = validateInput<{ action: string; email?: string; endpoint?: string }>(
+      requestBody, 
+      authSecuritySchema
+    );
+    
+    if (!validation.success) {
       return new Response(
         JSON.stringify({ success: false, error: 'Invalid request', code: 'ERR_400' }),
         { headers: { ...securityHeaders, 'Content-Type': 'application/json' }, status: 400 }
       );
     }
 
-    // Validate allowed actions
-    const allowedActions = ['check_rate_limit', 'log_failed_auth', 'log_successful_auth'];
-    if (!allowedActions.includes(action)) {
-      return new Response(
-        JSON.stringify({ success: false, error: 'Invalid request', code: 'ERR_400' }),
-        { headers: { ...securityHeaders, 'Content-Type': 'application/json' }, status: 400 }
-      );
-    }
-
-    // Validate email format if provided
-    if (email && (typeof email !== 'string' || email.length > 255 || !email.includes('@'))) {
-      return new Response(
-        JSON.stringify({ success: false, error: 'Invalid request', code: 'ERR_400' }),
-        { headers: { ...securityHeaders, 'Content-Type': 'application/json' }, status: 400 }
-      );
-    }
-
-    // Validate endpoint format
-    if (endpoint && (typeof endpoint !== 'string' || endpoint.length > 200)) {
-      return new Response(
-        JSON.stringify({ success: false, error: 'Invalid request', code: 'ERR_400' }),
-        { headers: { ...securityHeaders, 'Content-Type': 'application/json' }, status: 400 }
-      );
-    }
+    const { action, email, endpoint = '/auth' } = validation.data!;
+    
+    // Sanitize string inputs
+    const sanitizedEmail = email ? sanitizeString(email) : undefined;
+    const sanitizedEndpoint = sanitizeString(endpoint);
 
     const SUPABASE_URL = Deno.env.get('SUPABASE_URL') ?? '';
     const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
@@ -116,7 +120,7 @@ serve(async (req) => {
         const { data: rateLimitData, error: rateLimitError } = await supabase
           .rpc('check_rate_limit', {
             p_ip_address: clientIP,
-            p_endpoint: endpoint,
+            p_endpoint: sanitizedEndpoint,
             p_max_attempts: 5,
             p_window_minutes: 15
           });
@@ -143,8 +147,8 @@ serve(async (req) => {
             severity: 'medium',
             details: {
               ip_address: clientIP,
-              user_email: email,
-              endpoint: endpoint,
+              user_email: sanitizedEmail,
+              endpoint: sanitizedEndpoint,
               user_agent: req.headers.get('user-agent'),
               timestamp: new Date().toISOString(),
               failure_reason: 'invalid_credentials'
@@ -183,8 +187,8 @@ serve(async (req) => {
             user_id: authenticatedUser?.id,
             details: {
               ip_address: clientIP,
-              user_email: email,
-              endpoint: endpoint,
+              user_email: sanitizedEmail,
+              endpoint: sanitizedEndpoint,
               user_agent: req.headers.get('user-agent'),
               timestamp: new Date().toISOString()
             },
