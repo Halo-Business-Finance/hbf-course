@@ -2,7 +2,7 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom"; 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import { Menu, X, MessageCircle, Lock, ArrowRight } from "lucide-react";
+import { Menu, Lock, ArrowRight, MessageCircle } from "lucide-react";
 
 export const MobileNav = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,27 +18,25 @@ export const MobileNav = () => {
 
   return (
     <div className="lg:hidden w-full">
-      {/* Mobile Header with Logo and Menu Button */}
       <div className="flex items-center justify-between w-full px-4 py-4 gap-2">
         {/* Logo */}
         <NavLink to="/" className="flex items-center gap-2 flex-shrink-0 min-w-0">
           <div className="w-10 h-10 bg-halo-navy rounded-sm flex items-center justify-center flex-shrink-0">
             <span className="text-white font-bold text-base">FP</span>
           </div>
-          <span className="text-xl md:text-2xl font-bold text-gray-900 truncate">FinPilot</span>
+          <span className="text-xl md:text-2xl font-bold text-foreground truncate">FinPilot</span>
         </NavLink>
 
         {/* Action Buttons and Menu */}
         <div className="flex items-center gap-1 md:gap-2 flex-shrink-0">
-          {/* Sign In/Signup buttons - visible on tablet */}
           <div className="hidden md:flex items-center gap-1">
-            <Button variant="outline" size="sm" asChild className="text-xs bg-halo-navy hover:bg-halo-navy/90 text-white border-halo-navy px-2 py-1">
+            <Button variant="outline" size="sm" asChild className="text-xs border-halo-navy text-halo-navy hover:bg-halo-navy hover:text-white px-2 py-1">
               <NavLink to="/auth" className="flex items-center gap-1">
                 <Lock className="h-3 w-3" />
                 Sign In
               </NavLink>
             </Button>
-            <Button size="sm" asChild className="bg-halo-navy hover:bg-halo-navy/90 text-white text-xs px-2 py-1">
+            <Button size="sm" asChild className="bg-halo-orange hover:bg-halo-orange/90 text-white text-xs px-2 py-1">
               <NavLink to="/signup" className="flex items-center gap-1">
                 Start Free Trial
                 <ArrowRight className="h-3 w-3" />
@@ -46,10 +44,9 @@ export const MobileNav = () => {
             </Button>
           </div>
 
-          {/* Mobile Menu Button */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="sm" className="text-black hover:bg-black/10 p-2">
+              <Button variant="ghost" size="sm" className="text-foreground hover:bg-muted p-2">
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
@@ -60,7 +57,7 @@ export const MobileNav = () => {
                     <div className="w-8 h-8 bg-halo-navy rounded-sm flex items-center justify-center flex-shrink-0">
                       <span className="text-white font-bold text-sm">FP</span>
                     </div>
-                    <span className="text-xl font-bold text-gray-900">FinPilot</span>
+                    <span className="text-xl font-bold text-foreground">FinPilot</span>
                   </div>
                 </SheetTitle>
               </SheetHeader>
@@ -99,7 +96,7 @@ export const MobileNav = () => {
                   <NavLink
                     to="/signup"
                     onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors bg-halo-navy text-white hover:bg-halo-navy/90"
+                    className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors bg-halo-orange text-white hover:bg-halo-orange/90"
                   >
                     <span className="font-medium">Start Free Trial</span>
                     <ArrowRight className="h-4 w-4" />

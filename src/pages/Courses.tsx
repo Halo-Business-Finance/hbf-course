@@ -413,7 +413,7 @@ const Courses = () => {
   // Update loading to use database loading states
   const isLoading = coursesLoading || modulesLoading || loading;
   if (isLoading) {
-    return <div className="container mx-auto px-4 py-8 bg-white min-h-screen">
+    return <div className="container mx-auto px-4 py-8 bg-background min-h-screen">
         <div className="flex items-center justify-center min-h-[400px]">
           <div className="text-center">
             <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto mb-4"></div>
@@ -442,14 +442,14 @@ const Courses = () => {
   }];
   return <>
       <SEOHead title="Adaptive Interactive Learning | AI-Powered Finance Training | FinPilot" description="Experience revolutionary adaptive interactive learning with AI-powered personalization, real-time assessments, and gamified content for commercial lending and finance professionals." keywords="adaptive learning, interactive finance courses, AI-powered training, personalized learning paths, gamified education, commercial lending training" canonicalUrl="https://finpilot.com/course-catalog" />
-      <div className="bg-white min-h-screen">
+      <div className="bg-background min-h-screen">
         
         {/* Header Section */}
-        <div className="relative bg-gradient-to-r from-navy-900 to-navy-800 text-white py-12 sm:py-16 md:py-20">
-          <div className="absolute inset-0 bg-cover bg-center opacity-60" style={{
+        <div className="relative bg-halo-navy text-white py-12 sm:py-16 md:py-20">
+          <div className="absolute inset-0 bg-cover bg-center opacity-40" style={{
           backgroundImage: `url(${coursesHero})`
         }} />
-          <div className="absolute inset-0 bg-gradient-to-r from-navy-900/50 to-navy-800/30" />
+          <div className="absolute inset-0 bg-gradient-to-r from-halo-navy/80 to-halo-navy/50" />
           <div className="mobile-container relative z-10">
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="text-responsive-3xl font-playfair font-bold mb-4 sm:mb-6 text-white">
@@ -464,7 +464,7 @@ const Courses = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                 <Link to="/signup">
-                  <Button size="lg" className="w-full sm:w-auto bg-white text-navy-900 hover:bg-white/90 font-semibold">
+                  <Button size="lg" className="w-full sm:w-auto bg-halo-orange hover:bg-halo-orange/90 text-white font-semibold">
                     Start Adaptive Learning
                   </Button>
                 </Link>
@@ -541,7 +541,7 @@ const Courses = () => {
               </div>
               
               {/* Call to Action */}
-              <Card className="bg-gradient-to-r from-navy-900/10 to-navy-800/10 border-navy-900/20">
+              <Card className="bg-gradient-to-r from-halo-navy/10 to-halo-navy/5 border-halo-navy/20">
                 <CardContent className="text-center p-8">
                   <h3 className="text-2xl font-bold mb-4">Ready to Start Your Journey?</h3>
                   <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
