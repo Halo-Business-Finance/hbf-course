@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { useCourses, Course } from "@/hooks/useCourses";
 import { GraduationCap, FileText, ClipboardCheck, Sparkles } from "lucide-react";
@@ -18,15 +18,23 @@ export function DashboardCourseFilter({
   onTopicSelect,
   className = ""
 }: DashboardCourseFilterProps) {
-  const { courses, getCoursesByCategory } = useCourses();
-  const [categorizedCourses, setCategorizedCourses] = useState<Record<string, Course[]>>({});
+  const { courses } = useCourses();
 
-  useEffect(() => {
-    if (courses.length > 0) {
-      const categories = getCoursesByCategory();
-      setCategorizedCourses(categories);
-    }
-  }, [courses, getCoursesByCategory]);
+  const categorizedCourses = useMemo(() => {
+    return courses.reduce((acc, course) => {
+      let category = 'Loan Originator';
+      if (course.title.toLowerCase().includes('processing')) {
+        category = 'Loan Processing';
+      } else if (course.title.toLowerCase().includes('underwriting')) {
+        category = 'Loan Underwriting';
+      } else if (course.title.toLowerCase().includes('originator') || course.title.toLowerCase().includes('origination')) {
+        category = 'Loan Originator';
+      }
+      if (!acc[category]) acc[category] = [];
+      acc[category].push(course);
+      return acc;
+    }, {} as Record<string, Course[]>);
+  }, [courses]);
 
   const categoryConfig = [
     { key: "Loan Originator", label: "Loan Originator", icon: GraduationCap },
