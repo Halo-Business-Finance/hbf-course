@@ -561,7 +561,7 @@ const Dashboard = () => {
             {/* Results Summary for other levels */}
             {currentFilterLevel !== 0 && (
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-2 sm:gap-4">
-                <h3 className="text-xl lg:text-2xl font-bold text-halo-navy">
+                <h3 className="text-xl lg:text-2xl font-bold text-foreground">
                   {currentFilterLevel === 1 && "Select Your Skill Level"}
                   {currentFilterLevel === 2 && (
                     <span>
@@ -576,7 +576,7 @@ const Dashboard = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[1, 2, 3, 4, 5, 6].map(i => (
                   <div key={i} className="animate-pulse">
-                    <div className="bg-white rounded-xl h-80 shadow-sm" />
+                     <div className="bg-card rounded-xl h-80 shadow-sm" />
                   </div>
                 ))}
               </div>
@@ -601,7 +601,7 @@ const Dashboard = () => {
                         {coursesLoading && (!databaseCourses || databaseCourses.length === 0) ? (
                           Array.from({ length: 6 }).map((_, index) => (
                             <div key={index} className="animate-pulse">
-                              <div className="bg-white rounded-xl h-80 shadow-sm" />
+                              <div className="bg-card rounded-xl h-80 shadow-sm" />
                             </div>
                           ))
                         ) : filteredCoursesWithModules.length > 0 ? (
@@ -710,7 +710,7 @@ const Dashboard = () => {
                       variant="outline" 
                       size="lg" 
                       onClick={handleReturnToDashboard} 
-                      className="mb-3 sm:mb-4 hover:bg-navy-900 hover:text-white transition-colors"
+                      className="mb-3 sm:mb-4 hover:bg-halo-navy hover:text-white transition-colors"
                     >
                       <ArrowLeft className="h-5 w-5 mr-2" />
                       Back to All Courses
@@ -728,12 +728,12 @@ const Dashboard = () => {
                               <img src={getCourseImage(selectedCourse.name)} alt={`${selectedCourse.name} - ${level}`} className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" />
                               <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
                               <div className="absolute top-4 left-4">
-                                <span className={`text-xs font-semibold tracking-wider border-l-4 pl-2 backdrop-blur-sm ${level === "beginner" ? 'text-emerald-700 border-emerald-700' : 'text-red-700 border-red-700'}`}>
+                                <span className={`text-xs font-semibold tracking-wider border-l-4 pl-2 backdrop-blur-sm ${level === "beginner" ? 'text-accent border-accent' : 'text-destructive border-destructive'}`}>
                                   {level.charAt(0).toUpperCase() + level.slice(1).toUpperCase()} LEVEL
                                 </span>
                               </div>
                               <div className="absolute bottom-4 right-4">
-                                <Zap className="h-5 w-5 text-navy-900" />
+                                <Zap className="h-5 w-5 text-halo-navy" />
                               </div>
                             </div>
                             
@@ -752,11 +752,11 @@ const Dashboard = () => {
                               
                               <div className="flex items-center justify-between pt-2">
                                 <div className="flex items-center gap-2 text-sm">
-                                  <BookOpen className="h-4 w-4 text-navy-900" />
+                                  <BookOpen className="h-4 w-4 text-halo-navy" />
                                   <span className="text-primary font-medium">{levelModules.length} modules</span>
                                 </div>
                                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                  <Clock className="h-4 w-4 text-navy-900" />
+                                  <Clock className="h-4 w-4 text-halo-navy" />
                                   <span className="font-medium">{levelModules.length * 30} min</span>
                                 </div>
                               </div>
@@ -771,7 +771,7 @@ const Dashboard = () => {
                                   console.log('Proceed to Modules button clicked for level:', level);
                                   handleProceedToModules(level);
                                 }} 
-                                className="w-full h-11 bg-navy-900 hover:bg-navy-800 text-white font-semibold tracking-wide uppercase text-sm border-none transition-all duration-200"
+                                className="w-full h-11 bg-halo-navy hover:bg-halo-navy/90 text-white font-semibold tracking-wide uppercase text-sm border-none transition-all duration-200"
                               >
                                 <span className="flex items-center justify-center gap-2">
                                   Proceed to Modules
@@ -789,15 +789,15 @@ const Dashboard = () => {
                     {/* Navigation breadcrumb - Enhanced */}
                     <div className="flex items-center gap-3 mb-6 flex-wrap">
                       <Button 
-                        variant="outline" 
-                        size="lg"
-                        onClick={handleReturnToDashboard}
-                        className="hover:bg-navy-900 hover:text-white transition-colors"
+                      variant="outline" 
+                      size="lg"
+                      onClick={handleReturnToDashboard}
+                      className="hover:bg-halo-navy hover:text-white transition-colors"
                       >
                         <ArrowLeft className="h-4 w-4 mr-2" />
                         All Courses
                       </Button>
-                      <span className="text-muted-foreground">/</span>
+                <span className="text-muted-foreground">/</span>
                       <Button 
                         variant="outline" 
                         size="lg"
@@ -806,7 +806,7 @@ const Dashboard = () => {
                           setCurrentFilterLevel(1);
                           setFilterNavigationPath([filterNavigationPath[0]]);
                         }}
-                        className="hover:bg-navy-900 hover:text-white transition-colors"
+                        className="hover:bg-halo-navy hover:text-white transition-colors"
                       >
                         {filterNavigationPath[0]?.name}
                       </Button>
@@ -841,10 +841,10 @@ const Dashboard = () => {
                 {/* No results message */}
                 {(currentFilterLevel === 2 && filteredModules.length === 0 || currentFilterLevel === 1 && filterNavigationPath.length === 0) && (
                   <div className="text-center py-12">
-                    <h3 className="text-lg font-medium text-slate-400 mb-2">
+                    <h3 className="text-lg font-medium text-muted-foreground mb-2">
                       No content found
                     </h3>
-                    <p className="text-sm text-slate-500">
+                    <p className="text-sm text-muted-foreground/70">
                       Try navigating back or adjusting your selection.
                     </p>
                   </div>
