@@ -248,7 +248,7 @@ const SignUpPage = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-navy-900 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-halo-navy p-4">
       <div className="w-full max-w-md space-y-6">
         <div className="text-center">
           <Link to="/" className="inline-flex items-center text-white hover:text-white/80 mb-4">
@@ -259,7 +259,7 @@ const SignUpPage = () => {
           <p className="text-white/70 mt-2">Create your account and start your 3-day free trial</p>
         </div>
 
-        <Card className="bg-navy-800 border-navy-700">
+        <Card className="bg-halo-navy/80 border-white/10 backdrop-blur-sm">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl text-center flex items-center justify-center gap-2 text-white">
               <UserPlus className="h-5 w-5" />
@@ -270,7 +270,7 @@ const SignUpPage = () => {
             </CardDescription>
             
             {/* Subscription Information */}
-            <div className="bg-navy-700 border border-navy-600 rounded-lg p-4 space-y-3">
+            <div className="bg-white/10 border border-white/20 rounded-lg p-4 space-y-3">
               <div className="text-center">
                 <h3 className="text-lg font-semibold text-white mb-2">3-Day Free Trial</h3>
                 <p className="text-sm text-white/70 mb-3">
@@ -300,7 +300,7 @@ const SignUpPage = () => {
                 </div>
               </div>
               
-              <div className="border-t border-navy-600 pt-3 mt-3">
+              <div className="border-t border-white/20 pt-3 mt-3">
                 <p className="text-xs text-white/70 text-center">
                   <strong className="text-white">How it works:</strong> Your 3-day free trial begins when you create your account. 
                   We'll send you a reminder email before it ends. If you don't cancel before the trial expires, 
@@ -324,7 +324,7 @@ const SignUpPage = () => {
                    placeholder="Enter your full name"
                    value={signUpData.fullName}
                    onChange={(e) => setSignUpData({...signUpData, fullName: e.target.value})}
-                   className="bg-navy-700 border-navy-600 text-white placeholder:text-white/50"
+                   className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
                    required
                    disabled={isLoading}
                  />
@@ -341,7 +341,7 @@ const SignUpPage = () => {
                    placeholder="Enter your company name"
                    value={signUpData.company}
                    onChange={(e) => setSignUpData({...signUpData, company: e.target.value})}
-                   className="bg-navy-700 border-navy-600 text-white placeholder:text-white/50"
+                   className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
                    disabled={isLoading}
                  />
                </div>
@@ -357,7 +357,7 @@ const SignUpPage = () => {
                    placeholder="(XXX) XXX-XXXX"
                    value={signUpData.phone}
                    onChange={(e) => setSignUpData({...signUpData, phone: formatPhoneNumber(e.target.value)})}
-                   className="bg-navy-700 border-navy-600 text-white placeholder:text-white/50"
+                   className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
                    disabled={isLoading}
                  />
                </div>
@@ -374,7 +374,7 @@ const SignUpPage = () => {
                      placeholder="Enter your city"
                      value={signUpData.city}
                      onChange={(e) => setSignUpData({...signUpData, city: e.target.value})}
-                     className="bg-navy-700 border-navy-600 text-white placeholder:text-white/50"
+                     className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
                      required
                      disabled={isLoading}
                    />
@@ -390,7 +390,7 @@ const SignUpPage = () => {
                      placeholder="Enter your state"
                      value={signUpData.state}
                      onChange={(e) => setSignUpData({...signUpData, state: e.target.value})}
-                     className="bg-navy-700 border-navy-600 text-white placeholder:text-white/50"
+                     className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
                      required
                      disabled={isLoading}
                    />
@@ -408,7 +408,7 @@ const SignUpPage = () => {
                    placeholder="Enter your email"
                    value={signUpData.email}
                    onChange={(e) => setSignUpData({...signUpData, email: e.target.value})}
-                   className="bg-navy-700 border-navy-600 text-white placeholder:text-white/50"
+                   className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
                    required
                    disabled={isLoading}
                  />
@@ -429,7 +429,7 @@ const SignUpPage = () => {
                        setSignUpData({...signUpData, password: e.target.value});
                        setPasswordStrength(calculatePasswordStrength(e.target.value));
                      }}
-                     className="bg-navy-700 border-navy-600 text-white placeholder:text-white/50"
+                     className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
                      required
                      disabled={isLoading}
                    />

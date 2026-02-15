@@ -106,7 +106,7 @@ const ResourcesPage = () => {
   }
 
   return (
-    <div className="container mx-auto p-6 space-y-6 bg-white min-h-screen">
+    <div className="container mx-auto p-6 space-y-6 bg-background min-h-screen">
       <div className="flex items-center gap-2 mb-6">
         <FileText className="h-6 w-6 text-primary" />
         <h1 className="text-2xl font-bold text-foreground">Learning Resources</h1>
