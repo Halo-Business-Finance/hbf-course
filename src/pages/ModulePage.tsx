@@ -335,10 +335,10 @@ const ModulePage = () => {
       }
     };
     const moduleContent = content[moduleType] || content.general;
-    return <div className="bg-blue-50 p-4 rounded-lg mb-4">
-        <h5 className="font-medium mb-2 text-black">{moduleContent.title}</h5>
-        <p className="text-sm mb-2 text-black">{moduleContent.description}</p>
-        <p className="text-xs font-medium text-black">Focus: {moduleContent.focus}</p>
+    return <div className="bg-primary/10 p-4 rounded-lg mb-4">
+        <h5 className="font-medium mb-2 text-foreground">{moduleContent.title}</h5>
+        <p className="text-sm mb-2 text-foreground">{moduleContent.description}</p>
+        <p className="text-xs font-medium text-foreground">Focus: {moduleContent.focus}</p>
       </div>;
   };
   const getModuleLearningObjectives = (module: any) => {
@@ -404,7 +404,7 @@ const ModulePage = () => {
             <div className="h-6 w-px bg-border" />
             <div>
               <h1 className="text-xl font-semibold">{module.title}</h1>
-              <p className="text-sm text-black">{module.duration || '45 minutes'} • {lessons.length} lessons</p>
+              <p className="text-sm text-muted-foreground">{module.duration || '45 minutes'} • {lessons.length} lessons</p>
             </div>
           </div>
         </div>
@@ -426,12 +426,12 @@ const ModulePage = () => {
         )}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
           <div className="lg:col-span-2 space-y-4 sm:space-y-6">
-            <Card className="bg-blue-800">
+            <Card className="bg-halo-navy">
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div>
                     <CardTitle className="text-2xl text-white">{module.title}</CardTitle>
-                    <CardDescription className="mt-2 text-white">{module.description}</CardDescription>
+                    <CardDescription className="mt-2 text-white/80">{module.description}</CardDescription>
                   </div>
                   {module.skill_level && module.skill_level.toLowerCase() !== "beginner" && <Badge variant={module.skill_level.toLowerCase() === "expert" ? "success" : "outline"}>
                       {module.skill_level.charAt(0).toUpperCase() + module.skill_level.slice(1)}
@@ -448,9 +448,9 @@ const ModulePage = () => {
                     <Progress value={moduleProgress[moduleId!]?.progress_percentage || 0} className="h-2" />
                   </div>
                   <div className="flex flex-wrap gap-2">
-                    <Badge variant="outline" className="text-xs bg-white">
-                      {module.duration || '45 minutes'}
-                    </Badge>
+              <Badge variant="outline" className="text-xs bg-white/90 text-halo-navy">
+                    {module.duration || '45 minutes'}
+                  </Badge>
                   </div>
                 </div>
               </CardContent>
@@ -458,15 +458,15 @@ const ModulePage = () => {
 
         <Tabs defaultValue="overview" className="space-y-4 sm:space-y-6">
           <div className="overflow-x-auto pb-2">
-            <TabsList className="grid w-max min-w-full grid-cols-3 sm:grid-cols-3 gap-1 bg-white">
-              <TabsTrigger value="overview" className="text-xs sm:text-sm whitespace-nowrap bg-blue-800 hover:bg-blue-700 text-white">Module Overview</TabsTrigger>
-              <TabsTrigger value="lessons" className="text-xs sm:text-sm whitespace-nowrap bg-blue-800 hover:bg-blue-700 text-white">Module Lessons</TabsTrigger>
-              <TabsTrigger value="assessment" className="text-xs sm:text-sm whitespace-nowrap bg-blue-800 hover:bg-blue-700 text-white">Module Assessment</TabsTrigger>
+            <TabsList className="grid w-max min-w-full grid-cols-3 sm:grid-cols-3 gap-1 bg-muted">
+              <TabsTrigger value="overview" className="text-xs sm:text-sm whitespace-nowrap data-[state=active]:bg-halo-navy data-[state=active]:text-white">Module Overview</TabsTrigger>
+              <TabsTrigger value="lessons" className="text-xs sm:text-sm whitespace-nowrap data-[state=active]:bg-halo-navy data-[state=active]:text-white">Module Lessons</TabsTrigger>
+              <TabsTrigger value="assessment" className="text-xs sm:text-sm whitespace-nowrap data-[state=active]:bg-halo-navy data-[state=active]:text-white">Module Assessment</TabsTrigger>
             </TabsList>
           </div>
 
           <TabsContent value="overview" className="space-y-6">
-            <Card className="bg-white rounded-none">
+            <Card className="bg-card rounded-none">
               <CardHeader>
                 <CardTitle className="text-inherit">Module Overview</CardTitle>
               </CardHeader>
@@ -478,8 +478,8 @@ const ModulePage = () => {
                   <h4 className="font-semibold mb-3 text-inherit">Learning Objectives</h4>
                   <ul className="space-y-2 text-sm text-muted-foreground">
                     {getModuleLearningObjectives(module).map((objective, index) => <li key={index} className="flex items-start gap-2">
-                        <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 flex-shrink-0" />
-                        <span className="text-black">{objective}</span>
+                        <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0" />
+                        <span className="text-foreground">{objective}</span>
                       </li>)}
                   </ul>
                 </div>
@@ -488,21 +488,21 @@ const ModulePage = () => {
                   <h4 className="font-semibold mb-3 text-inherit">Key Topics Covered</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     {getModuleKeyTopics(module).map((topic, index) => <div key={index} className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <CheckCircle className="h-3 w-3 text-blue-600" />
-                        <span className="text-black">{topic}</span>
+                        <CheckCircle className="h-3 w-3 text-primary" />
+                        <span className="text-foreground">{topic}</span>
                       </div>)}
                   </div>
                 </div>
 
                 <div>
                   <h4 className="font-semibold mb-3 text-inherit">Prerequisites</h4>
-                  <div className="bg-blue-50 p-4 rounded-lg">
-                    <p className="text-sm text-inherit mb-2">
+                  <div className="bg-primary/10 p-4 rounded-lg">
+                    <p className="text-sm text-foreground mb-2">
                       {getModulePrerequisites(module)}
                     </p>
-                    <div className="flex items-center gap-2 text-xs text-blue-700">
+                    <div className="flex items-center gap-2 text-xs text-primary">
                       <Clock className="h-3 w-3" />
-                      <span className="text-black">Recommended preparation time: 15 minutes</span>
+                      <span className="text-muted-foreground">Recommended preparation time: 15 minutes</span>
                     </div>
                   </div>
                 </div>
@@ -510,13 +510,13 @@ const ModulePage = () => {
                 <div>
                   <h4 className="font-semibold mb-3 text-inherit">Module Outcomes</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="p-3 rounded-lg bg-blue-50">
-                      <h5 className="font-medium text-sm mb-1 text-black">Professional Skills</h5>
-                      <p className="text-xs text-black">{getModuleProfessionalSkills(module)}</p>
+                    <div className="p-3 rounded-lg bg-primary/10">
+                      <h5 className="font-medium text-sm mb-1 text-foreground">Professional Skills</h5>
+                      <p className="text-xs text-muted-foreground">{getModuleProfessionalSkills(module)}</p>
                     </div>
-                    <div className="bg-blue-50 p-3 rounded-lg">
-                      <h5 className="font-medium text-sm mb-1 text-black">Business Impact</h5>
-                      <p className="text-xs text-black">{getModuleBusinessImpact(module)}</p>
+                    <div className="bg-primary/10 p-3 rounded-lg">
+                      <h5 className="font-medium text-sm mb-1 text-foreground">Business Impact</h5>
+                      <p className="text-xs text-muted-foreground">{getModuleBusinessImpact(module)}</p>
                     </div>
                   </div>
                 </div>
@@ -526,7 +526,7 @@ const ModulePage = () => {
 
           <TabsContent value="lessons" className="space-y-4">
                 {lessons.length > 0 ? <div className="grid gap-4">
-                    {lessons.map((lesson, index) => <Card key={index} className="group hover:shadow-md transition-all duration-200 bg-white">
+                    {lessons.map((lesson, index) => <Card key={index} className="group hover:shadow-md transition-all duration-200 bg-card">
                         <CardContent className="p-4 sm:p-6">
                           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                             <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
@@ -536,11 +536,11 @@ const ModulePage = () => {
                               <div>
                                 <h3 className="font-semibold text-inherit">{lesson.title}</h3>
                                 <div className="flex items-center gap-3 mt-1 text-sm text-muted-foreground">
-                                  <div className="flex items-center gap-1 bg-white">
+                                  <div className="flex items-center gap-1">
                                     <Clock className="h-3 w-3" />
                                     {lesson.duration}
                                   </div>
-                                  <Badge variant="outline" className="text-xs bg-white">
+                                  <Badge variant="outline" className="text-xs">
                                     {lesson.type}
                                   </Badge>
                                 </div>
@@ -589,7 +589,7 @@ const ModulePage = () => {
           </div>
 
           <div className="space-y-4 sm:space-y-6">
-            <Card className="bg-blue-800">
+            <Card className="bg-halo-navy">
               <CardHeader className="pb-3 sm:pb-6">
                 <CardTitle className="text-base sm:text-lg text-white">Module Stats</CardTitle>
               </CardHeader>
@@ -604,7 +604,7 @@ const ModulePage = () => {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-xs sm:text-sm text-white">Status</span>
-                  <Badge variant="outline" className="text-xs bg-white">
+                  <Badge variant="outline" className="text-xs bg-white/90 text-halo-navy">
                     {(() => {
                     const progress = moduleProgress[moduleId!]?.progress_percentage || 0;
                     if (progress === 100) return "Completed";
@@ -616,7 +616,7 @@ const ModulePage = () => {
               </CardContent>
             </Card>
 
-            <Card className="bg-blue-800">
+            <Card className="bg-halo-navy">
               <CardHeader>
                 <CardTitle className="text-lg text-white">Quick Actions</CardTitle>
               </CardHeader>

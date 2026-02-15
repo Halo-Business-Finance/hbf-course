@@ -350,13 +350,13 @@ const Courses = () => {
   const getLevelColor = (level: string) => {
     switch (level) {
       case 'beginner':
-        return 'bg-green-100 text-green-800';
+        return 'bg-accent/20 text-accent';
       case 'advanced':
-        return 'bg-red-100 text-red-800';
+        return 'bg-destructive/10 text-destructive';
       case 'expert':
-        return 'bg-purple-100 text-purple-800';
+        return 'bg-primary/10 text-primary';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-muted text-muted-foreground';
     }
   };
 

@@ -501,7 +501,7 @@ const AccountPage = (): JSX.Element => {
                           value={editForm.name}
                           onChange={(e) => handleInputChange('name', e.target.value)}
                           placeholder="Enter your full name"
-                          className="border-gray-800/20"
+                        className="border-border"
                         />
                       </div>
                       <div>
@@ -512,7 +512,7 @@ const AccountPage = (): JSX.Element => {
                           value={editForm.email}
                           onChange={(e) => handleInputChange('email', e.target.value)}
                           placeholder="Enter your email"
-                          className="border-gray-800/20"
+                          className="border-border"
                         />
                       </div>
                     </div>
@@ -524,7 +524,7 @@ const AccountPage = (): JSX.Element => {
                           value={editForm.phone}
                           onChange={(e) => handleInputChange('phone', formatPhoneNumber(e.target.value))}
                           placeholder="(555) 123-4567"
-                          className="border-gray-800/20"
+                          className="border-border"
                         />
                       </div>
                       <div>
@@ -534,7 +534,7 @@ const AccountPage = (): JSX.Element => {
                           value={editForm.title}
                           onChange={(e) => handleInputChange('title', e.target.value)}
                           placeholder="Your job title"
-                          className="border-gray-800/20"
+                          className="border-border"
                         />
                       </div>
                     </div>
@@ -545,7 +545,7 @@ const AccountPage = (): JSX.Element => {
                         value={editForm.company}
                         onChange={(e) => handleInputChange('company', e.target.value)}
                         placeholder="Your company name"
-                        className="border-gray-800/20"
+                        className="border-border"
                       />
                     </div>
                     <div className="grid grid-cols-2 gap-4">
@@ -556,7 +556,7 @@ const AccountPage = (): JSX.Element => {
                           value={editForm.city}
                           onChange={(e) => handleInputChange('city', e.target.value)}
                           placeholder="Your city"
-                          className="border-gray-800/20"
+                          className="border-border"
                         />
                       </div>
                       <div>
@@ -566,7 +566,7 @@ const AccountPage = (): JSX.Element => {
                           value={editForm.state}
                           onChange={(e) => handleInputChange('state', e.target.value)}
                           placeholder="Your state"
-                          className="border-gray-800/20"
+                          className="border-border"
                         />
                       </div>
                     </div>
@@ -709,21 +709,21 @@ const AccountPage = (): JSX.Element => {
               <CardContent className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="currentPassword">Current Password</Label>
-                  <Input id="currentPassword" type="password" className="border-gray-800/20 text-black" />
+                  <Input id="currentPassword" type="password" className="border-border" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="newPassword">New Password</Label>
-                  <Input id="newPassword" type="password" className="border-gray-800/20 text-black" />
+                  <Input id="newPassword" type="password" className="border-border" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="confirmPassword">Confirm New Password</Label>
-                  <Input id="confirmPassword" type="password" className="border-gray-800/20 text-black" />
+                  <Input id="confirmPassword" type="password" className="border-border" />
                 </div>
                 
                 {/* Password Requirements */}
                 <div className="bg-muted/30 rounded-lg p-4 space-y-2">
                   <h4 className="text-sm font-medium text-foreground">Password Requirements:</h4>
-                  <ul className="text-xs text-black space-y-1">
+                  <ul className="text-xs text-muted-foreground space-y-1">
                     <li className="flex items-center gap-2">
                       <span className="w-1 h-1 bg-primary rounded-full"></span>
                       At least 8 characters long
@@ -747,7 +747,7 @@ const AccountPage = (): JSX.Element => {
                   </ul>
                 </div>
                 
-                <Button className="bg-blue-800 hover:bg-blue-900 text-white">Change Password</Button>
+                <Button variant="navy">Change Password</Button>
               </CardContent>
             </Card>
           )}
