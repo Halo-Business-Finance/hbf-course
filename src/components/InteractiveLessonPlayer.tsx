@@ -244,101 +244,111 @@ export const InteractiveLessonPlayer = ({ lesson, learningProfile, onComplete }:
 
   return (
     <div className="space-y-6">
-      {/* Lesson Header */}
-      <Card>
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-primary/10 rounded-lg">
-                <currentSectionData.icon className="h-5 w-5 text-primary" />
+      {/* Lesson Header - Corporate styled */}
+      <Card className="border-2 border-border bg-card shadow-lg">
+        <CardHeader className="pb-4">
+          <div className="flex items-center justify-between flex-wrap gap-4">
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-navy-900 rounded-xl">
+                <currentSectionData.icon className="h-6 w-6 text-white" />
               </div>
               <div>
-                <CardTitle>{lesson.title}</CardTitle>
-                <p className="text-sm text-muted-foreground">
-                  Section {currentSection + 1} of {sections.length}: {currentSectionData.title}
+                <CardTitle className="text-xl font-bold text-navy-900">{lesson.title}</CardTitle>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Section {currentSection + 1} of {sections.length} — <span className="font-medium text-foreground">{currentSectionData.title}</span>
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="flex items-center gap-1 text-sm text-muted-foreground">
-                <Timer className="h-3 w-3" />
-                {lesson.estimated_duration} min
-              </span>
-              <span className="text-sm text-muted-foreground">
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-1.5 text-sm text-muted-foreground bg-muted/40 px-3 py-1.5 rounded-full">
+                <Timer className="h-3.5 w-3.5" />
+                <span>{lesson.estimated_duration} min</span>
+              </div>
+              <div className="text-sm text-muted-foreground bg-muted/40 px-3 py-1.5 rounded-full">
                 Level {lesson.difficulty_level}
-              </span>
+              </div>
             </div>
           </div>
-          <div className="space-y-2">
+          <div className="space-y-2 mt-4">
             <div className="flex justify-between text-sm">
-              <span>Progress</span>
-              <span>{Math.round(progress)}%</span>
+              <span className="font-medium text-foreground">Lesson Progress</span>
+              <span className="font-semibold text-primary">{Math.round(progress)}%</span>
             </div>
-            <Progress value={progress} className="h-2" />
+            <Progress value={progress} className="h-2.5" />
           </div>
         </CardHeader>
       </Card>
 
-      {/* Section Navigation */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2">
+      {/* Section Navigation - Step indicator */}
+      <div className="flex items-center gap-1.5 overflow-x-auto pb-2 px-1">
         {sections.map((section, index) => (
           <Button
             key={index}
-            variant={index === currentSection ? "default" : index < currentSection ? "outline" : "ghost"}
+            variant={index === currentSection ? "navy" : index < currentSection ? "outline" : "ghost"}
             size="sm"
-            className="flex items-center gap-2 whitespace-nowrap"
+            className={`flex items-center gap-2 whitespace-nowrap transition-all ${
+              index < currentSection ? "border-primary/30 text-primary" : ""
+            } ${index === currentSection ? "shadow-md" : ""}`}
             disabled={index > currentSection}
+            onClick={() => index <= currentSection && setCurrentSection(index)}
           >
             {index < currentSection ? (
-              <CheckCircle className="h-4 w-4" />
+              <CheckCircle className="h-4 w-4 text-primary" />
             ) : (
               <section.icon className="h-4 w-4" />
             )}
-            {section.title}
+            <span className="hidden sm:inline">{section.title}</span>
+            <span className="sm:hidden">{index + 1}</span>
           </Button>
         ))}
       </div>
 
       {/* Main Content */}
-      <Card className="min-h-[500px]">
-        <CardContent className="p-6">
+      <Card className="min-h-[500px] border-2 border-border shadow-sm">
+        <CardContent className="p-6 sm:p-8">
           {renderSectionContent(currentSectionData)}
         </CardContent>
       </Card>
 
-      {/* Navigation Controls */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          {showHints && (
-            <span className="text-xs text-muted-foreground">
-              💡 Hints enabled
-            </span>
-          )}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setShowHints(!showHints)}
-          >
-            <Lightbulb className="h-4 w-4 mr-2" />
-            {showHints ? 'Hide' : 'Show'} Hints
-          </Button>
-        </div>
-        
-        <div className="flex items-center gap-2">
-          {currentSection > 0 && (
-            <Button
-              variant="outline"
-              onClick={() => setCurrentSection(currentSection - 1)}
-            >
-              Previous
-            </Button>
-          )}
-          <Button onClick={handleNext}>
-            {currentSection === sections.length - 1 ? 'Complete Lesson' : 'Next'}
-            <ChevronRight className="h-4 w-4 ml-2" />
-          </Button>
-        </div>
-      </div>
+      {/* Navigation Controls - Professional bar */}
+      <Card className="border border-border">
+        <CardContent className="p-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              {showHints && (
+                <span className="text-xs text-primary font-medium bg-primary/10 px-2 py-1 rounded">
+                  💡 Hints enabled
+                </span>
+              )}
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowHints(!showHints)}
+                className="text-muted-foreground hover:text-foreground"
+              >
+                <Lightbulb className="h-4 w-4 mr-2" />
+                {showHints ? 'Hide' : 'Show'} Hints
+              </Button>
+            </div>
+            
+            <div className="flex items-center gap-3">
+              {currentSection > 0 && (
+                <Button
+                  variant="outline"
+                  onClick={() => setCurrentSection(currentSection - 1)}
+                  className="border-border"
+                >
+                  Previous
+                </Button>
+              )}
+              <Button onClick={handleNext} variant="navy" className="min-w-[140px]">
+                {currentSection === sections.length - 1 ? 'Complete Lesson' : 'Next Section'}
+                <ChevronRight className="h-4 w-4 ml-2" />
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };
@@ -420,8 +430,8 @@ const MainContentSection = ({ content }: { content: any }) => (
     </div>
     
           {content.multimedia.video && (
-            <div className="bg-gray-100 p-4 rounded-lg">
-              <p className="text-sm">Video: {content.multimedia.video}</p>
+            <div className="bg-muted p-4 rounded-lg">
+              <p className="text-sm text-muted-foreground">Video: {content.multimedia.video}</p>
             </div>
           )}
     
@@ -481,7 +491,7 @@ const SummarySection = ({ content, onScore }: { content: any; onScore: (score: n
       <div className="text-center space-y-4">
         <h2 className="text-2xl font-bold">{content.title}</h2>
         <div className="flex justify-center">
-          <CheckCircle className="h-16 w-16 text-green-500" />
+          <CheckCircle className="h-16 w-16 text-success" />
         </div>
       </div>
       
@@ -520,7 +530,7 @@ const SummarySection = ({ content, onScore }: { content: any; onScore: (score: n
                   >
                     {option}
                     {showResults && oIndex === question.correct && (
-                      <CheckCircle className="h-4 w-4 ml-auto text-green-500" />
+                      <CheckCircle className="h-4 w-4 ml-auto text-success" />
                     )}
                   </Button>
                 ))}
