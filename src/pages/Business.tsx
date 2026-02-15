@@ -132,7 +132,7 @@ const Business = () => {
         keywords="enterprise training solutions, business learning platform, corporate finance training, team development, LMS for business, enterprise education"
         canonicalUrl="https://finpilot.com/enterprise"
       />
-      <div className="bg-white min-h-screen">
+      <div className="bg-background min-h-screen">
       {/* Hero Section */}
       <div className="relative h-96 sm:h-[28rem] md:h-[32rem] lg:h-[32rem] overflow-hidden">
         <img 
@@ -140,7 +140,7 @@ const Business = () => {
           alt="Professional corporate training environment" 
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+        <div className="absolute inset-0 bg-gradient-to-r from-halo-navy/85 via-halo-navy/60 to-transparent flex items-center justify-center">
           <div className="text-center text-white max-w-4xl mx-auto px-4">
             <Badge className="mb-3 md:mb-4 bg-white/20 text-white border-white/30 text-sm">Enterprise</Badge>
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4 leading-tight">Transform Your Team's Skills</h1>
@@ -174,7 +174,7 @@ const Business = () => {
         <div className="text-center mb-12">
           <Badge className="mb-4">Enterprise Features</Badge>
           <h2 className="text-3xl font-bold mb-4">Everything Your Organization Needs</h2>
-          <p className="text-black max-w-3xl mx-auto">
+          <p className="text-muted-foreground max-w-3xl mx-auto">
             Our enterprise platform is designed to scale with your organization and deliver measurable results.
           </p>
         </div>
@@ -191,12 +191,12 @@ const Business = () => {
                   <div className="flex-1">
                     <div className="text-2xl font-bold text-foreground mb-1">{feature.title}</div>
                     <div className="text-sm font-medium text-primary mb-2">Enterprise Feature</div>
-                    <div className="text-xs text-black leading-relaxed mb-3">{feature.description}</div>
+                    <div className="text-xs text-muted-foreground leading-relaxed mb-3">{feature.description}</div>
                     <div className="space-y-1">
                       {feature.benefits.map((benefit, idx) => (
                         <div key={idx} className="flex items-center gap-2 text-xs">
                           <CheckCircle className="h-3 w-3 text-green-500 flex-shrink-0" />
-                          <span className="text-black">{benefit}</span>
+                          <span className="text-foreground">{benefit}</span>
                         </div>
                       ))}
                     </div>
@@ -223,7 +223,7 @@ const Business = () => {
           <div className="order-2 lg:order-1">
             <Badge className="mb-4">Advanced Analytics</Badge>
             <h3 className="text-2xl font-bold mb-4">Data-Driven Learning Insights</h3>
-            <p className="text-black mb-6">
+            <p className="text-muted-foreground mb-6">
               Track progress, measure ROI, and optimize your training programs with comprehensive analytics and reporting tools.
             </p>
             <div className="space-y-4">
@@ -275,7 +275,7 @@ const Business = () => {
           <div className="order-2 lg:order-2">
             <Badge className="mb-4">Team Collaboration</Badge>
             <h3 className="text-2xl font-bold mb-4">Built for Modern Teams</h3>
-            <p className="text-black mb-4">
+            <p className="text-muted-foreground mb-4">
               Foster collaboration and knowledge sharing across your organization with tools designed for modern workplace learning.
             </p>
             <div className="space-y-3">
@@ -336,11 +336,11 @@ const Business = () => {
       </div>
 
       {/* Pricing Section */}
-      <div className="bg-gray-50 py-16">
+      <div className="bg-muted/50 py-16">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4 text-black">Enterprise Pricing</h2>
-            <p className="text-black max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold mb-4 text-foreground">Enterprise Pricing</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
               Flexible pricing options designed to scale with your organization. All plans include our core curriculum and enterprise features.
             </p>
           </div>
@@ -380,8 +380,8 @@ const Business = () => {
       {/* Testimonials Section */}
       <div className="container mx-auto px-4 py-16">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4 text-black">What Our Enterprise Clients Say</h2>
-          <p className="text-black max-w-2xl mx-auto">
+          <h2 className="text-3xl font-bold mb-4 text-foreground">What Our Enterprise Clients Say</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
             See how leading organizations have transformed their training programs with FinPilot.
           </p>
         </div>
@@ -393,15 +393,15 @@ const Business = () => {
                   <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
-              <p className="text-black italic mb-6">"{testimonial.quote}"</p>
+              <p className="text-muted-foreground italic mb-6">"{testimonial.quote}"</p>
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
                   <span className="text-white font-semibold text-sm">{testimonial.logo}</span>
                 </div>
                 <div>
-                  <p className="font-semibold text-black">{testimonial.name}</p>
-                  <p className="text-sm text-black">{testimonial.role}</p>
-                  <p className="text-sm text-black">{testimonial.company}</p>
+                  <p className="font-semibold text-foreground">{testimonial.name}</p>
+                  <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                  <p className="text-sm text-muted-foreground">{testimonial.company}</p>
                 </div>
               </div>
             </Card>
@@ -421,17 +421,17 @@ const Business = () => {
       </div>
 
       {/* Implementation Process */}
-      <div className="bg-gray-50 py-16">
+      <div className="bg-muted/50 py-16">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-bold mb-6 text-black">Seamless Implementation Process</h2>
+              <h2 className="text-3xl font-bold mb-6 text-foreground">Seamless Implementation Process</h2>
               <div className="space-y-6">
                 <div className="flex gap-4">
                   <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white font-semibold">1</div>
                   <div>
-                    <h3 className="font-semibold mb-2 text-black">Discovery & Planning</h3>
-                    <p className="text-black flex items-center gap-2">
+                    <h3 className="font-semibold mb-2 text-foreground">Discovery & Planning</h3>
+                    <p className="text-muted-foreground flex items-center gap-2">
                       <Check className="h-4 w-4 text-halo-orange" />
                       We analyze your needs and create a customized implementation plan.
                     </p>
@@ -440,8 +440,8 @@ const Business = () => {
                 <div className="flex gap-4">
                   <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white font-semibold">2</div>
                   <div>
-                    <h3 className="font-semibold mb-2 text-black">Setup & Configuration</h3>
-                    <p className="text-black flex items-center gap-2">
+                    <h3 className="font-semibold mb-2 text-foreground">Setup & Configuration</h3>
+                    <p className="text-muted-foreground flex items-center gap-2">
                       <Check className="h-4 w-4 text-halo-orange" />
                       Our team handles all technical setup and integrations.
                     </p>
@@ -450,8 +450,8 @@ const Business = () => {
                 <div className="flex gap-4">
                   <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white font-semibold">3</div>
                   <div>
-                    <h3 className="font-semibold mb-2 text-black">Training & Launch</h3>
-                    <p className="text-black flex items-center gap-2">
+                    <h3 className="font-semibold mb-2 text-foreground">Training & Launch</h3>
+                    <p className="text-muted-foreground flex items-center gap-2">
                       <Check className="h-4 w-4 text-halo-orange" />
                       Comprehensive training for administrators and end users.
                     </p>
@@ -460,8 +460,8 @@ const Business = () => {
                 <div className="flex gap-4">
                   <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white font-semibold">4</div>
                   <div>
-                    <h3 className="font-semibold mb-2 text-black">Ongoing Support</h3>
-                    <p className="text-black flex items-center gap-2">
+                    <h3 className="font-semibold mb-2 text-foreground">Ongoing Support</h3>
+                    <p className="text-muted-foreground flex items-center gap-2">
                       <Check className="h-4 w-4 text-halo-orange" />
                       Continuous support and optimization to ensure success.
                     </p>
@@ -507,10 +507,10 @@ const Business = () => {
             Schedule a personalized demo and see how FinPilot can drive results for your business.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-black hover:bg-gray-100 px-8" onClick={() => setIsDemoModalOpen(true)}>
+            <Button size="lg" className="bg-halo-orange text-white hover:bg-halo-orange/90 px-8" onClick={() => setIsDemoModalOpen(true)}>
               Request Schedule Demo
             </Button>
-            <Button size="lg" variant="outline" className="border-white bg-transparent text-white hover:bg-white hover:text-black px-8" onClick={() => setIsLeadModalOpen(true)}>
+            <Button size="lg" variant="outline" className="border-white bg-transparent text-white hover:bg-white hover:text-halo-navy px-8" onClick={() => setIsLeadModalOpen(true)}>
               Contact Sales
             </Button>
           </div>
