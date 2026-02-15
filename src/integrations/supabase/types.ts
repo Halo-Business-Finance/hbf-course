@@ -3480,6 +3480,27 @@ export type Database = {
         }
         Relationships: []
       }
+      upgrade_logs: {
+        Row: {
+          event_message: string | null
+          id: string
+          metadata: Json | null
+          timestamp: number
+        }
+        Insert: {
+          event_message?: string | null
+          id: string
+          metadata?: Json | null
+          timestamp: number
+        }
+        Update: {
+          event_message?: string | null
+          id?: string
+          metadata?: Json | null
+          timestamp?: number
+        }
+        Relationships: []
+      }
       user_badges: {
         Row: {
           badge_id: string
@@ -4493,6 +4514,7 @@ export type Database = {
         Returns: Json
       }
       export_user_data: { Args: { target_user_id: string }; Returns: Json }
+      foo: { Args: never; Returns: undefined }
       get_active_admins_with_activity: {
         Args: never
         Returns: {
