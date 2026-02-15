@@ -168,7 +168,7 @@ const Support = () => {
       action: "Start Conversation",
       available: "Available 24/7",
       responseTime: "Avg. 2 min response",
-      color: "bg-blue-50 border-blue-100",
+      color: "bg-primary/5 border-primary/10",
       onClick: () => {
         // Open live chat widget
         console.log("Opening live chat...");
@@ -181,7 +181,7 @@ const Support = () => {
       action: "Contact Sales",
       available: "Mon-Fri 9AM-6PM EST",
       responseTime: "Same day response",
-      color: "bg-green-50 border-green-100",
+      color: "bg-accent/5 border-accent/10",
       onClick: () => {
         setModalType('sales');
         setIsLeadModalOpen(true);
@@ -194,7 +194,7 @@ const Support = () => {
       action: "Schedule a Demo",
       available: "Flexible scheduling",
       responseTime: "Demo within 24hrs",
-      color: "bg-orange-50 border-orange-100",
+      color: "bg-halo-orange/5 border-halo-orange/10",
       onClick: () => {
         setModalType('demo');
         setIsDemoModalOpen(true);
