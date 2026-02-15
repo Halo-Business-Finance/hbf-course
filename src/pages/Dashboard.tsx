@@ -500,7 +500,7 @@ const Dashboard = () => {
   const longestStreak = dashboardStats?.longestStreak || 14;
 
   return (
-    <div className="flex min-h-screen bg-slate-50">
+    <div className="flex min-h-screen bg-background">
       {/* Sidebar Navigation */}
       <DashboardSidebar 
         overallProgress={getOverallProgress()} 
@@ -616,7 +616,7 @@ const Dashboard = () => {
                               return (
                                 <div 
                                   key={courseName}
-                                  className="group bg-white rounded-xl border-2 border-slate-200 hover:border-halo-navy/30 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden"
+                                  className="group bg-card rounded-xl border-2 border-border hover:border-halo-navy/30 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden"
                                 >
                                   {/* Course Image */}
                                   <div className="relative h-44 overflow-hidden">
@@ -643,12 +643,12 @@ const Dashboard = () => {
                                     </h3>
                                     
                                     {/* Description */}
-                                    <p className="text-sm text-slate-600 line-clamp-2 leading-relaxed">
+                                    <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
                                       {courseDetails.description}
                                     </p>
                                     
                                     {/* Meta Info */}
-                                    <div className="flex items-center gap-4 text-xs text-slate-500 pt-2">
+                                    <div className="flex items-center gap-4 text-xs text-muted-foreground pt-2">
                                       <div className="flex items-center gap-1.5">
                                         <Clock className="h-3.5 w-3.5" />
                                         <span>{courseDetails.duration}</span>
@@ -664,7 +664,7 @@ const Dashboard = () => {
                                       {courseDetails.topics.slice(0, 2).map((topic, idx) => (
                                         <span 
                                           key={idx}
-                                          className="px-2.5 py-1 bg-slate-100 text-slate-600 text-xs rounded-md font-medium"
+                                          className="px-2.5 py-1 bg-muted text-muted-foreground text-xs rounded-md font-medium"
                                         >
                                           {topic}
                                         </span>
@@ -688,7 +688,7 @@ const Dashboard = () => {
                             })
                         ) : (
                           <div className="col-span-full text-center py-12">
-                            <p className="text-slate-500">No courses available. Contact your administrator to add courses.</p>
+                            <p className="text-muted-foreground">No courses available. Contact your administrator to add courses.</p>
                           </div>
                         )}
                       </div>

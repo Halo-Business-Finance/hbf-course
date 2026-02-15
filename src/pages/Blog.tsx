@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Calendar, User, ArrowRight } from "lucide-react";
+import { Calendar, User, ArrowRight, BookOpen } from "lucide-react";
 import { FinPilotBrandFooter } from "@/components/FinPilotBrandFooter";
 import { SEOHead } from "@/components/SEOHead";
 import { useState } from "react";
@@ -247,7 +247,7 @@ const Blog = () => {
         keywords="finance blog, commercial lending insights, business finance articles, SBA loan guidance, professional development, capital markets trends"
         canonicalUrl="https://finpilot.com/blog"
       />
-      <div className="bg-white min-h-screen">
+      <div className="bg-background min-h-screen">
         {/* Hero Section */}
         <div className="relative h-96 sm:h-[28rem] md:h-[32rem] lg:h-[32rem] overflow-hidden">
           <img 
@@ -255,8 +255,12 @@ const Blog = () => {
             alt="Professional blog and knowledge sharing environment" 
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+          <div className="absolute inset-0 bg-gradient-to-r from-halo-navy/85 via-halo-navy/60 to-transparent flex items-center justify-center">
             <div className="text-center text-white max-w-4xl mx-auto px-4">
+              <Badge className="mb-4 bg-white/15 text-white border border-white/30 backdrop-blur-sm">
+                <BookOpen className="h-3.5 w-3.5 mr-2" />
+                Industry Insights & Resources
+              </Badge>
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4">Blog & Resources</h1>
               <p className="text-sm sm:text-base md:text-lg leading-relaxed">
                 Stay informed with the latest insights, trends, and best practices in finance and professional development.
@@ -310,19 +314,19 @@ const Blog = () => {
                     <CardHeader className="p-4 md:p-6">
                       <div className="flex justify-between items-start mb-2">
                         <Badge className="text-xs bg-transparent text-halo-orange border-none">{post.category}</Badge>
-                        <span className="text-xs md:text-sm text-black">{post.readTime}</span>
+                        <span className="text-xs md:text-sm text-muted-foreground">{post.readTime}</span>
                       </div>
                       <div className="relative inline-block">
-                        <CardTitle className="text-lg md:text-xl hover:text-primary cursor-pointer text-black">
+                        <CardTitle className="text-lg md:text-xl hover:text-primary cursor-pointer text-foreground">
                           {post.title}
                         </CardTitle>
                         <div className="h-0.5 bg-halo-orange mt-2 w-full"></div>
                       </div>
-                      <CardDescription className="text-sm text-black mt-2">{post.excerpt}</CardDescription>
+                      <CardDescription className="text-sm text-muted-foreground mt-2">{post.excerpt}</CardDescription>
                     </CardHeader>
                     <CardContent className="p-4 md:p-6 pt-0">
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                        <div className="flex items-center gap-1 text-xs md:text-sm text-black">
+                        <div className="flex items-center gap-1 text-xs md:text-sm text-muted-foreground">
                           <Calendar className="h-3 w-3 md:h-4 md:w-4" />
                           {new Date(post.date).toLocaleDateString()}
                         </div>
