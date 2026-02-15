@@ -98,33 +98,63 @@ const Index = () => {
       <div className="min-h-screen bg-background">
 
         {/* Hero Section */}
-        <div className="relative py-20 sm:py-24 md:py-28 lg:py-32">
+        <div className="relative py-24 sm:py-28 md:py-32 lg:py-40">
           <img 
             src={businessTeam} 
             alt="Professional business team collaborating on commercial lending"
             fetchPriority="high"
             className="absolute inset-0 w-full h-full object-cover object-[center_20%]"
           />
-          <div className="absolute inset-0 bg-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-r from-halo-navy/85 via-halo-navy/60 to-transparent" />
           <div className="mobile-container relative z-10">
-            <div className="max-w-4xl mx-auto text-left">
-              <h1 className="text-responsive-2xl font-bold mb-4 sm:mb-6 text-white">
+            <div className="max-w-3xl text-left">
+              <Badge className="mb-6 bg-white/15 text-white border border-white/30 backdrop-blur-sm text-sm px-4 py-1.5 hover:bg-white/20">
+                <Zap className="h-3.5 w-3.5 mr-2" />
+                #1 Commercial Lending Training Platform
+              </Badge>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 text-white leading-tight tracking-tight">
                 Master Business Finance & Commercial Lending
               </h1>
-              <p className="text-responsive-xl mb-3 sm:mb-4 text-white">
+              <p className="text-lg sm:text-xl md:text-2xl mb-3 sm:mb-4 text-white/90 font-light">
                 Professional Training Platform for Finance Excellence
               </p>
-              <p className="text-responsive-sm mb-6 sm:mb-8 text-white max-w-4xl">Transform your career with our comprehensive business finance and commercial lending program. Experience Stanford-level curriculum designed by industry experts.</p>
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-start">
+              <p className="text-sm sm:text-base mb-8 text-white/80 max-w-2xl leading-relaxed">Transform your career with our comprehensive business finance and commercial lending program. Experience Stanford-level curriculum designed by industry experts.</p>
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-start">
                 <Link to="/signup">
-                  <Button size="lg" className="w-full sm:w-auto bg-white text-halo-navy hover:bg-white/90 font-semibold">
+                  <Button size="lg" className="bg-halo-orange hover:bg-halo-orange/90 text-white font-semibold shadow-hero text-base px-8 py-6">
                     Start Free Trial
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+                <Link to="/course-catalog">
+                  <Button size="lg" variant="outline" className="border-white/40 text-white bg-white/10 hover:bg-white/20 backdrop-blur-sm font-medium text-base px-8 py-6">
+                    <Play className="mr-2 h-4 w-4" />
+                    Explore Courses
                   </Button>
                 </Link>
               </div>
             </div>
           </div>
         </div>
+
+        {/* Stats Bar */}
+        <section className="bg-halo-navy py-6 sm:py-8">
+          <div className="mobile-container">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+              {[
+                { value: "10,000+", label: "Professionals Trained" },
+                { value: "96%", label: "Certification Rate" },
+                { value: "150+", label: "Expert Modules" },
+                { value: "4.9/5", label: "Average Rating" },
+              ].map((stat, i) => (
+                <div key={i} className="space-y-1">
+                  <div className="text-2xl sm:text-3xl font-bold text-white">{stat.value}</div>
+                  <div className="text-xs sm:text-sm text-white/70">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* Learning Paths Section */}
         <section className="mobile-section bg-background" aria-labelledby="learning-paths-heading">
