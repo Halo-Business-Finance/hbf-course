@@ -50,6 +50,7 @@ const Terms = lazy(() => import("./pages/Terms"));
 const DataSecurity = lazy(() => import("./pages/DataSecurity"));
 const SignUp = lazy(() => import("./pages/SignUp"));
 const Achievements = lazy(() => import("./pages/Achievements"));
+const Certificate = lazy(() => import("./pages/Certificate"));
 
 // Loading fallback component
 const PageLoader = () => (
@@ -250,6 +251,7 @@ const AppContent = () => {
           <Route path="/terms" element={<Terms />} />
           <Route path="/data-security" element={<DataSecurity />} />
           <Route path="/achievements" element={<ProtectedRoute><Achievements /></ProtectedRoute>} />
+          <Route path="/certificate/:certificateId" element={<Certificate />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
