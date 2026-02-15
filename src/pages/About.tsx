@@ -143,7 +143,7 @@ const About = () => {
         keywords="Halo Business Finance, commercial lending training company, FinPilot program, business finance education, lending professionals"
         canonicalUrl="https://finpilot.com/about"
       />
-      <div className="bg-white min-h-screen">
+      <div className="bg-background min-h-screen">
       {/* Hero Section */}
       <div className="relative h-96 sm:h-[28rem] md:h-[32rem] lg:h-[32rem] overflow-hidden">
         <img 
@@ -151,14 +151,19 @@ const About = () => {
           alt="Professional team collaboration" 
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-black/25 flex items-center justify-center">
-          <div className="text-center text-white px-4">
-            <Badge className="mb-3 md:mb-4 bg-white/20 text-white border-white/30 text-sm">About Us</Badge>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4 leading-tight">About FinPilot</h1>
-            <p className="text-sm sm:text-base md:text-lg max-w-3xl mx-auto leading-relaxed">
-              FinPilot is a comprehensive training platform designed to advance careers in commercial lending and business finance. 
-              We provide world-class education and certification programs for finance professionals seeking to excel in today's competitive market.
-            </p>
+        <div className="absolute inset-0 bg-gradient-to-r from-halo-navy/85 via-halo-navy/60 to-transparent flex items-center">
+          <div className="container mx-auto px-4">
+            <div className="max-w-2xl text-white">
+              <Badge className="mb-4 bg-white/15 text-white border border-white/30 backdrop-blur-sm">
+                <Zap className="h-3.5 w-3.5 mr-2" />
+                About Us
+              </Badge>
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight">About FinPilot</h1>
+              <p className="text-sm sm:text-base md:text-lg max-w-3xl leading-relaxed text-white/90">
+                FinPilot is a comprehensive training platform designed to advance careers in commercial lending and business finance. 
+                We provide world-class education and certification programs for finance professionals seeking to excel in today's competitive market.
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -181,18 +186,18 @@ const About = () => {
                   />
                 </div>
                 <div className="p-8 order-last lg:order-first">
-                  <p className="text-black leading-relaxed mb-6">
+                  <p className="text-muted-foreground leading-relaxed mb-6">
                     With over 15 years of experience in capital markets, SBA, and commercial lending, Halo Business Finance 
                     created the FinPilot course to address the growing need for specialized training in commercial lending. 
                     We recognized that traditional training methods weren't adequately preparing professionals for modern 
                     commercial lending complexities.
                   </p>
-                  <p className="text-black leading-relaxed mb-6">
+                  <p className="text-muted-foreground leading-relaxed mb-6">
                     Our curriculum combines theoretical knowledge with practical, hands-on training that reflects current 
                     industry practices. We're committed to providing finance professionals with the skills and confidence 
                     they need to excel in commercial lending.
                   </p>
-                  <Button size="lg" asChild className="bg-halo-navy hover:bg-halo-navy/90 text-white">
+                  <Button size="lg" asChild className="bg-halo-orange hover:bg-halo-orange/90 text-white">
                     <Link to="/signup" className="flex items-center gap-2">
                       Start Free Trial
                       <ArrowRight className="h-4 w-4" />
@@ -220,7 +225,7 @@ const About = () => {
                   )}
                   <div className="text-2xl font-bold text-foreground mb-1">{info.value}</div>
                   <div className="text-sm font-medium text-primary mb-2">{info.label}</div>
-                  <div className="text-xs text-black leading-relaxed">{info.description}</div>
+                  <div className="text-xs text-muted-foreground leading-relaxed">{info.description}</div>
                 </div>
               </div>
             </Card>
@@ -243,14 +248,14 @@ const About = () => {
                     <Icon className="h-6 w-6 text-halo-navy" />
                   </div>
                   <CardTitle className="text-xl">{feature.title}</CardTitle>
-                  <CardDescription className="text-black">{feature.description}</CardDescription>
+                  <CardDescription>{feature.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
                     {feature.features.map((feat, idx) => (
                       <div key={idx} className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4 text-halo-orange" />
-                        <span className="text-sm text-black">{feat}</span>
+                        <span className="text-sm text-foreground">{feat}</span>
                       </div>
                     ))}
                   </div>
@@ -263,13 +268,13 @@ const About = () => {
           <CardContent className="p-8">
             <div className="text-center">
               <h3 className="text-2xl font-bold text-foreground mb-4">Why Our Platform Stands Out</h3>
-              <p className="text-black leading-relaxed max-w-4xl mx-auto mb-6">
+              <p className="text-muted-foreground leading-relaxed max-w-4xl mx-auto mb-6">
                 Our cutting-edge learning management system combines the latest in educational technology with 
                 practical commercial lending expertise. Built specifically for finance professionals, our platform 
                 delivers personalized learning experiences that adapt to your pace and learning style, ensuring 
                 maximum retention and real-world application.
               </p>
-              <Button size="lg" asChild className="bg-halo-navy hover:bg-halo-navy/90 text-white">
+              <Button size="lg" asChild className="bg-halo-orange hover:bg-halo-orange/90 text-white">
                 <Link to="/signup" className="flex items-center gap-2">
                   Start Free Trial
                   <ArrowRight className="h-4 w-4" />
@@ -295,14 +300,14 @@ const About = () => {
                     <Icon className="h-6 w-6 text-halo-navy" />
                   </div>
                   <CardTitle className="text-xl">{security.title}</CardTitle>
-                  <CardDescription className="text-black">{security.description}</CardDescription>
+                  <CardDescription>{security.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
                     {security.details.map((detail, idx) => (
                       <div key={idx} className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4 text-halo-orange" />
-                        <span className="text-sm text-black font-medium">{detail}</span>
+                        <span className="text-sm text-foreground font-medium">{detail}</span>
                       </div>
                     ))}
                   </div>
@@ -315,13 +320,13 @@ const About = () => {
           <CardContent className="p-8">
             <div className="text-center">
               <h3 className="text-2xl font-bold mb-4">Financial-Grade Security</h3>
-              <p className="leading-relaxed max-w-4xl mx-auto mb-6">
+              <p className="leading-relaxed max-w-4xl mx-auto mb-6 text-white/90">
                 We understand that financial training involves sensitive data. That's why we've implemented 
                 bank-level security measures including end-to-end encryption, multi-factor authentication, 
                 and compliance with SOC 2 and GDPR standards. Your learning data and personal information 
                 are protected with the same level of security used by major financial institutions.
               </p>
-              <Button size="lg" asChild className="bg-white text-halo-navy hover:bg-gray-100">
+              <Button size="lg" asChild className="bg-halo-orange hover:bg-halo-orange/90 text-white">
                 <Link to="/signup" className="flex items-center gap-2">
                   Start Free Trial
                   <ArrowRight className="h-4 w-4" />
@@ -347,14 +352,14 @@ const About = () => {
                     <Icon className="h-6 w-6 text-halo-navy" />
                   </div>
                   <CardTitle className="text-xl">{advantage.title}</CardTitle>
-                  <CardDescription className="text-black">{advantage.description}</CardDescription>
+                  <CardDescription>{advantage.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
                     {advantage.benefits.map((benefit, idx) => (
                       <div key={idx} className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4 text-halo-orange" />
-                        <span className="text-sm text-black">{benefit}</span>
+                        <span className="text-sm text-foreground">{benefit}</span>
                       </div>
                     ))}
                   </div>
@@ -370,7 +375,7 @@ const About = () => {
                 <Globe className="h-5 w-5 text-halo-navy" />
                 Global Accessibility
               </h3>
-              <p className="text-black leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed">
                 Access your training materials from anywhere in the world with our cloud-based platform. 
                 Our global content delivery network ensures fast loading times regardless of your location, 
                 making professional development accessible to finance professionals worldwide.
@@ -383,7 +388,7 @@ const About = () => {
                 <Database className="h-5 w-5 text-halo-navy" />
                 Continuous Innovation
               </h3>
-              <p className="text-black leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed">
                 Our platform continuously evolves with regular updates, new features, and enhanced 
                 capabilities. We stay ahead of industry trends and incorporate the latest educational 
                 technologies to ensure you're always learning with the most advanced tools available.
@@ -392,7 +397,7 @@ const About = () => {
           </Card>
         </div>
         <div className="text-center mt-8">
-          <Button size="lg" asChild className="bg-halo-navy hover:bg-halo-navy/90 text-white">
+          <Button size="lg" asChild className="bg-halo-orange hover:bg-halo-orange/90 text-white">
             <Link to="/signup" className="flex items-center gap-2">
               Start Free Trial
               <ArrowRight className="h-4 w-4" />
@@ -420,7 +425,7 @@ const About = () => {
                 <CardDescription className="font-medium text-primary">{member.role}</CardDescription>
               </CardHeader>
               <CardContent className="text-center">
-                <p className="text-sm text-black">{member.background}</p>
+                <p className="text-sm text-muted-foreground">{member.background}</p>
               </CardContent>
             </Card>
           ))}
