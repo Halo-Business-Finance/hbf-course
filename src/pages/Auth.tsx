@@ -195,8 +195,8 @@ const AuthPage = () => {
 
   // Show loading while checking auth state
   if (loading) {
-    return <div className="min-h-screen flex items-center justify-center bg-navy-900">
-        <Card className="w-full max-w-md bg-navy-800 border-navy-700">
+    return <div className="min-h-screen flex items-center justify-center bg-halo-navy">
+        <Card className="w-full max-w-md bg-halo-navy/80 border-white/10">
           <CardContent className="p-8 text-center space-y-4">
             <div className="w-8 h-8 animate-spin rounded-full border-2 border-white border-t-transparent mx-auto" />
             <p className="text-white/70">Loading...</p>
@@ -204,9 +204,12 @@ const AuthPage = () => {
         </Card>
       </div>;
   }
-  return <div className="min-h-screen flex items-center justify-center bg-navy-900 p-4">
+  return <div className="min-h-screen flex items-center justify-center bg-halo-navy p-4">
       <div className="w-full max-w-md space-y-6">
-        <div className="text-center space-y-2">
+        <div className="text-center space-y-3">
+          <div className="w-14 h-14 bg-white/10 rounded-lg flex items-center justify-center mx-auto border border-white/20">
+            <span className="text-white font-bold text-xl">FP</span>
+          </div>
           <h1 className="text-2xl font-bold text-white">Master Business Finance & Commercial Lending</h1>
         </div>
         
@@ -219,7 +222,7 @@ const AuthPage = () => {
             </CardContent>
           </Card>}
 
-        <Card className="bg-navy-800 border-navy-700">
+        <Card className="bg-halo-navy/80 border-white/10 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-white">
               {(showForgotPassword || step === 'password') && <Button variant="ghost" size="sm" onClick={() => {
@@ -228,7 +231,7 @@ const AuthPage = () => {
               } else {
                 setStep('email');
               }
-            }} className="p-0 h-auto text-white hover:bg-navy-700">
+            }} className="p-0 h-auto text-white hover:bg-white/10">
                   <ArrowLeft className="h-4 w-4" />
                 </Button>}
               {showForgotPassword ? "Reset Password" : step === 'email' ? "Welcome Back" : "Enter Password"}
@@ -243,7 +246,7 @@ const AuthPage = () => {
                    <Label htmlFor="forgot-email" className="text-white">Email</Label>
                    <div className="relative">
                      <Mail className="absolute left-3 top-3 h-4 w-4 text-white/70" />
-                     <Input id="forgot-email" type="email" placeholder="Enter your email" value={forgotPasswordEmail} onChange={e => setForgotPasswordEmail(e.target.value)} className="pl-10 bg-navy-700 border-navy-600 text-white placeholder:text-white/50" required />
+                     <Input id="forgot-email" type="email" placeholder="Enter your email" value={forgotPasswordEmail} onChange={e => setForgotPasswordEmail(e.target.value)} className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/50" required />
                    </div>
                  </div>
 
@@ -258,7 +261,7 @@ const AuthPage = () => {
                      <Input id="signin-email" type="email" placeholder="Enter your email" value={signInData.email} onChange={e => setSignInData({
                   ...signInData,
                   email: e.target.value
-                })} className="pl-10 bg-navy-700 border-navy-600 text-white placeholder:text-white/50" required autoFocus />
+                })} className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/50" required autoFocus />
                    </div>
                  </div>
 
@@ -273,7 +276,7 @@ const AuthPage = () => {
                      <Input id="signin-password" type={showPassword ? "text" : "password"} placeholder="Enter your password" value={signInData.password} onChange={e => setSignInData({
                   ...signInData,
                   password: e.target.value
-                })} className="pl-10 pr-10 bg-navy-700 border-navy-600 text-white placeholder:text-white/50" required autoFocus />
+                })} className="pl-10 pr-10 bg-white/10 border-white/20 text-white placeholder:text-white/50" required autoFocus />
                      <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-3 text-white/70 hover:text-white">
                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                      </button>
@@ -293,7 +296,7 @@ const AuthPage = () => {
                    </Button>
                  </div>
                 
-                 <Button type="button" variant="outline" className="w-full bg-navy-700 border-navy-600 text-white hover:bg-navy-600" onClick={async () => {
+                 <Button type="button" variant="outline" className="w-full bg-white/10 border-white/20 text-white hover:bg-white/20" onClick={async () => {
               const {
                 error
               } = await supabase.auth.resend({
@@ -323,7 +326,7 @@ const AuthPage = () => {
         </Card>
 
          <div className="text-center">
-           <Button variant="ghost" onClick={() => navigate("/")} className="text-white hover:text-white/80 hover:bg-navy-800">
+           <Button variant="ghost" onClick={() => navigate("/")} className="text-white hover:text-white/80 hover:bg-white/10">
              ← Back to Home
            </Button>
          </div>
