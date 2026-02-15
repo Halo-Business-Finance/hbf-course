@@ -227,10 +227,10 @@ const SignUpPage = () => {
 
   const getPasswordStrengthColor = () => {
     switch (passwordStrength) {
-      case 'weak': return 'bg-red-500';
-      case 'medium': return 'bg-yellow-500';
-      case 'strong': return 'bg-green-500';
-      default: return 'bg-gray-300';
+      case 'weak': return 'bg-destructive';
+      case 'medium': return 'bg-halo-orange';
+      case 'strong': return 'bg-accent';
+      default: return 'bg-muted';
     }
   };
 
@@ -467,7 +467,7 @@ const SignUpPage = () => {
                      placeholder="Confirm your password"
                      value={signUpData.confirmPassword}
                      onChange={(e) => setSignUpData({...signUpData, confirmPassword: e.target.value})}
-                     className="bg-navy-700 border-navy-600 text-white placeholder:text-white/50"
+                     className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
                      required
                      disabled={isLoading}
                    />
@@ -482,7 +482,7 @@ const SignUpPage = () => {
                </div>
 
                {/* Terms and Conditions Acceptance */}
-               <div className="space-y-3 p-4 bg-navy-700 rounded-lg border border-navy-600">
+               <div className="space-y-3 p-4 bg-white/10 rounded-lg border border-white/20">
                  <div className="flex items-start space-x-3">
                    <Checkbox
                      id="terms"
@@ -501,7 +501,7 @@ const SignUpPage = () => {
                           to="/terms"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-blue-400 hover:text-blue-300 underline font-medium"
+                         className="text-halo-orange hover:text-halo-orange/80 underline font-medium"
                         >
                           FinPilot Terms and Conditions
                         </Link>
@@ -510,7 +510,7 @@ const SignUpPage = () => {
                           to="/privacy"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-blue-400 hover:text-blue-300 underline font-medium"
+                          className="text-halo-orange hover:text-halo-orange/80 underline font-medium"
                         >
                           Privacy Policy
                         </Link>
@@ -531,7 +531,7 @@ const SignUpPage = () => {
              <div className="mt-6 text-center">
                <p className="text-sm text-white/70">
                  Already have an account?{" "}
-                 <Link to="/auth" className="text-blue-400 hover:text-blue-300 underline">
+                 <Link to="/auth" className="text-halo-orange hover:text-halo-orange/80 underline">
                    Sign in
                  </Link>
                </p>

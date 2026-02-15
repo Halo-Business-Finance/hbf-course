@@ -95,11 +95,11 @@ const ProgressPage = () => {
   const getProgressStatusBadge = (status: string) => {
     switch (status) {
       case "completed":
-        return <Badge className="bg-emerald-100 text-emerald-700 border-emerald-200 hover:bg-emerald-100">Completed</Badge>;
+        return <Badge className="bg-accent/15 text-accent border-accent/20 hover:bg-accent/15">Completed</Badge>;
       case "in-progress":
-        return <Badge className="bg-blue-100 text-blue-700 border-blue-200 hover:bg-blue-100">In Progress</Badge>;
+        return <Badge className="bg-primary/15 text-primary border-primary/20 hover:bg-primary/15">In Progress</Badge>;
       case "available":
-        return <Badge className="bg-amber-100 text-amber-700 border-amber-200 hover:bg-amber-100">Ready to Start</Badge>;
+        return <Badge className="bg-halo-orange/15 text-halo-orange border-halo-orange/20 hover:bg-halo-orange/15">Ready to Start</Badge>;
       case "locked":
         return <Badge variant="outline" className="opacity-60">Locked</Badge>;
       default:
@@ -110,11 +110,11 @@ const ProgressPage = () => {
   const getCertificateStatusBadge = (status: string) => {
     switch (status) {
       case "earned":
-        return <Badge className="gap-1 bg-emerald-100 text-emerald-700 border-emerald-200 hover:bg-emerald-100"><Trophy className="h-3 w-3" />Earned</Badge>;
+        return <Badge className="gap-1 bg-accent/15 text-accent border-accent/20 hover:bg-accent/15"><Trophy className="h-3 w-3" />Earned</Badge>;
       case "in-progress":
-        return <Badge className="gap-1 bg-blue-100 text-blue-700 border-blue-200 hover:bg-blue-100"><Zap className="h-3 w-3" />In Progress</Badge>;
+        return <Badge className="gap-1 bg-primary/15 text-primary border-primary/20 hover:bg-primary/15"><Zap className="h-3 w-3" />In Progress</Badge>;
       case "available":
-        return <Badge className="gap-1 bg-amber-100 text-amber-700 border-amber-200 hover:bg-amber-100"><Star className="h-3 w-3" />Available</Badge>;
+        return <Badge className="gap-1 bg-halo-orange/15 text-halo-orange border-halo-orange/20 hover:bg-halo-orange/15"><Star className="h-3 w-3" />Available</Badge>;
       case "locked":
         return <Badge variant="outline" className="gap-1 opacity-60"><Lock className="h-3 w-3" />Locked</Badge>;
       default:
@@ -125,11 +125,11 @@ const ProgressPage = () => {
   const getStatusIcon = (status: string) => {
     switch (status) {
       case "completed":
-        return <CheckCircle className="h-5 w-5 text-emerald-500" />;
+        return <CheckCircle className="h-5 w-5 text-accent" />;
       case "in-progress":
-        return <Clock className="h-5 w-5 text-blue-500" />;
+        return <Clock className="h-5 w-5 text-primary" />;
       case "available":
-        return <BookOpen className="h-5 w-5 text-amber-500" />;
+        return <BookOpen className="h-5 w-5 text-halo-orange" />;
       case "locked":
         return <Lock className="h-5 w-5 text-muted-foreground" />;
       default:
@@ -219,15 +219,15 @@ const ProgressPage = () => {
                 
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                   <div className="text-center space-y-2 p-4 rounded-lg bg-background/50 border border-border/50 hover-scale">
-                    <div className="text-3xl font-bold text-emerald-500">0</div>
+                    <div className="text-3xl font-bold text-accent">0</div>
                     <div className="text-sm text-muted-foreground font-medium">Completed</div>
                   </div>
                   <div className="text-center space-y-2 p-4 rounded-lg bg-background/50 border border-border/50 hover-scale">
-                    <div className="text-3xl font-bold text-blue-500">1</div>
+                    <div className="text-3xl font-bold text-primary">1</div>
                     <div className="text-sm text-muted-foreground font-medium">In Progress</div>
                   </div>
                   <div className="text-center space-y-2 p-4 rounded-lg bg-background/50 border border-border/50 hover-scale">
-                    <div className="text-3xl font-bold text-amber-500">1</div>
+                    <div className="text-3xl font-bold text-halo-orange">1</div>
                     <div className="text-sm text-muted-foreground font-medium">Available</div>
                   </div>
                   <div className="text-center space-y-2 p-4 rounded-lg bg-background/50 border border-border/50 hover-scale">
@@ -242,8 +242,8 @@ const ProgressPage = () => {
             <Card className="border-0 shadow-lg">
               <CardHeader>
                 <CardTitle className="flex items-center gap-3 text-xl">
-                  <div className="p-2 rounded-lg bg-blue-100">
-                    <BookOpen className="h-5 w-5 text-blue-600" />
+                  <div className="p-2 rounded-lg bg-primary/10">
+                    <BookOpen className="h-5 w-5 text-primary" />
                   </div>
                   Learning Modules
                 </CardTitle>
@@ -262,9 +262,9 @@ const ProgressPage = () => {
                         <div className="flex items-center gap-4">
                           <div className="relative">
                             <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-lg font-bold transition-colors ${
-                              module.status === 'completed' ? 'bg-emerald-100 text-emerald-700' :
-                              module.status === 'in-progress' ? 'bg-blue-100 text-blue-700' :
-                              module.status === 'available' ? 'bg-amber-100 text-amber-700' :
+                              module.status === 'completed' ? 'bg-accent/15 text-accent' :
+                              module.status === 'in-progress' ? 'bg-primary/15 text-primary' :
+                              module.status === 'available' ? 'bg-halo-orange/15 text-halo-orange' :
                               'bg-muted text-muted-foreground'
                             }`}>
                               {module.status === 'completed' ? <CheckCircle className="h-6 w-6" /> : index + 1}
@@ -338,15 +338,15 @@ const ProgressPage = () => {
               <CardContent className="relative z-10">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                   <div className="text-center space-y-2 p-4 rounded-lg bg-background/50 border border-border/50 hover-scale">
-                    <div className="text-3xl font-bold text-emerald-500">0</div>
+                    <div className="text-3xl font-bold text-accent">0</div>
                     <div className="text-sm text-muted-foreground font-medium">Earned</div>
                   </div>
                   <div className="text-center space-y-2 p-4 rounded-lg bg-background/50 border border-border/50 hover-scale">
-                    <div className="text-3xl font-bold text-blue-500">1</div>
+                    <div className="text-3xl font-bold text-primary">1</div>
                     <div className="text-sm text-muted-foreground font-medium">In Progress</div>
                   </div>
                   <div className="text-center space-y-2 p-4 rounded-lg bg-background/50 border border-border/50 hover-scale">
-                    <div className="text-3xl font-bold text-amber-500">1</div>
+                    <div className="text-3xl font-bold text-halo-orange">1</div>
                     <div className="text-sm text-muted-foreground font-medium">Available</div>
                   </div>
                   <div className="text-center space-y-2 p-4 rounded-lg bg-background/50 border border-border/50 hover-scale">
@@ -363,9 +363,9 @@ const ProgressPage = () => {
                 <Card 
                   key={certificate.name} 
                   className={`group border-0 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden ${
-                    certificate.status === "earned" ? "bg-gradient-to-r from-emerald-50 to-emerald-100/50 border-emerald-200" :
-                    certificate.status === "in-progress" ? "bg-gradient-to-r from-blue-50 to-blue-100/50 border-blue-200" :
-                    certificate.status === "available" ? "bg-gradient-to-r from-amber-50 to-amber-100/50 border-amber-200" :
+                    certificate.status === "earned" ? "bg-accent/5 border-accent/20" :
+                    certificate.status === "in-progress" ? "bg-primary/5 border-primary/20" :
+                    certificate.status === "available" ? "bg-halo-orange/5 border-halo-orange/20" :
                     "bg-gradient-to-r from-background to-muted/20"
                   }`}
                 >
@@ -374,15 +374,15 @@ const ProgressPage = () => {
                       <div className="space-y-3">
                         <div className="flex items-center gap-3">
                           <div className={`p-2 rounded-lg ${
-                            certificate.status === "earned" ? "bg-emerald-100" :
-                            certificate.status === "in-progress" ? "bg-blue-100" :
-                            certificate.status === "available" ? "bg-amber-100" :
+                            certificate.status === "earned" ? "bg-accent/15" :
+                            certificate.status === "in-progress" ? "bg-primary/15" :
+                            certificate.status === "available" ? "bg-halo-orange/15" :
                             "bg-muted"
                           }`}>
                             <Award className={`h-5 w-5 ${
-                              certificate.status === "earned" ? "text-emerald-600" :
-                              certificate.status === "in-progress" ? "text-blue-600" :
-                              certificate.status === "available" ? "text-amber-600" :
+                              certificate.status === "earned" ? "text-accent" :
+                              certificate.status === "in-progress" ? "text-primary" :
+                              certificate.status === "available" ? "text-halo-orange" :
                               "text-muted-foreground"
                             }`} />
                           </div>
