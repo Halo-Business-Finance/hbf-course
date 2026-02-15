@@ -73,59 +73,63 @@ export function CourseCard({
   return (
     <Card 
       className={cn(
-        "relative border-2 border-halo-navy shadow-md hover:shadow-lg transition-all duration-300 bg-white",
-        isHovered && "scale-[1.02]",
+        "relative border border-border shadow-sm hover:shadow-xl transition-all duration-300 bg-card overflow-hidden group",
+        isHovered && "scale-[1.01] border-primary/30",
         className
       )}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       style={{ animationDelay: `${index * 80}ms` }}
     >
-      <CardHeader className="text-center pb-2">
+      {/* Top accent bar */}
+      <div className="h-1 bg-gradient-to-r from-navy-900 via-primary to-navy-700" />
+      
+      <CardHeader className="text-center pb-3 pt-5">
         <div className="flex justify-center mb-3">
-          <Badge className="bg-halo-navy text-white border-halo-navy">
-            <LevelIcon className="h-3 w-3 mr-1" />
+          <Badge className="bg-navy-900 text-white border-navy-900 px-3 py-1 text-xs font-semibold tracking-wide uppercase">
+            <LevelIcon className="h-3 w-3 mr-1.5" />
             {levelConfig.label}
           </Badge>
         </div>
-        <CardTitle className="text-xl text-black line-clamp-2">{courseName}</CardTitle>
-        <CardDescription className="text-sm text-black/70 line-clamp-2">
+        <CardTitle className="text-lg font-bold text-foreground line-clamp-2 leading-snug">{courseName}</CardTitle>
+        <CardDescription className="text-sm text-muted-foreground line-clamp-2 mt-1">
           {description}
         </CardDescription>
-        <div className="mt-4 flex items-center justify-center gap-4 text-sm text-black">
-          <div className="flex items-center gap-1">
-            <BookOpen className="h-4 w-4 text-halo-navy" />
-            <span>{modulesCount} Modules</span>
+        <div className="mt-4 flex items-center justify-center gap-5 text-sm text-muted-foreground">
+          <div className="flex items-center gap-1.5">
+            <BookOpen className="h-4 w-4 text-primary" />
+            <span className="font-medium">{modulesCount} Modules</span>
           </div>
-          <div className="flex items-center gap-1">
-            <Clock className="h-4 w-4 text-halo-navy" />
-            <span>{modulesCount * 2}+ hrs</span>
+          <div className="flex items-center gap-1.5">
+            <Clock className="h-4 w-4 text-primary" />
+            <span className="font-medium">{modulesCount * 2}+ hrs</span>
           </div>
         </div>
       </CardHeader>
       
-      <CardContent>
-        <div className="mb-6">
-          <p className="text-xs font-medium text-black/60 uppercase tracking-wide mb-3">What you'll learn:</p>
-          <ul className="space-y-2">
+      <CardContent className="pt-0">
+        <div className="mb-5">
+          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">What you'll learn</p>
+          <ul className="space-y-2.5">
             {displayTopics.map((topic, idx) => (
-              <li key={idx} className="flex items-start gap-2">
-                <Check className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-black line-clamp-1">{topic}</span>
+              <li key={idx} className="flex items-start gap-2.5">
+                <Check className="h-4 w-4 text-success mt-0.5 flex-shrink-0" />
+                <span className="text-sm text-foreground line-clamp-1">{topic}</span>
               </li>
             ))}
           </ul>
         </div>
 
-        <div className="flex items-center justify-center gap-2 mb-4 text-xs text-black/60">
-          <Award className="h-4 w-4 text-halo-navy" />
-          <span>Certificate of Completion</span>
+        <div className="flex items-center justify-center gap-2 mb-5 text-xs text-muted-foreground border-t border-b border-border py-3">
+          <Award className="h-4 w-4 text-primary" />
+          <span className="font-medium">Certificate of Completion</span>
         </div>
 
         {isAuthenticated ? (
           isEnrolled ? (
             <Button 
-              className="w-full flex items-center gap-2 bg-halo-navy text-white hover:bg-halo-navy/90 border-halo-navy" 
+              className="w-full flex items-center gap-2" 
+              variant="navy"
               asChild
             >
               <Link to={`/module/${firstModuleId || id}`}>
@@ -136,7 +140,8 @@ export function CourseCard({
             </Button>
           ) : (
             <Button 
-              className="w-full flex items-center gap-2 bg-halo-navy text-white hover:bg-halo-navy/90 border-halo-navy"
+              className="w-full flex items-center gap-2"
+              variant="navy"
               onClick={() => onEnroll?.(id)}
               disabled={loading}
             >
@@ -146,7 +151,7 @@ export function CourseCard({
           )
         ) : (
           <Button 
-            className="w-full flex items-center gap-2 bg-halo-navy text-white hover:bg-halo-navy/90 border-halo-navy" 
+            className="w-full flex items-center gap-2" 
             variant="outline"
             asChild
           >
@@ -158,7 +163,7 @@ export function CourseCard({
           </Button>
         )}
         
-        <p className="text-xs text-center text-black/60 mt-2">
+        <p className="text-xs text-center text-muted-foreground mt-3">
           {levelConfig.description}
         </p>
       </CardContent>
