@@ -196,8 +196,8 @@ const AdminAuthPage = () => {
 
   // Show loading while checking auth state
   if (loading) {
-    return <div className="min-h-screen flex items-center justify-center bg-navy-900">
-        <Card className="w-full max-w-md bg-navy-800 border-navy-700">
+    return <div className="min-h-screen flex items-center justify-center bg-halo-navy">
+        <Card className="w-full max-w-md bg-halo-navy/80 border-white/10 backdrop-blur-sm">
           <CardContent className="p-8 text-center space-y-4">
             <div className="w-8 h-8 animate-spin rounded-full border-2 border-white border-t-transparent mx-auto" />
             <p className="text-white/70">Loading...</p>
@@ -205,11 +205,11 @@ const AdminAuthPage = () => {
         </Card>
       </div>;
   }
-  return <div className="min-h-screen flex items-center justify-center bg-navy-900 p-4">
+  return <div className="min-h-screen flex items-center justify-center bg-halo-navy p-4">
       <div className="w-full max-w-md space-y-6">
         <div className="text-center space-y-2">
           <div className="flex items-center justify-center">
-            <div className="w-12 h-12 bg-gradient-to-br from-navy-600 to-navy-800 rounded-lg flex items-center justify-center">
+            <div className="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center border border-white/20">
               <Shield className="text-white h-6 w-6" />
             </div>
           </div>
@@ -226,7 +226,7 @@ const AdminAuthPage = () => {
             </CardContent>
           </Card>}
 
-        <Card className="bg-navy-800 border-navy-700">
+        <Card className="bg-halo-navy/80 border-white/10 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-white">
               {(showForgotPassword || step === 'password') && <Button variant="ghost" size="sm" onClick={() => {
@@ -235,7 +235,7 @@ const AdminAuthPage = () => {
               } else {
                 setStep('email');
               }
-            }} className="p-0 h-auto text-white hover:bg-navy-700">
+            }} className="p-0 h-auto text-white hover:bg-white/10">
                   <ArrowLeft className="h-4 w-4" />
                 </Button>}
               <LogIn className="h-5 w-5" />
@@ -251,7 +251,7 @@ const AdminAuthPage = () => {
                    <Label htmlFor="forgot-email" className="text-white">Email</Label>
                    <div className="relative">
                      <Mail className="absolute left-3 top-3 h-4 w-4 text-white/70" />
-                     <Input id="forgot-email" type="email" placeholder="Enter your admin email" value={forgotPasswordEmail} onChange={e => setForgotPasswordEmail(e.target.value)} className="pl-10 bg-navy-700 border-navy-600 text-white placeholder:text-white/50" required />
+                     <Input id="forgot-email" type="email" placeholder="Enter your admin email" value={forgotPasswordEmail} onChange={e => setForgotPasswordEmail(e.target.value)} className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/50" required />
                    </div>
                  </div>
 
@@ -266,7 +266,7 @@ const AdminAuthPage = () => {
                      <Input id="signin-email" type="email" placeholder="Enter your admin email" value={signInData.email} onChange={e => setSignInData({
                   ...signInData,
                   email: e.target.value
-                })} className="pl-10 bg-navy-700 border-navy-600 text-white placeholder:text-white/50" required autoFocus />
+                })} className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/50" required autoFocus />
                    </div>
                  </div>
 
@@ -281,7 +281,7 @@ const AdminAuthPage = () => {
                      <Input id="signin-password" type={showPassword ? "text" : "password"} placeholder="Enter your password" value={signInData.password} onChange={e => setSignInData({
                   ...signInData,
                   password: e.target.value
-                })} className="pl-10 pr-10 bg-navy-700 border-navy-600 text-white placeholder:text-white/50" required autoFocus />
+                })} className="pl-10 pr-10 bg-white/10 border-white/20 text-white placeholder:text-white/50" required autoFocus />
                      <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-3 text-white/70 hover:text-white">
                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                      </button>
