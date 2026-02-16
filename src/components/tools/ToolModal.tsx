@@ -66,7 +66,7 @@ export const ToolModal = ({ open, onOpenChange, toolType, toolTitle }: ToolModal
         <div className="mt-6">
           <Button 
             onClick={() => onOpenChange(false)} 
-            className="w-full h-12 text-lg bg-blue-600 hover:bg-blue-700"
+            className="w-full h-12 text-lg bg-halo-navy hover:bg-halo-navy/90"
           >
             Close Calculator
           </Button>

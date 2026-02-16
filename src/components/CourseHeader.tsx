@@ -88,8 +88,8 @@ const CourseHeader = ({
           {/* Left Content - 3 columns */}
           <div className="lg:col-span-3 space-y-8">
             {/* Program Badge */}
-            <div className="inline-flex items-center gap-3 border-l-4 border-emerald-400 pl-4">
-              <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+            <div className="inline-flex items-center gap-3 border-l-4 border-accent pl-4">
+              <div className="w-2.5 h-2.5 rounded-full bg-accent animate-pulse" />
               <span className="text-sm font-semibold text-white tracking-widest uppercase">
                 Training Program
               </span>
@@ -138,7 +138,7 @@ const CourseHeader = ({
               </div>
               <div className="relative h-3 bg-white/20 rounded-full overflow-hidden">
                 <div 
-                  className="absolute inset-y-0 left-0 bg-gradient-to-r from-orange-500 to-orange-400 rounded-full transition-all duration-500"
+                  className="absolute inset-y-0 left-0 bg-gradient-to-r from-halo-orange to-halo-orange/80 rounded-full transition-all duration-500"
                   style={{ width: `${progress}%` }}
                 />
               </div>
@@ -151,7 +151,7 @@ const CourseHeader = ({
             <Button 
               onClick={onContinueLearning} 
               size="lg"
-              className="h-12 px-8 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 group"
+              className="h-12 px-8 bg-halo-orange hover:bg-halo-orange/90 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 group"
             >
               Continue Learning
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
