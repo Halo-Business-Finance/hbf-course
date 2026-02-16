@@ -3485,18 +3485,21 @@ export type Database = {
           event_message: string | null
           id: string
           metadata: Json | null
+          tenant_id: string | null
           timestamp: number
         }
         Insert: {
           event_message?: string | null
           id: string
           metadata?: Json | null
+          tenant_id?: string | null
           timestamp: number
         }
         Update: {
           event_message?: string | null
           id?: string
           metadata?: Json | null
+          tenant_id?: string | null
           timestamp?: number
         }
         Relationships: []
