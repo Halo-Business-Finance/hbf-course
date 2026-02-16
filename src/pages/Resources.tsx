@@ -54,9 +54,9 @@ const ResourcesPage = () => {
   const getFileIcon = (type: string) => {
     switch (type) {
       case "PDF":
-        return <FileText className="h-4 w-4 text-red-500" />;
+        return <FileText className="h-4 w-4 text-destructive" />;
       case "XLSX":
-        return <FileSpreadsheet className="h-4 w-4 text-green-500" />;
+        return <FileSpreadsheet className="h-4 w-4 text-accent" />;
       default:
         return <FileText className="h-4 w-4" />;
     }
@@ -255,7 +255,7 @@ const ResourcesPage = () => {
                   tools.map((tool) => (
                     <div key={tool.id} className="flex items-center justify-between p-4 border rounded-lg">
                       <div className="flex items-center gap-3">
-                        <ExternalLink className="h-4 w-4 text-purple-500" />
+                        <ExternalLink className="h-4 w-4 text-primary" />
                         <div>
                           <h3 className="font-medium text-foreground">{tool.title}</h3>
                           <p className="text-sm text-muted-foreground">{tool.description}</p>

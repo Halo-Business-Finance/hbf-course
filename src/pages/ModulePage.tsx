@@ -261,7 +261,7 @@ const ModulePage = () => {
   const getTypeIcon = (type: string) => {
     switch (type) {
       case "video":
-        return <Video className="h-4 w-4 bg-white" />;
+        return <Video className="h-4 w-4" />;
       case "reading":
         return <FileText className="h-4 w-4" />;
       case "quiz":
