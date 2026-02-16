@@ -57,7 +57,7 @@ const ComplianceTracking = lazy(() => import("./pages/ComplianceTracking"));
 const Certifications = lazy(() => import("./pages/Certifications"));
 const Branding = lazy(() => import("./pages/Branding"));
 
-// Loading fallback component
+// Loading fallback component for lazy-loaded pages
 const PageLoader = () => (
   <div className="flex items-center justify-center min-h-screen">
     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
