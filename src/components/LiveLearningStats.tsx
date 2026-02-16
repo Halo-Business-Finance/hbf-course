@@ -286,11 +286,11 @@ export const LiveLearningStats = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Assessments Passed</p>
-                <p className="text-2xl font-bold text-green-600">
+                <p className="text-2xl font-bold text-accent">
                   {stats?.total_assessments_passed || 0}
                 </p>
               </div>
-              <Award className="h-8 w-8 text-green-600/70" />
+              <Award className="h-8 w-8 text-accent/70" />
             </div>
             <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-success"></div>
           </CardContent>
@@ -301,13 +301,13 @@ export const LiveLearningStats = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Time Spent</p>
-                <p className="text-2xl font-bold text-blue-600">
+                <p className="text-2xl font-bold text-primary">
                   {formatTime(stats?.total_time_spent_minutes || 0)}
                 </p>
               </div>
-              <Clock className="h-8 w-8 text-blue-600/70" />
+              <Clock className="h-8 w-8 text-primary/70" />
             </div>
-            <div className="absolute bottom-0 left-0 w-full h-1 bg-blue-500"></div>
+            <div className="absolute bottom-0 left-0 w-full h-1 bg-primary"></div>
           </CardContent>
         </Card>
 
@@ -316,14 +316,14 @@ export const LiveLearningStats = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Current Streak</p>
-                <p className="text-2xl font-bold text-orange-600">
+                <p className="text-2xl font-bold text-halo-orange">
                   {stats?.current_streak_days || 0}
                   <span className="text-sm ml-1">days</span>
                 </p>
               </div>
-              <Flame className="h-8 w-8 text-orange-600/70" />
+              <Flame className="h-8 w-8 text-halo-orange/70" />
             </div>
-            <div className="absolute bottom-0 left-0 w-full h-1 bg-orange-500"></div>
+            <div className="absolute bottom-0 left-0 w-full h-1 bg-halo-orange"></div>
           </CardContent>
         </Card>
       </div>
@@ -395,7 +395,7 @@ export const LiveLearningStats = () => {
               <div className="space-y-3">
                 {achievements.map((achievement, index) => (
                   <div key={index} className="flex items-start gap-3 p-3 bg-muted/50 rounded-lg">
-                    <Award className="h-5 w-5 text-yellow-500 mt-0.5" />
+                    <Award className="h-5 w-5 text-halo-orange mt-0.5" />
                     <div className="flex-1">
                       <h4 className="text-sm font-medium">{achievement.achievement_title}</h4>
                       <p className="text-xs text-muted-foreground mt-1">
