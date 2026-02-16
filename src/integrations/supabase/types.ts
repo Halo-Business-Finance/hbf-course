@@ -1963,36 +1963,6 @@ export type Database = {
         }
         Relationships: []
       }
-      fn_search_path_audit: {
-        Row: {
-          args: string
-          checked_at: string
-          function_name: string
-          id: number
-          schema_name: string
-          security_definer: boolean
-          tenant_id: string
-        }
-        Insert: {
-          args: string
-          checked_at?: string
-          function_name: string
-          id?: number
-          schema_name: string
-          security_definer: boolean
-          tenant_id?: string
-        }
-        Update: {
-          args?: string
-          checked_at?: string
-          function_name?: string
-          id?: number
-          schema_name?: string
-          security_definer?: boolean
-          tenant_id?: string
-        }
-        Relationships: []
-      }
       geolocation_rules: {
         Row: {
           country_codes: string[] | null
@@ -4312,6 +4282,16 @@ export type Database = {
         }
         Relationships: []
       }
+      fn_missing_search_path_public: {
+        Row: {
+          args: string | null
+          missing_search_path: boolean | null
+          name: unknown
+          schema: unknown
+          security_definer: boolean | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       admin_emergency_mfa_reset: {
@@ -5200,7 +5180,6 @@ export type Database = {
         }
         Returns: undefined
       }
-      log_fn_missing_search_path: { Args: never; Returns: undefined }
       log_pii_access_attempt: {
         Args: {
           access_type: string

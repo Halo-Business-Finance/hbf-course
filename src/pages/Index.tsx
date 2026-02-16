@@ -137,6 +137,25 @@ const Index = () => {
           </div>
         </div>
 
+        {/* Stats Bar */}
+        <section className="bg-halo-navy py-6 sm:py-8">
+          <div className="mobile-container">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+              {[
+                { value: "10,000+", label: "Professionals Trained" },
+                { value: "96%", label: "Certification Rate" },
+                { value: "150+", label: "Expert Modules" },
+                { value: "4.9/5", label: "Average Rating" },
+              ].map((stat, i) => (
+                <div key={i} className="space-y-1">
+                  <div className="text-2xl sm:text-3xl font-bold text-white">{stat.value}</div>
+                  <div className="text-xs sm:text-sm text-white/70">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Learning Paths Section */}
         <section className="mobile-section bg-background" aria-labelledby="learning-paths-heading">
           <div className="mobile-container">
