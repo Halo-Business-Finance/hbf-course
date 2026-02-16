@@ -51,6 +51,11 @@ const DataSecurity = lazy(() => import("./pages/DataSecurity"));
 const SignUp = lazy(() => import("./pages/SignUp"));
 const Achievements = lazy(() => import("./pages/Achievements"));
 const Certificate = lazy(() => import("./pages/Certificate"));
+const TeamAnalytics = lazy(() => import("./pages/TeamAnalytics"));
+const Cohorts = lazy(() => import("./pages/Cohorts"));
+const ComplianceTracking = lazy(() => import("./pages/ComplianceTracking"));
+const Certifications = lazy(() => import("./pages/Certifications"));
+const Branding = lazy(() => import("./pages/Branding"));
 
 // Loading fallback component
 const PageLoader = () => (
@@ -252,6 +257,11 @@ const AppContent = () => {
           <Route path="/data-security" element={<DataSecurity />} />
           <Route path="/achievements" element={<ProtectedRoute><Achievements /></ProtectedRoute>} />
           <Route path="/certificate/:certificateId" element={<Certificate />} />
+          <Route path="/team-analytics" element={<ProtectedRoute><TeamAnalytics /></ProtectedRoute>} />
+          <Route path="/cohorts" element={<ProtectedRoute><Cohorts /></ProtectedRoute>} />
+          <Route path="/compliance" element={<ProtectedRoute><ComplianceTracking /></ProtectedRoute>} />
+          <Route path="/certifications" element={<ProtectedRoute><Certifications /></ProtectedRoute>} />
+          <Route path="/branding" element={<ProtectedRoute><Branding /></ProtectedRoute>} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
