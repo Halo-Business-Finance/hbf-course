@@ -363,8 +363,18 @@ const AdminDashboard = () => {
       // Use the active admins count we calculated earlier
       const activeAdmins = activeAdminsCount;
 
-      // Calculate stats from the data
-      const totalUsers = new Set(userRolesData.map((role: UserRole) => role.user_id)).size;
+      // Get actual total user count from profiles table
+      let totalUsers = new Set(userRolesData.map((role: UserRole) => role.user_id)).size;
+      try {
+        const { count, error: countError } = await supabase
+          .from('profiles')
+          .select('*', { count: 'exact', head: true });
+        if (!countError && count !== null) {
+          totalUsers = count;
+        }
+      } catch (e) {
+        console.warn('Could not fetch total user count from profiles:', e);
+      }
       const recentEvents = eventsData?.filter(event => event.created_at && new Date(event.created_at) > new Date(Date.now() - 24 * 60 * 60 * 1000)).length || 0;
       setStats({
         totalUsers,

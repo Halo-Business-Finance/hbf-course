@@ -4272,7 +4272,26 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      fn_missing_search_path: {
+        Row: {
+          args: string | null
+          missing_search_path: boolean | null
+          name: unknown
+          schema: unknown
+          security_definer: boolean | null
+        }
+        Relationships: []
+      }
+      fn_missing_search_path_public: {
+        Row: {
+          args: string | null
+          missing_search_path: boolean | null
+          name: unknown
+          schema: unknown
+          security_definer: boolean | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       admin_emergency_mfa_reset: {
