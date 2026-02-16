@@ -361,7 +361,7 @@ export const EnhancedQuiz = ({
 
             {attemptCount >= maxAttempts ? <div className="text-center p-4 bg-destructive/10 rounded-lg">
                 <p className="text-destructive">You have reached the maximum number of attempts.</p>
-              </div> : <Button onClick={startQuiz} size="lg" className="w-full max-w-xs bg-blue-800 hover:bg-blue-700">
+              </div> : <Button onClick={startQuiz} size="lg" className="w-full max-w-xs bg-halo-navy hover:bg-halo-navy/90">
                 Start Quiz
               </Button>}
           </div>
@@ -374,7 +374,7 @@ export const EnhancedQuiz = ({
     const passed = results.percentage >= passingScore;
     return <Card className="max-w-4xl mx-auto">
         <CardHeader className="text-center">
-          <div className={`w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center ${passed ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>
+          <div className={`w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center ${passed ? 'bg-accent/15 text-accent' : 'bg-destructive/15 text-destructive'}`}>
             {passed ? <Trophy className="h-8 w-8" /> : <XCircle className="h-8 w-8" />}
           </div>
           <CardTitle className="text-2xl">
@@ -405,7 +405,7 @@ export const EnhancedQuiz = ({
               {results.answersDetail.map((answer, index) => {
             const question = questions.find(q => q.id === answer.questionId);
             if (!question) return null;
-            return <Card key={answer.questionId} className={`border-l-4 ${answer.correct ? 'border-l-green-500' : 'border-l-red-500'}`}>
+            return <Card key={answer.questionId} className={`border-l-4 ${answer.correct ? 'border-l-accent' : 'border-l-destructive'}`}>
                     <CardContent className="p-4">
                       <div className="flex items-start justify-between mb-2">
                         <h4 className="font-medium">Question {index + 1}</h4>
@@ -418,13 +418,13 @@ export const EnhancedQuiz = ({
                       <div className="space-y-2 text-sm">
                         <div>
                           <span className="font-medium">Your Answer: </span>
-                          <span className={answer.correct ? "text-green-600" : "text-red-600"}>
+                          <span className={answer.correct ? "text-accent" : "text-destructive"}>
                             {Array.isArray(answer.userAnswer) ? answer.userAnswer.join(", ") : String(answer.userAnswer || "No answer")}
                           </span>
                         </div>
                         {!answer.correct && <div>
                             <span className="font-medium">Correct Answer: </span>
-                            <span className="text-green-600">
+                            <span className="text-accent">
                               {Array.isArray(answer.correctAnswer) ? answer.correctAnswer.join(", ") : String(answer.correctAnswer)}
                             </span>
                           </div>}
@@ -470,13 +470,13 @@ export const EnhancedQuiz = ({
           </div>
           
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="sm" onClick={() => toggleFlag(currentQ.id)} className={flaggedQuestions.has(currentQ.id) ? "text-yellow-600" : ""}>
+            <Button variant="ghost" size="sm" onClick={() => toggleFlag(currentQ.id)} className={flaggedQuestions.has(currentQ.id) ? "text-halo-orange" : ""}>
               🚩 {flaggedQuestions.has(currentQ.id) ? "Flagged" : "Flag"}
             </Button>
             
             <div className="flex items-center gap-2 text-sm">
               <Clock className="h-4 w-4" />
-              <span className={timeRemaining < 300 ? "text-red-600 font-medium" : ""}>
+              <span className={timeRemaining < 300 ? "text-destructive font-medium" : ""}>
                 {formatTime(timeRemaining)}
               </span>
             </div>
@@ -510,7 +510,7 @@ export const EnhancedQuiz = ({
             {/* Question */}
             <div>
               <h3 className="text-xl font-semibold mb-4">{currentQ.question}</h3>
-              {currentQ.type === 'scenario' && currentQ.scenario && <div className="p-4 bg-blue-50 rounded-lg mb-4">
+              {currentQ.type === 'scenario' && currentQ.scenario && <div className="p-4 bg-primary/5 rounded-lg mb-4">
                   <h4 className="font-medium mb-2">Scenario:</h4>
                   <p className="text-muted-foreground">{currentQ.scenario}</p>
                 </div>}
@@ -535,7 +535,7 @@ export const EnhancedQuiz = ({
 
             {/* Hint */}
             {showHints && <div className="space-y-2">
-                <Button variant="ghost" size="sm" onClick={() => setShowHint(!showHint)} className="text-blue-600 hover:text-blue-700">
+                <Button variant="ghost" size="sm" onClick={() => setShowHint(!showHint)} className="text-primary hover:text-primary/80">
                   <Lightbulb className="h-4 w-4 mr-2" />
                   {showHint ? "Hide" : "Show"} Hint
                 </Button>
@@ -549,8 +549,8 @@ export const EnhancedQuiz = ({
             }} exit={{
               opacity: 0,
               height: 0
-            }} className="p-3 bg-blue-50 rounded border-l-4 border-l-blue-500">
-                    <p className="text-sm text-blue-800">
+            }} className="p-3 bg-primary/5 rounded border-l-4 border-l-primary">
+                    <p className="text-sm text-primary">
                       💡 Think about the key concepts we covered in this module. Consider all options carefully.
                     </p>
                   </motion.div>}
@@ -568,11 +568,11 @@ export const EnhancedQuiz = ({
           <div className="flex items-center gap-2">
             {/* Question Navigation Dots */}
             <div className="flex gap-1">
-              {questions.map((_, index) => <button key={index} onClick={() => setCurrentQuestion(index)} className={`w-3 h-3 rounded-full transition-colors ${index === currentQuestion ? "bg-primary" : answers[questions[index].id] ? "bg-green-500" : flaggedQuestions.has(questions[index].id) ? "bg-yellow-500" : "bg-muted"}`} />)}
+              {questions.map((_, index) => <button key={index} onClick={() => setCurrentQuestion(index)} className={`w-3 h-3 rounded-full transition-colors ${index === currentQuestion ? "bg-primary" : answers[questions[index].id] ? "bg-accent" : flaggedQuestions.has(questions[index].id) ? "bg-halo-orange" : "bg-muted"}`} />)}
             </div>
           </div>
 
-          {currentQuestion === questions.length - 1 ? <Button onClick={handleSubmitQuiz} className="bg-green-600 hover:bg-green-700">
+          {currentQuestion === questions.length - 1 ? <Button onClick={handleSubmitQuiz} className="bg-accent hover:bg-accent/90">
               Submit Quiz
               <Award className="h-4 w-4 ml-2" />
             </Button> : <Button onClick={nextQuestion}>

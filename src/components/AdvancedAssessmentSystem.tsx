@@ -453,11 +453,11 @@ export const AdvancedAssessmentSystem = () => {
           <CardHeader className="text-center">
             <CardTitle className="flex items-center justify-center gap-2 text-2xl">
               {results.score >= 90 ? (
-                <Award className="h-8 w-8 text-yellow-500" />
+                <Award className="h-8 w-8 text-halo-orange" />
               ) : results.score >= 70 ? (
-                <CheckCircle className="h-8 w-8 text-green-500" />
+                <CheckCircle className="h-8 w-8 text-accent" />
               ) : (
-                <Target className="h-8 w-8 text-blue-500" />
+                <Target className="h-8 w-8 text-primary" />
               )}
               Assessment Results
             </CardTitle>
@@ -469,17 +469,17 @@ export const AdvancedAssessmentSystem = () => {
                 <div className="text-sm text-muted-foreground">Final Score</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-blue-600">{results.timeSpent}m</div>
+                <div className="text-3xl font-bold text-primary">{results.timeSpent}m</div>
                 <div className="text-sm text-muted-foreground">Time Spent</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-green-600">
+                <div className="text-3xl font-bold text-accent">
                   {results.correctAnswers}/{results.totalQuestions}
                 </div>
                 <div className="text-sm text-muted-foreground">Correct</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-purple-600">
+                <div className="text-3xl font-bold text-halo-orange">
                   {Math.round((results.correctAnswers / results.totalQuestions) * 100)}%
                 </div>
                 <div className="text-sm text-muted-foreground">Accuracy</div>
@@ -491,7 +491,7 @@ export const AdvancedAssessmentSystem = () => {
               {results.strengths.length > 0 && (
                 <Card>
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-green-600">
+                    <CardTitle className="flex items-center gap-2 text-accent">
                       <CheckCircle className="h-5 w-5" />
                       Strengths
                     </CardTitle>
@@ -500,7 +500,7 @@ export const AdvancedAssessmentSystem = () => {
                     <ul className="space-y-2">
                       {results.strengths.map((strength, index) => (
                         <li key={index} className="flex items-start gap-2">
-                          <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                          <CheckCircle className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
                           <span className="text-sm">{strength}</span>
                         </li>
                       ))}
@@ -513,7 +513,7 @@ export const AdvancedAssessmentSystem = () => {
               {results.improvements.length > 0 && (
                 <Card>
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-yellow-600">
+                    <CardTitle className="flex items-center gap-2 text-halo-orange">
                       <TrendingUp className="h-5 w-5" />
                       Areas for Improvement
                     </CardTitle>
@@ -522,7 +522,7 @@ export const AdvancedAssessmentSystem = () => {
                     <ul className="space-y-2">
                       {results.improvements.map((improvement, index) => (
                         <li key={index} className="flex items-start gap-2">
-                          <AlertCircle className="h-4 w-4 text-yellow-500 mt-0.5 flex-shrink-0" />
+                          <AlertCircle className="h-4 w-4 text-halo-orange mt-0.5 flex-shrink-0" />
                           <span className="text-sm">{improvement}</span>
                         </li>
                       ))}
@@ -542,8 +542,8 @@ export const AdvancedAssessmentSystem = () => {
                 <CardContent>
                   <ul className="space-y-3">
                     {results.recommendations.map((rec, index) => (
-                      <li key={index} className="flex items-start gap-3 p-3 bg-blue-50 rounded-lg">
-                        <Lightbulb className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                      <li key={index} className="flex items-start gap-3 p-3 bg-primary/5 rounded-lg">
+                        <Lightbulb className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                         <span className="text-sm">{rec}</span>
                       </li>
                     ))}
@@ -729,12 +729,12 @@ export const AdvancedAssessmentSystem = () => {
                     )}
                     
                     {showHint && currentQuestion.hints && (
-                      <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                       <div className="p-4 bg-halo-orange/10 border border-halo-orange/20 rounded-lg">
                         <div className="flex items-start gap-2">
-                          <Lightbulb className="h-5 w-5 text-yellow-600 mt-0.5" />
+                          <Lightbulb className="h-5 w-5 text-halo-orange mt-0.5" />
                           <div>
-                            <p className="font-medium text-yellow-800 mb-1">Hint:</p>
-                            <p className="text-sm text-yellow-700">
+                            <p className="font-medium text-halo-orange mb-1">Hint:</p>
+                            <p className="text-sm text-muted-foreground">
                               {currentQuestion.hints[hintsUsed]}
                             </p>
                           </div>
@@ -787,7 +787,7 @@ export const AdvancedAssessmentSystem = () => {
             <Card className="p-4 cursor-pointer hover:shadow-md transition-shadow" 
                   onClick={() => startAssessment('practice')}>
               <div className="text-center space-y-2">
-                <Target className="h-8 w-8 mx-auto text-blue-500" />
+                <Target className="h-8 w-8 mx-auto text-primary" />
                 <h3 className="font-semibold">Practice Mode</h3>
                 <p className="text-sm text-muted-foreground">
                   Untimed practice with hints and immediate feedback
@@ -798,7 +798,7 @@ export const AdvancedAssessmentSystem = () => {
             <Card className="p-4 cursor-pointer hover:shadow-md transition-shadow" 
                   onClick={() => startAssessment('assessment')}>
               <div className="text-center space-y-2">
-                <Clock className="h-8 w-8 mx-auto text-green-500" />
+                <Clock className="h-8 w-8 mx-auto text-accent" />
                 <h3 className="font-semibold">Formal Assessment</h3>
                 <p className="text-sm text-muted-foreground">
                   Timed assessment for certification and progress tracking
@@ -809,7 +809,7 @@ export const AdvancedAssessmentSystem = () => {
             <Card className="p-4 cursor-pointer hover:shadow-md transition-shadow" 
                   onClick={() => startAssessment('adaptive')}>
               <div className="text-center space-y-2">
-                <Brain className="h-8 w-8 mx-auto text-purple-500" />
+                <Brain className="h-8 w-8 mx-auto text-halo-orange" />
                 <h3 className="font-semibold">Adaptive Test</h3>
                 <p className="text-sm text-muted-foreground">
                   AI-powered adaptive difficulty based on your performance
@@ -822,27 +822,27 @@ export const AdvancedAssessmentSystem = () => {
             <h4 className="font-semibold">Assessment Features:</h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
               <div className="flex items-center gap-2">
-                <CheckCircle className="h-4 w-4 text-green-500" />
+                <CheckCircle className="h-4 w-4 text-accent" />
                 Multiple question types (MC, scenarios, essays)
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle className="h-4 w-4 text-green-500" />
+                <CheckCircle className="h-4 w-4 text-accent" />
                 Detailed performance analytics
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle className="h-4 w-4 text-green-500" />
+                <CheckCircle className="h-4 w-4 text-accent" />
                 Adaptive difficulty adjustment
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle className="h-4 w-4 text-green-500" />
+                <CheckCircle className="h-4 w-4 text-accent" />
                 Personalized learning recommendations
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle className="h-4 w-4 text-green-500" />
+                <CheckCircle className="h-4 w-4 text-accent" />
                 Confidence tracking and hint system
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle className="h-4 w-4 text-green-500" />
+                <CheckCircle className="h-4 w-4 text-accent" />
                 Topic and difficulty breakdowns
               </div>
             </div>

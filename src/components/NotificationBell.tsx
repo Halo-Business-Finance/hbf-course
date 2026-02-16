@@ -30,14 +30,14 @@ const NotificationIcon = ({
   };
   switch (type) {
     case 'success':
-      return <CheckCircle {...iconProps} className="h-4 w-4 text-green-500" />;
+      return <CheckCircle {...iconProps} className="h-4 w-4 text-accent" />;
     case 'warning':
-      return <AlertTriangle {...iconProps} className="h-4 w-4 text-yellow-500" />;
+      return <AlertTriangle {...iconProps} className="h-4 w-4 text-halo-orange" />;
     case 'error':
-      return <AlertCircle {...iconProps} className="h-4 w-4 text-red-500" />;
+      return <AlertCircle {...iconProps} className="h-4 w-4 text-destructive" />;
     case 'info':
     default:
-      return <Info {...iconProps} className="h-4 w-4 text-blue-500" />;
+      return <Info {...iconProps} className="h-4 w-4 text-primary" />;
   }
 };
 export const NotificationBell = () => {
@@ -245,7 +245,7 @@ export const NotificationBell = () => {
                   <Bell className="h-8 w-8 mx-auto mb-2 opacity-50" />
                   No notifications yet
                 </div> : <div className="divide-y">
-                  {notifications.map(notification => <div key={notification.id} className={cn("p-3 hover:bg-muted/50 cursor-pointer transition-colors", !notification.read && "bg-blue-50/50")} onClick={() => handleNotificationClick(notification)}>
+                  {notifications.map(notification => <div key={notification.id} className={cn("p-3 hover:bg-muted/50 cursor-pointer transition-colors", !notification.read && "bg-primary/5")} onClick={() => handleNotificationClick(notification)}>
                       <div className="flex items-start gap-3">
                         <NotificationIcon type={notification.type} />
                         <div className="flex-1 min-w-0">
@@ -253,7 +253,7 @@ export const NotificationBell = () => {
                             <p className={cn("text-sm font-medium line-clamp-1", !notification.read && "font-semibold")}>
                               {notification.title}
                             </p>
-                            {!notification.read && <div className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0" />}
+                            {!notification.read && <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0" />}
                           </div>
                           <p className="text-xs text-muted-foreground line-clamp-2 mb-1">
                             {notification.message}
