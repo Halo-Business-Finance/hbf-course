@@ -271,7 +271,7 @@ export const LiveChatSupport = ({ isOpen, onOpenChange }: LiveChatSupportProps) 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md w-[95vw] h-[600px] p-0 gap-0 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 m-0 z-50">
-        <DialogHeader className="p-4 pb-2 border-b bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-t-lg">
+        <DialogHeader className="p-4 pb-2 border-b bg-gradient-to-r from-halo-navy to-halo-navy/90 text-white rounded-t-lg">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2">
@@ -284,18 +284,18 @@ export const LiveChatSupport = ({ isOpen, onOpenChange }: LiveChatSupportProps) 
                 variant="secondary" 
                 className={`text-xs ${
                   connectionStatus === 'connected' 
-                    ? 'bg-green-100 text-green-700 border-green-200' 
+                    ? 'bg-accent/15 text-accent border-accent/20' 
                     : connectionStatus === 'connecting'
-                    ? 'bg-yellow-100 text-yellow-700 border-yellow-200'
-                    : 'bg-red-100 text-red-700 border-red-200'
+                    ? 'bg-halo-orange/15 text-halo-orange border-halo-orange/20'
+                    : 'bg-destructive/15 text-destructive border-destructive/20'
                 }`}
               >
                 <div className={`w-2 h-2 rounded-full mr-1 ${
                   connectionStatus === 'connected' 
-                    ? 'bg-green-500' 
+                    ? 'bg-accent' 
                     : connectionStatus === 'connecting'
-                    ? 'bg-yellow-500 animate-pulse'
-                    : 'bg-red-500'
+                    ? 'bg-halo-orange animate-pulse'
+                    : 'bg-destructive'
                 }`} />
                 {connectionStatus === 'connected' && 'Online'}
                 {connectionStatus === 'connecting' && 'Connecting...'}
@@ -334,7 +334,7 @@ export const LiveChatSupport = ({ isOpen, onOpenChange }: LiveChatSupportProps) 
                   >
                     {message.sender === 'support' && (
                       <Avatar className="w-8 h-8 flex-shrink-0">
-                        <AvatarFallback className="bg-blue-100 text-blue-700 text-xs">
+                      <AvatarFallback className="bg-primary/15 text-primary text-xs">
                           S
                         </AvatarFallback>
                       </Avatar>
@@ -343,13 +343,13 @@ export const LiveChatSupport = ({ isOpen, onOpenChange }: LiveChatSupportProps) 
                       <div
                         className={`rounded-lg px-3 py-2 text-sm whitespace-pre-line ${
                           message.sender === 'user'
-                            ? 'bg-blue-600 text-white'
-                            : 'bg-gray-100 text-gray-900 border'
+                            ? 'bg-halo-navy text-white'
+                            : 'bg-muted text-foreground border'
                         }`}
                       >
                         {message.content}
                       </div>
-                      <div className="flex items-center gap-1 text-xs text-gray-500 mt-1">
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground mt-1">
                         {message.senderName && (
                           <span className="font-medium">{message.senderName}</span>
                         )}
@@ -359,7 +359,7 @@ export const LiveChatSupport = ({ isOpen, onOpenChange }: LiveChatSupportProps) 
                     </div>
                     {message.sender === 'user' && (
                       <Avatar className="w-8 h-8 flex-shrink-0">
-                        <AvatarFallback className="bg-green-100 text-green-700 text-xs">
+                        <AvatarFallback className="bg-accent/15 text-accent text-xs">
                           {getUserName().charAt(0).toUpperCase()}
                         </AvatarFallback>
                       </Avatar>
@@ -370,15 +370,15 @@ export const LiveChatSupport = ({ isOpen, onOpenChange }: LiveChatSupportProps) 
                 {isTyping && (
                   <div className="flex gap-2 justify-start">
                     <Avatar className="w-8 h-8 flex-shrink-0">
-                      <AvatarFallback className="bg-blue-100 text-blue-700 text-xs">
+                      <AvatarFallback className="bg-primary/15 text-primary text-xs">
                         S
                       </AvatarFallback>
                     </Avatar>
-                    <div className="bg-gray-100 border rounded-lg px-3 py-2 text-sm">
+                    <div className="bg-muted border rounded-lg px-3 py-2 text-sm">
                       <div className="flex gap-1">
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                        <div className="w-2 h-2 bg-muted-foreground/50 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                        <div className="w-2 h-2 bg-muted-foreground/50 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                        <div className="w-2 h-2 bg-muted-foreground/50 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
                       </div>
                     </div>
                   </div>
@@ -387,7 +387,7 @@ export const LiveChatSupport = ({ isOpen, onOpenChange }: LiveChatSupportProps) 
               </div>
             </ScrollArea>
 
-            <div className="p-4 border-t bg-gray-50">
+            <div className="p-4 border-t bg-muted/50">
               <div className="flex gap-2">
                 <Input
                   ref={inputRef}
@@ -411,7 +411,7 @@ export const LiveChatSupport = ({ isOpen, onOpenChange }: LiveChatSupportProps) 
                   <Send className="h-4 w-4" />
                 </Button>
               </div>
-              <div className="text-xs text-gray-500 mt-2 text-center">
+              <div className="text-xs text-muted-foreground mt-2 text-center">
                 Powered by FinPilot Support • Response time: ~2 minutes
               </div>
             </div>

@@ -66,8 +66,8 @@ export const FinancialCalculator = () => {
     if (!result) return null;
     const principalAmount = parseFloat(principal);
     return [
-      { label: "Principal", value: principalAmount, color: "bg-blue-500" },
-      { label: "Interest", value: result.totalInterest, color: "bg-red-500" }
+      { label: "Principal", value: principalAmount, color: "bg-primary" },
+      { label: "Interest", value: result.totalInterest, color: "bg-destructive" }
     ];
   };
 
@@ -167,7 +167,7 @@ export const FinancialCalculator = () => {
         </div>
 
         {/* Interest-Only Period Toggle */}
-        <Card className="bg-blue-50/50 border-blue-200">
+        <Card className="bg-primary/5 border-primary/20">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <Label htmlFor="interest-only" className="text-base font-semibold cursor-pointer">
@@ -191,12 +191,12 @@ export const FinancialCalculator = () => {
             <h2 className="text-xl font-bold">Payment Breakdown</h2>
             
             {/* Monthly Payment - Large Display */}
-            <Card className="bg-blue-50/50 border-blue-200">
+            <Card className="bg-primary/5 border-primary/20">
               <CardContent className="p-6 text-center">
                 <p className="text-sm text-muted-foreground font-medium mb-2">
                   MONTHLY PAYMENT
                 </p>
-                <p className="text-5xl font-bold text-blue-600">
+                <p className="text-5xl font-bold text-primary">
                   {formatCurrency(result.monthlyPayment)}
                 </p>
                 <p className="text-sm text-muted-foreground mt-2">
@@ -207,7 +207,7 @@ export const FinancialCalculator = () => {
 
             {/* Total Amount Paid & Total Interest */}
             <div className="grid grid-cols-2 gap-4">
-              <Card className="border-2 border-blue-200">
+              <Card className="border-2 border-primary/20">
                 <CardContent className="p-4">
                   <p className="text-xs text-muted-foreground font-medium mb-1">
                     TOTAL AMOUNT PAID
