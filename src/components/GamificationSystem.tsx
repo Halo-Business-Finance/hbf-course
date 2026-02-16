@@ -256,21 +256,21 @@ export const GamificationSystem = () => {
 
   const getRarityColor = (rarity: string) => {
     switch (rarity) {
-      case 'common': return 'bg-gray-100 border-gray-300 text-gray-700';
-      case 'rare': return 'bg-blue-100 border-blue-300 text-blue-700';
-      case 'epic': return 'bg-purple-100 border-purple-300 text-purple-700';
-      case 'legendary': return 'bg-yellow-100 border-yellow-300 text-yellow-700';
-      default: return 'bg-gray-100 border-gray-300 text-gray-700';
+      case 'common': return 'bg-muted border-border text-muted-foreground';
+      case 'rare': return 'bg-primary/10 border-primary/30 text-primary';
+      case 'epic': return 'bg-halo-orange/10 border-halo-orange/30 text-halo-orange';
+      case 'legendary': return 'bg-halo-orange/15 border-halo-orange/40 text-halo-orange';
+      default: return 'bg-muted border-border text-muted-foreground';
     }
   };
 
   const getChallengeTypeColor = (type: string) => {
     switch (type) {
-      case 'daily': return 'bg-green-100 text-green-700';
-      case 'weekly': return 'bg-blue-100 text-blue-700';
-      case 'monthly': return 'bg-purple-100 text-purple-700';
-      case 'special': return 'bg-yellow-100 text-yellow-700';
-      default: return 'bg-gray-100 text-gray-700';
+      case 'daily': return 'bg-accent/15 text-accent';
+      case 'weekly': return 'bg-primary/15 text-primary';
+      case 'monthly': return 'bg-halo-orange/15 text-halo-orange';
+      case 'special': return 'bg-halo-orange/20 text-halo-orange';
+      default: return 'bg-muted text-muted-foreground';
     }
   };
 
@@ -353,38 +353,38 @@ export const GamificationSystem = () => {
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-r from-yellow-50 to-yellow-100">
+        <Card className="bg-gradient-to-r from-halo-orange/10 to-halo-orange/5">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Total Points</p>
-                <p className="text-2xl font-bold text-yellow-600">{userStats.totalPoints.toLocaleString()}</p>
+                <p className="text-2xl font-bold text-halo-orange">{userStats.totalPoints.toLocaleString()}</p>
               </div>
-              <Trophy className="h-8 w-8 text-yellow-600" />
+              <Trophy className="h-8 w-8 text-halo-orange" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-r from-orange-50 to-orange-100">
+        <Card className="bg-gradient-to-r from-halo-orange/10 to-halo-orange/5">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Current Streak</p>
-                <p className="text-2xl font-bold text-orange-600">{userStats.streak} days</p>
+                <p className="text-2xl font-bold text-halo-orange">{userStats.streak} days</p>
               </div>
-              <Flame className="h-8 w-8 text-orange-600" />
+              <Flame className="h-8 w-8 text-halo-orange" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-r from-green-50 to-green-100">
+        <Card className="bg-gradient-to-r from-accent/10 to-accent/5">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Leaderboard Rank</p>
-                <p className="text-2xl font-bold text-green-600">#{userStats.rank}</p>
+                <p className="text-2xl font-bold text-accent">#{userStats.rank}</p>
               </div>
-              <TrendingUp className="h-8 w-8 text-green-600" />
+              <TrendingUp className="h-8 w-8 text-accent" />
             </div>
           </CardContent>
         </Card>

@@ -86,16 +86,16 @@ export const EnhancedProgressTracking = () => {
   if (!metrics) return null;
 
   const getProgressColor = (percentage: number) => {
-    if (percentage >= 80) return 'text-green-600';
-    if (percentage >= 60) return 'text-blue-600';
-    if (percentage >= 40) return 'text-yellow-600';
-    return 'text-red-600';
+    if (percentage >= 80) return 'text-accent';
+    if (percentage >= 60) return 'text-primary';
+    if (percentage >= 40) return 'text-halo-orange';
+    return 'text-destructive';
   };
 
   const getStreakColor = (streak: number) => {
-    if (streak >= 7) return 'text-orange-500';
-    if (streak >= 3) return 'text-yellow-500';
-    return 'text-gray-500';
+    if (streak >= 7) return 'text-halo-orange';
+    if (streak >= 3) return 'text-halo-orange/70';
+    return 'text-muted-foreground';
   };
 
   return (
@@ -107,23 +107,23 @@ export const EnhancedProgressTracking = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="bg-gradient-to-r from-blue-50 to-green-50 border border-blue-200 rounded-lg p-4"
+            className="bg-gradient-to-r from-primary/5 to-accent/5 border border-primary/20 rounded-lg p-4"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="relative">
-                  <Timer className="h-5 w-5 text-blue-600" />
-                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                  <Timer className="h-5 w-5 text-primary" />
+                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-accent rounded-full animate-pulse"></div>
                 </div>
                 <div>
-                  <p className="font-medium text-blue-900">Learning Session Active</p>
-                  <p className="text-sm text-blue-700">
+                  <p className="font-medium text-foreground">Learning Session Active</p>
+                  <p className="text-sm text-muted-foreground">
                     {currentSession.activityType} • Started {currentSession.startTime.toLocaleTimeString()}
                   </p>
                 </div>
               </div>
-              <Badge variant="outline" className="border-blue-300 text-blue-700">
-                <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
+              <Badge variant="outline" className="border-primary/30 text-primary">
+                <div className="w-2 h-2 bg-accent rounded-full mr-2 animate-pulse"></div>
                 Live
               </Badge>
             </div>
@@ -171,7 +171,7 @@ export const EnhancedProgressTracking = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Study Time</p>
-                <p className="text-2xl font-bold text-blue-600">
+                <p className="text-2xl font-bold text-primary">
                   {Math.round(metrics.totalTime / 60)}h {metrics.totalTime % 60}m
                 </p>
                 <div className="flex items-center mt-2 text-xs text-muted-foreground">
@@ -179,7 +179,7 @@ export const EnhancedProgressTracking = () => {
                   {metrics.learningVelocity.toFixed(1)} modules/week
                 </div>
               </div>
-              <Clock className="h-8 w-8 text-blue-600" />
+              <Clock className="h-8 w-8 text-primary" />
             </div>
           </CardContent>
         </Card>
@@ -197,7 +197,7 @@ export const EnhancedProgressTracking = () => {
                   {metrics.modulesMastered} mastered
                 </div>
               </div>
-              <Brain className="h-8 w-8 text-purple-600" />
+              <Brain className="h-8 w-8 text-halo-orange" />
             </div>
           </CardContent>
         </Card>
@@ -207,7 +207,7 @@ export const EnhancedProgressTracking = () => {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Star className="h-5 w-5 text-yellow-500" />
+            <Star className="h-5 w-5 text-halo-orange" />
             Personal Learning Goals
           </CardTitle>
         </CardHeader>
@@ -222,14 +222,14 @@ export const EnhancedProgressTracking = () => {
                   key={goal.id}
                   className={`p-4 rounded-lg border-2 transition-all ${
                     isCompleted 
-                      ? 'border-green-300 bg-green-50' 
-                      : 'border-gray-200 bg-white hover:border-primary/30'
+                      ? 'border-accent/30 bg-accent/5' 
+                      : 'border-border bg-card hover:border-primary/30'
                   }`}
                   whileHover={{ scale: 1.02 }}
                 >
                   <div className="flex items-start justify-between mb-3">
                     <h4 className="font-medium text-sm">{goal.title}</h4>
-                    {isCompleted && <CheckCircle className="h-4 w-4 text-green-600" />}
+                    {isCompleted && <CheckCircle className="h-4 w-4 text-accent" />}
                   </div>
                   
                   <div className="space-y-2">
@@ -254,7 +254,7 @@ export const EnhancedProgressTracking = () => {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <TrendingUp className="h-5 w-5 text-blue-500" />
+            <TrendingUp className="h-5 w-5 text-primary" />
             Learning Velocity & Predictions
           </CardTitle>
         </CardHeader>
@@ -304,7 +304,7 @@ export const EnhancedProgressTracking = () => {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Brain className="h-5 w-5 text-purple-500" />
+              <Brain className="h-5 w-5 text-halo-orange" />
               AI-Powered Recommendations
             </CardTitle>
           </CardHeader>
@@ -318,10 +318,10 @@ export const EnhancedProgressTracking = () => {
                   transition={{ delay: index * 0.1 }}
                   className={`p-4 rounded-lg border-l-4 ${
                     rec.priority === 'high' 
-                      ? 'border-red-500 bg-red-50' 
+                      ? 'border-destructive bg-destructive/5' 
                       : rec.priority === 'medium'
-                      ? 'border-yellow-500 bg-yellow-50'
-                      : 'border-blue-500 bg-blue-50'
+                      ? 'border-halo-orange bg-halo-orange/5'
+                      : 'border-primary bg-primary/5'
                   }`}
                 >
                   <div className="flex items-start justify-between">

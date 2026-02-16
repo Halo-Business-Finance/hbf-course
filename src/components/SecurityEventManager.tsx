@@ -167,19 +167,19 @@ export const SecurityEventManager: React.FC = () => {
           {stats && (
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               <div className="text-center p-4 border rounded-lg">
-                <div className="text-2xl font-bold text-red-600">{stats.total_security_threats}</div>
+                <div className="text-2xl font-bold text-destructive">{stats.total_security_threats}</div>
                 <div className="text-sm text-muted-foreground">Real Security Threats (24h)</div>
               </div>
               <div className="text-center p-4 border rounded-lg">
-                <div className="text-2xl font-bold text-orange-600">{stats.critical_threats}</div>
+                <div className="text-2xl font-bold text-halo-orange">{stats.critical_threats}</div>
                 <div className="text-sm text-muted-foreground">Critical Threats (24h)</div>
               </div>
               <div className="text-center p-4 border rounded-lg">
-                <div className="text-2xl font-bold text-yellow-600">{stats.high_severity_events}</div>
+                <div className="text-2xl font-bold text-halo-orange">{stats.high_severity_events}</div>
                 <div className="text-sm text-muted-foreground">High Severity (7d)</div>
               </div>
               <div className="text-center p-4 border rounded-lg">
-                <div className="text-2xl font-bold text-blue-600">{stats.admin_pii_access_24h}</div>
+                <div className="text-2xl font-bold text-primary">{stats.admin_pii_access_24h}</div>
                 <div className="text-sm text-muted-foreground">Admin PII Access (24h)</div>
               </div>
               <div className="text-center p-4 border rounded-lg">
@@ -191,8 +191,8 @@ export const SecurityEventManager: React.FC = () => {
 
           {/* Issues and Recommendations */}
           {stats && stats.routine_events_filtered > 1000 && (
-            <Alert className="border-orange-200 bg-orange-50">
-              <AlertTriangle className="h-4 w-4 text-orange-600" />
+            <Alert className="border-halo-orange/20 bg-halo-orange/5">
+              <AlertTriangle className="h-4 w-4 text-halo-orange" />
               <AlertDescription>
                 <strong>High Volume Alert:</strong> {stats.routine_events_filtered.toLocaleString()} routine events in 24h. 
                 This includes developer tools detection and admin status checks that create noise in your security monitoring.
@@ -234,8 +234,8 @@ export const SecurityEventManager: React.FC = () => {
 
           {/* Cleanup Result */}
           {cleanupResult && (
-            <Alert className="border-green-200 bg-green-50">
-              <CheckCircle className="h-4 w-4 text-green-600" />
+            <Alert className="border-accent/20 bg-accent/5">
+              <CheckCircle className="h-4 w-4 text-accent" />
               <AlertDescription>{cleanupResult}</AlertDescription>
             </Alert>
           )}
@@ -245,21 +245,21 @@ export const SecurityEventManager: React.FC = () => {
             <h4 className="font-medium">Optimization Recommendations:</h4>
             <div className="space-y-2 text-sm text-muted-foreground">
               <div className="flex items-start gap-2">
-                <Shield className="h-4 w-4 mt-0.5 text-green-600" />
+                <Shield className="h-4 w-4 mt-0.5 text-accent" />
                 <span>
                   <strong>Focus on Real Threats:</strong> The system now filters out routine events 
                   (developer tools, admin status checks) and focuses on actual security threats.
                 </span>
               </div>
               <div className="flex items-start gap-2">
-                <Database className="h-4 w-4 mt-0.5 text-blue-600" />
+                <Database className="h-4 w-4 mt-0.5 text-primary" />
                 <span>
                   <strong>Intelligent Rate Limiting:</strong> Routine events are now logged with 
                   intelligent rate limiting to prevent spam while maintaining security oversight.
                 </span>
               </div>
               <div className="flex items-start gap-2">
-                <TrendingDown className="h-4 w-4 mt-0.5 text-purple-600" />
+                <TrendingDown className="h-4 w-4 mt-0.5 text-halo-orange" />
                 <span>
                   <strong>Automatic Cleanup:</strong> Old routine events are automatically cleaned 
                   up after 7 days while keeping security threats for compliance.
