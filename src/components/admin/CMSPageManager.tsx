@@ -253,7 +253,7 @@ export const CMSPageManager = () => {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'published':
-        return <Badge className="bg-green-100 text-green-800">Published</Badge>;
+        return <Badge className="bg-accent/10 text-accent">Published</Badge>;
       case 'draft':
         return <Badge variant="secondary">Draft</Badge>;
       case 'archived':
@@ -487,7 +487,7 @@ export const CMSPageManager = () => {
                       {getStatusBadge(page.status)}
                     </TableCell>
                     <TableCell>
-                      {page.is_homepage && <Badge className="bg-blue-100 text-blue-800"><Globe className="h-3 w-3 mr-1" />Homepage</Badge>}
+                      {page.is_homepage && <Badge className="bg-primary/10 text-primary"><Globe className="h-3 w-3 mr-1" />Homepage</Badge>}
                     </TableCell>
                     <TableCell>
                       <span className="text-sm text-muted-foreground">

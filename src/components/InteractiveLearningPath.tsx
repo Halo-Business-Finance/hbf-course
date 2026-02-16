@@ -231,16 +231,16 @@ export const InteractiveLearningPath = () => {
   const currentPath = learningPaths.find(path => path.id === selectedPath);
   
   const getModuleIcon = (module: LearningPathModule) => {
-    if (module.isCompleted) return <CheckCircle className="h-6 w-6 text-green-600" />;
+    if (module.isCompleted) return <CheckCircle className="h-6 w-6 text-accent" />;
     if (!module.isUnlocked) return <Lock className="h-6 w-6 text-muted-foreground" />;
     return <Play className="h-6 w-6 text-primary" />;
   };
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'beginner': return 'bg-green-100 text-green-800 border-green-200';
-      case 'expert': return 'bg-blue-100 text-blue-800 border-blue-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'beginner': return 'bg-accent/10 text-accent border-accent/20';
+      case 'expert': return 'bg-primary/10 text-primary border-primary/20';
+      default: return 'bg-muted text-muted-foreground border-border';
     }
   };
 
@@ -354,8 +354,8 @@ export const InteractiveLearningPath = () => {
                     transition={{ delay: index * 0.1 }}
                   >
                     <Card className={`transition-all hover:shadow-md ${
-                      module.isCompleted ? 'bg-green-50 border-green-200' : 
-                      !module.isUnlocked ? 'bg-gray-50 border-gray-200' : ''
+                      module.isCompleted ? 'bg-accent/5 border-accent/20' : 
+                      !module.isUnlocked ? 'bg-muted/50 border-border' : ''
                     }`}>
                       <CardContent className="p-6">
                         <div className="flex items-start gap-4">

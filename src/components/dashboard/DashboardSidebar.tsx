@@ -72,8 +72,8 @@ export function DashboardSidebar({
         </div>
         
         {/* Streak indicator */}
-        <div className="flex items-center gap-2 mt-4 p-2 rounded-lg bg-orange-500/10">
-          <Flame className="h-4 w-4 text-orange-500" />
+        <div className="flex items-center gap-2 mt-4 p-2 rounded-lg bg-halo-orange/10">
+          <Flame className="h-4 w-4 text-halo-orange" />
           <span className="text-sm font-medium text-foreground">{currentStreak} day streak</span>
         </div>
       </div>
@@ -222,8 +222,8 @@ export function DashboardSidebar({
               
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-orange-500/10">
-                    <Flame className="h-4 w-4 text-orange-500" />
+                  <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-halo-orange/10">
+                    <Flame className="h-4 w-4 text-halo-orange" />
                   </div>
                 </TooltipTrigger>
                 <TooltipContent side="right">

@@ -154,11 +154,11 @@ export const CreditScoreSimulator = () => {
   };
 
   const getScoreColor = (score: number) => {
-    if (score >= 800) return "text-green-600";
-    if (score >= 740) return "text-blue-600";
-    if (score >= 670) return "text-yellow-600";
-    if (score >= 580) return "text-orange-600";
-    return "text-red-600";
+    if (score >= 800) return "text-accent";
+    if (score >= 740) return "text-primary";
+    if (score >= 670) return "text-halo-orange";
+    if (score >= 580) return "text-halo-orange/70";
+    return "text-destructive";
   };
 
   const getScoreCategory = (score: number) => {
@@ -281,11 +281,11 @@ export const CreditScoreSimulator = () => {
                         </div>
                         <div className="flex items-center justify-center gap-2">
                           {result.impact > 0 ? (
-                            <TrendingUp className="h-4 w-4 text-green-500" />
+                            <TrendingUp className="h-4 w-4 text-accent" />
                           ) : (
-                            <TrendingDown className="h-4 w-4 text-red-500" />
+                            <TrendingDown className="h-4 w-4 text-destructive" />
                           )}
-                          <span className={`font-medium ${result.impact > 0 ? 'text-green-500' : 'text-red-500'}`}>
+                          <span className={`font-medium ${result.impact > 0 ? 'text-accent' : 'text-destructive'}`}>
                             {result.impact > 0 ? '+' : ''}{result.impact} points
                           </span>
                         </div>
@@ -302,7 +302,7 @@ export const CreditScoreSimulator = () => {
                   <CardContent className="p-6">
                     <div className="space-y-4">
                       <div className="flex items-center gap-2">
-                        <AlertTriangle className="h-5 w-5 text-amber-500" />
+                        <AlertTriangle className="h-5 w-5 text-halo-orange" />
                         <span className="font-medium">Impact Analysis</span>
                       </div>
                       <p className="text-muted-foreground leading-relaxed">{result.description}</p>
@@ -336,9 +336,9 @@ export const CreditScoreSimulator = () => {
                               </Badge>
                             </div>
                             <div className="flex items-center gap-2">
-                              {factor.impact === 'positive' && <TrendingUp className="h-4 w-4 text-green-500" />}
-                              {factor.impact === 'negative' && <TrendingDown className="h-4 w-4 text-red-500" />}
-                              {factor.impact === 'neutral' && <CheckCircle className="h-4 w-4 text-blue-500" />}
+                              {factor.impact === 'positive' && <TrendingUp className="h-4 w-4 text-accent" />}
+                              {factor.impact === 'negative' && <TrendingDown className="h-4 w-4 text-destructive" />}
+                              {factor.impact === 'neutral' && <CheckCircle className="h-4 w-4 text-primary" />}
                               <span className="text-sm">{factor.current}%</span>
                             </div>
                           </div>
@@ -365,7 +365,7 @@ export const CreditScoreSimulator = () => {
                     <div className="space-y-4">
                       {result.tips.map((tip, index) => (
                         <div key={index} className="flex items-start gap-3 p-3 bg-muted/30 rounded-lg">
-                          <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                          <CheckCircle className="h-5 w-5 text-accent mt-0.5 flex-shrink-0" />
                           <span className="text-sm leading-relaxed">{tip}</span>
                         </div>
                       ))}
@@ -373,13 +373,13 @@ export const CreditScoreSimulator = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="border-0 shadow-md bg-blue-50">
+                <Card className="border-0 shadow-md bg-primary/5">
                   <CardContent className="p-4">
-                    <div className="flex items-center gap-2 text-blue-700 mb-2">
+                    <div className="flex items-center gap-2 text-primary mb-2">
                       <Target className="h-5 w-5" />
                       <span className="font-medium">Pro Tip</span>
                     </div>
-                    <p className="text-sm text-blue-600">
+                    <p className="text-sm text-primary/80">
                       Consistency is key for credit improvement. Small, regular positive actions compound over time to create significant score improvements.
                     </p>
                   </CardContent>

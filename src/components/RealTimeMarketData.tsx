@@ -239,16 +239,16 @@ export const RealTimeMarketData = () => {
 
   const getSentimentColor = (sentiment: string) => {
     switch (sentiment) {
-      case 'positive': return 'text-green-600';
-      case 'negative': return 'text-red-600';
+      case 'positive': return 'text-accent';
+      case 'negative': return 'text-destructive';
       default: return 'text-muted-foreground';
     }
   };
 
   const getImpactIcon = (impact: string) => {
     switch (impact) {
-      case 'positive': return <TrendingUp className="h-4 w-4 text-green-600" />;
-      case 'negative': return <TrendingDown className="h-4 w-4 text-red-600" />;
+      case 'positive': return <TrendingUp className="h-4 w-4 text-accent" />;
+      case 'negative': return <TrendingDown className="h-4 w-4 text-destructive" />;
       default: return <Activity className="h-4 w-4 text-muted-foreground" />;
     }
   };
@@ -337,7 +337,7 @@ export const RealTimeMarketData = () => {
                       <p className="text-xs text-muted-foreground">{stock.sector}</p>
                     </div>
                     <Badge variant="outline" className="text-xs">
-                      {isLive && <div className="w-2 h-2 bg-green-500 rounded-full mr-1 animate-pulse" />}
+                      {isLive && <div className="w-2 h-2 bg-accent rounded-full mr-1 animate-pulse" />}
                       Live
                     </Badge>
                   </div>
@@ -346,13 +346,13 @@ export const RealTimeMarketData = () => {
                     <p className="text-2xl font-bold">{formatCurrency(stock.price)}</p>
                     <div className="flex items-center gap-2">
                       <span className={`text-sm font-medium flex items-center gap-1 ${
-                        stock.change >= 0 ? 'text-green-600' : 'text-red-600'
+                        stock.change >= 0 ? 'text-accent' : 'text-destructive'
                       }`}>
                         {stock.change >= 0 ? <TrendingUp className="h-3 w-3" /> : <TrendingDown className="h-3 w-3" />}
                         {formatCurrency(Math.abs(stock.change))}
                       </span>
                       <span className={`text-sm ${
-                        stock.changePercent >= 0 ? 'text-green-600' : 'text-red-600'
+                        stock.changePercent >= 0 ? 'text-accent' : 'text-destructive'
                       }`}>
                         {formatPercent(stock.changePercent)}
                       </span>
@@ -427,7 +427,7 @@ export const RealTimeMarketData = () => {
                       </p>
                       <div className="flex items-center gap-2 mt-1">
                         <span className={`text-sm font-medium flex items-center gap-1 ${
-                          indicator.change >= 0 ? 'text-green-600' : 'text-red-600'
+                          indicator.change >= 0 ? 'text-accent' : 'text-destructive'
                         }`}>
                           {indicator.change >= 0 ? <TrendingUp className="h-3 w-3" /> : <TrendingDown className="h-3 w-3" />}
                           {Math.abs(indicator.change)}
@@ -453,23 +453,23 @@ export const RealTimeMarketData = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded-lg">
-                  <h5 className="font-medium text-yellow-800">Rising Interest Rates</h5>
-                  <p className="text-sm text-yellow-700 mt-1">
+                <div className="p-4 bg-halo-orange/10 border-l-4 border-halo-orange rounded-lg">
+                  <h5 className="font-medium text-halo-orange">Rising Interest Rates</h5>
+                  <p className="text-sm text-halo-orange/80 mt-1">
                     Current Fed funds rate of 5.25% benefits net interest margins but may increase credit risk.
                   </p>
                 </div>
                 
-                <div className="p-4 bg-green-50 border-l-4 border-green-400 rounded-lg">
-                  <h5 className="font-medium text-green-800">Strong Employment</h5>
-                  <p className="text-sm text-green-700 mt-1">
+                <div className="p-4 bg-accent/10 border-l-4 border-accent rounded-lg">
+                  <h5 className="font-medium text-accent">Strong Employment</h5>
+                  <p className="text-sm text-accent/80 mt-1">
                     Low unemployment at 3.7% supports consumer spending and reduces default risk.
                   </p>
                 </div>
                 
-                <div className="p-4 bg-blue-50 border-l-4 border-blue-400 rounded-lg">
-                  <h5 className="font-medium text-blue-800">Moderate GDP Growth</h5>
-                  <p className="text-sm text-blue-700 mt-1">
+                <div className="p-4 bg-primary/10 border-l-4 border-primary rounded-lg">
+                  <h5 className="font-medium text-primary">Moderate GDP Growth</h5>
+                  <p className="text-sm text-primary/80 mt-1">
                     GDP growth of 2.1% indicates stable economic conditions for lending activities.
                   </p>
                 </div>

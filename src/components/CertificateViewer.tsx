@@ -185,9 +185,9 @@ export const CertificateViewer = ({
         </div>
 
         {/* Footer Details */}
-        <div className="flex justify-between items-end pt-6 border-t border-gray-200 relative z-10">
+        <div className="flex justify-between items-end pt-6 border-t border-border relative z-10">
           <div className="text-center">
-            <p className="text-[9px] tracking-[0.15em] uppercase text-gray-400">Date</p>
+            <p className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground">Date</p>
             <p className="text-sm font-semibold text-[#0a1628]">
               {new Date(completionDate).toLocaleDateString("en-US", {
                 year: "numeric",

@@ -47,18 +47,18 @@ const STATUS_ICONS: Record<ModuleStatus, ReactElement> = {
   "in-progress": <PlayCircle className="h-5 w-5 text-primary" />,
   locked: <Lock className="h-5 w-5 text-muted-foreground" />,
   available: <PlayCircle className="h-5 w-5 text-primary" />,
-  "quiz-required": <AlertCircle className="h-5 w-5 text-orange-600" />
+  "quiz-required": <AlertCircle className="h-5 w-5 text-halo-orange" />
 };
 
 /**
  * Status text configuration with professional styling
  */
 const STATUS_TEXT: Record<ModuleStatus, { text: string; className: string }> = {
-  completed: { text: "COMPLETED", className: "text-xs font-semibold tracking-wider text-emerald-700 border-l-4 border-emerald-700 pl-2" },
+  completed: { text: "COMPLETED", className: "text-xs font-semibold tracking-wider text-accent border-l-4 border-accent pl-2" },
   "in-progress": { text: "IN PROGRESS", className: "text-xs font-semibold tracking-wider text-primary border-l-4 border-primary pl-2" },
   locked: { text: "LOCKED", className: "text-xs font-semibold tracking-wider text-muted-foreground border-l-4 border-muted-foreground pl-2" },
-  available: { text: "AVAILABLE", className: "text-xs font-semibold tracking-wider text-emerald-600 border-l-4 border-emerald-600 pl-2" },
-  "quiz-required": { text: "QUIZ REQUIRED", className: "text-xs font-semibold tracking-wider text-orange-700 border-l-4 border-orange-700 pl-2" }
+  available: { text: "AVAILABLE", className: "text-xs font-semibold tracking-wider text-accent border-l-4 border-accent pl-2" },
+  "quiz-required": { text: "QUIZ REQUIRED", className: "text-xs font-semibold tracking-wider text-halo-orange border-l-4 border-halo-orange pl-2" }
 };
 
 /**
@@ -135,7 +135,7 @@ const ModuleCard = ({
     // Show quiz-specific status if quiz is required but not passed
     if (quizStatus.attempts > 0 && !quizStatus.passed) {
       return (
-        <div className="flex items-center gap-2 text-xs font-semibold tracking-wider text-orange-700 border-l-4 border-orange-700 pl-2">
+        <div className="flex items-center gap-2 text-xs font-semibold tracking-wider text-halo-orange border-l-4 border-halo-orange pl-2">
           <AlertCircle className="h-3 w-3" />
           <span>QUIZ: {quizStatus.score}% (NEED 70%)</span>
         </div>
@@ -145,7 +145,7 @@ const ModuleCard = ({
     // Show trophy if quiz is passed
     if (quizStatus.passed) {
       return (
-        <div className="flex items-center gap-2 text-xs font-semibold tracking-wider text-emerald-700 border-l-4 border-emerald-700 pl-2">
+        <div className="flex items-center gap-2 text-xs font-semibold tracking-wider text-accent border-l-4 border-accent pl-2">
           <Trophy className="h-3 w-3" />
           <span>QUIZ PASSED ({quizStatus.score}%)</span>
         </div>
@@ -239,14 +239,14 @@ const ModuleCard = ({
 
         {/* Quiz status indicator */}
         {quizStatus.attempts > 0 && !quizStatus.passed && (
-          <div className="p-3 bg-orange-50 border border-orange-200 rounded-lg">
+          <div className="p-3 bg-halo-orange/10 border border-halo-orange/20 rounded-lg">
             <div className="flex items-center gap-2 text-sm">
-              <AlertCircle className="h-4 w-4 text-orange-600" />
-              <span className="text-orange-700 font-medium">
+              <AlertCircle className="h-4 w-4 text-halo-orange" />
+              <span className="text-halo-orange font-medium">
                 Quiz Score: {quizStatus.score}% (Attempts: {quizStatus.attempts}/3)
               </span>
             </div>
-            <p className="text-xs text-orange-600 mt-1">
+            <p className="text-xs text-halo-orange/80 mt-1">
               Complete the module quiz with 70% or higher to proceed
             </p>
           </div>

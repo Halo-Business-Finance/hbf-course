@@ -531,15 +531,15 @@ export const GamificationSystem = () => {
                     className={`p-6 rounded-lg border-2 transition-all ${
                       achievement.unlocked 
                         ? getRarityColor(achievement.rarity)
-                        : 'bg-gray-50 border-gray-200 opacity-60'
+                        : 'bg-muted/50 border-border opacity-60'
                     }`}
                   >
                     <div className="flex items-start gap-4">
-                      <div className={`p-3 rounded-lg ${achievement.unlocked ? 'bg-white' : 'bg-gray-200'}`}>
+                      <div className={`p-3 rounded-lg ${achievement.unlocked ? 'bg-card' : 'bg-muted'}`}>
                         {achievement.unlocked ? (
                           <IconComponent className="h-8 w-8" />
                         ) : (
-                          <Lock className="h-8 w-8 text-gray-400" />
+                          <Lock className="h-8 w-8 text-muted-foreground" />
                         )}
                       </div>
                       <div className="flex-1">
@@ -578,13 +578,13 @@ export const GamificationSystem = () => {
           >
             <div className="space-y-4">
               {challenges.map((challenge) => (
-                <Card key={challenge.id} className={challenge.completed ? 'bg-green-50' : ''}>
+                <Card key={challenge.id} className={challenge.completed ? 'bg-accent/5' : ''}>
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between mb-4">
                       <div>
                         <h4 className="font-semibold flex items-center gap-2">
                           {challenge.title}
-                          {challenge.completed && <CheckCircle className="h-4 w-4 text-green-600" />}
+                          {challenge.completed && <CheckCircle className="h-4 w-4 text-accent" />}
                         </h4>
                         <p className="text-sm text-muted-foreground">{challenge.description}</p>
                       </div>
@@ -619,7 +619,7 @@ export const GamificationSystem = () => {
                         </Button>
                       )}
                       {challenge.completed && (
-                        <Badge variant="outline" className="bg-green-50 text-green-700">
+                        <Badge variant="outline" className="bg-accent/5 text-accent">
                           Completed
                         </Badge>
                       )}
@@ -657,9 +657,9 @@ export const GamificationSystem = () => {
                     >
                       <div className="flex items-center gap-4">
                         <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${
-                          entry.rank === 1 ? 'bg-yellow-500 text-white' :
-                          entry.rank === 2 ? 'bg-gray-400 text-white' :
-                          entry.rank === 3 ? 'bg-orange-500 text-white' :
+                          entry.rank === 1 ? 'bg-halo-orange text-white' :
+                          entry.rank === 2 ? 'bg-muted-foreground/60 text-white' :
+                          entry.rank === 3 ? 'bg-halo-orange/70 text-white' :
                           'bg-muted text-muted-foreground'
                         }`}>
                           {entry.rank <= 3 ? <Crown className="h-4 w-4" /> : entry.rank}

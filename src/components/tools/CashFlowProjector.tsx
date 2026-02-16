@@ -102,27 +102,27 @@ export const CashFlowProjector = () => {
   };
 
   const getHealthColor = (cashFlow: number) => {
-    if (cashFlow >= 10000) return "text-green-600";
-    if (cashFlow >= 0) return "text-yellow-600";
-    return "text-red-600";
+    if (cashFlow >= 10000) return "text-accent";
+    if (cashFlow >= 0) return "text-halo-orange";
+    return "text-destructive";
   };
 
   const getHealthStatus = (data: CashFlowData[]) => {
-    if (data.length === 0) return { status: "Unknown", color: "text-gray-600" };
+    if (data.length === 0) return { status: "Unknown", color: "text-muted-foreground" };
     
     const lastMonth = data[data.length - 1];
     const avgCashFlow = data.reduce((sum, month) => sum + month.netCashFlow, 0) / data.length;
     
     if (lastMonth.cumulativeCashFlow > parseFloat(inputs.startingCash) && avgCashFlow > 0) {
-      return { status: "Healthy Growth", color: "text-green-600" };
+      return { status: "Healthy Growth", color: "text-accent" };
     }
     if (lastMonth.cumulativeCashFlow > 0 && avgCashFlow >= 0) {
-      return { status: "Stable", color: "text-blue-600" };
+      return { status: "Stable", color: "text-primary" };
     }
     if (lastMonth.cumulativeCashFlow > 0) {
-      return { status: "At Risk", color: "text-yellow-600" };
+      return { status: "At Risk", color: "text-halo-orange" };
     }
-    return { status: "Critical", color: "text-red-600" };
+    return { status: "Critical", color: "text-destructive" };
   };
 
   const healthStatus = getHealthStatus(projectionData);
@@ -238,22 +238,22 @@ export const CashFlowProjector = () => {
 
               <TabsContent value="overview" className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                  <Card className="border-0 shadow-md bg-gradient-to-br from-green-50 to-green-100/50">
+                  <Card className="border-0 shadow-md bg-accent/5">
                     <CardContent className="p-6 text-center">
                       <Label className="text-sm text-muted-foreground font-medium">Final Cash Position</Label>
                       <div className={`text-3xl font-bold mt-2 ${getHealthColor(projectionData[projectionData.length - 1]?.cumulativeCashFlow)}`}>
                         {formatCurrency(projectionData[projectionData.length - 1]?.cumulativeCashFlow || 0)}
                       </div>
-                      <Badge className={`mt-2 ${healthStatus.color.includes('green') ? 'bg-green-100 text-green-700' : healthStatus.color.includes('red') ? 'bg-red-100 text-red-700' : 'bg-yellow-100 text-yellow-700'}`}>
+                      <Badge className={`mt-2 ${healthStatus.color.includes('accent') ? 'bg-accent/10 text-accent' : healthStatus.color.includes('destructive') ? 'bg-destructive/10 text-destructive' : 'bg-halo-orange/10 text-halo-orange'}`}>
                         {healthStatus.status}
                       </Badge>
                     </CardContent>
                   </Card>
                   
-                  <Card className="border-0 shadow-md bg-gradient-to-br from-blue-50 to-blue-100/50">
+                  <Card className="border-0 shadow-md bg-primary/5">
                     <CardContent className="p-6 text-center">
                       <Label className="text-sm text-muted-foreground font-medium">Break-Even Month</Label>
-                      <div className="text-3xl font-bold text-blue-600 mt-2">
+                      <div className="text-3xl font-bold text-primary mt-2">
                         {breakEvenMonth ? `Month ${breakEvenMonth}` : "Not Reached"}
                       </div>
                       <Badge variant="outline" className="mt-2">
@@ -262,10 +262,10 @@ export const CashFlowProjector = () => {
                     </CardContent>
                   </Card>
                   
-                  <Card className="border-0 shadow-md bg-gradient-to-br from-amber-50 to-amber-100/50">
+                  <Card className="border-0 shadow-md bg-halo-orange/5">
                     <CardContent className="p-6 text-center">
                       <Label className="text-sm text-muted-foreground font-medium">Cash Runway</Label>
-                      <div className="text-3xl font-bold text-amber-600 mt-2">
+                      <div className="text-3xl font-bold text-halo-orange mt-2">
                         {runwayMonths ? `${runwayMonths} Months` : "∞"}
                       </div>
                       <Badge variant="outline" className="mt-2">
@@ -274,10 +274,10 @@ export const CashFlowProjector = () => {
                     </CardContent>
                   </Card>
                   
-                  <Card className="border-0 shadow-md bg-gradient-to-br from-purple-50 to-purple-100/50">
+                  <Card className="border-0 shadow-md bg-primary/5">
                     <CardContent className="p-6 text-center">
                       <Label className="text-sm text-muted-foreground font-medium">Avg Monthly Burn</Label>
-                      <div className="text-3xl font-bold text-purple-600 mt-2">
+                      <div className="text-3xl font-bold text-primary mt-2">
                         {formatCurrency(projectionData.reduce((sum, month) => sum + month.burnRate, 0) / projectionData.length)}
                       </div>
                       <Badge variant="outline" className="mt-2">
@@ -348,8 +348,8 @@ export const CashFlowProjector = () => {
                           {projectionData.map((month) => (
                             <tr key={month.month} className="border-b hover:bg-muted/50">
                               <td className="p-2 font-medium">{month.month}</td>
-                              <td className="p-2 text-green-600">{formatCurrency(month.revenue)}</td>
-                              <td className="p-2 text-red-600">{formatCurrency(month.expenses)}</td>
+                              <td className="p-2 text-accent">{formatCurrency(month.revenue)}</td>
+                              <td className="p-2 text-destructive">{formatCurrency(month.expenses)}</td>
                               <td className={`p-2 font-medium ${getHealthColor(month.netCashFlow)}`}>
                                 {month.netCashFlow >= 0 ? '+' : ''}{formatCurrency(month.netCashFlow)}
                               </td>
@@ -368,13 +368,13 @@ export const CashFlowProjector = () => {
               <TabsContent value="analysis" className="space-y-6">
                 <div className="grid gap-6">
                   {runwayMonths && runwayMonths <= 6 && (
-                    <Card className="border-0 shadow-md bg-red-50 border-red-200">
+                    <Card className="border-0 shadow-md bg-destructive/5 border-destructive/20">
                       <CardContent className="p-4">
-                        <div className="flex items-center gap-2 text-red-700 mb-2">
+                        <div className="flex items-center gap-2 text-destructive mb-2">
                           <AlertTriangle className="h-5 w-5" />
                           <span className="font-medium">Critical Cash Flow Warning</span>
                         </div>
-                        <p className="text-sm text-red-600">
+                        <p className="text-sm text-destructive/80">
                           Your business is projected to run out of cash in {runwayMonths} months. 
                           Consider immediate action to reduce expenses or increase revenue.
                         </p>
@@ -383,13 +383,13 @@ export const CashFlowProjector = () => {
                   )}
 
                   {!breakEvenMonth && (
-                    <Card className="border-0 shadow-md bg-yellow-50 border-yellow-200">
+                    <Card className="border-0 shadow-md bg-halo-orange/5 border-halo-orange/20">
                       <CardContent className="p-4">
-                        <div className="flex items-center gap-2 text-yellow-700 mb-2">
+                        <div className="flex items-center gap-2 text-halo-orange mb-2">
                           <AlertTriangle className="h-5 w-5" />
                           <span className="font-medium">Break-Even Not Achieved</span>
                         </div>
-                        <p className="text-sm text-yellow-600">
+                        <p className="text-sm text-halo-orange/80">
                           Your business doesn't reach profitability in the projection period. 
                           Consider strategies to increase revenue or reduce costs.
                         </p>

@@ -135,15 +135,15 @@ export const SecurityComplianceStatus: React.FC<SecurityComplianceStatusProps> =
       </CardHeader>
       <CardContent className="space-y-6">
         {/* Overall Security Score */}
-        <div className="flex items-center justify-between p-4 rounded-lg border border-green-200 bg-blue-50">
+        <div className="flex items-center justify-between p-4 rounded-lg border border-accent/20 bg-accent/5">
           <div className="flex items-center gap-3">
-            <CheckCircle className="h-6 w-6 text-green-600" />
+            <CheckCircle className="h-6 w-6 text-accent" />
             <div>
-              <h3 className="font-semibold text-black">Security Status: Excellent</h3>
-              <p className="text-sm text-black">All critical security measures are active</p>
+              <h3 className="font-semibold text-foreground">Security Status: Excellent</h3>
+              <p className="text-sm text-muted-foreground">All critical security measures are active</p>
             </div>
           </div>
-          <span className="text-sm font-medium text-green-800">
+          <span className="text-sm font-medium text-accent">
             95% Secure
           </span>
         </div>
@@ -203,8 +203,8 @@ export const SecurityComplianceStatus: React.FC<SecurityComplianceStatusProps> =
                 <span className="text-sm font-medium">Data Retention</span>
               </div>
               <div className="flex items-center gap-2">
-                {metrics.dataRetentionCompliant ? <CheckCircle className="h-4 w-4 text-green-600" /> : <AlertTriangle className="h-4 w-4 text-red-600" />}
-                <span className={`text-sm ${metrics.dataRetentionCompliant ? "text-green-700" : "text-red-700"}`}>
+                {metrics.dataRetentionCompliant ? <CheckCircle className="h-4 w-4 text-accent" /> : <AlertTriangle className="h-4 w-4 text-destructive" />}
+                <span className={`text-sm ${metrics.dataRetentionCompliant ? "text-accent" : "text-destructive"}`}>
                   {metrics.dataRetentionCompliant ? 'Compliant' : 'Non-Compliant'}
                 </span>
               </div>
@@ -216,8 +216,8 @@ export const SecurityComplianceStatus: React.FC<SecurityComplianceStatusProps> =
                 <span className="text-sm font-medium">Admin Monitoring</span>
               </div>
               <div className="flex items-center gap-2">
-                {metrics.adminActivityMonitored ? <CheckCircle className="h-4 w-4 text-green-600" /> : <AlertTriangle className="h-4 w-4 text-red-600" />}
-                <span className={`text-sm ${metrics.adminActivityMonitored ? "text-green-700" : "text-red-700"}`}>
+                {metrics.adminActivityMonitored ? <CheckCircle className="h-4 w-4 text-accent" /> : <AlertTriangle className="h-4 w-4 text-destructive" />}
+                <span className={`text-sm ${metrics.adminActivityMonitored ? "text-accent" : "text-destructive"}`}>
                   {metrics.adminActivityMonitored ? 'Active' : 'Inactive'}
                 </span>
               </div>
@@ -229,18 +229,18 @@ export const SecurityComplianceStatus: React.FC<SecurityComplianceStatusProps> =
         <div className="border-t pt-4">
           <div className="flex items-center justify-between mb-3">
             <h4 className="font-medium text-sm">Security Alerts</h4>
-            <span className={`text-sm font-medium ${totalAlerts === 0 ? "text-green-700" : "text-yellow-700"}`}>
+            <span className={`text-sm font-medium ${totalAlerts === 0 ? "text-accent" : "text-halo-orange"}`}>
               {totalAlerts} Total
             </span>
           </div>
           <div className="grid grid-cols-3 gap-4 text-center">
-            <div className="p-3 rounded-lg border border-red-200 bg-blue-50">
-              <div className="text-lg font-bold text-red-700">{metrics.criticalAlerts}</div>
-              <div className="text-xs text-red-600">Critical</div>
+            <div className="p-3 rounded-lg border border-destructive/20 bg-destructive/5">
+              <div className="text-lg font-bold text-destructive">{metrics.criticalAlerts}</div>
+              <div className="text-xs text-destructive/80">Critical</div>
             </div>
-            <div className="p-3 rounded-lg border border-yellow-200 bg-blue-50">
-              <div className="text-lg font-bold text-yellow-700">{metrics.mediumAlerts}</div>
-              <div className="text-xs text-yellow-600">Medium</div>
+            <div className="p-3 rounded-lg border border-halo-orange/20 bg-halo-orange/5">
+              <div className="text-lg font-bold text-halo-orange">{metrics.mediumAlerts}</div>
+              <div className="text-xs text-halo-orange/80">Medium</div>
             </div>
             <div className="p-3 rounded-lg bg-blue-50 border border-blue-200">
               <div className="text-lg font-bold text-blue-700">{metrics.lowAlerts}</div>

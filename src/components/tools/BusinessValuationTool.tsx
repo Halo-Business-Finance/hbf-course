@@ -144,9 +144,9 @@ export const BusinessValuationTool = () => {
   };
 
   const getConfidenceColor = (confidence: number) => {
-    if (confidence >= 80) return "text-green-600";
-    if (confidence >= 60) return "text-yellow-600";
-    return "text-red-600";
+    if (confidence >= 80) return "text-accent";
+    if (confidence >= 60) return "text-halo-orange";
+    return "text-destructive";
   };
 
   const getConfidenceLevel = (confidence: number) => {
@@ -284,10 +284,10 @@ export const BusinessValuationTool = () => {
 
               <TabsContent value="overview" className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <Card className="border-0 shadow-md bg-gradient-to-br from-emerald-50 to-emerald-100/50">
+                  <Card className="border-0 shadow-md bg-accent/5">
                     <CardContent className="p-6 text-center">
                       <Label className="text-sm text-muted-foreground font-medium">Estimated Business Value</Label>
-                      <div className="text-4xl font-bold text-emerald-600 mt-2 animate-fade-in">
+                      <div className="text-4xl font-bold text-accent mt-2 animate-fade-in">
                         {formatCurrency(animatedValues.weighted)}
                       </div>
                       <Badge variant="outline" className="mt-2">
@@ -296,7 +296,7 @@ export const BusinessValuationTool = () => {
                     </CardContent>
                   </Card>
                   
-                  <Card className="border-0 shadow-md bg-gradient-to-br from-blue-50 to-blue-100/50">
+                  <Card className="border-0 shadow-md bg-primary/5">
                     <CardContent className="p-6 text-center">
                       <Label className="text-sm text-muted-foreground font-medium">Confidence Level</Label>
                       <div className={`text-4xl font-bold mt-2 animate-fade-in ${getConfidenceColor(result.confidence)}`}>
@@ -333,7 +333,7 @@ export const BusinessValuationTool = () => {
                       </div>
                       <div className="flex justify-between items-center text-lg font-bold border-t pt-2">
                         <span>Most Likely Value</span>
-                        <span className="text-emerald-600">{formatCurrency(result.weightedAverage)}</span>
+                        <span className="text-accent">{formatCurrency(result.weightedAverage)}</span>
                       </div>
                     </div>
                   </CardContent>
@@ -346,7 +346,7 @@ export const BusinessValuationTool = () => {
                     <CardContent className="p-6">
                       <div className="flex justify-between items-center mb-4">
                         <h3 className="font-semibold text-lg">Asset-Based Approach</h3>
-                        <div className="text-2xl font-bold text-blue-600">
+                        <div className="text-2xl font-bold text-primary">
                           {formatCurrency(animatedValues.asset)}
                         </div>
                       </div>
@@ -361,7 +361,7 @@ export const BusinessValuationTool = () => {
                     <CardContent className="p-6">
                       <div className="flex justify-between items-center mb-4">
                         <h3 className="font-semibold text-lg">Income-Based Approach</h3>
-                        <div className="text-2xl font-bold text-green-600">
+                        <div className="text-2xl font-bold text-accent">
                           {formatCurrency(animatedValues.income)}
                         </div>
                       </div>
@@ -376,7 +376,7 @@ export const BusinessValuationTool = () => {
                     <CardContent className="p-6">
                       <div className="flex justify-between items-center mb-4">
                         <h3 className="font-semibold text-lg">Market-Based Approach</h3>
-                        <div className="text-2xl font-bold text-purple-600">
+                        <div className="text-2xl font-bold text-halo-orange">
                           {formatCurrency(animatedValues.market)}
                         </div>
                       </div>
@@ -443,13 +443,13 @@ export const BusinessValuationTool = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="border-0 shadow-md bg-amber-50">
+                <Card className="border-0 shadow-md bg-halo-orange/5">
                   <CardContent className="p-4">
-                    <div className="flex items-center gap-2 text-amber-700 mb-2">
+                    <div className="flex items-center gap-2 text-halo-orange mb-2">
                       <Target className="h-5 w-5" />
                       <span className="font-medium">Valuation Notes</span>
                     </div>
-                    <ul className="text-sm text-amber-600 space-y-1 list-disc list-inside">
+                    <ul className="text-sm text-halo-orange/80 space-y-1 list-disc list-inside">
                       <li>This valuation is an estimate based on provided financial data</li>
                       <li>Actual business value may vary based on market conditions and buyer perception</li>
                       <li>Consider professional appraisal for legal or transaction purposes</li>
