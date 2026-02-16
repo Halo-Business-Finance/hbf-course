@@ -264,7 +264,7 @@ const Article = () => {
   }
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-background min-h-screen">
       {/* Article Header */}
       <div className="relative h-96 sm:h-[28rem] md:h-[32rem] overflow-hidden">
         <img 
@@ -277,7 +277,7 @@ const Article = () => {
 
       <div className="container mx-auto px-4 py-8">
         {/* Back Button */}
-        <Link to="/blog" className="inline-flex items-center gap-2 text-black hover:text-primary mb-6">
+        <Link to="/blog" className="inline-flex items-center gap-2 text-foreground hover:text-primary mb-6">
           <ArrowLeft className="h-4 w-4" />
           Back to Blog
         </Link>
@@ -286,10 +286,10 @@ const Article = () => {
           {/* Article Meta */}
           <div className="mb-6">
             <Badge className="bg-halo-navy text-halo-orange mb-4">{article.category}</Badge>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-4 leading-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4 leading-tight">
               {article.title}
             </h1>
-            <div className="flex flex-wrap items-center gap-4 text-sm text-black">
+            <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
               <span>By {article.author}</span>
               <div className="flex items-center gap-1">
                 <Calendar className="h-4 w-4" />
@@ -316,7 +316,7 @@ const Article = () => {
             <CardContent className="p-6 md:p-8">
               <SecureHtmlRenderer
                 content={article.content}
-                className="prose prose-lg max-w-none text-black"
+                className="prose prose-lg max-w-none text-foreground"
                 maxLength={100000}
                 onSecurityViolation={(violation) => {
                   logger.security('ARTICLE_CONTENT_VIOLATION', { 
@@ -330,7 +330,7 @@ const Article = () => {
 
           {/* Related Articles CTA */}
           <div className="mt-12 text-center">
-            <h3 className="text-xl font-bold text-black mb-4">Continue Reading</h3>
+            <h3 className="text-xl font-bold text-foreground mb-4">Continue Reading</h3>
             <Link to="/blog">
               <Button className="bg-halo-navy text-halo-orange hover:bg-halo-navy/90">
                 Explore More Articles
