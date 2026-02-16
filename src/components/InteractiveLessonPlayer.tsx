@@ -397,7 +397,7 @@ const IntroductionSection = ({ content }: { content: any }) => (
                 <Star
                   key={i}
                   className={`h-4 w-4 ${
-                    i < content.difficulty ? 'text-yellow-400 fill-current' : 'text-gray-300'
+                    i < content.difficulty ? 'text-halo-orange fill-current' : 'text-muted-foreground/30'
                   }`}
                 />
               ))}
