@@ -283,6 +283,7 @@ export const LessonModal = ({ isOpen, onClose, lesson, moduleTitle, moduleId }: 
               <EnhancedVideoSection 
                 lesson={lesson} 
                 moduleTitle={moduleTitle}
+                moduleId={moduleId}
                 onNotesTake={handleTakeNotes}
                 notesCount={lessonNotesCount}
               />
