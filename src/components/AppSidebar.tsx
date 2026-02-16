@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { BookOpen, Home, BarChart3, Award, Target, FileText, User, LogIn, Lock, Trophy } from "lucide-react";
+import { BookOpen, Home, BarChart3, Award, Target, FileText, User, LogIn, Lock, Trophy, Users, ShieldCheck, GraduationCap, Palette, UsersRound } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useCourseSelection } from "@/contexts/CourseSelectionContext";
 import { useAdminRole } from "@/hooks/useAdminRole";
@@ -261,6 +261,44 @@ export function AppSidebar({
               </div>
             </SidebarGroupContent>
           </SidebarGroup>}
+
+        {/* Admin/Manager Tools - Only visible to admins */}
+        {user && isAdmin && (
+          <>
+            <div className="px-4 py-2">
+              <Separator className="bg-gradient-to-r from-border/50 to-transparent" />
+            </div>
+            <SidebarGroup className="pt-1">
+              <SidebarGroupLabel className="pb-1">
+                {!collapsed && <span className="text-xs font-semibold text-muted-foreground tracking-wide uppercase">Admin Tools</span>}
+              </SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu className="space-y-1">
+                  {[
+                    { title: "Team Analytics", url: "/team-analytics", icon: Users },
+                    { title: "Cohorts", url: "/cohorts", icon: UsersRound },
+                    { title: "Compliance", url: "/compliance", icon: ShieldCheck },
+                    { title: "Certifications", url: "/certifications", icon: GraduationCap },
+                    { title: "Branding", url: "/branding", icon: Palette },
+                  ].map(item => (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton asChild>
+                        <button
+                          onClick={() => handleNavigation(item.url)}
+                          className={`w-full flex items-center ${collapsed ? 'justify-center px-2' : 'justify-start px-4 gap-3'} text-foreground hover:text-foreground py-2 rounded-lg transition-all duration-200 min-h-[2.75rem]`}
+                          aria-label={item.title}
+                        >
+                          <item.icon className="h-5 w-5 text-primary flex-shrink-0" />
+                          {!collapsed && <span className="text-foreground text-xs font-medium">{item.title}</span>}
+                        </button>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          </>
+        )}
 
         {/* Authentication - Only show if not logged in */}
         {!user && <SidebarGroup className="-mt-2">
