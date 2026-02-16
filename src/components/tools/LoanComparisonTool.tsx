@@ -101,13 +101,13 @@ export const LoanComparisonTool = () => {
       <CardContent className="space-y-6">
         <div className="space-y-4">
           {loans.map((loan, index) => (
-            <Card key={loan.id} className={`${bestOption?.id === loan.id ? 'ring-2 ring-green-500' : ''}`}>
+            <Card key={loan.id} className={`${bestOption?.id === loan.id ? 'ring-2 ring-accent' : ''}`}>
               <CardHeader className="pb-3">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-lg">Loan Option {index + 1}</CardTitle>
                   <div className="flex items-center gap-2">
                     {bestOption?.id === loan.id && (
-                      <Badge variant="success" className="bg-green-100 text-green-800">
+                      <Badge variant="success" className="bg-accent/10 text-accent">
                         Best Option
                       </Badge>
                     )}
@@ -189,10 +189,10 @@ export const LoanComparisonTool = () => {
         </div>
 
         {calculated && bestOption && (
-          <Card className="bg-green-50 border-green-200">
+          <Card className="bg-accent/5 border-accent/20">
             <CardContent className="p-4">
               <div className="flex items-center gap-2 mb-2">
-                <Badge variant="success" className="bg-green-100 text-green-800">
+                <Badge variant="success" className="bg-accent/10 text-accent">
                   Recommended
                 </Badge>
                 <span className="font-medium">Best Overall Value</span>

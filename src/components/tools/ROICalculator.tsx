@@ -109,19 +109,19 @@ export const ROICalculator = () => {
   };
 
   const getROIColor = (roi: number) => {
-    if (roi >= 20) return "text-emerald-600";
-    if (roi >= 10) return "text-green-600";
-    if (roi >= 5) return "text-blue-600";
-    if (roi >= 0) return "text-yellow-600";
-    return "text-red-600";
+    if (roi >= 20) return "text-accent";
+    if (roi >= 10) return "text-accent";
+    if (roi >= 5) return "text-primary";
+    if (roi >= 0) return "text-halo-orange";
+    return "text-destructive";
   };
 
   const getRiskLevel = (roi: number) => {
-    if (roi >= 20) return { level: "High Risk/High Reward", color: "bg-red-100 text-red-700" };
-    if (roi >= 10) return { level: "Moderate Risk", color: "bg-yellow-100 text-yellow-700" };
-    if (roi >= 5) return { level: "Conservative", color: "bg-green-100 text-green-700" };
-    if (roi >= 0) return { level: "Low Risk", color: "bg-blue-100 text-blue-700" };
-    return { level: "Loss", color: "bg-red-100 text-red-700" };
+    if (roi >= 20) return { level: "High Risk/High Reward", color: "bg-destructive/10 text-destructive" };
+    if (roi >= 10) return { level: "Moderate Risk", color: "bg-halo-orange/10 text-halo-orange" };
+    if (roi >= 5) return { level: "Conservative", color: "bg-accent/10 text-accent" };
+    if (roi >= 0) return { level: "Low Risk", color: "bg-primary/10 text-primary" };
+    return { level: "Loss", color: "bg-destructive/10 text-destructive" };
   };
 
   return (
@@ -196,7 +196,7 @@ export const ROICalculator = () => {
 
               <TabsContent value="analysis" className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <Card className="border-0 shadow-md bg-gradient-to-br from-blue-50 to-blue-100/50">
+                  <Card className="border-0 shadow-md bg-primary/5">
                     <CardContent className="p-6 text-center">
                       <Label className="text-sm text-muted-foreground font-medium">ROI Percentage</Label>
                       <div className={`text-4xl font-bold mt-2 animate-fade-in ${getROIColor(animatedROI)}`}>
@@ -208,10 +208,10 @@ export const ROICalculator = () => {
                     </CardContent>
                   </Card>
                   
-                  <Card className="border-0 shadow-md bg-gradient-to-br from-green-50 to-green-100/50">
+                  <Card className="border-0 shadow-md bg-accent/5">
                     <CardContent className="p-6 text-center">
                       <Label className="text-sm text-muted-foreground font-medium">Profit/Loss</Label>
-                      <div className={`text-4xl font-bold mt-2 animate-fade-in ${animatedProfit >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                      <div className={`text-4xl font-bold mt-2 animate-fade-in ${animatedProfit >= 0 ? 'text-accent' : 'text-destructive'}`}>
                         {formatCurrency(animatedProfit)}
                       </div>
                       <Badge variant="outline" className="mt-2">
@@ -220,7 +220,7 @@ export const ROICalculator = () => {
                     </CardContent>
                   </Card>
                   
-                  <Card className="border-0 shadow-md bg-gradient-to-br from-purple-50 to-purple-100/50">
+                  <Card className="border-0 shadow-md bg-halo-orange/5">
                     <CardContent className="p-6 text-center">
                       <Label className="text-sm text-muted-foreground font-medium">Annualized ROI</Label>
                       <div className={`text-4xl font-bold mt-2 animate-fade-in ${getROIColor(result.annualizedROI || 0)}`}>
@@ -280,7 +280,7 @@ export const ROICalculator = () => {
                         </div>
                         <div className="flex justify-between text-lg font-bold">
                           <span>Net Gain/Loss</span>
-                          <span className={result.profit >= 0 ? 'text-green-600' : 'text-red-600'}>
+                          <span className={result.profit >= 0 ? 'text-accent' : 'text-destructive'}>
                             {formatCurrency(result.profit)}
                           </span>
                         </div>
@@ -334,35 +334,35 @@ export const ROICalculator = () => {
                   <CardContent>
                     <div className="space-y-4">
                       {result.roi >= 15 && (
-                        <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-                          <h4 className="font-medium text-green-800">Excellent Return</h4>
-                          <p className="text-sm text-green-600 mt-1">
+                        <div className="p-4 bg-accent/10 border border-accent/20 rounded-lg">
+                          <h4 className="font-medium text-accent">Excellent Return</h4>
+                          <p className="text-sm text-accent/80 mt-1">
                             Your investment shows strong performance with a {formatPercentage(result.roi)} return.
                           </p>
                         </div>
                       )}
                       
                       {result.roi >= 5 && result.roi < 15 && (
-                        <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                          <h4 className="font-medium text-blue-800">Solid Performance</h4>
-                          <p className="text-sm text-blue-600 mt-1">
+                        <div className="p-4 bg-primary/10 border border-primary/20 rounded-lg">
+                          <h4 className="font-medium text-primary">Solid Performance</h4>
+                          <p className="text-sm text-primary/80 mt-1">
                             Your investment shows steady growth with a {formatPercentage(result.roi)} return.
                           </p>
                         </div>
                       )}
                       
                       {result.roi < 0 && (
-                        <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-                          <h4 className="font-medium text-red-800">Investment Loss</h4>
-                          <p className="text-sm text-red-600 mt-1">
+                        <div className="p-4 bg-destructive/10 border border-destructive/20 rounded-lg">
+                          <h4 className="font-medium text-destructive">Investment Loss</h4>
+                          <p className="text-sm text-destructive/80 mt-1">
                             Consider reviewing your investment strategy to minimize future losses.
                           </p>
                         </div>
                       )}
 
-                      <div className="p-4 bg-purple-50 border border-purple-200 rounded-lg">
-                        <h4 className="font-medium text-purple-800">Recommendation</h4>
-                        <p className="text-sm text-purple-600 mt-1">
+                      <div className="p-4 bg-halo-orange/10 border border-halo-orange/20 rounded-lg">
+                        <h4 className="font-medium text-halo-orange">Recommendation</h4>
+                        <p className="text-sm text-halo-orange/80 mt-1">
                           {result.roi >= 10 
                             ? "This investment aligns well with growth objectives. Consider similar opportunities."
                             : result.roi >= 0

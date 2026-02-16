@@ -82,7 +82,7 @@ export function BadgeDisplay({ badges, userBadges, showLocked = true }: BadgeDis
                             <motion.div
                               initial={{ scale: 0 }}
                               animate={{ scale: 1 }}
-                              className="absolute -top-1 -right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center"
+                              className="absolute -top-1 -right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center"
                             >
                               <span className="text-white text-xs">✓</span>
                             </motion.div>

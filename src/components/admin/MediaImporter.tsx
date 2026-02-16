@@ -507,7 +507,7 @@ export const MediaImporter = () => {
                 </div>
               </div>
               {imported.includes(image.filename) ? (
-                <Badge variant="secondary" className="bg-green-100 text-green-800">
+                <Badge variant="secondary" className="bg-accent/10 text-accent">
                   <Check className="h-3 w-3 mr-1" />
                   Imported
                 </Badge>

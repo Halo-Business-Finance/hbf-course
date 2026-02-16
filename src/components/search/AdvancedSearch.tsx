@@ -197,13 +197,13 @@ export function AdvancedSearch({ trigger }: AdvancedSearchProps) {
   const getTypeColor = (type: string) => {
     switch (type) {
       case 'course':
-        return 'bg-blue-500/10 text-blue-600';
+        return 'bg-primary/10 text-primary';
       case 'module':
-        return 'bg-purple-500/10 text-purple-600';
+        return 'bg-halo-orange/10 text-halo-orange';
       case 'video':
-        return 'bg-red-500/10 text-red-600';
+        return 'bg-destructive/10 text-destructive';
       case 'article':
-        return 'bg-green-500/10 text-green-600';
+        return 'bg-accent/10 text-accent';
       default:
         return 'bg-muted text-muted-foreground';
     }

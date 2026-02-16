@@ -456,13 +456,13 @@ export const SecurityMonitoringDashboard = () => {
           </CardContent>
         </Card>
 
-        <Card className="col-span-1 border-orange-500/30">
+        <Card className="col-span-1 border-halo-orange/30">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
-              <AlertCircle className="h-5 w-5 text-orange-500" />
+              <AlertCircle className="h-5 w-5 text-halo-orange" />
             </div>
             <div className="mt-2">
-              <div className="text-2xl font-bold text-orange-500">{stats?.high_threats || 0}</div>
+              <div className="text-2xl font-bold text-halo-orange">{stats?.high_threats || 0}</div>
               <p className="text-xs text-muted-foreground">High</p>
             </div>
           </CardContent>

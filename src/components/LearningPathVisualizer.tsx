@@ -29,26 +29,26 @@ export const LearningPathVisualizer = ({
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'completed':
-        return <CheckCircle className="h-6 w-6 text-green-500" />;
+        return <CheckCircle className="h-6 w-6 text-accent" />;
       case 'current':
-        return <Play className="h-6 w-6 text-blue-500" />;
+        return <Play className="h-6 w-6 text-primary" />;
       case 'locked':
-        return <Lock className="h-6 w-6 text-gray-400" />;
+        return <Lock className="h-6 w-6 text-muted-foreground" />;
       default:
-        return <Circle className="h-6 w-6 text-gray-400" />;
+        return <Circle className="h-6 w-6 text-muted-foreground" />;
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'completed':
-        return 'border-green-500 bg-green-50';
+        return 'border-accent bg-accent/5';
       case 'current':
-        return 'border-blue-500 bg-blue-50 shadow-lg';
+        return 'border-primary bg-primary/5 shadow-lg';
       case 'locked':
-        return 'border-gray-300 bg-gray-50';
+        return 'border-border bg-muted/50';
       default:
-        return 'border-gray-300 bg-white';
+        return 'border-border bg-card';
     }
   };
 
@@ -74,7 +74,7 @@ export const LearningPathVisualizer = ({
       <Star
         key={i}
         className={`h-3 w-3 ${
-          i < difficulty ? 'text-yellow-400 fill-current' : 'text-gray-300'
+          i < difficulty ? 'text-halo-orange fill-current' : 'text-muted-foreground/30'
         }`}
       />
     ));
@@ -105,17 +105,17 @@ export const LearningPathVisualizer = ({
           
           <div className="grid grid-cols-3 gap-4 text-center">
             <div>
-              <div className="text-2xl font-bold text-green-600">{completedLessons}</div>
+              <div className="text-2xl font-bold text-accent">{completedLessons}</div>
               <div className="text-xs text-muted-foreground">Completed</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-blue-600">
+              <div className="text-2xl font-bold text-primary">
                 {learningPath.filter(p => p.status === 'current').length}
               </div>
               <div className="text-xs text-muted-foreground">Current</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-gray-600">
+              <div className="text-2xl font-bold text-muted-foreground">
                 {learningPath.filter(p => p.status === 'locked').length}
               </div>
               <div className="text-xs text-muted-foreground">Upcoming</div>
@@ -130,7 +130,7 @@ export const LearningPathVisualizer = ({
           <div key={pathItem.lesson.id} className="relative">
             {/* Connection Line */}
             {index < learningPath.length - 1 && (
-              <div className="absolute left-6 top-20 w-0.5 h-8 bg-gray-300 z-0" />
+              <div className="absolute left-6 top-20 w-0.5 h-8 bg-border z-0" />
             )}
             
             {/* Lesson Card */}

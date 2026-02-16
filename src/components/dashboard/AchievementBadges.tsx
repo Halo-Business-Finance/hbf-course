@@ -27,12 +27,12 @@ const iconMap = {
 };
 
 const colorMap: Record<string, string> = {
-  gold: "from-yellow-400 to-amber-600",
-  silver: "from-gray-300 to-gray-500",
-  bronze: "from-orange-400 to-orange-700",
-  platinum: "from-cyan-300 to-blue-500",
-  emerald: "from-emerald-400 to-green-600",
-  purple: "from-purple-400 to-violet-600",
+  gold: "from-halo-orange to-halo-orange/70",
+  silver: "from-muted-foreground/60 to-muted-foreground/40",
+  bronze: "from-halo-orange/80 to-halo-orange/50",
+  platinum: "from-primary to-primary/70",
+  emerald: "from-accent to-accent/70",
+  purple: "from-primary/80 to-primary/50",
 };
 
 export function AchievementBadges({ badges, className }: AchievementBadgesProps) {
@@ -77,7 +77,7 @@ export function AchievementBadges({ badges, className }: AchievementBadgesProps)
                     )}
                     
                     {badge.unlocked && (
-                      <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-background flex items-center justify-center">
+                      <div className="absolute -top-1 -right-1 w-4 h-4 bg-accent rounded-full border-2 border-background flex items-center justify-center">
                         <svg className="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                         </svg>

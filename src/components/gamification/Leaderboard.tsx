@@ -77,9 +77,9 @@ export function Leaderboard() {
   };
 
   const getRankIcon = (rank: number) => {
-    if (rank === 1) return <Trophy className="w-5 h-5 text-yellow-500" />;
-    if (rank === 2) return <Medal className="w-5 h-5 text-gray-400" />;
-    if (rank === 3) return <Award className="w-5 h-5 text-amber-600" />;
+    if (rank === 1) return <Trophy className="w-5 h-5 text-halo-orange" />;
+    if (rank === 2) return <Medal className="w-5 h-5 text-muted-foreground" />;
+    if (rank === 3) return <Award className="w-5 h-5 text-halo-orange/70" />;
     return <span className="text-sm font-bold text-muted-foreground">#{rank}</span>;
   };
 

@@ -57,10 +57,10 @@ export function EnhancedCourseCard({
           <span className={cn(
             "px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-sm border",
             difficulty === "Expert" 
-              ? "bg-red-500/20 text-red-300 border-red-500/30" 
+              ? "bg-destructive/20 text-destructive border-destructive/30" 
               : difficulty === "Multiple Levels"
-                ? "bg-purple-500/20 text-purple-300 border-purple-500/30"
-                : "bg-emerald-500/20 text-emerald-300 border-emerald-500/30"
+                ? "bg-primary/20 text-primary border-primary/30"
+                : "bg-accent/20 text-accent border-accent/30"
           )}>
             {difficulty}
           </span>
@@ -69,7 +69,7 @@ export function EnhancedCourseCard({
         {/* Completion badge */}
         {isCompleted && (
           <div className="absolute top-4 right-4">
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-green-500/90 text-white text-xs font-semibold">
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-accent/90 text-white text-xs font-semibold">
               <CheckCircle2 className="h-3.5 w-3.5" />
               Completed
             </div>
