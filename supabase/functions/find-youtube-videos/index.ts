@@ -85,13 +85,56 @@ serve(async (req) => {
       if (ev.youtube_id) usedYoutubeIds.add(ev.youtube_id);
     }
 
+    // Helper to build a hyper-specific YouTube search query from the module
+    const buildSearchQuery = (moduleTitle: string, description: string | null): string => {
+      // Extract the most meaningful keywords from the title
+      // Remove generic words that won't help narrow results
+      const stopWords = new Set(['and', 'or', 'the', 'a', 'an', 'of', 'in', 'for', 'to', 'with', 'how', 'what', 'why', 'when', 'is', 'are', 'be', 'by', 'on', 'at', 'it']);
+      
+      const titleWords = moduleTitle
+        .replace(/[^a-zA-Z0-9 ]/g, ' ')
+        .split(' ')
+        .filter(w => w.length > 2 && !stopWords.has(w.toLowerCase()))
+        .slice(0, 6)
+        .join(' ');
+
+      // Pull unique subject keywords from description
+      const descKeywords = description
+        ? description
+            .replace(/[^a-zA-Z0-9 ]/g, ' ')
+            .split(' ')
+            .filter(w => w.length > 4 && !stopWords.has(w.toLowerCase()))
+            .slice(0, 4)
+            .join(' ')
+        : '';
+
+      // Determine domain context from the title for sharper results
+      const titleLower = moduleTitle.toLowerCase();
+      let domainContext = 'finance training';
+      if (titleLower.includes('sba')) domainContext = 'SBA loan banker training';
+      else if (titleLower.includes('commercial real estate') || titleLower.includes('cre')) domainContext = 'commercial real estate loan';
+      else if (titleLower.includes('construction')) domainContext = 'construction loan lending';
+      else if (titleLower.includes('equipment')) domainContext = 'equipment financing loan';
+      else if (titleLower.includes('invoice') || titleLower.includes('factoring')) domainContext = 'invoice factoring business finance';
+      else if (titleLower.includes('merchant cash')) domainContext = 'merchant cash advance business';
+      else if (titleLower.includes('working capital')) domainContext = 'working capital loan business';
+      else if (titleLower.includes('asset')) domainContext = 'asset based lending finance';
+      else if (titleLower.includes('bridge')) domainContext = 'bridge loan real estate';
+      else if (titleLower.includes('franchise')) domainContext = 'franchise financing loan';
+      else if (titleLower.includes('healthcare')) domainContext = 'healthcare business financing';
+      else if (titleLower.includes('restaurant')) domainContext = 'restaurant business loan';
+      else if (titleLower.includes('underwriting') || titleLower.includes('credit')) domainContext = 'commercial credit underwriting';
+      else if (titleLower.includes('compliance')) domainContext = 'lending compliance banking';
+      else if (titleLower.includes('financial analysis')) domainContext = 'financial statement analysis banking';
+      else if (titleLower.includes('term loan')) domainContext = 'business term loan commercial';
+      else if (titleLower.includes('line of credit')) domainContext = 'business line of credit';
+
+      return `${titleWords} ${domainContext} ${descKeywords}`.trim().replace(/\s+/g, ' ');
+    };
+
     for (const module of modules || []) {
       try {
-        // Build a more specific search query using title + description snippet
-        const descSnippet = module.description
-          ? module.description.replace(/[^a-zA-Z0-9 ]/g, '').split(' ').slice(0, 8).join(' ')
-          : '';
-        const specificQuery = `${module.title} ${descSnippet} commercial lending training`.trim();
+        const specificQuery = buildSearchQuery(module.title, module.description);
         const searchQuery = encodeURIComponent(specificQuery);
         
         // Request more results so we can skip duplicates
