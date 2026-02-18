@@ -595,18 +595,18 @@ export function VideoManager() {
               <Button 
                 onClick={handleFindYouTubeVideos}
                 disabled={searchingYouTube}
-                className="w-full"
+                className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
               >
                 {searchingYouTube ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  <span className="flex items-center gap-2 text-primary-foreground">
+                    <Loader2 className="h-4 w-4 animate-spin" />
                     Searching...
-                  </>
+                  </span>
                 ) : (
-                  <>
-                    <Youtube className="mr-2 h-4 w-4" />
+                  <span className="flex items-center gap-2 text-primary-foreground">
+                    <Youtube className="h-4 w-4" />
                     Search YouTube
-                  </>
+                  </span>
                 )}
               </Button>
             </div>
