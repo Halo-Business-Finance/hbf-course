@@ -72,10 +72,30 @@ serve(async (req) => {
 
     const results = [];
 
+    // Track used YouTube IDs to prevent duplicate videos across modules
+    const usedYoutubeIds = new Set<string>();
+
+    // Pre-load already-used YouTube IDs from DB
+    const { data: existingVideos } = await supabase
+      .from('course_videos')
+      .select('youtube_id, module_id')
+      .not('youtube_id', 'is', null);
+
+    for (const ev of existingVideos || []) {
+      if (ev.youtube_id) usedYoutubeIds.add(ev.youtube_id);
+    }
+
     for (const module of modules || []) {
       try {
-        const searchQuery = encodeURIComponent(`${module.title} business finance commercial lending tutorial`);
-        const youtubeSearchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${searchQuery}&type=video&key=${YOUTUBE_API_KEY}`;
+        // Build a more specific search query using title + description snippet
+        const descSnippet = module.description
+          ? module.description.replace(/[^a-zA-Z0-9 ]/g, '').split(' ').slice(0, 8).join(' ')
+          : '';
+        const specificQuery = `${module.title} ${descSnippet} commercial lending training`.trim();
+        const searchQuery = encodeURIComponent(specificQuery);
+        
+        // Request more results so we can skip duplicates
+        const youtubeSearchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${searchQuery}&type=video&key=${YOUTUBE_API_KEY}`;
 
         const youtubeResponse = await fetch(youtubeSearchUrl);
         
@@ -91,8 +111,18 @@ serve(async (req) => {
           continue;
         }
 
-        const video = youtubeData.items[0];
+        // Pick the first result that hasn't been used by another module
+        const uniqueVideo = youtubeData.items.find((item: any) => !usedYoutubeIds.has(item.id.videoId));
+
+        if (!uniqueVideo) {
+          results.push({ module_id: module.id, title: module.title, status: 'no_unique_results' });
+          continue;
+        }
+
+        const video = uniqueVideo;
         const videoId = video.id.videoId;
+        // Mark this ID as used so subsequent modules don't reuse it
+        usedYoutubeIds.add(videoId);
         const videoTitle = video.snippet.title;
         const videoDescription = video.snippet.description;
         const thumbnailUrl = video.snippet.thumbnails.high?.url || video.snippet.thumbnails.default?.url;
@@ -130,7 +160,8 @@ serve(async (req) => {
       created: results.filter(r => r.status === 'created').length,
       updated: results.filter(r => r.status === 'updated').length,
       errors: results.filter(r => r.status === 'error').length,
-      no_results: results.filter(r => r.status === 'no_results').length
+      no_results: results.filter(r => r.status === 'no_results').length,
+      no_unique_results: results.filter(r => r.status === 'no_unique_results').length
     };
 
     return new Response(JSON.stringify({ success: true, summary, results }), { headers, status: 200 });
