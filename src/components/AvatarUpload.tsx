@@ -96,15 +96,26 @@ export const AvatarUpload = ({ currentAvatar, userInitials, onAvatarUpdate }: Av
         return;
       }
 
-      // Get the public URL
-      const { data: { publicUrl } } = supabase.storage
+      // Generate a long-lived signed URL (1 year) for the avatar
+      const { data: signedUrlData, error: signedUrlError } = await supabase.storage
         .from('avatars')
-        .getPublicUrl(data.path);
+        .createSignedUrl(data.path, 60 * 60 * 24 * 365);
+
+      if (signedUrlError || !signedUrlData?.signedUrl) {
+        toast({
+          title: "Upload failed",
+          description: "Could not generate secure avatar URL.",
+          variant: "destructive"
+        });
+        return;
+      }
+
+      const avatarUrl = signedUrlData.signedUrl;
 
       // Update profile with new avatar URL
       const { error: updateError } = await supabase
         .from('profiles')
-        .update({ avatar_url: publicUrl })
+        .update({ avatar_url: avatarUrl })
         .eq('user_id', user.id);
 
       if (updateError) {
@@ -116,7 +127,7 @@ export const AvatarUpload = ({ currentAvatar, userInitials, onAvatarUpdate }: Av
         return;
       }
 
-      onAvatarUpdate(publicUrl);
+      onAvatarUpdate(avatarUrl);
       setIsOpen(false);
       
       toast({
