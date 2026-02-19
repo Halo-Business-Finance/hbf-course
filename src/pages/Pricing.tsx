@@ -133,20 +133,20 @@ const Pricing = () => {
       />
       <div className="bg-background min-h-screen">
       {/* Hero Section */}
-      <div className="relative h-96 sm:h-[28rem] md:h-[32rem] lg:h-[32rem] overflow-hidden">
+      <div className="relative h-72 sm:h-80 md:h-[28rem] overflow-hidden">
         <img 
           src={pricingHero} 
           alt="Professional learning online with computer" 
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-halo-navy/85 via-halo-navy/60 to-transparent flex items-center">
-          <div className="container mx-auto px-4">
+          <div className="page-container">
             <div className="max-w-2xl text-white">
-              <Badge className="mb-4 bg-white/15 text-white border border-white/30 backdrop-blur-sm">
-                <Zap className="h-3.5 w-3.5 mr-2" />
+              <Badge className="mb-3 sm:mb-4 bg-white/15 text-white border border-white/30 backdrop-blur-sm text-xs sm:text-sm">
+                <Zap className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1.5 sm:mr-2" />
                 Pricing Plans
               </Badge>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight">Choose Your Learning Plan</h1>
+              <h1 className="hero-title mb-3 sm:mb-4 leading-tight">Choose Your Learning Plan</h1>
               <p className="text-sm sm:text-base md:text-lg max-w-3xl leading-relaxed text-white/90">
                 Invest in your future with our comprehensive finance and lending education programs. 
                 Start with a 3-day free trial and see the difference quality training makes.
@@ -156,7 +156,7 @@ const Pricing = () => {
         </div>
       </div>
       
-      <div className="container mx-auto px-4 py-6 md:py-8">
+      <div className="page-container py-6 md:py-8">
         <div className="text-center mb-6 md:mb-8">
           <div className="inline-flex items-center gap-2 bg-halo-navy text-white px-3 md:px-4 py-2 rounded-full text-xs md:text-sm font-medium">
             <Check className="h-3 w-3 md:h-4 md:w-4 text-white" />
@@ -188,9 +188,9 @@ const Pricing = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto mb-12 md:mb-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto mb-12 md:mb-16">
         {plans.map((plan) => (
-          <Card key={plan.name} className={`relative ${plan.popular ? 'border-primary shadow-lg scale-105 ring-2 ring-primary/20' : 'border-2 border-halo-navy shadow-md'}`}>
+          <Card key={plan.name} className={`relative ${plan.popular ? 'border-primary shadow-lg ring-2 ring-primary/20' : 'border-2 border-halo-navy shadow-md'}`}>
             {plan.popular && (
               <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-primary">
                 Most Popular
@@ -251,10 +251,10 @@ const Pricing = () => {
 
       {/* Testimonials Section */}
       <div className="mb-16">
-        <h2 className="text-2xl font-bold text-center mb-8 text-foreground">What Our Students Say</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <h2 className="section-title text-center mb-6 sm:mb-8 text-foreground">What Our Students Say</h2>
+        <div className="card-grid-2 max-w-4xl mx-auto">
           {testimonials.map((testimonial, index) => (
-            <Card key={index} className="p-6">
+            <Card key={index} className="p-4 sm:p-6">
               <div className="flex mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
                   <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />

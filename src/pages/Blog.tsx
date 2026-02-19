@@ -249,7 +249,7 @@ const Blog = () => {
       />
       <div className="bg-background min-h-screen">
         {/* Hero Section */}
-        <div className="relative h-96 sm:h-[28rem] md:h-[32rem] lg:h-[32rem] overflow-hidden">
+        <div className="relative h-72 sm:h-80 md:h-[28rem] overflow-hidden">
           <img 
             src={blogHero} 
             alt="Professional blog and knowledge sharing environment" 
@@ -257,12 +257,12 @@ const Blog = () => {
           />
           <div className="absolute inset-0 bg-gradient-to-r from-halo-navy/85 via-halo-navy/60 to-transparent flex items-center justify-center">
             <div className="text-center text-white max-w-4xl mx-auto px-4">
-              <Badge className="mb-4 bg-white/15 text-white border border-white/30 backdrop-blur-sm">
-                <BookOpen className="h-3.5 w-3.5 mr-2" />
+              <Badge className="mb-3 sm:mb-4 bg-white/15 text-white border border-white/30 backdrop-blur-sm text-xs sm:text-sm">
+                <BookOpen className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1.5 sm:mr-2" />
                 Industry Insights & Resources
               </Badge>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4">Blog & Resources</h1>
-              <p className="text-sm sm:text-base md:text-lg leading-relaxed">
+              <h1 className="hero-title mb-3 sm:mb-4">Blog & Resources</h1>
+              <p className="text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
                 Stay informed with the latest insights, trends, and best practices in finance and professional development.
               </p>
             </div>
@@ -270,7 +270,7 @@ const Blog = () => {
         </div>
         
         {/* Content Section with Sidebar Layout */}
-        <div className="container mx-auto px-4 py-12">
+        <div className="page-container py-8 sm:py-12">
           <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
             {/* Filters - Mobile sheet, Desktop sidebar */}
             <div className="lg:w-80 flex-shrink-0">

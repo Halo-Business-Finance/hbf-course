@@ -98,7 +98,7 @@ const Index = () => {
       <div className="min-h-screen bg-background">
 
         {/* Hero Section */}
-        <div className="relative py-24 sm:py-28 md:py-32 lg:py-40">
+        <div className="relative py-20 sm:py-28 md:py-36 lg:py-44">
           <img 
             src={businessTeam} 
             alt="Professional business team collaborating on commercial lending"
@@ -106,28 +106,28 @@ const Index = () => {
             className="absolute inset-0 w-full h-full object-cover object-[center_20%]"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-halo-navy/85 via-halo-navy/60 to-transparent" />
-          <div className="mobile-container relative z-10">
+          <div className="page-container relative z-10">
             <div className="max-w-3xl text-left">
-              <Badge className="mb-6 bg-white/15 text-white border border-white/30 backdrop-blur-sm text-sm px-4 py-1.5 hover:bg-white/20">
-                <Zap className="h-3.5 w-3.5 mr-2" />
+              <Badge className="mb-4 sm:mb-6 bg-white/15 text-white border border-white/30 backdrop-blur-sm text-xs sm:text-sm px-3 sm:px-4 py-1.5 hover:bg-white/20">
+                <Zap className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1.5 sm:mr-2" />
                 #1 Commercial Lending Training Platform
               </Badge>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 text-white leading-tight tracking-tight">
+              <h1 className="hero-title mb-4 sm:mb-6 text-white tracking-tight">
                 Master Business Finance & Commercial Lending
               </h1>
-              <p className="text-lg sm:text-xl md:text-2xl mb-3 sm:mb-4 text-white/90 font-light">
+              <p className="text-base sm:text-xl md:text-2xl mb-3 sm:mb-4 text-white/90 font-light">
                 Professional Training Platform for Finance Excellence
               </p>
-              <p className="text-sm sm:text-base mb-8 text-white/80 max-w-2xl leading-relaxed">Transform your career with our comprehensive business finance and commercial lending program. Experience Stanford-level curriculum designed by industry experts.</p>
+              <p className="text-sm sm:text-base mb-6 sm:mb-8 text-white/80 max-w-2xl leading-relaxed">Transform your career with our comprehensive business finance and commercial lending program. Experience Stanford-level curriculum designed by industry experts.</p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-start">
                 <Link to="/signup">
-                  <Button size="lg" className="bg-halo-orange hover:bg-halo-orange/90 text-white font-semibold shadow-hero text-base px-8 py-6">
+                  <Button size="lg" className="w-full sm:w-auto bg-halo-orange hover:bg-halo-orange/90 text-white font-semibold shadow-hero text-sm sm:text-base px-6 sm:px-8 py-5 sm:py-6 min-h-[48px]">
                     Start Free Trial
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
                 <Link to="/course-catalog">
-                  <Button size="lg" variant="outline" className="border-white/40 text-white bg-white/10 hover:bg-white/20 backdrop-blur-sm font-medium text-base px-8 py-6">
+                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-white/40 text-white bg-white/10 hover:bg-white/20 backdrop-blur-sm font-medium text-sm sm:text-base px-6 sm:px-8 py-5 sm:py-6 min-h-[48px]">
                     <Play className="mr-2 h-4 w-4" />
                     Explore Courses
                   </Button>
@@ -139,8 +139,8 @@ const Index = () => {
 
         {/* Stats Bar */}
         <section className="bg-halo-navy py-6 sm:py-8">
-          <div className="mobile-container">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          <div className="page-container">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center">
               {[
                 { value: "10,000+", label: "Professionals Trained" },
                 { value: "96%", label: "Certification Rate" },
@@ -148,7 +148,7 @@ const Index = () => {
                 { value: "4.9/5", label: "Average Rating" },
               ].map((stat, i) => (
                 <div key={i} className="space-y-1">
-                  <div className="text-2xl sm:text-3xl font-bold text-white">{stat.value}</div>
+                  <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white">{stat.value}</div>
                   <div className="text-xs sm:text-sm text-white/70">{stat.label}</div>
                 </div>
               ))}
@@ -158,7 +158,7 @@ const Index = () => {
 
         {/* Learning Paths Section */}
         <section className="mobile-section bg-background" aria-labelledby="learning-paths-heading">
-          <div className="mobile-container">
+          <div className="page-container">
             <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center mb-8 md:mb-12">
               <div className="order-2 lg:order-1">
                 <img 
@@ -232,7 +232,7 @@ const Index = () => {
 
         {/* Features Section */}
         <section className="mobile-section bg-white" aria-labelledby="features-heading">
-          <div className="mobile-container">
+          <div className="page-container">
             <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center mb-8 md:mb-12">
               <div className="text-center lg:text-left space-y-4">
                 <h2 id="features-heading" className="text-responsive-2xl font-bold text-halo-navy">
@@ -315,7 +315,7 @@ const Index = () => {
 
         {/* Testimonials Section */}
         <section className="mobile-section bg-background" aria-labelledby="testimonials-heading">
-          <div className="mobile-container">
+          <div className="page-container">
             <div className="text-center space-y-4 mb-12 md:mb-16">
               <h2 id="testimonials-heading" className="text-responsive-2xl font-bold text-halo-navy">
                 What Our Graduates Say
@@ -326,7 +326,7 @@ const Index = () => {
               </Badge>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+            <div className="card-grid-3">
               {testimonials.map((testimonial, index) => (
                 <Card key={index} className="border-2 hover:border-primary/20 transition-all duration-300 hover:shadow-elevated">
                   <CardContent className="space-y-4">
@@ -354,7 +354,7 @@ const Index = () => {
       {/* CTA Section */}
       <section className="mobile-section bg-gradient-hero text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-halo-navy/90 to-halo-navy/70" />
-        <div className="mobile-container relative z-10">
+        <div className="page-container relative z-10">
           <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Image - shows first on mobile/tablet */}
             <div className="order-1 lg:order-2">
