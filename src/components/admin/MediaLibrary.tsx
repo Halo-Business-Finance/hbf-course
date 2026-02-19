@@ -204,9 +204,11 @@ export function MediaLibrary() {
           throw uploadError;
         }
 
-        const { data: publicUrlData } = supabase.storage
+        const { data: signedUrlData } = await supabase.storage
           .from('cms-media')
-          .getPublicUrl(uploadData.path);
+          .createSignedUrl(uploadData.path, 60 * 60 * 24 * 365);
+
+        const signedUrl = signedUrlData?.signedUrl || '';
 
         const mediaData = {
           filename,
@@ -214,7 +216,7 @@ export function MediaLibrary() {
           file_type: file.type || 'application/octet-stream',
           file_size: file.size,
           storage_path: uploadData.path,
-          public_url: publicUrlData.publicUrl,
+          public_url: signedUrl,
           folder_path: currentFolder === 'all' ? '/' : currentFolder,
           uploaded_by: null, // Will be set by RLS if user is authenticated
         };
@@ -233,7 +235,7 @@ export function MediaLibrary() {
 
               if (error) throw error;
             };
-            img.src = publicUrlData.publicUrl;
+            img.src = signedUrl;
           } catch (error) {
             const { error: insertError } = await supabase
               .from("cms_media")
@@ -366,9 +368,9 @@ export function MediaLibrary() {
         throw storageError;
       }
 
-      const { data: publicUrlData } = supabase.storage
+      const { data: signedKeepUrl } = await supabase.storage
         .from('cms-media')
-        .getPublicUrl(`${newFolderPath}/.keep`);
+        .createSignedUrl(`${newFolderPath}/.keep`, 60 * 60 * 24 * 365);
 
       const { data: existingRecord } = await supabase
         .from('cms_media')
@@ -386,7 +388,7 @@ export function MediaLibrary() {
             file_type: 'text/plain',
             file_size: 0,
             storage_path: `${newFolderPath}/.keep`,
-            public_url: publicUrlData.publicUrl,
+            public_url: signedKeepUrl?.signedUrl || '',
             folder_path: newFolderPath,
             alt_text: 'Folder placeholder',
             caption: `Placeholder file for ${newFolderPath} folder`,
