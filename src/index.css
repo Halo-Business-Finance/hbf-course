@@ -28,8 +28,8 @@
     --spacing-12: 6rem;       /* 96px */
 
     /* Carbon Color Tokens */
-    --background: 0 0% 96%;
-    --foreground: 0 0% 9%;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
 
     /* Carbon Blue palette */
     --primary: 20 90% 48%;      /* Navy-900 */
@@ -42,9 +42,9 @@
     --secondary-foreground: 0 0% 98%;  /* Gray-100 */
     --secondary-hover: 0 0% 93%; /* Gray-20 */
 
-    /* Muted colors using Carbon grays */
-    --muted: 0 0% 63%;           /* Gray-20 */
-    --muted-foreground: 0 0% 9%; /* Gray-70 */
+    /* Muted colors - light gray for subtle backgrounds */
+    --muted: 0 0% 97%;           /* Near-white */
+    --muted-foreground: 0 0% 20%; /* Dark text on muted */
 
     /* Carbon support colors */
     --accent: 47 100% 96%;       /* Blue-60 for consistency */
@@ -86,15 +86,15 @@
     --carbon-warning: 35 85% 55%;
     --carbon-danger: 2 79% 55%;
 
-    /* Card backgrounds using Carbon layers */
-    --card: 0 0% 98%;           /* White */
-    --card-foreground: 0 0% 9%;  /* Gray-100 */
+    /* Card backgrounds - pure white with black text */
+    --card: 0 0% 100%;           /* Pure White */
+    --card-foreground: 0 0% 0%;  /* Pure Black */
     --course-card-bg: 0 0% 100%;
-    --course-card-foreground: 0 0% 8%;
+    --course-card-foreground: 0 0% 0%;
 
     /* Popover */
-    --popover: 0 0% 89%;
-    --popover-foreground: 0 0% 9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
 
     /* Sidebar using Carbon layer tokens */
     --sidebar-background: 0 0% 98%;      /* Gray-10 */
