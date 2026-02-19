@@ -231,7 +231,7 @@ const Index = () => {
         </section>
 
         {/* Features Section */}
-        <section className="mobile-section bg-gradient-to-br from-muted/30 to-background" aria-labelledby="features-heading">
+        <section className="mobile-section bg-white" aria-labelledby="features-heading">
           <div className="mobile-container">
             <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center mb-8 md:mb-12">
               <div className="text-center lg:text-left space-y-4">
