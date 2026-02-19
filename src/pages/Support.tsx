@@ -212,21 +212,21 @@ const Support = () => {
       />
       <div className="bg-background min-h-screen">
       {/* Hero Section */}
-      <div className="relative h-96 sm:h-[28rem] md:h-[32rem] lg:h-[32rem] overflow-hidden">
+      <div className="relative h-72 sm:h-80 md:h-[28rem] overflow-hidden">
         <img 
           src={supportHero}
           alt="Professional customer support environment" 
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-halo-navy/85 via-halo-navy/60 to-transparent flex items-center">
-          <div className="container mx-auto px-4">
+          <div className="page-container">
             <div className="max-w-2xl text-white">
-              <Badge className="mb-4 bg-white/15 text-white border border-white/30 backdrop-blur-sm">
-                <HelpCircle className="h-3.5 w-3.5 mr-2" />
+              <Badge className="mb-3 sm:mb-4 bg-white/15 text-white border border-white/30 backdrop-blur-sm text-xs sm:text-sm">
+                <HelpCircle className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1.5 sm:mr-2" />
                 Support Center
               </Badge>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">We're here to help</h1>
-              <p className="text-lg text-white/90 leading-relaxed">
+              <h1 className="hero-title mb-3 sm:mb-4">We're here to help</h1>
+              <p className="text-sm sm:text-base md:text-lg text-white/90 leading-relaxed max-w-xl">
                 Get the support you need to succeed. Our dedicated team is ready to assist you every step of the way.
               </p>
             </div>
@@ -234,7 +234,7 @@ const Support = () => {
         </div>
       </div>
       
-      <div className="container mx-auto px-4 py-16">
+      <div className="page-container py-10 sm:py-14 md:py-16">
 
         {/* Lead Intake Modals */}
         <LeadIntakeModal

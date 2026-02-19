@@ -450,21 +450,21 @@ const Courses = () => {
           backgroundImage: `url(${coursesHero})`
         }} />
           <div className="absolute inset-0 bg-gradient-to-r from-halo-navy/80 to-halo-navy/50" />
-          <div className="mobile-container relative z-10">
+          <div className="page-container relative z-10">
             <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-responsive-3xl font-playfair font-bold mb-4 sm:mb-6 text-white">
+              <h1 className="hero-title mb-4 sm:mb-6 text-white">
                 Adaptive Interactive Learning Platform
               </h1>
-              <p className="text-responsive-xl mb-3 sm:mb-4 text-white">
+              <p className="text-base sm:text-xl mb-3 sm:mb-4 text-white">
                 {user ? "AI-Powered Personalized Finance Training" : "Revolutionary Adaptive Learning for Finance Professionals"}
               </p>
-              <p className="text-responsive-sm mb-6 sm:mb-8 text-white max-w-2xl mx-auto">
+              <p className="text-sm sm:text-base mb-6 sm:mb-8 text-white/90 max-w-2xl mx-auto">
                 Experience personalized learning paths with AI-driven content adaptation, interactive simulations, 
                 and real-time progress tracking. Master finance through gamified, adaptive experiences.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                 <Link to="/signup">
-                  <Button size="lg" className="w-full sm:w-auto bg-halo-orange hover:bg-halo-orange/90 text-white font-semibold">
+                  <Button size="lg" className="w-full sm:w-auto bg-halo-orange hover:bg-halo-orange/90 text-white font-semibold min-h-[48px]">
                     Start Adaptive Learning
                   </Button>
                 </Link>
@@ -474,7 +474,7 @@ const Courses = () => {
         </div>
       
       {/* Content Section with Sidebar Layout */}
-      <div className="mobile-container mobile-section">
+      <div className="page-container mobile-section">
       {!user && <Alert className="mb-6 border-primary bg-primary/5">
           <Shield className="h-4 w-4" />
           <AlertDescription>

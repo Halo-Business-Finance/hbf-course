@@ -510,7 +510,7 @@ const Dashboard = () => {
       {/* Main Content Area */}
       <div 
         ref={containerRef} 
-        className="flex-1 ml-0 lg:ml-[260px] overflow-y-auto transition-all duration-300"
+        className="flex-1 ml-0 lg:ml-[260px] overflow-y-auto transition-all duration-300 min-w-0"
         style={{ overflowAnchor: 'none' }}
       >
         {/* Welcome Wizard for new users */}
@@ -525,7 +525,7 @@ const Dashboard = () => {
         />
 
       {/* Main Dashboard Content */}
-      <div className="px-6 lg:px-12 py-8 max-w-7xl mx-auto">
+      <div className="px-4 sm:px-6 lg:px-10 py-6 sm:py-8 max-w-7xl mx-auto">
         {/* Breadcrumb Navigation */}
         {currentFilterLevel > 0 && (
           <div className="mb-6">

@@ -145,20 +145,20 @@ const About = () => {
       />
       <div className="bg-background min-h-screen">
       {/* Hero Section */}
-      <div className="relative h-96 sm:h-[28rem] md:h-[32rem] lg:h-[32rem] overflow-hidden">
+      <div className="relative h-72 sm:h-80 md:h-[28rem] overflow-hidden">
         <img 
           src={aboutHero} 
           alt="Professional team collaboration" 
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-halo-navy/85 via-halo-navy/60 to-transparent flex items-center">
-          <div className="container mx-auto px-4">
+          <div className="page-container">
             <div className="max-w-2xl text-white">
-              <Badge className="mb-4 bg-white/15 text-white border border-white/30 backdrop-blur-sm">
-                <Zap className="h-3.5 w-3.5 mr-2" />
+              <Badge className="mb-3 sm:mb-4 bg-white/15 text-white border border-white/30 backdrop-blur-sm text-xs sm:text-sm">
+                <Zap className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1.5 sm:mr-2" />
                 About Us
               </Badge>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight">About FinPilot</h1>
+              <h1 className="hero-title mb-3 sm:mb-4 leading-tight">About FinPilot</h1>
               <p className="text-sm sm:text-base md:text-lg max-w-3xl leading-relaxed text-white/90">
                 FinPilot is a comprehensive training platform designed to advance careers in commercial lending and business finance. 
                 We provide world-class education and certification programs for finance professionals seeking to excel in today's competitive market.
@@ -168,7 +168,7 @@ const About = () => {
         </div>
       </div>
       
-      <div className="container mx-auto px-4 py-8 md:py-12">
+      <div className="page-container py-8 md:py-12">
 
       <div className="mb-12 md:mb-16">
         <div className="text-center mb-6 md:mb-8">
@@ -210,7 +210,7 @@ const About = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-12 md:mb-16">
+      <div className="card-grid-3 mb-12 md:mb-16">
         {companyInfo.map((info, index) => {
           const Icon = info.icon;
           return (
@@ -236,9 +236,9 @@ const About = () => {
       {/* Learning Platform Features */}
       <div className="mb-12 md:mb-16">
         <div className="text-center mb-6 md:mb-8">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">Advanced Learning Platform</h2>
+          <h2 className="section-title text-foreground">Advanced Learning Platform</h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="card-grid-3 mb-8">
           {platformFeatures.map((feature, index) => {
             const Icon = feature.icon;
             return (
@@ -288,9 +288,9 @@ const About = () => {
       {/* Security Features */}
       <div className="mb-12 md:mb-16">
         <div className="text-center mb-6 md:mb-8">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">Enterprise Security & Compliance</h2>
+          <h2 className="section-title text-foreground">Enterprise Security & Compliance</h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="card-grid-3 mb-8">
           {securityFeatures.map((security, index) => {
             const Icon = security.icon;
             return (
@@ -340,9 +340,9 @@ const About = () => {
       {/* Platform Advantages */}
       <div className="mb-12 md:mb-16">
         <div className="text-center mb-6 md:mb-8">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">Platform Advantages</h2>
+          <h2 className="section-title text-foreground">Platform Advantages</h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="card-grid-3 mb-8">
           {platformAdvantages.map((advantage, index) => {
             const Icon = advantage.icon;
             return (
@@ -408,9 +408,9 @@ const About = () => {
 
       <div>
         <div className="text-center mb-6 md:mb-8">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">Leadership Team</h2>
+          <h2 className="section-title text-foreground">Leadership Team</h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="card-grid-3">
           {team.map((member, index) => (
             <Card key={index}>
               <CardHeader className="text-center">

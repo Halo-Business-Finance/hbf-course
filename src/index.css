@@ -126,16 +126,16 @@
     /* Border radius following Carbon */
     --radius: 0.75rem;  /* Slightly rounded for better mobile UX */
 
-    /* Mobile-optimized spacing */
-    --mobile-padding: 1rem;
-    --tablet-padding: 1.5rem;
-    --desktop-padding: 2rem;
+  /* Mobile-optimized spacing */
+  --mobile-padding: 1rem;
+  --tablet-padding: 1.5rem;
+  --desktop-padding: 2rem;
 
-    /* Touch-friendly sizing */
-    --touch-target-min: 44px;
-    --button-height-sm: 2.5rem;
-    --button-height-md: 3rem;
-    --button-height-lg: 3.5rem;
+  /* Touch-friendly sizing */
+  --touch-target-min: 48px;
+  --button-height-sm: 2.75rem;
+  --button-height-md: 3rem;
+  --button-height-lg: 3.5rem;
     --chart-1: 27 95% 60%;
     --chart-2: 43 96% 56%;
     --chart-3: 47 95% 53%;
@@ -467,11 +467,11 @@
 
   /* Mobile-optimized utilities */
   .mobile-container {
-    @apply px-2 sm:px-4 lg:px-6;
+    @apply px-4 sm:px-6 lg:px-8;
   }
 
   .mobile-section {
-    @apply py-8 sm:py-12 lg:py-16;
+    @apply py-10 sm:py-14 lg:py-20;
   }
 
   .mobile-grid {
@@ -483,12 +483,12 @@
   }
 
   .mobile-button {
-    @apply px-4 py-3 text-sm font-medium;
+    @apply px-5 py-3 text-sm font-medium;
     min-height: var(--touch-target-min);
   }
 
   .mobile-input {
-    @apply px-3 py-2 text-base;
+    @apply px-3 py-3 text-base;
     min-height: var(--touch-target-min);
   }
 
@@ -497,6 +497,33 @@
     min-height: var(--touch-target-min);
     min-width: var(--touch-target-min);
     @apply flex items-center justify-center;
+  }
+
+  /* Page-level responsive wrapper */
+  .page-container {
+    @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Responsive hero text helpers */
+  .hero-title {
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight;
+  }
+
+  .section-title {
+    @apply text-2xl sm:text-3xl md:text-4xl font-bold;
+  }
+
+  /* Responsive card grids */
+  .card-grid-2 {
+    @apply grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6;
+  }
+
+  .card-grid-3 {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6;
+  }
+
+  .card-grid-4 {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6;
   }
 
   /* Responsive text sizing */
