@@ -249,16 +249,23 @@ export const EnhancedQuiz = ({
     switch (question.type) {
       case 'multiple-choice':
         return <RadioGroup value={userAnswer || ""} onValueChange={value => handleAnswer(question.id, value)}>
-            {question.options?.map((option, index) => <div key={index} className="flex items-center space-x-2">
+            {question.options?.map((option, index) => <div key={index} className="flex items-center space-x-3 p-3 rounded-lg border hover:bg-muted/50 transition-colors min-h-[48px] cursor-pointer" onClick={() => handleAnswer(question.id, option)}>
                 <RadioGroupItem value={option} id={`${question.id}-${index}`} />
-                <Label htmlFor={`${question.id}-${index}`} className="flex-1 cursor-pointer">
+                <Label htmlFor={`${question.id}-${index}`} className="flex-1 cursor-pointer text-sm sm:text-base">
                   {option}
                 </Label>
               </div>)}
           </RadioGroup>;
       case 'multiple-select':
-        return <div className="space-y-3">
-            {question.options?.map((option, index) => <div key={index} className="flex items-center space-x-2">
+        return <div className="space-y-2">
+            {question.options?.map((option, index) => <div key={index} className="flex items-center space-x-3 p-3 rounded-lg border hover:bg-muted/50 transition-colors min-h-[48px] cursor-pointer" onClick={() => {
+              const currentAnswers = userAnswer || [];
+              if (currentAnswers.includes(option)) {
+                handleAnswer(question.id, currentAnswers.filter((a: string) => a !== option));
+              } else {
+                handleAnswer(question.id, [...currentAnswers, option]);
+              }
+            }}>
                 <Checkbox id={`${question.id}-${index}`} checked={(userAnswer || []).includes(option)} onCheckedChange={checked => {
               const currentAnswers = userAnswer || [];
               if (checked) {
@@ -267,20 +274,20 @@ export const EnhancedQuiz = ({
                 handleAnswer(question.id, currentAnswers.filter((a: string) => a !== option));
               }
             }} />
-                <Label htmlFor={`${question.id}-${index}`} className="flex-1 cursor-pointer">
+                <Label htmlFor={`${question.id}-${index}`} className="flex-1 cursor-pointer text-sm sm:text-base">
                   {option}
                 </Label>
               </div>)}
           </div>;
       case 'true-false':
-        return <RadioGroup value={userAnswer || ""} onValueChange={value => handleAnswer(question.id, value)}>
-            <div className="flex items-center space-x-2">
+        return <RadioGroup value={userAnswer || ""} onValueChange={value => handleAnswer(question.id, value)} className="grid grid-cols-2 gap-3">
+            <div className="flex items-center justify-center space-x-2 p-4 rounded-lg border hover:bg-muted/50 transition-colors cursor-pointer min-h-[56px]" onClick={() => handleAnswer(question.id, "true")}>
               <RadioGroupItem value="true" id={`${question.id}-true`} />
-              <Label htmlFor={`${question.id}-true`} className="cursor-pointer">True</Label>
+              <Label htmlFor={`${question.id}-true`} className="cursor-pointer text-base font-medium">True</Label>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center justify-center space-x-2 p-4 rounded-lg border hover:bg-muted/50 transition-colors cursor-pointer min-h-[56px]" onClick={() => handleAnswer(question.id, "false")}>
               <RadioGroupItem value="false" id={`${question.id}-false`} />
-              <Label htmlFor={`${question.id}-false`} className="cursor-pointer">False</Label>
+              <Label htmlFor={`${question.id}-false`} className="cursor-pointer text-base font-medium">False</Label>
             </div>
           </RadioGroup>;
       case 'short-answer':
@@ -326,29 +333,33 @@ export const EnhancedQuiz = ({
   // Quiz start screen
   if (!quizStarted) {
     return <Card className="max-w-2xl mx-auto">
-        <CardHeader className="text-center">
-          <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
-            <Brain className="h-8 w-8 text-primary" />
+        <CardHeader className="text-center px-4 sm:px-6">
+          <div className="w-20 h-20 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+            <Brain className="h-10 w-10 text-primary" />
           </div>
-          <CardTitle className="text-2xl">{moduleTitle} - Quiz</CardTitle>
-          <div className="flex justify-center gap-4 mt-4">
-            <Badge variant="outline" className="flex items-center gap-1">
-              <Target className="h-3 w-3" />
-              {questions.length} Questions
-            </Badge>
-            <Badge variant="outline" className="flex items-center gap-1">
-              <Timer className="h-3 w-3" />
-              {timeLimit} Minutes
-            </Badge>
-            <Badge variant="outline" className="flex items-center gap-1">
-              <Trophy className="h-3 w-3" />
-              {passingScore}% to Pass
-            </Badge>
+          <CardTitle className="text-xl sm:text-2xl">{moduleTitle}</CardTitle>
+          <p className="text-sm text-muted-foreground mt-1">Knowledge Assessment</p>
+          <div className="grid grid-cols-3 gap-3 mt-6">
+            <div className="p-3 bg-muted rounded-lg text-center">
+              <Target className="h-5 w-5 mx-auto mb-1 text-primary" />
+              <div className="text-lg font-bold">{questions.length}</div>
+              <div className="text-xs text-muted-foreground">Questions</div>
+            </div>
+            <div className="p-3 bg-muted rounded-lg text-center">
+              <Timer className="h-5 w-5 mx-auto mb-1 text-primary" />
+              <div className="text-lg font-bold">{timeLimit}</div>
+              <div className="text-xs text-muted-foreground">Minutes</div>
+            </div>
+            <div className="p-3 bg-muted rounded-lg text-center">
+              <Trophy className="h-5 w-5 mx-auto mb-1 text-primary" />
+              <div className="text-lg font-bold">{passingScore}%</div>
+              <div className="text-xs text-muted-foreground">To Pass</div>
+            </div>
           </div>
         </CardHeader>
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-6 px-4 sm:px-6">
           <div className="text-center space-y-4">
-            <p className="text-muted-foreground">
+            <p className="text-muted-foreground text-sm sm:text-base">
               Test your knowledge with this comprehensive quiz. You'll have {timeLimit} minutes to complete all questions.
             </p>
             
@@ -361,7 +372,7 @@ export const EnhancedQuiz = ({
 
             {attemptCount >= maxAttempts ? <div className="text-center p-4 bg-destructive/10 rounded-lg">
                 <p className="text-destructive">You have reached the maximum number of attempts.</p>
-              </div> : <Button onClick={startQuiz} size="lg" className="w-full max-w-xs bg-halo-navy hover:bg-halo-navy/90">
+              </div> : <Button onClick={startQuiz} size="lg" className="w-full h-14 text-base bg-halo-navy hover:bg-halo-navy/90">
                 Start Quiz
               </Button>}
           </div>
@@ -373,29 +384,32 @@ export const EnhancedQuiz = ({
   if (quizCompleted && results) {
     const passed = results.percentage >= passingScore;
     return <Card className="max-w-4xl mx-auto">
-        <CardHeader className="text-center">
-          <div className={`w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center ${passed ? 'bg-accent/15 text-accent' : 'bg-destructive/15 text-destructive'}`}>
-            {passed ? <Trophy className="h-8 w-8" /> : <XCircle className="h-8 w-8" />}
+        <CardHeader className="text-center px-4 sm:px-6">
+          <div className={`w-24 h-24 mx-auto mb-4 rounded-full flex items-center justify-center ${passed ? 'bg-accent/15 text-accent' : 'bg-destructive/15 text-destructive'}`}>
+            {passed ? <Trophy className="h-12 w-12" /> : <XCircle className="h-12 w-12" />}
           </div>
-          <CardTitle className="text-2xl">
+          <CardTitle className="text-2xl sm:text-3xl">
             {passed ? "Congratulations! 🎉" : "Quiz Complete 📝"}
           </CardTitle>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
-            <div className="text-center">
-              <div className="text-2xl font-bold">{results.percentage.toFixed(1)}%</div>
-              <div className="text-sm text-muted-foreground">Score</div>
+          <p className={`mt-2 text-sm ${passed ? 'text-accent' : 'text-destructive'}`}>
+            {passed ? `You passed with ${results.percentage.toFixed(1)}%!` : `You scored ${results.percentage.toFixed(1)}%. ${passingScore}% needed to pass.`}
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-6">
+            <div className="p-3 bg-muted rounded-lg text-center">
+              <div className="text-2xl font-bold">{results.percentage.toFixed(0)}%</div>
+              <div className="text-xs text-muted-foreground">Score</div>
             </div>
-            <div className="text-center">
+            <div className="p-3 bg-muted rounded-lg text-center">
               <div className="text-2xl font-bold">{results.correctAnswers}/{results.totalQuestions}</div>
-              <div className="text-sm text-muted-foreground">Correct</div>
+              <div className="text-xs text-muted-foreground">Correct</div>
             </div>
-            <div className="text-center">
+            <div className="p-3 bg-muted rounded-lg text-center">
               <div className="text-2xl font-bold">{formatTime(results.timeSpent)}</div>
-              <div className="text-sm text-muted-foreground">Time Used</div>
+              <div className="text-xs text-muted-foreground">Time Used</div>
             </div>
-            <div className="text-center">
+            <div className="p-3 bg-muted rounded-lg text-center">
               <div className="text-2xl font-bold">{attemptCount}</div>
-              <div className="text-sm text-muted-foreground">Attempts</div>
+              <div className="text-xs text-muted-foreground">Attempts</div>
             </div>
           </div>
         </CardHeader>
@@ -559,23 +573,21 @@ export const EnhancedQuiz = ({
         </AnimatePresence>
 
         {/* Navigation */}
-        <div className="flex items-center justify-between pt-6 border-t">
-          <Button variant="outline" onClick={previousQuestion} disabled={currentQuestion === 0}>
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between pt-6 border-t gap-3">
+          <Button variant="outline" onClick={previousQuestion} disabled={currentQuestion === 0} className="h-12 sm:h-10 text-sm">
             <ChevronLeft className="h-4 w-4 mr-2" />
             Previous
           </Button>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-center gap-1 order-first sm:order-none py-2">
             {/* Question Navigation Dots */}
-            <div className="flex gap-1">
-              {questions.map((_, index) => <button key={index} onClick={() => setCurrentQuestion(index)} className={`w-3 h-3 rounded-full transition-colors ${index === currentQuestion ? "bg-primary" : answers[questions[index].id] ? "bg-accent" : flaggedQuestions.has(questions[index].id) ? "bg-halo-orange" : "bg-muted"}`} />)}
-            </div>
+            {questions.map((_, index) => <button key={index} onClick={() => setCurrentQuestion(index)} className={`w-3.5 h-3.5 rounded-full transition-colors ${index === currentQuestion ? "bg-primary ring-2 ring-primary/30" : answers[questions[index].id] ? "bg-accent" : flaggedQuestions.has(questions[index].id) ? "bg-halo-orange" : "bg-muted"}`} />)}
           </div>
 
-          {currentQuestion === questions.length - 1 ? <Button onClick={handleSubmitQuiz} className="bg-accent hover:bg-accent/90">
+          {currentQuestion === questions.length - 1 ? <Button onClick={handleSubmitQuiz} className="bg-accent hover:bg-accent/90 h-12 sm:h-10 text-sm font-semibold">
               Submit Quiz
               <Award className="h-4 w-4 ml-2" />
-            </Button> : <Button onClick={nextQuestion}>
+            </Button> : <Button onClick={nextQuestion} className="h-12 sm:h-10 text-sm">
               Next
               <ChevronRight className="h-4 w-4 ml-2" />
             </Button>}
