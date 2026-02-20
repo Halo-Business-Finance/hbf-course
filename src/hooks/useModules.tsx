@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 
@@ -38,6 +39,7 @@ export const useModules = (courseId?: string) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
+  const { user } = useAuth();
 
   // Fetch modules (optionally filtered by course)
   const fetchModules = async () => {
@@ -216,7 +218,7 @@ export const useModules = (courseId?: string) => {
 
   useEffect(() => {
     fetchModules();
-  }, [courseId]);
+  }, [courseId, user?.id]);
 
   return {
     modules,

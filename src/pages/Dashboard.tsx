@@ -123,8 +123,9 @@ const Dashboard = () => {
   });
 
   console.log('Total courses from DB:', databaseCourses.length);
+  console.log('Total modules from DB:', databaseModules.length);
   console.log('Courses with modules:', coursesWithModules.length);
-  console.log('All course titles:', coursesWithModules.map(c => c.title));
+  console.log('Courses with >0 modules:', coursesWithModules.filter(c => c.modules.length > 0).length);
 
   // Topic to course title mapping
   const topicToCourses: Record<string, string[]> = {
