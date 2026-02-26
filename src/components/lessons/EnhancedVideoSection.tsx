@@ -49,13 +49,13 @@ export const EnhancedVideoSection = ({
         .select('id, title, video_url, video_type, youtube_id, description, duration_seconds')
         .eq('module_id', lookupId)
         .eq('is_active', true)
-        .not('youtube_id', 'is', null)
         .order('order_index', { ascending: true })
-        .limit(1)
-        .maybeSingle();
+        .limit(1);
 
-      if (!error && data) {
-        setVideo(data);
+      console.log('EnhancedVideoSection query for moduleId:', lookupId, 'result:', data, 'error:', error);
+
+      if (!error && data && data.length > 0) {
+        setVideo(data[0]);
       }
       setLoading(false);
     };
