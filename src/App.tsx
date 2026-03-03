@@ -131,8 +131,8 @@ const HeaderContent = ({
 
         {user && <div className="flex-1 flex items-center justify-center min-w-0">
             <NavLink to="/" className="flex items-center gap-3 sm:gap-4 flex-shrink-0 min-w-0">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center flex-shrink-0 bg-blue-700">
-                <span className="text-primary-foreground font-bold text-base sm:text-lg md:text-xl">FP</span>
+              <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center flex-shrink-0 bg-halo-navy rounded-sm">
+                <span className="text-white font-bold text-base sm:text-lg md:text-xl">FP</span>
               </div>
               <span className="text-lg sm:text-2xl md:text-3xl font-bold text-foreground truncate">FinPilot</span>
             </NavLink>
@@ -147,36 +147,36 @@ const HeaderContent = ({
             </div>
           </div>}
         
-        {user && <div className="flex items-start gap-1 sm:gap-2 text-xs text-foreground text-right flex-shrink-0 pt-1 rounded-full py-0">
+        {user && <div className="flex items-center gap-1 flex-shrink-0">
             <Button 
               variant="ghost" 
-              size="sm" 
+              size="icon" 
               title="Loan Calculator" 
-              className="relative p-2 h-14 w-14 text-slate-50 py-0 px-0 text-xl mx-0"
+              className="h-10 w-10 text-foreground hover:bg-muted"
               onClick={() => setCalculatorOpen(true)}
             >
-              <Calculator className="h-8 w-8 text-navy-900" />
+              <Calculator className="h-5 w-5" />
             </Button>
             <Button 
               variant="ghost" 
-              size="sm" 
+              size="icon" 
               title="Help & Support" 
-              className="relative p-2 h-14 w-14 text-slate-50 py-0 px-0 text-xl mx-0"
+              className="h-10 w-10 text-foreground hover:bg-muted"
               onClick={() => setIsChatOpen(true)}
             >
-              <HelpCircle className="h-8 w-8 text-navy-900" />
+              <HelpCircle className="h-5 w-5" />
             </Button>
-            <Suspense fallback={<div className="h-14 w-14" />}>
+            <Suspense fallback={<div className="h-10 w-10" />}>
               <NotificationBell />
             </Suspense>
             <Button 
               variant="ghost" 
-              size="sm" 
+              size="icon" 
               title="My Account" 
-              className="relative p-2 h-14 w-14 text-slate-50 py-0 px-0 text-xl mx-0"
+              className="h-10 w-10 text-foreground hover:bg-muted"
               onClick={() => navigate('/my-account')}
             >
-              <User className="h-8 w-8 text-navy-900" />
+              <User className="h-5 w-5" />
             </Button>
           </div>}
       </div>

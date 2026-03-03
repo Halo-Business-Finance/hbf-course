@@ -445,27 +445,23 @@ const Courses = () => {
       <div className="bg-background min-h-screen">
         
         {/* Header Section */}
-        <div className="relative bg-halo-navy text-white py-12 sm:py-16 md:py-20">
-          <div className="absolute inset-0 bg-cover bg-center opacity-40" style={{
-          backgroundImage: `url(${coursesHero})`
-        }} />
-          <div className="absolute inset-0 bg-gradient-to-r from-halo-navy/80 to-halo-navy/50" />
-          <div className="page-container relative z-10">
+        <div className="border-b border-border py-12 sm:py-16 md:py-20 bg-background">
+          <div className="page-container">
             <div className="max-w-4xl mx-auto text-center">
-              <h1 className="hero-title mb-4 sm:mb-6 text-white">
-                Adaptive Interactive Learning Platform
+              <h1 className="hero-title mb-4 sm:mb-6 text-halo-navy">
+                Course Catalog
               </h1>
-              <p className="text-base sm:text-xl mb-3 sm:mb-4 text-white">
-                {user ? "AI-Powered Personalized Finance Training" : "Revolutionary Adaptive Learning for Finance Professionals"}
+              <p className="text-base sm:text-xl mb-3 sm:mb-4 text-foreground font-medium">
+                {user ? "AI-Powered Personalized Finance Training" : "Comprehensive Training for Finance Professionals"}
               </p>
-              <p className="text-sm sm:text-base mb-6 sm:mb-8 text-white/90 max-w-2xl mx-auto">
-                Experience personalized learning paths with AI-driven content adaptation, interactive simulations, 
-                and real-time progress tracking. Master finance through gamified, adaptive experiences.
+              <p className="text-sm sm:text-base mb-6 sm:mb-8 text-muted-foreground max-w-2xl mx-auto">
+                Experience personalized learning paths with interactive simulations
+                and real-time progress tracking. Master finance through adaptive experiences.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                 <Link to="/signup">
-                  <Button size="lg" className="w-full sm:w-auto bg-halo-orange hover:bg-halo-orange/90 text-white font-semibold min-h-[48px]">
-                    Start Adaptive Learning
+                  <Button size="lg" className="w-full sm:w-auto bg-halo-navy hover:bg-halo-navy/90 text-white font-semibold min-h-[48px]">
+                    Start Learning
                   </Button>
                 </Link>
               </div>
@@ -541,7 +537,7 @@ const Courses = () => {
               </div>
               
               {/* Call to Action */}
-              <Card className="bg-gradient-to-r from-halo-navy/10 to-halo-navy/5 border-halo-navy/20">
+              <Card className="border-2 border-border">
                 <CardContent className="text-center p-8">
                   <h3 className="text-2xl font-bold mb-4">Ready to Start Your Journey?</h3>
                   <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">

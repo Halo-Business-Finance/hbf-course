@@ -4,7 +4,7 @@ import { Lock, ArrowRight } from "lucide-react";
 
 export const HorizontalNav = () => {
   return (
-    <div className="hidden lg:block bg-card/95 backdrop-blur-sm px-8 py-4 w-full border-b border-border">
+    <div className="hidden lg:block bg-background px-8 py-3 w-full">
       <div className="flex items-center gap-12 w-full max-w-7xl mx-auto">
         {/* Logo */}
         <NavLink to="/" className="flex items-center gap-3 flex-shrink-0">
