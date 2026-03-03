@@ -626,7 +626,7 @@ const Dashboard = () => {
                                       alt={courseName}
                                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                                    {/* Image overlay removed */}
                                     
                                     {/* Level Badge */}
                                     <div className="absolute top-4 left-4">
@@ -721,13 +721,13 @@ const Dashboard = () => {
                        {['beginner', 'expert'].map((level, index) => {
                   const selectedCourse = filterNavigationPath[0];
                   const levelModules = flattenedModules.filter(m => m.course_title.toLowerCase().includes(selectedCourse.name.toLowerCase()) && m.skill_level === level);
-                  return <Card key={level} className="group relative overflow-hidden hover:shadow-xl transition-all duration-500 border hover:border-primary/30 bg-gradient-to-br from-card via-card to-secondary/5 hover:to-primary/5">
+                  return <Card key={level} className="group relative overflow-hidden hover:shadow-xl transition-all duration-500 border hover:border-primary/30">
                             {/* Modern gradient overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-primary/3 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                            {/* Hover overlay removed */}
                             
                             <div className="relative overflow-hidden rounded-t-lg">
                               <img src={getCourseImage(selectedCourse.name)} alt={`${selectedCourse.name} - ${level}`} className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" />
-                              <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+                              {/* Image overlay removed */}
                               <div className="absolute top-4 left-4">
                                 <span className={`text-xs font-semibold tracking-wider border-l-4 pl-2 backdrop-blur-sm ${level === "beginner" ? 'text-accent border-accent' : 'text-destructive border-destructive'}`}>
                                   {level.charAt(0).toUpperCase() + level.slice(1).toUpperCase()} LEVEL

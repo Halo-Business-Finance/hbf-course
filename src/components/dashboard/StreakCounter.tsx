@@ -18,28 +18,28 @@ export function StreakCounter({
   
   return (
     <div className={cn(
-      "relative overflow-hidden rounded-xl p-5 bg-gradient-to-br from-orange-500/10 via-amber-500/5 to-yellow-500/10 border border-orange-500/20",
+      "relative overflow-hidden rounded-xl p-5 border border-border",
       className
     )}>
       {/* Animated background effect */}
-      <div className="absolute inset-0 bg-gradient-to-r from-orange-500/5 to-transparent animate-pulse" />
+      {/* Removed background gradient */}
       
       <div className="relative flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className={cn(
             "relative flex items-center justify-center w-14 h-14 rounded-full",
             isActiveToday 
-              ? "bg-gradient-to-br from-orange-500 to-amber-500" 
+              ? "bg-halo-orange" 
               : "bg-muted"
           )}>
             <Flame className={cn(
               "h-7 w-7 transition-all duration-300",
               isActiveToday 
-                ? "text-white animate-bounce" 
+                ? "text-primary-foreground animate-bounce" 
                 : "text-muted-foreground"
             )} />
             {isActiveToday && (
-              <div className="absolute inset-0 rounded-full bg-orange-500/50 animate-ping" />
+              <div className="absolute inset-0 rounded-full bg-halo-orange/50 animate-ping" />
             )}
           </div>
           

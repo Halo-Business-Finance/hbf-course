@@ -65,8 +65,8 @@ export function DashboardCourseFilter({
           onClick={() => onCategorySelect(null)}
           className={`h-12 px-6 rounded-xl font-semibold transition-all duration-300 ${
             selectedCategory === null
-              ? "bg-halo-navy text-white border-halo-navy shadow-lg hover:bg-halo-navy/90"
-              : "bg-white text-halo-navy border-2 border-halo-navy/20 hover:border-halo-navy hover:bg-halo-navy/5"
+              ? "border-2 border-foreground text-foreground shadow-sm"
+              : "border-2 border-border text-muted-foreground hover:border-foreground hover:text-foreground"
           }`}
         >
           All Programs
@@ -85,8 +85,8 @@ export function DashboardCourseFilter({
               disabled={count === 0}
               className={`h-12 px-6 rounded-xl font-semibold transition-all duration-300 gap-2 ${
                 isSelected
-                  ? "bg-halo-navy text-white border-halo-navy shadow-lg hover:bg-halo-navy/90"
-                  : "bg-white text-halo-navy border-2 border-halo-navy/20 hover:border-halo-navy hover:bg-halo-navy/5 disabled:opacity-40"
+                  ? "border-2 border-foreground text-foreground shadow-sm"
+                  : "border-2 border-border text-muted-foreground hover:border-foreground hover:text-foreground disabled:opacity-40"
               }`}
             >
               <Icon className="h-4 w-4" />
@@ -94,8 +94,8 @@ export function DashboardCourseFilter({
               {count > 0 && (
                 <span className={`ml-1.5 text-xs px-2 py-0.5 rounded-full font-medium ${
                   isSelected 
-                    ? "bg-white/20 text-white" 
-                    : "bg-halo-navy/10 text-halo-navy"
+                    ? "text-foreground" 
+                    : "text-muted-foreground"
                 }`}>
                   {count}
                 </span>
@@ -116,8 +116,8 @@ export function DashboardCourseFilter({
               onClick={() => onTopicSelect(isSelected ? null : topic.label)}
               className={`inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
                 isSelected
-                  ? "bg-halo-navy text-white shadow-md"
-                  : "bg-white text-halo-navy border-2 border-halo-navy/15 hover:border-halo-navy/40 hover:bg-halo-navy/5"
+                  ? "border-2 border-foreground text-foreground shadow-sm"
+                  : "border-2 border-border text-muted-foreground hover:border-foreground hover:text-foreground"
               }`}
             >
               {topic.icon && <topic.icon className="h-3.5 w-3.5" />}
