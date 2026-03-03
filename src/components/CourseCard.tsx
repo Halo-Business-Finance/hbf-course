@@ -82,11 +82,11 @@ export function CourseCard({
       style={{ animationDelay: `${index * 80}ms` }}
     >
       {/* Top accent bar */}
-      <div className="h-1 bg-gradient-to-r from-navy-900 via-primary to-navy-700" />
+      <div className="h-1 bg-halo-navy" />
       
       <CardHeader className="text-center pb-3 pt-5">
         <div className="flex justify-center mb-3">
-          <Badge className="bg-navy-900 text-white border-navy-900 px-3 py-1 text-xs font-semibold tracking-wide uppercase">
+          <Badge className="bg-halo-navy text-white border-halo-navy px-3 py-1 text-xs font-semibold tracking-wide uppercase">
             <LevelIcon className="h-3 w-3 mr-1.5" />
             {levelConfig.label}
           </Badge>

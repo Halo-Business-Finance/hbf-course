@@ -138,9 +138,9 @@ const Index = () => {
         </div>
 
         {/* Stats Bar */}
-        <section className="bg-halo-navy py-6 sm:py-8">
+        <section className="border-y border-border py-8 sm:py-10">
           <div className="page-container">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
               {[
                 { value: "10,000+", label: "Professionals Trained" },
                 { value: "96%", label: "Certification Rate" },
@@ -148,8 +148,8 @@ const Index = () => {
                 { value: "4.9/5", label: "Average Rating" },
               ].map((stat, i) => (
                 <div key={i} className="space-y-1">
-                  <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white">{stat.value}</div>
-                  <div className="text-xs sm:text-sm text-white/70">{stat.label}</div>
+                  <div className="text-xl sm:text-2xl md:text-3xl font-bold text-halo-navy">{stat.value}</div>
+                  <div className="text-xs sm:text-sm text-muted-foreground">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -352,8 +352,8 @@ const Index = () => {
         </section>
 
       {/* CTA Section */}
-      <section className="mobile-section bg-gradient-hero text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-halo-navy/90 to-halo-navy/70" />
+      <section className="mobile-section relative overflow-hidden">
+        <div className="absolute inset-0 bg-halo-navy" />
         <div className="page-container relative z-10">
           <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Image - shows first on mobile/tablet */}

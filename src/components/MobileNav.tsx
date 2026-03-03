@@ -30,14 +30,14 @@ export const MobileNav = () => {
         {/* Action Buttons and Menu */}
         <div className="flex items-center gap-1 md:gap-2 flex-shrink-0">
           <div className="hidden md:flex items-center gap-1">
-            <Button variant="outline" size="sm" asChild className="text-xs border-halo-navy text-halo-navy hover:bg-halo-navy hover:text-white px-2 py-1">
-              <NavLink to="/auth" className="flex items-center gap-1">
+          <Button variant="outline" size="sm" asChild className="text-xs border-border text-foreground hover:bg-muted px-3 py-1.5 min-h-[36px]">
+              <NavLink to="/auth" className="flex items-center gap-1.5">
                 <Lock className="h-3 w-3" />
                 Sign In
               </NavLink>
             </Button>
-            <Button size="sm" asChild className="bg-halo-orange hover:bg-halo-orange/90 text-white text-xs px-2 py-1">
-              <NavLink to="/signup" className="flex items-center gap-1">
+            <Button size="sm" asChild className="bg-halo-orange hover:bg-halo-orange/90 text-white text-xs px-3 py-1.5 min-h-[36px]">
+              <NavLink to="/signup" className="flex items-center gap-1.5">
                 Start Free Trial
                 <ArrowRight className="h-3 w-3" />
               </NavLink>
