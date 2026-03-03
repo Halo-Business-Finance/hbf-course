@@ -72,7 +72,7 @@ export function DashboardSidebar({
         </div>
         
         {/* Streak indicator */}
-        <div className="flex items-center gap-2 mt-4 p-2 rounded-lg bg-halo-orange/10">
+        <div className="flex items-center gap-2 mt-4 p-2 rounded-lg border border-border">
           <Flame className="h-4 w-4 text-halo-orange" />
           <span className="text-sm font-medium text-foreground">{currentStreak} day streak</span>
         </div>
@@ -160,7 +160,7 @@ export function DashboardSidebar({
               {/* Header */}
               <div className="flex items-center justify-between h-16 px-4 border-b border-border">
                 <div className="flex items-center gap-2">
-                  <div className="h-8 w-8 rounded-lg bg-navy-900 flex items-center justify-center text-white font-bold text-sm">
+                   <div className="h-8 w-8 rounded-lg border border-border flex items-center justify-center text-foreground font-bold text-sm">
                     FP
                   </div>
                   <span className="font-semibold text-foreground">FinPilot</span>
@@ -185,7 +185,7 @@ export function DashboardSidebar({
         )}>
           {!collapsed && (
             <div className="flex items-center gap-2">
-              <div className="h-8 w-8 rounded-lg bg-navy-900 flex items-center justify-center text-white font-bold text-sm">
+              <div className="h-8 w-8 rounded-lg border border-border flex items-center justify-center text-foreground font-bold text-sm">
                 FP
               </div>
               <span className="font-semibold text-foreground">FinPilot</span>
@@ -222,7 +222,7 @@ export function DashboardSidebar({
               
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-halo-orange/10">
+                  <div className="flex items-center justify-center w-10 h-10 rounded-lg border border-border">
                     <Flame className="h-4 w-4 text-halo-orange" />
                   </div>
                 </TooltipTrigger>

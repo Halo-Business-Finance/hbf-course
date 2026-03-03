@@ -15,7 +15,7 @@ const CourseHeader = ({
   onContinueLearning
 }: CourseHeaderProps) => {
   return (
-    <div className="w-full bg-background border-b border-border">
+    <div className="w-full border-b border-border">
       <div className="px-4 sm:px-6 lg:px-10 py-8 sm:py-10 lg:py-12 max-w-7xl mx-auto">
         {/* Program Badge */}
         <div className="inline-flex items-center gap-2 mb-5">

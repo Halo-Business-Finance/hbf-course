@@ -129,7 +129,7 @@ export function QuickResumeCard() {
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow">
       <CardContent className="p-0">
-        <div className="bg-gradient-to-r from-primary/10 to-primary/5 p-4">
+        <div className="p-4">
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">
