@@ -27,7 +27,7 @@ import { useLearningStats } from "@/hooks/useLearningStats";
 import { useCourseProgress } from "@/hooks/useCourseProgress";
 import { useCourseSelection } from "@/contexts/CourseSelectionContext";
 import { supabase } from "@/integrations/supabase/client";
-import { BookOpen, Clock, Target, Trophy, Brain, Zap, ArrowLeft, Lock, Users } from "lucide-react";
+import { BookOpen, Clock, Target, Trophy, Brain, Zap, ArrowLeft, Lock, Users, Flame, Award, TrendingUp } from "lucide-react";
 import { WelcomeWizard } from "@/components/onboarding/WelcomeWizard";
 import { QuickResumeCard } from "@/components/navigation/QuickResumeCard";
 import { Breadcrumbs } from "@/components/navigation/Breadcrumbs";
@@ -40,7 +40,6 @@ import { StreakCounter } from "@/components/dashboard/StreakCounter";
 import { AchievementBadges } from "@/components/dashboard/AchievementBadges";
 import { EnhancedCourseCard } from "@/components/dashboard/EnhancedCourseCard";
 import { LearningAnalyticsCharts } from "@/components/dashboard/LearningAnalyticsCharts";
-import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar";
 
 // Import new course-specific images (no people)
 import courseSba7a from "@/assets/course-sba-7a.jpg";
@@ -500,30 +499,97 @@ const Dashboard = () => {
   const currentStreak = dashboardStats?.currentStreak || 7;
   const longestStreak = dashboardStats?.longestStreak || 14;
 
+  // Get user's first name for greeting
+  const getFirstName = () => {
+    if (!user) return 'Learner';
+    if (user.user_metadata?.full_name) {
+      return user.user_metadata.full_name.split(' ')[0];
+    }
+    if (user.email) {
+      return user.email.split('@')[0].charAt(0).toUpperCase() + user.email.split('@')[0].slice(1);
+    }
+    return 'Learner';
+  };
+
+  const overallProgress = getOverallProgress();
+  const completedCount = getCompletedModulesCount();
+
   return (
-    <div className="flex min-h-screen bg-background">
-      {/* Sidebar Navigation */}
-      <DashboardSidebar 
-        overallProgress={getOverallProgress()} 
-        currentStreak={currentStreak}
-      />
-      
+    <div className="min-h-screen bg-background">
       {/* Main Content Area */}
       <div 
         ref={containerRef} 
-        className="flex-1 ml-0 lg:ml-[260px] overflow-y-auto transition-all duration-300 min-w-0"
+        className="w-full"
         style={{ overflowAnchor: 'none' }}
       >
         {/* Welcome Wizard for new users */}
         <WelcomeWizard />
         
-        {/* Business Finance Mastery Header - Full Width Connected */}
-        <CourseHeader 
-          progress={getOverallProgress()} 
-          totalModules={flattenedModules.length} 
-          completedModules={getCompletedModulesCount()} 
-          onContinueLearning={() => setCurrentFilterLevel(0)} 
-        />
+        {/* Welcome Header */}
+        <div className="border-b border-border">
+          <div className="px-4 sm:px-6 lg:px-10 py-6 sm:py-8 max-w-7xl mx-auto">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+              {/* Greeting */}
+              <div>
+                <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-1">
+                  Welcome back, {getFirstName()}
+                </h1>
+                <p className="text-sm text-muted-foreground">
+                  Continue your journey in business finance mastery.
+                </p>
+              </div>
+
+              {/* Quick Stats */}
+              <div className="flex items-center gap-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-halo-orange/10 flex items-center justify-center">
+                    <Flame className="h-5 w-5 text-halo-orange" />
+                  </div>
+                  <div>
+                    <p className="text-lg font-bold text-foreground">{currentStreak}</p>
+                    <p className="text-xs text-muted-foreground">Day streak</p>
+                  </div>
+                </div>
+                <Separator orientation="vertical" className="h-10" />
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <Target className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-lg font-bold text-foreground">{Math.round(overallProgress)}%</p>
+                    <p className="text-xs text-muted-foreground">Complete</p>
+                  </div>
+                </div>
+                <Separator orientation="vertical" className="h-10" />
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
+                    <Award className="h-5 w-5 text-accent" />
+                  </div>
+                  <div>
+                    <p className="text-lg font-bold text-foreground">{completedCount}</p>
+                    <p className="text-xs text-muted-foreground">Completed</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Progress Bar */}
+            <div className="mt-6 max-w-lg">
+              <div className="flex justify-between text-foreground mb-2">
+                <span className="text-xs font-semibold">Overall Progress</span>
+                <span className="text-xs text-muted-foreground">
+                  {completedCount}/{flattenedModules.length} modules
+                </span>
+              </div>
+              <div className="h-2 bg-muted rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-halo-orange rounded-full transition-all duration-500"
+                  style={{ width: `${overallProgress}%` }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
 
       {/* Main Dashboard Content */}
       <div className="px-4 sm:px-6 lg:px-10 py-6 sm:py-8 max-w-7xl mx-auto">
@@ -542,12 +608,11 @@ const Dashboard = () => {
           </div>
         )}
         
-        {/* Quick Resume, Study Reminder & Instructor - Only show on level 0 */}
+        {/* Quick Resume & Study Reminder - Only show on level 0 */}
         {currentFilterLevel === 0 && (
-          <div className="mb-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="mb-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
             <QuickResumeCard />
             <StudyReminder />
-            <InstructorInfo />
           </div>
         )}
         
