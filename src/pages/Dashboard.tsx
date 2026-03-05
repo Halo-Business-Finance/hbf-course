@@ -113,8 +113,8 @@ const Dashboard = () => {
   const activeStudyCourse = getActiveStudyCourse();
 
   // Combine courses with their modules from database
-  const coursesWithModules = databaseCourses.map(course => {
-    const courseModules = databaseModules.filter(module => module.course_id === course.id && module.is_active);
+  const coursesWithModules = databaseCourses.map((course) => {
+    const courseModules = databaseModules.filter((module) => module.course_id === course.id && module.is_active);
     return {
       ...course,
       modules: courseModules
@@ -124,7 +124,7 @@ const Dashboard = () => {
   console.log('Total courses from DB:', databaseCourses.length);
   console.log('Total modules from DB:', databaseModules.length);
   console.log('Courses with modules:', coursesWithModules.length);
-  console.log('Courses with >0 modules:', coursesWithModules.filter(c => c.modules.length > 0).length);
+  console.log('Courses with >0 modules:', coursesWithModules.filter((c) => c.modules.length > 0).length);
 
   // Topic to course title mapping
   const topicToCourses: Record<string, string[]> = {
@@ -154,7 +154,7 @@ const Dashboard = () => {
   })();
 
   // Create flattened modules for filtering and display
-  const flattenedModules = filteredCoursesWithModules.flatMap(course => course.modules.map(module => ({
+  const flattenedModules = filteredCoursesWithModules.flatMap((course) => course.modules.map((module) => ({
     ...module,
     course_title: course.title,
     course_level: course.level,
@@ -208,7 +208,7 @@ const Dashboard = () => {
     }
 
     // Find the course in available courses to check if it can be selected
-    const targetCourse = availableCourses.find(course => {
+    const targetCourse = availableCourses.find((course) => {
       const baseName = course.title.split(' - ')[0];
       return baseName.toLowerCase() === courseName.toLowerCase();
     });
@@ -223,7 +223,7 @@ const Dashboard = () => {
       return;
     }
     try {
-      const courseModules = flattenedModules.filter(m => {
+      const courseModules = flattenedModules.filter((m) => {
         if (!m.course_title) return false;
         // Extract base course name from the module's course title (remove skill level suffix)
         const moduleBaseName = m.course_title.replace(/\s*-\s*(Beginner|Expert)$/i, '').trim();
@@ -246,7 +246,7 @@ const Dashboard = () => {
 
       // Update state and maintain scroll position
       setCurrentFilterLevel(1);
-      setRenderKey(prev => prev + 1);
+      setRenderKey((prev) => prev + 1);
 
       // Scroll to top of new content after state update
       requestAnimationFrame(() => {
@@ -302,7 +302,7 @@ const Dashboard = () => {
       const courseSkillId = `${selectedCourse.id}-${level}`;
       setSelectedSkillLevelForCourse(level);
       setCurrentFilterLevel(2);
-      const levelModules = flattenedModules.filter(m => {
+      const levelModules = flattenedModules.filter((m) => {
         if (!m.course_title) return false;
         const matchesCourse = m.course_title.toLowerCase().includes(selectedCourse.name.toLowerCase());
         const moduleLevel = m.skill_level === 'none' ? 'beginner' : m.skill_level;
@@ -386,11 +386,11 @@ const Dashboard = () => {
     setFilterNavigationPath([]);
     setSelectedCourseProgram(null);
     setSelectedSkillLevelForCourse(null);
-    setRenderKey(prev => prev + 1);
+    setRenderKey((prev) => prev + 1);
   };
 
   // Simple filtering function for Level 2 modules
-  const filteredModules = flattenedModules.filter(module => {
+  const filteredModules = flattenedModules.filter((module) => {
     if (currentFilterLevel !== 2) return true;
     const selectedCourse = filterNavigationPath[0];
     const selectedLevel = selectedSkillLevelForCourse;
@@ -409,14 +409,14 @@ const Dashboard = () => {
   // Get course details from database or fallback
   const getCourseDetails = (courseName: string) => {
     // Find all courses that match this base name to determine available levels
-    const matchingCourses = coursesWithModules.filter(course => {
+    const matchingCourses = coursesWithModules.filter((course) => {
       const baseName = course.title.split(' - ')[0];
       return baseName.toLowerCase() === courseName.toLowerCase();
     });
 
     // Determine difficulty based on available courses
-    const hasExpert = matchingCourses.some(c => c.level === 'expert');
-    const hasBeginner = matchingCourses.some(c => c.level === 'beginner');
+    const hasExpert = matchingCourses.some((c) => c.level === 'expert');
+    const hasBeginner = matchingCourses.some((c) => c.level === 'beginner');
     let difficulty = 'Multiple Levels';
     if (hasExpert && hasBeginner) {
       difficulty = 'Multiple Levels';
@@ -430,7 +430,7 @@ const Dashboard = () => {
       description: sampleCourse?.description || "Comprehensive training program with practical applications",
       duration: "6-8 weeks",
       difficulty,
-      topics: sampleCourse?.modules?.flatMap(m => m.topics || []).slice(0, 6) || ["Core Concepts", "Practical Applications"],
+      topics: sampleCourse?.modules?.flatMap((m) => m.topics || []).slice(0, 6) || ["Core Concepts", "Practical Applications"],
       outcome: `Master ${courseName} with professional expertise`
     };
   };
@@ -488,12 +488,12 @@ const Dashboard = () => {
   }
   // Mock data for achievements
   const mockBadges = [
-    { id: "1", name: "First Steps", description: "Complete your first module", icon: "target" as const, unlocked: true, color: "bronze" },
-    { id: "2", name: "Quick Learner", description: "Complete 5 modules in a week", icon: "zap" as const, unlocked: true, color: "silver" },
-    { id: "3", name: "SBA Expert", description: "Master all SBA courses", icon: "trophy" as const, unlocked: false, progress: 65, color: "gold" },
-    { id: "4", name: "Perfect Score", description: "Score 100% on any quiz", icon: "star" as const, unlocked: false, progress: 45, color: "platinum" },
-    { id: "5", name: "Dedicated Learner", description: "Maintain a 30-day streak", icon: "medal" as const, unlocked: false, progress: 23, color: "emerald" },
-  ];
+  { id: "1", name: "First Steps", description: "Complete your first module", icon: "target" as const, unlocked: true, color: "bronze" },
+  { id: "2", name: "Quick Learner", description: "Complete 5 modules in a week", icon: "zap" as const, unlocked: true, color: "silver" },
+  { id: "3", name: "SBA Expert", description: "Master all SBA courses", icon: "trophy" as const, unlocked: false, progress: 65, color: "gold" },
+  { id: "4", name: "Perfect Score", description: "Score 100% on any quiz", icon: "star" as const, unlocked: false, progress: 45, color: "platinum" },
+  { id: "5", name: "Dedicated Learner", description: "Maintain a 30-day streak", icon: "medal" as const, unlocked: false, progress: 23, color: "emerald" }];
+
 
   // Calculate current streak (mock data - would come from database in production)
   const currentStreak = dashboardStats?.currentStreak || 7;
@@ -517,11 +517,11 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Main Content Area */}
-      <div 
-        ref={containerRef} 
+      <div
+        ref={containerRef}
         className="w-full"
-        style={{ overflowAnchor: 'none' }}
-      >
+        style={{ overflowAnchor: 'none' }}>
+        
         {/* Welcome Wizard for new users */}
         <WelcomeWizard />
         
@@ -542,7 +542,7 @@ const Dashboard = () => {
               {/* Quick Stats */}
               <div className="flex items-center gap-6">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-halo-orange/10 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-lg bg-halo-orange/10 flex items-center justify-center bg-white">
                     <Flame className="h-5 w-5 text-halo-orange" />
                   </div>
                   <div>
@@ -552,7 +552,7 @@ const Dashboard = () => {
                 </div>
                 <Separator orientation="vertical" className="h-10" />
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-white">
                     <Target className="h-5 w-5 text-primary" />
                   </div>
                   <div>
@@ -563,7 +563,7 @@ const Dashboard = () => {
                 <Separator orientation="vertical" className="h-10" />
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
-                    <Award className="h-5 w-5 text-accent" />
+                    <Award className="h-5 w-5 text-orange-600" />
                   </div>
                   <div>
                     <p className="text-lg font-bold text-foreground">{completedCount}</p>
@@ -582,10 +582,10 @@ const Dashboard = () => {
                 </span>
               </div>
               <div className="h-2 bg-muted rounded-full overflow-hidden">
-                <div 
+                <div
                   className="h-full bg-halo-orange rounded-full transition-all duration-500"
-                  style={{ width: `${overallProgress}%` }}
-                />
+                  style={{ width: `${overallProgress}%` }} />
+                
               </div>
             </div>
           </div>
@@ -594,27 +594,27 @@ const Dashboard = () => {
       {/* Main Dashboard Content */}
       <div className="px-4 sm:px-6 lg:px-10 py-6 sm:py-8 max-w-7xl mx-auto">
         {/* Breadcrumb Navigation */}
-        {currentFilterLevel > 0 && (
+        {currentFilterLevel > 0 &&
           <div className="mb-6">
-            <Breadcrumbs 
+            <Breadcrumbs
               items={[
-                { label: 'Dashboard', href: '/dashboard' },
-                ...filterNavigationPath.map((path, index) => ({
-                  label: path.name,
-                  href: index < filterNavigationPath.length - 1 ? undefined : undefined
-                }))
-              ]}
-            />
+              { label: 'Dashboard', href: '/dashboard' },
+              ...filterNavigationPath.map((path, index) => ({
+                label: path.name,
+                href: index < filterNavigationPath.length - 1 ? undefined : undefined
+              }))]
+              } />
+            
           </div>
-        )}
+          }
         
         {/* Quick Resume & Study Reminder - Only show on level 0 */}
-        {currentFilterLevel === 0 && (
+        {currentFilterLevel === 0 &&
           <div className="mb-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
             <QuickResumeCard />
             <StudyReminder />
           </div>
-        )}
+          }
         
         {/* Learning Dashboard */}
         <div className={`${currentFilterLevel === 0 ? 'w-full' : 'flex flex-col lg:flex-row gap-6 lg:gap-8'}`}>
@@ -625,72 +625,72 @@ const Dashboard = () => {
             {currentFilterLevel === 0 && <Separator className="mb-6" />}
             
             {/* Results Summary for other levels */}
-            {currentFilterLevel !== 0 && (
+            {currentFilterLevel !== 0 &&
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-2 sm:gap-4">
                 <h3 className="text-xl lg:text-2xl font-bold text-foreground">
                   {currentFilterLevel === 1 && "Select Your Skill Level"}
-                  {currentFilterLevel === 2 && (
-                    <span>
+                  {currentFilterLevel === 2 &&
+                  <span>
                       {filteredModules.length} {filteredModules.length === 1 ? 'Module' : 'Modules'} Available
                     </span>
-                  )}
+                  }
                 </h3>
               </div>
-            )}
+              }
 
-            {loading ? (
+            {loading ?
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[1, 2, 3, 4, 5, 6].map(i => (
-                  <div key={i} className="animate-pulse">
+                {[1, 2, 3, 4, 5, 6].map((i) =>
+                <div key={i} className="animate-pulse">
                      <div className="bg-card rounded-xl h-80 shadow-sm" />
                   </div>
-                ))}
-              </div>
-            ) : (
+                )}
+              </div> :
+
               <>
                 {/* Level 0: Course Filter and Course Program Cards */}
-                {currentFilterLevel === 0 && (
-                  <div className="space-y-8">
+                {currentFilterLevel === 0 &&
+                <div className="space-y-8">
                     {/* Course Categories Filter */}
                     <div className="w-full">
-                      <DashboardCourseFilter 
-                        selectedCategory={selectedCategory} 
-                        onCategorySelect={setSelectedCategory}
-                        selectedTopic={selectedTopic}
-                        onTopicSelect={setSelectedTopic}
-                      />
+                      <DashboardCourseFilter
+                      selectedCategory={selectedCategory}
+                      onCategorySelect={setSelectedCategory}
+                      selectedTopic={selectedTopic}
+                      onTopicSelect={setSelectedTopic} />
+                    
                     </div>
                     
                     {/* Course Cards Grid */}
                     <div className="w-full">
                       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                        {coursesLoading && (!databaseCourses || databaseCourses.length === 0) ? (
-                          Array.from({ length: 6 }).map((_, index) => (
-                            <div key={index} className="animate-pulse">
+                        {coursesLoading && (!databaseCourses || databaseCourses.length === 0) ?
+                      Array.from({ length: 6 }).map((_, index) =>
+                      <div key={index} className="animate-pulse">
                               <div className="bg-card rounded-xl h-80 shadow-sm" />
                             </div>
-                          ))
-                        ) : filteredCoursesWithModules.length > 0 ? (
-                          filteredCoursesWithModules
-                            .filter((course, index, self) => 
-                              index === self.findIndex(c => c.title.split(' - ')[0] === course.title.split(' - ')[0])
-                            )
-                            .map((course) => {
-                              const courseName = course.title.split(' - ')[0];
-                              const courseDetails = getCourseDetails(courseName);
-                              
-                              return (
-                                <div 
-                                  key={courseName}
-                                  className="group bg-card rounded-xl border-2 border-border hover:border-halo-navy/30 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden"
-                                >
+                      ) :
+                      filteredCoursesWithModules.length > 0 ?
+                      filteredCoursesWithModules.
+                      filter((course, index, self) =>
+                      index === self.findIndex((c) => c.title.split(' - ')[0] === course.title.split(' - ')[0])
+                      ).
+                      map((course) => {
+                        const courseName = course.title.split(' - ')[0];
+                        const courseDetails = getCourseDetails(courseName);
+
+                        return (
+                          <div
+                            key={courseName}
+                            className="group bg-card rounded-xl border-2 border-border hover:border-halo-navy/30 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
+                            
                                   {/* Course Image */}
                                   <div className="relative h-44 overflow-hidden">
-                                    <img 
-                                      src={getCourseImage(course.title)} 
-                                      alt={courseName}
-                                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                    />
+                                    <img
+                                src={getCourseImage(course.title)}
+                                alt={courseName}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                              
                                     {/* Image overlay removed */}
                                     
                                     {/* Level Badge */}
@@ -727,66 +727,66 @@ const Dashboard = () => {
                                     
                                     {/* Topic Tags */}
                                     <div className="flex flex-wrap gap-2 pt-1">
-                                      {courseDetails.topics.slice(0, 2).map((topic, idx) => (
-                                        <span 
-                                          key={idx}
-                                          className="px-2.5 py-1 bg-muted text-muted-foreground text-xs rounded-md font-medium"
-                                        >
+                                      {courseDetails.topics.slice(0, 2).map((topic, idx) =>
+                                <span
+                                  key={idx}
+                                  className="px-2.5 py-1 bg-muted text-muted-foreground text-xs rounded-md font-medium">
+                                  
                                           {topic}
                                         </span>
-                                      ))}
+                                )}
                                     </div>
                                     
                                     {/* CTA Button */}
-                                    <Button 
-                                      onClick={(e) => {
-                                        e.preventDefault();
-                                        e.stopPropagation();
-                                        handleStartCourse(courseName);
-                                      }}
-                                      className="w-full mt-4 h-11 bg-halo-navy hover:bg-halo-navy/90 text-white font-semibold rounded-lg transition-all duration-200"
-                                    >
+                                    <Button
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  handleStartCourse(courseName);
+                                }}
+                                className="w-full mt-4 h-11 bg-halo-navy hover:bg-halo-navy/90 text-white font-semibold rounded-lg transition-all duration-200">
+                                
                                       Explore Course
                                     </Button>
                                   </div>
-                                </div>
-                              );
-                            })
-                        ) : (
-                          <div className="col-span-full text-center py-12">
+                                </div>);
+
+                      }) :
+
+                      <div className="col-span-full text-center py-12">
                             <p className="text-muted-foreground">No courses available. Contact your administrator to add courses.</p>
                           </div>
-                        )}
+                      }
                       </div>
                     </div>
                   </div>
-                )}
+                }
 
                 {(() => {
-              console.log('=== LEVEL 1 RENDER CHECK ===');
-              console.log('currentFilterLevel:', currentFilterLevel);
-              console.log('filterNavigationPath.length:', filterNavigationPath.length);
-              console.log('filterNavigationPath:', filterNavigationPath);
-              const shouldRender = currentFilterLevel === 1 && filterNavigationPath.length > 0;
-              console.log('Should render Level 1:', shouldRender);
-              return shouldRender;
-            })() && <div className="space-y-4 sm:space-y-6">
+                  console.log('=== LEVEL 1 RENDER CHECK ===');
+                  console.log('currentFilterLevel:', currentFilterLevel);
+                  console.log('filterNavigationPath.length:', filterNavigationPath.length);
+                  console.log('filterNavigationPath:', filterNavigationPath);
+                  const shouldRender = currentFilterLevel === 1 && filterNavigationPath.length > 0;
+                  console.log('Should render Level 1:', shouldRender);
+                  return shouldRender;
+                })() && <div className="space-y-4 sm:space-y-6">
                     {/* Back button - Enhanced */}
-                    <Button 
-                      variant="outline" 
-                      size="lg" 
-                      onClick={handleReturnToDashboard} 
-                      className="mb-3 sm:mb-4 hover:bg-halo-navy hover:text-white transition-colors"
-                    >
+                    <Button
+                    variant="outline"
+                    size="lg"
+                    onClick={handleReturnToDashboard}
+                    className="mb-3 sm:mb-4 hover:bg-halo-navy hover:text-white transition-colors">
+                    
                       <ArrowLeft className="h-5 w-5 mr-2" />
                       Back to All Courses
                     </Button>
                     
                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                        {['beginner', 'expert'].map((level, index) => {
-                  const selectedCourse = filterNavigationPath[0];
-                  const levelModules = flattenedModules.filter(m => m.course_title.toLowerCase().includes(selectedCourse.name.toLowerCase()) && m.skill_level === level);
-                  return <Card key={level} className="group relative overflow-hidden hover:shadow-xl transition-all duration-500 border hover:border-primary/30">
+                      const selectedCourse = filterNavigationPath[0];
+                      const levelModules = flattenedModules.filter((m) => m.course_title.toLowerCase().includes(selectedCourse.name.toLowerCase()) && m.skill_level === level);
+                      return <Card key={level} className="group relative overflow-hidden hover:shadow-xl transition-all duration-500 border hover:border-primary/30">
                             {/* Modern gradient overlay */}
                             {/* Hover overlay removed */}
                             
@@ -829,16 +829,16 @@ const Dashboard = () => {
                             </CardHeader>
                             
                             <CardContent className="pt-0 pb-6 relative z-10">
-                              <Button 
-                                type="button" 
-                                onClick={e => {
-                                  e.preventDefault();
-                                  e.stopPropagation();
-                                  console.log('Proceed to Modules button clicked for level:', level);
-                                  handleProceedToModules(level);
-                                }} 
-                                className="w-full h-11 bg-halo-navy hover:bg-halo-navy/90 text-white font-semibold tracking-wide uppercase text-sm border-none transition-all duration-200"
-                              >
+                              <Button
+                            type="button"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              console.log('Proceed to Modules button clicked for level:', level);
+                              handleProceedToModules(level);
+                            }}
+                            className="w-full h-11 bg-halo-navy hover:bg-halo-navy/90 text-white font-semibold tracking-wide uppercase text-sm border-none transition-all duration-200">
+                            
                                 <span className="flex items-center justify-center gap-2">
                                   Proceed to Modules
                                   <Brain className="h-4 w-4" />
@@ -846,7 +846,7 @@ const Dashboard = () => {
                               </Button>
                             </CardContent>
                           </Card>;
-                })}
+                    })}
                     </div>
                   </div>}
 
@@ -854,26 +854,26 @@ const Dashboard = () => {
                 {currentFilterLevel === 2 && <div className="space-y-4">
                     {/* Navigation breadcrumb - Enhanced */}
                     <div className="flex items-center gap-3 mb-6 flex-wrap">
-                      <Button 
-                      variant="outline" 
+                      <Button
+                      variant="outline"
                       size="lg"
                       onClick={handleReturnToDashboard}
-                      className="hover:bg-halo-navy hover:text-white transition-colors"
-                      >
+                      className="hover:bg-halo-navy hover:text-white transition-colors">
+                      
                         <ArrowLeft className="h-4 w-4 mr-2" />
                         All Courses
                       </Button>
                 <span className="text-muted-foreground">/</span>
-                      <Button 
-                        variant="outline" 
-                        size="lg"
-                        onClick={() => {
-                          console.log('Navigating back to level 1');
-                          setCurrentFilterLevel(1);
-                          setFilterNavigationPath([filterNavigationPath[0]]);
-                        }}
-                        className="hover:bg-halo-navy hover:text-white transition-colors"
-                      >
+                      <Button
+                      variant="outline"
+                      size="lg"
+                      onClick={() => {
+                        console.log('Navigating back to level 1');
+                        setCurrentFilterLevel(1);
+                        setFilterNavigationPath([filterNavigationPath[0]]);
+                      }}
+                      className="hover:bg-halo-navy hover:text-white transition-colors">
+                      
                         {filterNavigationPath[0]?.name}
                       </Button>
                       <span className="text-muted-foreground">/</span>
@@ -882,31 +882,31 @@ const Dashboard = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                       {filteredModules.map((module, index) => {
-                  const isUnlocked = isModuleUnlocked(index, filteredModules);
-                  const currentProgress = moduleProgress[module.id];
-                  const progressPercentage = currentProgress?.progress_percentage || 0;
-                  return <EnhancedModuleCard key={module.id} module={{
-                    ...module,
-                    module_id: module.id,
-                    lessons_count: module.lessons_count,
-                    order_index: index,
-                    progress: progressPercentage,
-                    is_completed: currentProgress?.completed || false,
-                    is_locked: !isUnlocked,
-                    prerequisites: index > 0 ? [filteredModules[index - 1].title] : [],
-                    skill_level: (module.skill_level === 'none' ? 'beginner' : module.skill_level) as 'beginner' | 'expert'
-                  }} userProgress={{
-                    completion_percentage: progressPercentage,
-                    is_completed: currentProgress?.completed || false,
-                    time_spent_minutes: Math.floor(progressPercentage * 30 / 100)
-                  }} />;
-                })}
+                      const isUnlocked = isModuleUnlocked(index, filteredModules);
+                      const currentProgress = moduleProgress[module.id];
+                      const progressPercentage = currentProgress?.progress_percentage || 0;
+                      return <EnhancedModuleCard key={module.id} module={{
+                        ...module,
+                        module_id: module.id,
+                        lessons_count: module.lessons_count,
+                        order_index: index,
+                        progress: progressPercentage,
+                        is_completed: currentProgress?.completed || false,
+                        is_locked: !isUnlocked,
+                        prerequisites: index > 0 ? [filteredModules[index - 1].title] : [],
+                        skill_level: (module.skill_level === 'none' ? 'beginner' : module.skill_level) as 'beginner' | 'expert'
+                      }} userProgress={{
+                        completion_percentage: progressPercentage,
+                        is_completed: currentProgress?.completed || false,
+                        time_spent_minutes: Math.floor(progressPercentage * 30 / 100)
+                      }} />;
+                    })}
                     </div>
                   </div>}
 
                 {/* No results message */}
-                {(currentFilterLevel === 2 && filteredModules.length === 0 || currentFilterLevel === 1 && filterNavigationPath.length === 0) && (
-                  <div className="text-center py-12">
+                {(currentFilterLevel === 2 && filteredModules.length === 0 || currentFilterLevel === 1 && filterNavigationPath.length === 0) &&
+                <div className="text-center py-12">
                     <h3 className="text-lg font-medium text-muted-foreground mb-2">
                       No content found
                     </h3>
@@ -914,54 +914,54 @@ const Dashboard = () => {
                       Try navigating back or adjusting your selection.
                     </p>
                   </div>
-                )}
+                }
               </>
-            )}
+              }
           </div>
         </div>
 
         {/* Module Detail Modal */}
-        {selectedModule && flattenedModules.find(m => m.id === selectedModule) && <ModuleDetail module={{
-        ...flattenedModules.find(m => m.id === selectedModule)!,
-        // Add required properties for Module type
-        progress: moduleProgress[selectedModule]?.progress_percentage || 0,
-        loanExamples: [],
-        videos: [],
-        caseStudies: [],
-        scripts: [],
-        quiz: {
-          id: `quiz-${selectedModule}`,
-          moduleId: selectedModule,
-          title: `${flattenedModules.find(m => m.id === selectedModule)?.title} Assessment`,
-          description: "Complete this assessment to test your understanding",
-          questions: [],
-          passingScore: 80,
-          maxAttempts: 3,
-          timeLimit: 30
-        }
-      }} onClose={() => setSelectedModule(null)} />}
+        {selectedModule && flattenedModules.find((m) => m.id === selectedModule) && <ModuleDetail module={{
+            ...flattenedModules.find((m) => m.id === selectedModule)!,
+            // Add required properties for Module type
+            progress: moduleProgress[selectedModule]?.progress_percentage || 0,
+            loanExamples: [],
+            videos: [],
+            caseStudies: [],
+            scripts: [],
+            quiz: {
+              id: `quiz-${selectedModule}`,
+              moduleId: selectedModule,
+              title: `${flattenedModules.find((m) => m.id === selectedModule)?.title} Assessment`,
+              description: "Complete this assessment to test your understanding",
+              questions: [],
+              passingScore: 80,
+              maxAttempts: 3,
+              timeLimit: 30
+            }
+          }} onClose={() => setSelectedModule(null)} />}
 
         {/* Smart Recommendations & Community - Only show on level 0 */}
-        {currentFilterLevel === 0 && (
+        {currentFilterLevel === 0 &&
           <div className="mt-8 space-y-6">
             <LearningAnalyticsCharts className="mb-6" />
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <StreakCounter 
-                currentStreak={currentStreak} 
+              <StreakCounter
+                currentStreak={currentStreak}
                 longestStreak={longestStreak}
-                lastActiveDate={new Date().toISOString().split('T')[0]}
-              />
+                lastActiveDate={new Date().toISOString().split('T')[0]} />
+              
               <AchievementBadges badges={mockBadges} />
             </div>
             <SmartRecommendations />
             <DiscussionForum />
           </div>
-        )}
+          }
         </div>
 
         <FinPilotBrandFooter />
       </div>
-    </div>
-  );
+    </div>);
+
 };
 export default Dashboard;
