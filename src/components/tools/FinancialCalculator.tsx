@@ -30,18 +30,18 @@ export const FinancialCalculator = () => {
     if (p > 0 && r >= 0 && n > 0) {
       let monthlyPayment: number;
       let totalInterest: number;
-      
+
       if (interestOnly || r === 0) {
         // Interest-only payment or 0% interest
         monthlyPayment = p * r;
         totalInterest = monthlyPayment * n;
       } else {
         // Standard amortizing loan
-        monthlyPayment = (p * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+        monthlyPayment = p * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
         const totalPayment = monthlyPayment * n;
         totalInterest = totalPayment - p;
       }
-      
+
       const totalPayment = monthlyPayment * n;
 
       setResult({
@@ -66,16 +66,16 @@ export const FinancialCalculator = () => {
     if (!result) return null;
     const principalAmount = parseFloat(principal);
     return [
-      { label: "Principal", value: principalAmount, color: "bg-primary" },
-      { label: "Interest", value: result.totalInterest, color: "bg-destructive" }
-    ];
+    { label: "Principal", value: principalAmount, color: "bg-primary" },
+    { label: "Interest", value: result.totalInterest, color: "bg-destructive" }];
+
   };
 
   const getYearsDisplay = () => {
     if (termUnit === "Years") {
       return parseFloat(termValue) || 0;
     }
-    return (parseFloat(termValue) / 12) || 0;
+    return parseFloat(termValue) / 12 || 0;
   };
 
   return (
@@ -105,8 +105,8 @@ export const FinancialCalculator = () => {
                 calculateLoan();
               }}
               placeholder="0"
-              className="pl-8 h-12 text-lg"
-            />
+              className="pl-8 h-12 text-lg" />
+            
           </div>
         </div>
 
@@ -126,8 +126,8 @@ export const FinancialCalculator = () => {
                 calculateLoan();
               }}
               placeholder="0"
-              className="pr-8 h-12 text-lg"
-            />
+              className="pr-8 h-12 text-lg" />
+            
             <span className="absolute right-3 top-1/2 -translate-y-1/2 text-lg text-muted-foreground">
               %
             </span>
@@ -149,8 +149,8 @@ export const FinancialCalculator = () => {
                 calculateLoan();
               }}
               placeholder="0"
-              className="h-12 text-lg flex-1"
-            />
+              className="h-12 text-lg flex-1" />
+            
             <Select value={termUnit} onValueChange={(value) => {
               setTermUnit(value);
               calculateLoan();
@@ -167,7 +167,7 @@ export const FinancialCalculator = () => {
         </div>
 
         {/* Interest-Only Period Toggle */}
-        <Card className="bg-primary/5 border-primary/20">
+        <Card className="border-primary/20 bg-white">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <Label htmlFor="interest-only" className="text-base font-semibold cursor-pointer">
@@ -179,15 +179,15 @@ export const FinancialCalculator = () => {
                 onCheckedChange={(checked) => {
                   setInterestOnly(checked);
                   if (result) calculateLoan();
-                }}
-              />
+                }} />
+              
             </div>
           </CardContent>
         </Card>
 
         {/* Payment Breakdown */}
-        {result && (
-          <div className="space-y-4 mt-8">
+        {result &&
+        <div className="space-y-4 mt-8">
             <h2 className="text-xl font-bold">Payment Breakdown</h2>
             
             {/* Monthly Payment - Large Display */}
@@ -244,8 +244,8 @@ export const FinancialCalculator = () => {
               </CardContent>
             </Card>
           </div>
-        )}
+        }
       </div>
-    </div>
-  );
+    </div>);
+
 };
