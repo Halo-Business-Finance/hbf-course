@@ -292,14 +292,19 @@ serve(async (req) => {
 
     // Auth check
     const authHeader = req.headers.get('Authorization');
-    if (!authHeader) return createSecureErrorResponse(req, 'Authentication required', 401, 'ERR_401');
+    if (!authHeader?.startsWith('Bearer ')) {
+      return createSecureErrorResponse(req, 'Authentication required', 401, 'ERR_401');
+    }
 
     const authClient = createClient(SUPABASE_URL!, SUPABASE_ANON_KEY!, {
       global: { headers: { Authorization: authHeader } }
     });
 
-    const { data: { user }, error: authError } = await authClient.auth.getUser();
-    if (authError || !user) return createSecureErrorResponse(req, 'Invalid or expired authentication token', 401, 'ERR_401');
+    const token = authHeader.replace('Bearer ', '');
+    const { data: claimsData, error: claimsError } = await authClient.auth.getClaims(token);
+    if (claimsError || !claimsData?.claims?.sub) {
+      return createSecureErrorResponse(req, 'Invalid or expired authentication token', 401, 'ERR_401');
+    }
 
     const { data: userRole } = await authClient.rpc('get_user_role');
     if (!['admin', 'super_admin', 'instructor'].includes(userRole)) {
