@@ -363,7 +363,7 @@ export function VideoManager() {
       }
 
       if (data.status === 'complete') {
-        const summary = data.result?.summary;
+        const summary = (data.result as any)?.summary;
         toast({
           title: "YouTube Search Complete!",
           description: `Created: ${summary?.created || 0}, Errors: ${summary?.errors || 0}, No results: ${summary?.no_results || 0}`,
