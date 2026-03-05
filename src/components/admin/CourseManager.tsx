@@ -62,27 +62,27 @@ export function CourseManager({}: CourseManagerProps) {
     title: "",
     description: "",
     level: "beginner" as "beginner" | "expert" | "none",
-    courseType: "loan-originator" as "loan-originator" | "loan-processing" | "loan-underwriting",
+    courseType: "loan-originator" as "loan-originator" | "loan-processing" | "loan-underwriting"
   });
 
   const skillLevels = [
-    { value: "none", label: "No Skill Level", icon: "📋", color: "bg-gray-100 text-gray-800" },
-    { value: "beginner", label: "Beginner", icon: "🌱", color: "bg-emerald-100 text-emerald-800" },
-    { value: "expert", label: "Expert", icon: "🌳", color: "bg-red-100 text-red-800" },
-  ];
+  { value: "none", label: "No Skill Level", icon: "📋", color: "bg-gray-100 text-gray-800" },
+  { value: "beginner", label: "Beginner", icon: "🌱", color: "bg-emerald-100 text-emerald-800" },
+  { value: "expert", label: "Expert", icon: "🌳", color: "bg-red-100 text-red-800" }];
+
 
   const courseTypes = [
-    { value: "loan-originator", label: "Loan Originator" },
-    { value: "loan-processing", label: "Loan Processing" },
-    { value: "loan-underwriting", label: "Loan Underwriting" },
-  ];
+  { value: "loan-originator", label: "Loan Originator" },
+  { value: "loan-processing", label: "Loan Processing" },
+  { value: "loan-underwriting", label: "Loan Underwriting" }];
+
 
   // Course image mapping function to match user dashboard
   const getCourseImage = (courseTitle: string) => {
     console.log('CourseManager - Getting image for courseTitle:', courseTitle);
-    
+
     // Create comprehensive mapping for all course title variations
-    const imageMap: { [key: string]: string } = {
+    const imageMap: {[key: string]: string;} = {
       // SBA courses
       "SBA 7(a) Loans - Beginner": courseSba7a,
       "SBA 7(a) Loans - Expert": courseSba7a,
@@ -92,69 +92,69 @@ export function CourseManager({}: CourseManagerProps) {
       "SBA 504 Loans - Expert": courseSba504,
       "SBA Loan Processing": courseSba7a,
       "SBA Loan Underwriting": courseSbaExpress,
-      
+
       // Real Estate courses
       "Commercial Real Estate Financing - Beginner": courseCommercialRealEstate,
       "Commercial Real Estate Financing - Expert": courseCommercialRealEstate,
       "Commercial Loan Underwriting": courseCommercialRealEstate,
       "Apartment & Multi-Family Loan Processing": courseCommercialRealEstate,
-      
+
       // Equipment courses
       "Equipment Financing - Beginner": courseEquipmentFinancing,
       "Equipment Financing - Expert": courseEquipmentFinancing,
       "Equipment Finance Loan Underwriting": courseEquipmentFinancing,
       "Equipment Loan Processing": courseEquipmentFinancing,
-      
+
       // Credit lines
       "Business Lines of Credit - Beginner": courseLinesOfCredit,
       "Business Lines of Credit - Expert": courseLinesOfCredit,
-      
+
       // Invoice & factoring
       "Invoice Factoring - Beginner": courseInvoiceFactoring,
       "Invoice Factoring - Expert": courseInvoiceFactoring,
-      
+
       // Merchant cash
       "Merchant Cash Advances - Beginner": courseMerchantCashAdvances,
       "Merchant Cash Advances - Expert": courseMerchantCashAdvances,
-      
+
       // Asset-based lending
       "Asset-Based Lending - Beginner": courseAssetBasedLending,
       "Asset-Based Lending - Expert": courseAssetBasedLending,
-      
+
       // Construction
       "Construction Loans - Beginner": courseConstructionLoans,
       "Construction Loans - Expert": courseConstructionLoans,
       "Construction Loan Underwriting": courseConstructionLoans,
-      
+
       // Franchise
       "Franchise Financing - Beginner": courseFranchiseFinancing,
       "Franchise Financing - Expert": courseFranchiseFinancing,
-      
+
       // Working capital
       "Working Capital Loans - Beginner": courseWorkingCapital,
       "Working Capital Loans - Expert": courseWorkingCapital,
-      
+
       // Healthcare
       "Healthcare Financing - Beginner": courseHealthcareFinancing,
       "Healthcare Financing - Expert": courseHealthcareFinancing,
-      
+
       // Restaurant
       "Restaurant Financing - Beginner": courseRestaurantFinancing,
       "Restaurant Financing - Expert": courseRestaurantFinancing,
-      
+
       // Bridge loans
       "Bridge Loan Processing": courseBridgeLoans,
       "Bridge Loan Underwriting": courseBridgeLoans,
-      
+
       // Agriculture & USDA
       "Agriculture Loan Processing": courseTermLoans,
       "USDA Loan Processing": courseTermLoans,
-      "USDA Loan Underwriting": courseBusinessAcquisition,
+      "USDA Loan Underwriting": courseBusinessAcquisition
     };
 
     const selectedImage = imageMap[courseTitle] || courseSba7a;
     console.log('CourseManager - Selected image for', courseTitle, ':', selectedImage);
-    
+
     return selectedImage;
   };
 
@@ -164,7 +164,7 @@ export function CourseManager({}: CourseManagerProps) {
       title: "",
       description: "",
       level: "beginner",
-      courseType: "loan-originator",
+      courseType: "loan-originator"
     });
   };
 
@@ -189,7 +189,7 @@ export function CourseManager({}: CourseManagerProps) {
       title: course.title,
       description: course.description,
       level: course.level,
-      courseType: courseType,
+      courseType: courseType
     });
     setShowAddDialog(true);
   };
@@ -199,7 +199,7 @@ export function CourseManager({}: CourseManagerProps) {
       toast({
         title: "Error",
         description: "Course ID and title are required",
-        variant: "destructive",
+        variant: "destructive"
       });
       return;
     }
@@ -209,7 +209,7 @@ export function CourseManager({}: CourseManagerProps) {
       await updateCourse(editingCourse.id, {
         title: formData.title,
         description: formData.description,
-        level: formData.level,
+        level: formData.level
       });
     } else {
       // Create new course
@@ -217,7 +217,7 @@ export function CourseManager({}: CourseManagerProps) {
         id: formData.id,
         title: formData.title,
         description: formData.description,
-        level: formData.level,
+        level: formData.level
       });
     }
 
@@ -237,10 +237,10 @@ export function CourseManager({}: CourseManagerProps) {
   const handleSaveImage = async (courseId: string, imageBlob: Blob) => {
     // TODO: Implement actual image saving to storage/database
     console.log(`Saving image for course ${courseId}`, imageBlob);
-    
+
     toast({
       title: "Image Saved",
-      description: "Course image has been saved successfully.",
+      description: "Course image has been saved successfully."
     });
   };
 
@@ -255,12 +255,12 @@ export function CourseManager({}: CourseManagerProps) {
 
   const getAssociatedModules = async (courseId: string) => {
     try {
-      const { data, error } = await supabase
-        .from('course_modules')
-        .select('*')
-        .eq('course_id', courseId)
-        .eq('is_active', true)
-        .order('order_index', { ascending: true });
+      const { data, error } = await supabase.
+      from('course_modules').
+      select('*').
+      eq('course_id', courseId).
+      eq('is_active', true).
+      order('order_index', { ascending: true });
 
       if (error) throw error;
       return data || [];
@@ -311,44 +311,44 @@ export function CourseManager({}: CourseManagerProps) {
                   </p>
                 </div>
                 <div className="flex gap-2">
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     onClick={runMigration}
-                    disabled={loading}
-                  >
+                    disabled={loading}>
+                    
                     <Download className="h-4 w-4 mr-2" />
                     Migrate Static Data
                   </Button>
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     onClick={async () => {
                       const confirmUpdate = confirm("This will update all quiz questions to have 7 questions per module. Continue?");
                       if (!confirmUpdate) return;
-                      
+
                       try {
                         toast({
                           title: "Updating Quiz Questions",
-                          description: "Updating all quizzes to have 7 questions per module...",
+                          description: "Updating all quizzes to have 7 questions per module..."
                         });
-                        
+
                         // Update all quizzes with new 7-question format
                         await runMigration();
-                        
+
                         toast({
                           title: "Success",
-                          description: "All quizzes now have 7 questions per module!",
+                          description: "All quizzes now have 7 questions per module!"
                         });
                       } catch (error) {
                         console.error('Error updating quizzes:', error);
                         toast({
                           title: "Error",
                           description: "Failed to update quiz questions. Check console for details.",
-                          variant: "destructive",
+                          variant: "destructive"
                         });
                       }
                     }}
-                    disabled={loading}
-                  >
+                    disabled={loading}>
+                    
                     <BarChart3 className="h-4 w-4 mr-2" />
                     Update Quiz Questions (7 per module)
                   </Button>
@@ -376,8 +376,8 @@ export function CourseManager({}: CourseManagerProps) {
                             <Badge variant="outline">
                               {coursesInCategory.reduce((sum, course) => sum + getModuleCount(course), 0)} modules total
                             </Badge>
-                            <Badge variant="secondary" className="bg-primary/10 text-primary">
-                              Connected: {coursesInCategory.filter(course => getModuleCount(course) > 0).length}/{coursesInCategory.length}
+                            <Badge variant="secondary" className="text-primary bg-white">
+                              Connected: {coursesInCategory.filter((course) => getModuleCount(course) > 0).length}/{coursesInCategory.length}
                             </Badge>
                           </div>
                         </div>
@@ -385,10 +385,10 @@ export function CourseManager({}: CourseManagerProps) {
                       <CardContent className="pt-0">
                         <div className="grid gap-3">
                           {coursesInCategory.map((course) => {
-                          const stats = getCourseStats(course);
-                          const moduleCount = getModuleCount(course);
-                          return (
-                            <div key={course.id} className="flex items-center justify-between p-4 rounded-lg border bg-card">
+                            const stats = getCourseStats(course);
+                            const moduleCount = getModuleCount(course);
+                            return (
+                              <div key={course.id} className="flex items-center justify-between p-4 rounded-lg border bg-card">
                               <div className="flex items-center gap-4">
                                 <div className="flex-1">
                                   <div className="font-medium text-left w-full flex items-center gap-2">
@@ -396,16 +396,16 @@ export function CourseManager({}: CourseManagerProps) {
                                     <div className="text-sm font-medium text-muted-foreground">
                                       ({course.level === 'none' ? 'No Skill Level' : course.level?.charAt(0).toUpperCase() + course.level?.slice(1)})
                                     </div>
-                                    {moduleCount === 0 && (
+                                    {moduleCount === 0 &&
                                       <Badge variant="destructive" className="text-xs ml-auto">
                                         No Modules
                                       </Badge>
-                                    )}
-                                    {moduleCount > 0 && (
+                                      }
+                                    {moduleCount > 0 &&
                                       <Badge variant="default" className="text-xs ml-auto">
                                         {moduleCount} modules
                                       </Badge>
-                                    )}
+                                      }
                                   </div>
                                   <div className="w-full h-px bg-border mt-1 mb-2"></div>
                                   <div className="text-sm text-muted-foreground line-clamp-1 text-left w-full">
@@ -415,21 +415,21 @@ export function CourseManager({}: CourseManagerProps) {
                               </div>
                               <div className="flex items-center gap-2">
                                 <Button
-                                  variant="outline"
-                                  size="sm"
-                                  onClick={() => setSelectedCourse(course)}
-                                >
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => setSelectedCourse(course)}>
+                                    
                                   <Eye className="h-4 w-4" />
                                 </Button>
-                                <CourseInstructorManager 
-                                  courseId={course.id} 
-                                  courseTitle={course.title}
-                                />
+                                <CourseInstructorManager
+                                    courseId={course.id}
+                                    courseTitle={course.title} />
+                                  
                                 <Button
-                                  variant="outline"
-                                  size="sm"
-                                  onClick={() => handleEdit(course)}
-                                >
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => handleEdit(course)}>
+                                    
                                   <Edit className="h-4 w-4" />
                                 </Button>
                                 <AlertDialog>
@@ -448,30 +448,30 @@ export function CourseManager({}: CourseManagerProps) {
                                     <AlertDialogFooter>
                                       <AlertDialogCancel>Cancel</AlertDialogCancel>
                                       <AlertDialogAction
-                                        onClick={() => handleDelete(course)}
-                                        className="bg-red-600 hover:bg-red-700"
-                                      >
+                                          onClick={() => handleDelete(course)}
+                                          className="bg-red-600 hover:bg-red-700">
+                                          
                                         Delete
                                       </AlertDialogAction>
                                     </AlertDialogFooter>
                                   </AlertDialogContent>
                                 </AlertDialog>
                               </div>
-                            </div>
-                          );
-                        })}
+                            </div>);
+
+                          })}
                       </div>
                     </CardContent>
-                  </Card>
-                );
+                  </Card>);
+
                 })}
               </div>
 
-              {Object.keys(courseCategories).length === 0 && (
-                <div className="text-center py-8 text-muted-foreground">
+              {Object.keys(courseCategories).length === 0 &&
+              <div className="text-center py-8 text-muted-foreground">
                   No courses found. Create your first course to get started.
                 </div>
-              )}
+              }
               
             </TabsContent>
 
@@ -483,8 +483,8 @@ export function CourseManager({}: CourseManagerProps) {
       </Card>
 
       {/* Course Details Modal with Associated Modules */}
-      {selectedCourse && (
-        <Dialog open={!!selectedCourse} onOpenChange={() => setSelectedCourse(null)}>
+      {selectedCourse &&
+      <Dialog open={!!selectedCourse} onOpenChange={() => setSelectedCourse(null)}>
           <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle className="flex items-center gap-2">
@@ -514,12 +514,12 @@ export function CourseManager({}: CourseManagerProps) {
                   <Layers className="h-4 w-4" />
                   Associated Course Modules
                 </h4>
-                <AssociatedModulesView courseId={selectedCourse.id} onAddFirstModule={(courseId) => { setSelectedCourse(null); setAdminTabs('modules'); setTimeout(() => moduleManagerRef.current?.openCreate(courseId), 0); }} />
+                <AssociatedModulesView courseId={selectedCourse.id} onAddFirstModule={(courseId) => {setSelectedCourse(null);setAdminTabs('modules');setTimeout(() => moduleManagerRef.current?.openCreate(courseId), 0);}} />
               </div>
             </div>
           </DialogContent>
         </Dialog>
-      )}
+      }
 
       {/* Add/Edit Course Dialog */}
       <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
@@ -538,43 +538,43 @@ export function CourseManager({}: CourseManagerProps) {
               <Input
                 id="course-id"
                 value={formData.id}
-                onChange={(e) => setFormData(prev => ({ ...prev, id: e.target.value }))}
+                onChange={(e) => setFormData((prev) => ({ ...prev, id: e.target.value }))}
                 placeholder="e.g., sba-7a-loans-beginner"
-                disabled={!!editingCourse}
-              />
+                disabled={!!editingCourse} />
+              
             </div>
             <div className="grid gap-2">
               <Label htmlFor="title">Title</Label>
               <Input
                 id="title"
                 value={formData.title}
-                onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
-                placeholder="Course title"
-              />
+                onChange={(e) => setFormData((prev) => ({ ...prev, title: e.target.value }))}
+                placeholder="Course title" />
+              
             </div>
             <div className="grid gap-2">
               <Label htmlFor="description">Description</Label>
               <Textarea
                 id="description"
                 value={formData.description}
-                onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+                onChange={(e) => setFormData((prev) => ({ ...prev, description: e.target.value }))}
                 placeholder="Course description"
-                rows={3}
-              />
+                rows={3} />
+              
             </div>
             <div className="grid gap-2">
               <Label htmlFor="course-type">Course Type</Label>
               <select
                 id="course-type"
                 value={formData.courseType}
-                onChange={(e) => setFormData(prev => ({ ...prev, courseType: e.target.value as any }))}
-                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-              >
-                {courseTypes.map(type => (
-                  <option key={type.value} value={type.value}>
+                onChange={(e) => setFormData((prev) => ({ ...prev, courseType: e.target.value as any }))}
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
+                
+                {courseTypes.map((type) =>
+                <option key={type.value} value={type.value}>
                     {type.label}
                   </option>
-                ))}
+                )}
               </select>
             </div>
             <div className="grid gap-2">
@@ -582,29 +582,29 @@ export function CourseManager({}: CourseManagerProps) {
               <select
                 id="skill-level"
                 value={formData.level}
-                onChange={(e) => setFormData(prev => ({ ...prev, level: e.target.value as any }))}
-                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-              >
-                {skillLevels
-                  .filter(level => {
-                    // For Loan Originator courses, only show none, beginner, and expert
-                    if (formData.courseType === 'loan-originator') {
-                      return true; // Show all remaining levels
-                    }
-                    // For other course types, show all levels
-                    return true;
-                  })
-                  .map(level => (
-                    <option key={level.value} value={level.value}>
+                onChange={(e) => setFormData((prev) => ({ ...prev, level: e.target.value as any }))}
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
+                
+                {skillLevels.
+                filter((level) => {
+                  // For Loan Originator courses, only show none, beginner, and expert
+                  if (formData.courseType === 'loan-originator') {
+                    return true; // Show all remaining levels
+                  }
+                  // For other course types, show all levels
+                  return true;
+                }).
+                map((level) =>
+                <option key={level.value} value={level.value}>
                       {level.icon} {level.label}
                     </option>
-                  ))}
+                )}
               </select>
-              {formData.courseType === 'loan-originator' && (
-                <p className="text-xs text-muted-foreground mt-1">
+              {formData.courseType === 'loan-originator' &&
+              <p className="text-xs text-muted-foreground mt-1">
                   Loan Originator courses only support Beginner and Expert skill levels.
                 </p>
-              )}
+              }
             </div>
           </div>
           <DialogFooter>
@@ -619,14 +619,14 @@ export function CourseManager({}: CourseManagerProps) {
       </Dialog>
 
       {/* Course Image Editor */}
-      {editingImageCourse && (
-        <CourseImageEditor
-          course={editingImageCourse}
-          open={showImageEditor}
-          onOpenChange={setShowImageEditor}
-          onSave={handleSaveImage}
-        />
-      )}
-    </div>
-  );
+      {editingImageCourse &&
+      <CourseImageEditor
+        course={editingImageCourse}
+        open={showImageEditor}
+        onOpenChange={setShowImageEditor}
+        onSave={handleSaveImage} />
+
+      }
+    </div>);
+
 }
