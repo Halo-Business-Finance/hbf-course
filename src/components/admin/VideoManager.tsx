@@ -342,37 +342,82 @@ export function VideoManager() {
     }
   };
 
+  const pollJobStatus = async (jobId: string) => {
+    const maxAttempts = 120; // 4 minutes max (2s intervals)
+    let attempts = 0;
+    
+    const poll = async (): Promise<void> => {
+      attempts++;
+      const { data, error } = await supabase
+        .from('processing_jobs')
+        .select('status, progress, total, result, error')
+        .eq('id', jobId)
+        .single();
+
+      if (error || !data) {
+        if (attempts < maxAttempts) {
+          await new Promise(r => setTimeout(r, 2000));
+          return poll();
+        }
+        throw new Error('Failed to check job status');
+      }
+
+      if (data.status === 'complete') {
+        const summary = (data.result as any)?.summary;
+        toast({
+          title: "YouTube Search Complete!",
+          description: `Created: ${summary?.created || 0}, Errors: ${summary?.errors || 0}, No results: ${summary?.no_results || 0}`,
+        });
+        await loadData();
+        return;
+      }
+
+      if (data.status === 'failed') {
+        throw new Error(data.error || 'Video search failed');
+      }
+
+      // Still processing - update toast
+      if (data.total > 0) {
+        toast({
+          title: "Processing...",
+          description: `Progress: ${data.progress}/${data.total} modules`,
+        });
+      }
+
+      if (attempts < maxAttempts) {
+        await new Promise(r => setTimeout(r, 2000));
+        return poll();
+      }
+      throw new Error('Job timed out');
+    };
+
+    await poll();
+  };
+
   const handleFindYouTubeVideos = async () => {
     setSearchingYouTube(true);
     
     try {
       const body: any = { limit: searchLimit };
       
-      // Add course filter if not "all"
       if (selectedCourseForSearch !== 'all') {
         body.course_id = selectedCourseForSearch;
       }
       
       toast({
-        title: "Searching YouTube",
-        description: `Finding videos for ${selectedCourseForSearch === 'all' ? 'all courses' : 'selected course'} (max ${searchLimit})...`,
+        title: "Starting YouTube Search",
+        description: `Finding videos for ${selectedCourseForSearch === 'all' ? 'all courses' : 'selected course'}. This runs in the background...`,
       });
 
       const { data, error } = await supabase.functions.invoke('find-youtube-videos', { body });
 
       if (error) throw error;
 
-      if (data?.success) {
-        const summary = data.summary;
-        toast({
-          title: "YouTube Search Complete!",
-          description: `Created: ${summary.created}, Updated: ${summary.updated}, Errors: ${summary.errors}, No results: ${summary.no_results}`,
-        });
-        
-        // Reload the videos to show the new ones
-        await loadData();
+      if (data?.success && data?.job_id) {
+        // Poll for completion
+        await pollJobStatus(data.job_id);
       } else {
-        throw new Error('Search failed');
+        throw new Error('Failed to start search');
       }
     } catch (error: any) {
       console.error('Error finding YouTube videos:', error);
