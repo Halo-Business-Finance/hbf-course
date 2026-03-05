@@ -99,9 +99,9 @@ const ProgressPage = () => {
       case "in-progress":
         return <Badge className="text-primary border-primary/20 bg-white">In Progress</Badge>;
       case "available":
-        return <Badge className="bg-halo-orange/15 text-halo-orange border-halo-orange/20 hover:bg-halo-orange/15">Ready to Start</Badge>;
+        return <Badge className="bg-halo-orange/15 text-halo-orange border-halo-orange/20 hover:bg-halo-orange/15 bg-white">Ready to Start</Badge>;
       case "locked":
-        return <Badge variant="outline" className="opacity-60">Locked</Badge>;
+        return <Badge variant="outline" className="opacity-60 text-black">Locked</Badge>;
       default:
         return <Badge variant="outline">Available</Badge>;
     }
@@ -171,7 +171,7 @@ const ProgressPage = () => {
           </p>
         </div>
 
-        <Tabs defaultValue="progress" className="w-full space-y-8">
+        <Tabs defaultValue="progress" className="w-full space-y-8 bg-white">
           <TabsList className="grid w-full grid-cols-5 h-12 bg-background/50 backdrop-blur-sm border border-border/50">
             <TabsTrigger value="progress" className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary text-foreground">
               Learning Progress
