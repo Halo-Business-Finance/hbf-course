@@ -13,14 +13,14 @@ export function StreakDisplay({ streak }: StreakDisplayProps) {
   const totalPoints = streak?.total_points || 0;
 
   const streakEmoji = currentStreak >= 30 ? '🔥' : currentStreak >= 7 ? '⚡' : currentStreak >= 3 ? '✨' : '💪';
-  
-  const streakMessage = currentStreak >= 30 
-    ? "You're on fire! Incredible dedication!" 
-    : currentStreak >= 7 
-    ? "Week warrior! Keep it going!" 
-    : currentStreak >= 3 
-    ? "Great start! Build that momentum!" 
-    : "Start your learning streak today!";
+
+  const streakMessage = currentStreak >= 30 ?
+  "You're on fire! Incredible dedication!" :
+  currentStreak >= 7 ?
+  "Week warrior! Keep it going!" :
+  currentStreak >= 3 ?
+  "Great start! Build that momentum!" :
+  "Start your learning streak today!";
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -28,9 +28,9 @@ export function StreakDisplay({ streak }: StreakDisplayProps) {
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.1 }}
-      >
-        <Card className="bg-gradient-to-br from-orange-500/20 to-red-500/10 border-orange-500/30 overflow-hidden">
+        transition={{ delay: 0.1 }}>
+        
+        <Card className="bg-gradient-to-br from-orange-500/20 to-red-500/10 overflow-hidden bg-white border-white">
           <CardContent className="p-6 relative">
             <div className="absolute top-0 right-0 w-20 h-20 bg-orange-500/10 rounded-full blur-2xl" />
             <div className="flex items-center gap-3 mb-3">
@@ -53,9 +53,9 @@ export function StreakDisplay({ streak }: StreakDisplayProps) {
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.2 }}
-      >
-        <Card className="bg-gradient-to-br from-purple-500/20 to-pink-500/10 border-purple-500/30 overflow-hidden">
+        transition={{ delay: 0.2 }}>
+        
+        <Card className="bg-gradient-to-br from-purple-500/20 to-pink-500/10 overflow-hidden bg-white border-white">
           <CardContent className="p-6 relative">
             <div className="absolute top-0 right-0 w-20 h-20 bg-purple-500/10 rounded-full blur-2xl" />
             <div className="flex items-center gap-3 mb-3">
@@ -77,10 +77,10 @@ export function StreakDisplay({ streak }: StreakDisplayProps) {
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.3 }}
-      >
-        <Card className="bg-gradient-to-br from-yellow-500/20 to-amber-500/10 border-yellow-500/30 overflow-hidden">
-          <CardContent className="p-6 relative">
+        transition={{ delay: 0.3 }}>
+        
+        <Card className="bg-gradient-to-br from-yellow-500/20 to-amber-500/10 border-yellow-500/30 overflow-hidden bg-white">
+          <CardContent className="p-6 relative border-white">
             <div className="absolute top-0 right-0 w-20 h-20 bg-yellow-500/10 rounded-full blur-2xl" />
             <div className="flex items-center gap-3 mb-3">
               <div className="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center">
@@ -101,9 +101,9 @@ export function StreakDisplay({ streak }: StreakDisplayProps) {
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.4 }}
-      >
-        <Card className="bg-gradient-to-br from-blue-500/20 to-cyan-500/10 border-blue-500/30 overflow-hidden">
+        transition={{ delay: 0.4 }}>
+        
+        <Card className="bg-gradient-to-br from-blue-500/20 to-cyan-500/10 overflow-hidden bg-white border-white">
           <CardContent className="p-6 relative">
             <div className="absolute top-0 right-0 w-20 h-20 bg-blue-500/10 rounded-full blur-2xl" />
             <div className="flex items-center gap-3 mb-3">
@@ -114,9 +114,9 @@ export function StreakDisplay({ streak }: StreakDisplayProps) {
             </div>
             <div className="flex items-baseline gap-2">
               <span className="text-lg font-semibold text-foreground">
-                {streak?.last_activity_date 
-                  ? new Date(streak.last_activity_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
-                  : 'Not started'
+                {streak?.last_activity_date ?
+                new Date(streak.last_activity_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) :
+                'Not started'
                 }
               </span>
             </div>
@@ -124,6 +124,6 @@ export function StreakDisplay({ streak }: StreakDisplayProps) {
           </CardContent>
         </Card>
       </motion.div>
-    </div>
-  );
+    </div>);
+
 }
