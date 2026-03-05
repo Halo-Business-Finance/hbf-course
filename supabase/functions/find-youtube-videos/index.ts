@@ -52,13 +52,21 @@ function isVideoRelevant(title: string, description: string): boolean {
 }
 
 function buildSearchQuery(moduleTitle: string, description: string | null, courseId: string): string {
-  const stopWords = new Set(['and','or','the','a','an','of','in','for','to','with','how','what','why','when','is','are','be','by','on','at','it','its','this','that','these','those','from']);
+  const stopWords = new Set(['and','or','the','a','an','of','in','for','to','with','how','what','why','when','is','are','be','by','on','at','it','its','this','that','these','those','from','module','overview','fundamentals','beginner','expert','advanced','introduction','processing']);
 
   const titleWords = moduleTitle
     .replace(/[^a-zA-Z0-9 ]/g, ' ')
     .split(' ')
     .filter(w => w.length > 2 && !stopWords.has(w.toLowerCase()))
-    .slice(0, 5)
+    .slice(0, 6)
+    .join(' ');
+
+  // Also extract key phrases from description for better specificity
+  const descWords = (description || '')
+    .replace(/[^a-zA-Z0-9 ]/g, ' ')
+    .split(' ')
+    .filter(w => w.length > 3 && !stopWords.has(w.toLowerCase()))
+    .slice(0, 4)
     .join(' ');
 
   const titleLower = moduleTitle.toLowerCase();
@@ -107,7 +115,10 @@ function buildSearchQuery(moduleTitle: string, description: string | null, cours
     domainContext = 'commercial credit analysis banking';
   }
 
-  return `${titleWords} ${domainContext}`.trim().replace(/\s+/g, ' ');
+  // Combine title words, description words, and domain context for maximum specificity
+  const query = `${titleWords} ${descWords} ${domainContext}`.trim().replace(/\s+/g, ' ');
+  // Limit total length to avoid overly long queries that confuse YouTube search
+  return query.split(' ').slice(0, 12).join(' ');
 }
 
 serve(async (req) => {
@@ -165,7 +176,7 @@ serve(async (req) => {
     const { data: modules, error: modulesError } = await query;
     if (modulesError) throw modulesError;
 
-    // Step 2: Delete ALL existing videos so we start fresh with correct assignments
+    // Step 2: Delete existing videos for targeted modules only
     const moduleIds = (modules || []).map(m => m.id);
     if (moduleIds.length > 0) {
       await supabase
@@ -174,8 +185,20 @@ serve(async (req) => {
         .in('module_id', moduleIds);
     }
 
-    // Step 3: Track used YouTube IDs globally to prevent any duplicates
+    // Step 3: Pre-load ALL existing youtube_ids from the entire course_videos table
+    // to prevent cross-course duplicates when function is called per-course
     const usedYoutubeIds = new Set<string>();
+    const { data: existingVideos } = await supabase
+      .from('course_videos')
+      .select('youtube_id')
+      .not('youtube_id', 'is', null);
+    
+    if (existingVideos) {
+      for (const v of existingVideos) {
+        if (v.youtube_id) usedYoutubeIds.add(v.youtube_id);
+      }
+    }
+    logErrorServerSide('find-youtube-videos', `Pre-loaded ${usedYoutubeIds.size} existing youtube IDs to prevent duplicates`);
 
     const results = [];
 
@@ -185,7 +208,7 @@ serve(async (req) => {
         const encodedQuery = encodeURIComponent(searchQuery);
 
         // Request 10 results to find one that passes our relevance filter
-        const youtubeSearchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${encodedQuery}&type=video&videoDuration=medium&relevanceLanguage=en&key=${YOUTUBE_API_KEY}`;
+        const youtubeSearchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=15&q=${encodedQuery}&type=video&videoDuration=medium&relevanceLanguage=en&key=${YOUTUBE_API_KEY}`;
 
         const youtubeResponse = await fetch(youtubeSearchUrl);
 

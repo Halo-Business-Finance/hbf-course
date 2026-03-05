@@ -1007,7 +1007,7 @@ export type Database = {
           regulation_reference: string | null
           resource_id: string | null
           resource_type: string
-          retention_period: unknown
+          retention_period: string | null
           user_id: string | null
         }
         Insert: {
@@ -1029,7 +1029,7 @@ export type Database = {
           regulation_reference?: string | null
           resource_id?: string | null
           resource_type: string
-          retention_period?: unknown
+          retention_period?: string | null
           user_id?: string | null
         }
         Update: {
@@ -1051,7 +1051,7 @@ export type Database = {
           regulation_reference?: string | null
           resource_id?: string | null
           resource_type?: string
-          retention_period?: unknown
+          retention_period?: string | null
           user_id?: string | null
         }
         Relationships: []
@@ -4246,7 +4246,7 @@ export type Database = {
           required_trust_score: number | null
           resource_path: string
           risk_tolerance: string | null
-          session_duration: unknown
+          session_duration: string | null
           time_restrictions: Json | null
           updated_at: string
         }
@@ -4270,7 +4270,7 @@ export type Database = {
           required_trust_score?: number | null
           resource_path: string
           risk_tolerance?: string | null
-          session_duration?: unknown
+          session_duration?: string | null
           time_restrictions?: Json | null
           updated_at?: string
         }
@@ -4294,7 +4294,7 @@ export type Database = {
           required_trust_score?: number | null
           resource_path?: string
           risk_tolerance?: string | null
-          session_duration?: unknown
+          session_duration?: string | null
           time_restrictions?: Json | null
           updated_at?: string
         }
