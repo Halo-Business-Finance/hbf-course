@@ -184,7 +184,7 @@ export const InteractiveDragDrop = ({ onComplete }: InteractiveDragDropProps) =>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="flex justify-between items-center">
-          <div className="text-sm font-medium">Progress: {score}/{items.length} correct</div>
+          <div className="text-sm font-medium">Current Progress: {score}/{items.length}</div>
           <Progress value={score / items.length * 100} className="w-32" />
         </div>
 
