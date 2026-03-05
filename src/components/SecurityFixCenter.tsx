@@ -45,8 +45,8 @@ export const SecurityFixCenter = () => {
         ascending: false
       });
       if (alerts && alerts.length > 0) {
-        const criticalAlerts = alerts.filter(a => a.severity === 'critical');
-        const highAlerts = alerts.filter(a => a.severity === 'high');
+        const criticalAlerts = alerts.filter((a) => a.severity === 'critical');
+        const highAlerts = alerts.filter((a) => a.severity === 'high');
         if (criticalAlerts.length > 0) {
           issues.push({
             id: 'critical-alerts',
@@ -166,10 +166,10 @@ export const SecurityFixCenter = () => {
             issuesFixed: 0
           };
       }
-      setFixResults(prev => [...prev, result]);
+      setFixResults((prev) => [...prev, result]);
       if (result.success) {
         // Remove the fixed issue
-        setSecurityIssues(prev => prev.filter(i => i.id !== issue.id));
+        setSecurityIssues((prev) => prev.filter((i) => i.id !== issue.id));
         toast({
           title: "Security Issue Fixed",
           description: result.message
@@ -206,7 +206,7 @@ export const SecurityFixCenter = () => {
         } = await supabase.from('security_alerts').update({
           resolved_at: new Date().toISOString(),
           resolved_by: user?.id || null
-        }).in('id', alerts.map(a => a.id));
+        }).in('id', alerts.map((a) => a.id));
         if (error) throw error;
         return {
           success: true,
@@ -238,7 +238,7 @@ export const SecurityFixCenter = () => {
         } = await supabase.from('security_alerts').update({
           resolved_at: new Date().toISOString(),
           resolved_by: user?.id || null
-        }).in('id', alerts.map(a => a.id));
+        }).in('id', alerts.map((a) => a.id));
         if (error) throw error;
         return {
           success: true,
@@ -299,11 +299,11 @@ export const SecurityFixCenter = () => {
     }
   };
   const fixAllIssues = async () => {
-    const fixableIssues = securityIssues.filter(issue => issue.fixable);
+    const fixableIssues = securityIssues.filter((issue) => issue.fixable);
     for (const issue of fixableIssues) {
       await fixSecurityIssue(issue);
       // Add small delay between fixes
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 500));
     }
     toast({
       title: "Security Fixes Complete",
@@ -327,13 +327,13 @@ export const SecurityFixCenter = () => {
   const getIssueBadge = (type: string) => {
     switch (type) {
       case 'critical':
-        return <span className="text-sm px-2 py-1 bg-red-100 text-red-800 border border-red-200 rounded">Critical</span>;
+        return <span className="text-sm px-2 py-1 text-red-800 border border-red-200 rounded bg-white">Critical</span>;
       case 'high':
         return <span className="text-sm px-2 py-1 bg-orange-100 text-orange-800 border border-orange-200 rounded">High</span>;
       case 'medium':
         return <span className="text-sm px-2 py-1 bg-yellow-100 text-yellow-800 border border-yellow-200 rounded">Medium</span>;
       case 'low':
-        return <span className="text-sm px-2 py-1 bg-blue-100 text-blue-800 border border-blue-200 rounded">Low</span>;
+        return <span className="text-sm px-2 py-1 text-blue-800 border border-blue-200 rounded bg-white">Low</span>;
       default:
         return <span className="text-sm text-muted-foreground">{type}</span>;
     }
@@ -365,7 +365,7 @@ export const SecurityFixCenter = () => {
               <RefreshCw className={`h-4 w-4 ${scanning ? 'animate-spin' : ''}`} />
               Rescan
             </Button>
-            {securityIssues.some(issue => issue.fixable) && <Button onClick={fixAllIssues} disabled={fixing !== null} className="flex items-center gap-2">
+            {securityIssues.some((issue) => issue.fixable) && <Button onClick={fixAllIssues} disabled={fixing !== null} className="flex items-center gap-2">
                 <Zap className="h-4 w-4" />
                 Fix All Issues
               </Button>}
@@ -392,13 +392,13 @@ export const SecurityFixCenter = () => {
                     {securityIssues.length} Security Issues Found
                   </h3>
                   <p className="text-sm text-orange-700">
-                    {securityIssues.filter(i => i.fixable).length} issues can be automatically resolved
+                    {securityIssues.filter((i) => i.fixable).length} issues can be automatically resolved
                   </p>
                 </div>
               </>}
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-sm px-3 py-1 text-muted-foreground border rounded">
+            <span className="text-sm px-3 py-1 border rounded bg-white text-black">
               {securityIssues.length} Active
             </span>
             <span className="text-sm px-3 py-1 bg-secondary text-secondary-foreground rounded">
@@ -409,7 +409,7 @@ export const SecurityFixCenter = () => {
 
         {/* Security Issues List */}
         <div className="space-y-4">
-          {securityIssues.map(issue => <div key={issue.id} className="border rounded-lg p-4 space-y-3">
+          {securityIssues.map((issue) => <div key={issue.id} className="border rounded-lg p-4 space-y-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   {getIssueIcon(issue.type)}

@@ -52,9 +52,9 @@ export const SecurityComplianceStatus: React.FC<SecurityComplianceStatusProps> =
       }
 
       // Count real security events by severity
-      const criticalCount = securityEvents?.filter(e => e.severity === 'critical').length || 0;
-      const mediumCount = securityEvents?.filter(e => e.severity === 'medium').length || 0;
-      const lowCount = securityEvents?.filter(e => e.severity === 'low').length || 0;
+      const criticalCount = securityEvents?.filter((e) => e.severity === 'critical').length || 0;
+      const mediumCount = securityEvents?.filter((e) => e.severity === 'medium').length || 0;
+      const lowCount = securityEvents?.filter((e) => e.severity === 'low').length || 0;
       const updatedMetrics: SecurityMetrics = {
         dataEncryption: 'active',
         auditLogging: 'comprehensive',
@@ -234,15 +234,15 @@ export const SecurityComplianceStatus: React.FC<SecurityComplianceStatusProps> =
             </span>
           </div>
           <div className="grid grid-cols-3 gap-4 text-center">
-            <div className="p-3 rounded-lg border border-destructive/20 bg-destructive/5">
+            <div className="p-3 rounded-lg border border-destructive/20 bg-white">
               <div className="text-lg font-bold text-destructive">{metrics.criticalAlerts}</div>
               <div className="text-xs text-destructive/80">Critical</div>
             </div>
-            <div className="p-3 rounded-lg border border-halo-orange/20 bg-halo-orange/5">
+            <div className="p-3 rounded-lg border border-halo-orange/20 bg-halo-orange/5 bg-white">
               <div className="text-lg font-bold text-halo-orange">{metrics.mediumAlerts}</div>
               <div className="text-xs text-halo-orange/80">Medium</div>
             </div>
-            <div className="p-3 rounded-lg bg-blue-50 border border-blue-200">
+            <div className="p-3 rounded-lg border border-blue-200 bg-white">
               <div className="text-lg font-bold text-blue-700">{metrics.lowAlerts}</div>
               <div className="text-xs text-blue-600">Low</div>
             </div>
