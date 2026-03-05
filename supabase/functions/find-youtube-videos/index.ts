@@ -208,7 +208,7 @@ serve(async (req) => {
         const encodedQuery = encodeURIComponent(searchQuery);
 
         // Request 10 results to find one that passes our relevance filter
-        const youtubeSearchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${encodedQuery}&type=video&videoDuration=medium&relevanceLanguage=en&key=${YOUTUBE_API_KEY}`;
+        const youtubeSearchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=15&q=${encodedQuery}&type=video&videoDuration=medium&relevanceLanguage=en&key=${YOUTUBE_API_KEY}`;
 
         const youtubeResponse = await fetch(youtubeSearchUrl);
 
