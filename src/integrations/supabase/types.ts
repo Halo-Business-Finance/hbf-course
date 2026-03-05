@@ -2914,6 +2914,42 @@ export type Database = {
         }
         Relationships: []
       }
+      processing_jobs: {
+        Row: {
+          created_at: string | null
+          error: string | null
+          id: string
+          job_type: string
+          progress: number | null
+          result: Json | null
+          status: string
+          total: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          error?: string | null
+          id?: string
+          job_type?: string
+          progress?: number | null
+          result?: Json | null
+          status?: string
+          total?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          error?: string | null
+          id?: string
+          job_type?: string
+          progress?: number | null
+          result?: Json | null
+          status?: string
+          total?: number | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
