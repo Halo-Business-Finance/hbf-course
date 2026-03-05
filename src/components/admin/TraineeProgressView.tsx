@@ -255,7 +255,7 @@ export const TraineeProgressView = () => {
             <SecurityStatusIndicator
               level={trainees.length > 0 && trainees[0].is_masked ? 'masked' : 'secure'}
               message={trainees.length > 0 && trainees[0].is_masked ? 'Data Masked' : 'Full Access'}
-              size="sm" className="bg-white" />
+              size="sm" />
             
           </div>
         </CardHeader>
