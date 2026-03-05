@@ -45,9 +45,10 @@ export function isOriginAllowed(origin: string | null): boolean {
     return true;
   }
   
-  // Check for Lovable preview URLs pattern
+  // Check for Lovable preview URLs patterns
   const lovablePreviewPattern = /^https:\/\/[a-zA-Z0-9-]+--[a-f0-9-]+\.lovable\.app$/;
-  if (lovablePreviewPattern.test(origin)) {
+  const lovableProjectPattern = /^https:\/\/[a-zA-Z0-9-]+\.lovableproject\.com$/;
+  if (lovablePreviewPattern.test(origin) || lovableProjectPattern.test(origin)) {
     return true;
   }
   
@@ -63,7 +64,7 @@ export function getSecureCorsHeaders(req: Request): Record<string, string> {
   
   return {
     'Access-Control-Allow-Origin': isAllowed ? origin : '',
-    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
     'Access-Control-Allow-Credentials': 'true',
     'Access-Control-Max-Age': '86400',
