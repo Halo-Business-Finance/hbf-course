@@ -52,13 +52,21 @@ function isVideoRelevant(title: string, description: string): boolean {
 }
 
 function buildSearchQuery(moduleTitle: string, description: string | null, courseId: string): string {
-  const stopWords = new Set(['and','or','the','a','an','of','in','for','to','with','how','what','why','when','is','are','be','by','on','at','it','its','this','that','these','those','from']);
+  const stopWords = new Set(['and','or','the','a','an','of','in','for','to','with','how','what','why','when','is','are','be','by','on','at','it','its','this','that','these','those','from','module','overview','fundamentals','beginner','expert','advanced','introduction','processing']);
 
   const titleWords = moduleTitle
     .replace(/[^a-zA-Z0-9 ]/g, ' ')
     .split(' ')
     .filter(w => w.length > 2 && !stopWords.has(w.toLowerCase()))
-    .slice(0, 5)
+    .slice(0, 6)
+    .join(' ');
+
+  // Also extract key phrases from description for better specificity
+  const descWords = (description || '')
+    .replace(/[^a-zA-Z0-9 ]/g, ' ')
+    .split(' ')
+    .filter(w => w.length > 3 && !stopWords.has(w.toLowerCase()))
+    .slice(0, 4)
     .join(' ');
 
   const titleLower = moduleTitle.toLowerCase();
@@ -107,7 +115,10 @@ function buildSearchQuery(moduleTitle: string, description: string | null, cours
     domainContext = 'commercial credit analysis banking';
   }
 
-  return `${titleWords} ${domainContext}`.trim().replace(/\s+/g, ' ');
+  // Combine title words, description words, and domain context for maximum specificity
+  const query = `${titleWords} ${descWords} ${domainContext}`.trim().replace(/\s+/g, ' ');
+  // Limit total length to avoid overly long queries that confuse YouTube search
+  return query.split(' ').slice(0, 12).join(' ');
 }
 
 serve(async (req) => {
