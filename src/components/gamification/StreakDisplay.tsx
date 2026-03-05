@@ -30,11 +30,11 @@ export function StreakDisplay({ streak }: StreakDisplayProps) {
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.1 }}>
         
-        <Card className="bg-gradient-to-br from-orange-500/20 to-red-500/10 overflow-hidden bg-white border-white">
+        <Card className="bg-gradient-to-br from-orange-500/20 to-red-500/10 overflow-hidden bg-white border-black">
           <CardContent className="p-6 relative">
             <div className="absolute top-0 right-0 w-20 h-20 bg-orange-500/10 rounded-full blur-2xl" />
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-full bg-orange-500/20 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-full flex items-center justify-center bg-white">
                 <Flame className="w-5 h-5 text-orange-500" />
               </div>
               <span className="text-sm text-muted-foreground">Current Streak</span>
@@ -55,11 +55,11 @@ export function StreakDisplay({ streak }: StreakDisplayProps) {
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.2 }}>
         
-        <Card className="bg-gradient-to-br from-purple-500/20 to-pink-500/10 overflow-hidden bg-white border-white">
+        <Card className="bg-gradient-to-br from-purple-500/20 to-pink-500/10 overflow-hidden bg-white border-black">
           <CardContent className="p-6 relative">
             <div className="absolute top-0 right-0 w-20 h-20 bg-purple-500/10 rounded-full blur-2xl" />
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-full flex items-center justify-center bg-white">
                 <TrendingUp className="w-5 h-5 text-purple-500" />
               </div>
               <span className="text-sm text-muted-foreground">Best Streak</span>
@@ -79,11 +79,11 @@ export function StreakDisplay({ streak }: StreakDisplayProps) {
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.3 }}>
         
-        <Card className="bg-gradient-to-br from-yellow-500/20 to-amber-500/10 border-yellow-500/30 overflow-hidden bg-white">
+        <Card className="bg-gradient-to-br from-yellow-500/20 to-amber-500/10 overflow-hidden bg-white border-black">
           <CardContent className="p-6 relative border-white">
             <div className="absolute top-0 right-0 w-20 h-20 bg-yellow-500/10 rounded-full blur-2xl" />
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-full flex items-center justify-center bg-white">
                 <Star className="w-5 h-5 text-yellow-500" />
               </div>
               <span className="text-sm text-muted-foreground">Total Points</span>
@@ -103,11 +103,11 @@ export function StreakDisplay({ streak }: StreakDisplayProps) {
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.4 }}>
         
-        <Card className="bg-gradient-to-br from-blue-500/20 to-cyan-500/10 overflow-hidden bg-white border-white">
+        <Card className="bg-gradient-to-br from-blue-500/20 to-cyan-500/10 overflow-hidden bg-white border-black">
           <CardContent className="p-6 relative">
             <div className="absolute top-0 right-0 w-20 h-20 bg-blue-500/10 rounded-full blur-2xl" />
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-full flex items-center justify-center bg-white">
                 <Calendar className="w-5 h-5 text-blue-500" />
               </div>
               <span className="text-sm text-muted-foreground">Last Active</span>
