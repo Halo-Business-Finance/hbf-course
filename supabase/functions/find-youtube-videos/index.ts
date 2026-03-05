@@ -165,7 +165,7 @@ serve(async (req) => {
     const { data: modules, error: modulesError } = await query;
     if (modulesError) throw modulesError;
 
-    // Step 2: Delete ALL existing videos so we start fresh with correct assignments
+    // Step 2: Delete existing videos for targeted modules only
     const moduleIds = (modules || []).map(m => m.id);
     if (moduleIds.length > 0) {
       await supabase
@@ -174,8 +174,20 @@ serve(async (req) => {
         .in('module_id', moduleIds);
     }
 
-    // Step 3: Track used YouTube IDs globally to prevent any duplicates
+    // Step 3: Pre-load ALL existing youtube_ids from the entire course_videos table
+    // to prevent cross-course duplicates when function is called per-course
     const usedYoutubeIds = new Set<string>();
+    const { data: existingVideos } = await supabase
+      .from('course_videos')
+      .select('youtube_id')
+      .not('youtube_id', 'is', null);
+    
+    if (existingVideos) {
+      for (const v of existingVideos) {
+        if (v.youtube_id) usedYoutubeIds.add(v.youtube_id);
+      }
+    }
+    logErrorServerSide('find-youtube-videos', `Pre-loaded ${usedYoutubeIds.size} existing youtube IDs to prevent duplicates`);
 
     const results = [];
 
