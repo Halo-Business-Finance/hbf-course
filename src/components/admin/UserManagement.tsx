@@ -213,11 +213,11 @@ export function UserManagement({
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Active</p>
+                <p className="text-sm font-medium text-muted-foreground">Active Users </p>
                 <p className="text-3xl font-bold mt-1">{stats.active}</p>
               </div>
-              <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
-                <div className="w-3 h-3 rounded-full bg-accent animate-pulse text-orange-600 border-primary" />
+              <div className="w-12 h-12 rounded-full flex items-center justify-center bg-white">
+                <div className="w-3 h-3 rounded-full animate-pulse text-orange-600 border-primary bg-orange-700" />
               </div>
             </div>
           </CardContent>
@@ -245,7 +245,7 @@ export function UserManagement({
                 <p className="text-3xl font-bold mt-1">{stats.trainees}</p>
               </div>
               <div className="w-12 h-12 rounded-full flex items-center justify-center bg-white">
-                <User className="w-6 h-6 text-muted-foreground" />
+                <User className="w-6 h-6 bg-white text-orange-600" />
               </div>
             </div>
           </CardContent>
