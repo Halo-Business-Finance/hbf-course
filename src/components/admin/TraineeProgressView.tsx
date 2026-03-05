@@ -6,17 +6,17 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Progress } from "@/components/ui/progress";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { 
-  Users, 
-  GraduationCap, 
-  TrendingUp, 
-  Clock, 
+import {
+  Users,
+  GraduationCap,
+  TrendingUp,
+  Clock,
   Eye,
   Calendar,
   Building,
   Mail,
-  Phone
-} from "lucide-react";
+  Phone } from
+"lucide-react";
 import { SecurityStatusIndicator } from "@/components/SecurityStatusIndicator";
 import { SecurePIIDisplay } from "@/components/SecurePIIDisplay";
 import { supabase } from "@/integrations/supabase/client";
@@ -62,13 +62,13 @@ export const TraineeProgressView = () => {
     loadTraineeProgress();
   }, []);
 
-const loadTraineeProgress = async () => {
+  const loadTraineeProgress = async () => {
     try {
       setLoading(true);
-      
+
       // Use secure function to get trainee profiles with proper admin access control
       const { data, error } = await supabase.rpc('get_trainee_profiles_secure');
-      
+
       if (error) {
         console.error('Error fetching trainees:', error);
         throw error;
@@ -100,17 +100,17 @@ const loadTraineeProgress = async () => {
       }));
 
       setTrainees(transformedData);
-      
+
       // Add debugging for trainees data
-      
+
       // Calculate stats using transformed data
       const totalTrainees = transformedData?.length || 0;
-      const activeTrainees = transformedData?.filter(t => 
-        t.last_activity && new Date(t.last_activity) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+      const activeTrainees = transformedData?.filter((t) =>
+      t.last_activity && new Date(t.last_activity) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
       ).length || 0;
-      const averageProgress = totalTrainees > 0 
-        ? transformedData.reduce((sum, t) => sum + (t.overall_progress_percentage || 0), 0) / totalTrainees 
-        : 0;
+      const averageProgress = totalTrainees > 0 ?
+      transformedData.reduce((sum, t) => sum + (t.overall_progress_percentage || 0), 0) / totalTrainees :
+      0;
       const completedCourses = transformedData?.reduce((sum, t) => sum + (t.completed_courses || 0), 0) || 0;
 
       setStats({
@@ -141,7 +141,7 @@ const loadTraineeProgress = async () => {
 
   const getActivityStatus = (lastActivity: string) => {
     if (!lastActivity) return <Badge variant="outline">No Activity</Badge>;
-    
+
     const daysSinceActivity = Math.floor(
       (Date.now() - new Date(lastActivity).getTime()) / (1000 * 60 * 60 * 24)
     );
@@ -156,8 +156,8 @@ const loadTraineeProgress = async () => {
     return (
       <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          {[...Array(4)].map((_, i) => (
-            <Card key={i} className="animate-pulse">
+          {[...Array(4)].map((_, i) =>
+          <Card key={i} className="animate-pulse">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <div className="h-4 bg-muted rounded w-20"></div>
                 <div className="h-4 w-4 bg-muted rounded"></div>
@@ -167,7 +167,7 @@ const loadTraineeProgress = async () => {
                 <div className="h-3 bg-muted rounded w-24"></div>
               </CardContent>
             </Card>
-          ))}
+          )}
         </div>
         <Card className="animate-pulse">
           <CardHeader>
@@ -175,14 +175,14 @@ const loadTraineeProgress = async () => {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {[...Array(5)].map((_, i) => (
-                <div key={i} className="h-12 bg-muted rounded"></div>
-              ))}
+              {[...Array(5)].map((_, i) =>
+              <div key={i} className="h-12 bg-muted rounded"></div>
+              )}
             </div>
           </CardContent>
         </Card>
-      </div>
-    );
+      </div>);
+
   }
 
   return (
@@ -252,11 +252,11 @@ const loadTraineeProgress = async () => {
                 Monitor individual trainee progress and course completion status
               </CardDescription>
             </div>
-            <SecurityStatusIndicator 
+            <SecurityStatusIndicator
               level={trainees.length > 0 && trainees[0].is_masked ? 'masked' : 'secure'}
               message={trainees.length > 0 && trainees[0].is_masked ? 'Data Masked' : 'Full Access'}
-              size="sm"
-            />
+              size="sm" className="bg-white" />
+            
           </div>
         </CardHeader>
         <CardContent>
@@ -274,23 +274,23 @@ const loadTraineeProgress = async () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {trainees.map((trainee) => (
-                  <TableRow key={trainee.user_id}>
+                {trainees.map((trainee) =>
+                <TableRow key={trainee.user_id}>
                     <TableCell>
                       <div className="space-y-1">
-                        <SecurePIIDisplay 
-                          value={trainee.trainee_name} 
-                          type="name" 
-                          isMasked={trainee.is_masked}
-                          showMaskingIndicator={false}
-                        />
+                        <SecurePIIDisplay
+                        value={trainee.trainee_name}
+                        type="name"
+                        isMasked={trainee.is_masked}
+                        showMaskingIndicator={false} />
+                      
                         <div className="text-sm text-muted-foreground">
-                          <SecurePIIDisplay 
-                            value={trainee.trainee_email} 
-                            type="email" 
-                            isMasked={trainee.is_masked}
-                            showMaskingIndicator={false}
-                          />
+                          <SecurePIIDisplay
+                          value={trainee.trainee_email}
+                          type="email"
+                          isMasked={trainee.is_masked}
+                          showMaskingIndicator={false} />
+                        
                         </div>
                       </div>
                     </TableCell>
@@ -307,10 +307,10 @@ const loadTraineeProgress = async () => {
                           </span>
                           {getProgressBadge(trainee.overall_progress_percentage || 0)}
                         </div>
-                        <Progress 
-                          value={trainee.overall_progress_percentage || 0} 
-                          className="w-full h-2"
-                        />
+                        <Progress
+                        value={trainee.overall_progress_percentage || 0}
+                        className="w-full h-2" />
+                      
                       </div>
                     </TableCell>
                     <TableCell>
@@ -326,20 +326,20 @@ const loadTraineeProgress = async () => {
                     </TableCell>
                     <TableCell>
                       <div className="text-sm">
-                        {trainee.join_date 
-                          ? format(new Date(trainee.join_date), 'MMM dd, yyyy')
-                          : 'Unknown'
-                        }
+                        {trainee.join_date ?
+                      format(new Date(trainee.join_date), 'MMM dd, yyyy') :
+                      'Unknown'
+                      }
                       </div>
                     </TableCell>
                     <TableCell>
                       <Dialog>
                         <DialogTrigger asChild>
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            onClick={() => setSelectedTrainee(trainee)}
-                          >
+                          <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setSelectedTrainee(trainee)}>
+                          
                             <Eye className="h-4 w-4 mr-2" />
                             Details
                           </Button>
@@ -365,8 +365,8 @@ const loadTraineeProgress = async () => {
                                   </p>
                                 </div>
                                 
-                                {trainee.trainee_phone && (
-                                  <div className="space-y-2">
+                                {trainee.trainee_phone &&
+                              <div className="space-y-2">
                                     <div className="flex items-center gap-2">
                                       <Phone className="h-4 w-4" />
                                       <span className="text-sm font-medium">Phone</span>
@@ -375,10 +375,10 @@ const loadTraineeProgress = async () => {
                                       {trainee.trainee_phone}
                                     </p>
                                   </div>
-                                )}
+                              }
                                 
-                                {trainee.trainee_company && (
-                                  <div className="space-y-2">
+                                {trainee.trainee_company &&
+                              <div className="space-y-2">
                                     <div className="flex items-center gap-2">
                                       <Building className="h-4 w-4" />
                                       <span className="text-sm font-medium">Company</span>
@@ -387,7 +387,7 @@ const loadTraineeProgress = async () => {
                                       {trainee.trainee_company}
                                     </p>
                                   </div>
-                                )}
+                              }
                                 
                                 <div className="space-y-2">
                                   <div className="flex items-center gap-2">
@@ -395,10 +395,10 @@ const loadTraineeProgress = async () => {
                                     <span className="text-sm font-medium">Join Date</span>
                                   </div>
                                   <p className="text-sm text-muted-foreground pl-6">
-                                    {trainee.join_date 
-                                      ? format(new Date(trainee.join_date), 'MMMM dd, yyyy')
-                                      : 'Unknown'
-                                    }
+                                    {trainee.join_date ?
+                                  format(new Date(trainee.join_date), 'MMMM dd, yyyy') :
+                                  'Unknown'
+                                  }
                                   </p>
                                 </div>
                               </div>
@@ -429,12 +429,12 @@ const loadTraineeProgress = async () => {
                               </div>
 
                               {/* Course Details */}
-                              {trainee.course_progress_details && Array.isArray(trainee.course_progress_details) && trainee.course_progress_details.length > 0 && (
-                                <div>
+                              {trainee.course_progress_details && Array.isArray(trainee.course_progress_details) && trainee.course_progress_details.length > 0 &&
+                            <div>
                                   <h4 className="font-medium mb-3">Course Progress Details</h4>
                                   <div className="space-y-3">
-                                    {trainee.course_progress_details.map((course: any, index: number) => (
-                                      <div key={index} className="border rounded-lg p-3">
+                                    {trainee.course_progress_details.map((course: any, index: number) =>
+                                <div key={index} className="border rounded-lg p-3">
                                         <div className="flex items-center justify-between mb-2">
                                           <span className="font-medium text-sm">
                                             {course.course_id}
@@ -443,48 +443,48 @@ const loadTraineeProgress = async () => {
                                             {course.completed_at ? "Completed" : "In Progress"}
                                           </Badge>
                                         </div>
-                                        {course.module_id && (
-                                          <div className="text-sm text-muted-foreground mb-2">
+                                        {course.module_id &&
+                                  <div className="text-sm text-muted-foreground mb-2">
                                             Module: {course.module_id}
                                           </div>
-                                        )}
-                                        <Progress 
-                                          value={course.progress_percentage || 0} 
-                                          className="w-full h-2 mb-2"
-                                        />
+                                  }
+                                        <Progress
+                                    value={course.progress_percentage || 0}
+                                    className="w-full h-2 mb-2" />
+                                  
                                         <div className="flex justify-between text-xs text-muted-foreground">
                                           <span>{course.progress_percentage || 0}% complete</span>
-                                          {course.updated_at && (
-                                            <span>
+                                          {course.updated_at &&
+                                    <span>
                                               Last updated: {format(new Date(course.updated_at), 'MMM dd, yyyy')}
                                             </span>
-                                          )}
+                                    }
                                         </div>
                                       </div>
-                                    ))}
+                                )}
                                   </div>
                                 </div>
-                              )}
+                            }
                             </div>
                           </ScrollArea>
                         </DialogContent>
                       </Dialog>
                     </TableCell>
                   </TableRow>
-                ))}
+                )}
               </TableBody>
             </Table>
           </div>
           
-          {trainees.length === 0 && (
-            <div className="text-center py-8 text-muted-foreground">
+          {trainees.length === 0 &&
+          <div className="text-center py-8 text-muted-foreground">
               <GraduationCap className="h-12 w-12 mx-auto mb-4 opacity-50" />
               <p className="text-lg font-medium mb-2">No Trainees Found</p>
               <p className="text-sm">No trainees are currently enrolled in the system.</p>
             </div>
-          )}
+          }
         </CardContent>
       </Card>
-    </div>
-  );
+    </div>);
+
 };
