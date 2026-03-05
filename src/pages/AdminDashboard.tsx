@@ -166,7 +166,7 @@ const AdminDashboard = () => {
         schema: 'public',
         table: 'security_events',
         filter: 'severity=in.(critical,high)' // Only listen to critical/high events
-      }, payload => {
+      }, (payload) => {
         console.log('Security event received:', payload);
         toast({
           title: "Security Alert",
@@ -178,7 +178,7 @@ const AdminDashboard = () => {
         console.log('Admin dashboard realtime subscription status:', status, err);
         switch (status) {
           case 'SUBSCRIBED':
-            setSystemStatus(prev => ({
+            setSystemStatus((prev) => ({
               ...prev,
               realTimeUpdates: 'connected'
             }));
@@ -186,7 +186,7 @@ const AdminDashboard = () => {
             break;
           case 'CHANNEL_ERROR':
           case 'CLOSED':
-            setSystemStatus(prev => ({
+            setSystemStatus((prev) => ({
               ...prev,
               realTimeUpdates: 'disconnected'
             }));
@@ -194,12 +194,12 @@ const AdminDashboard = () => {
             break;
           default:
             if (!err) {
-              setSystemStatus(prev => ({
+              setSystemStatus((prev) => ({
                 ...prev,
                 realTimeUpdates: 'connected'
               }));
             } else {
-              setSystemStatus(prev => ({
+              setSystemStatus((prev) => ({
                 ...prev,
                 realTimeUpdates: 'disconnected'
               }));
@@ -352,7 +352,7 @@ const AdminDashboard = () => {
         } else if (!eventsError) {
           eventsData = securityEventsData || [];
           // Focus on detecting real threats only
-          eventsData = eventsData?.filter(event => event.severity !== 'low' && event.event_type !== 'developer_tools_detected' && event.event_type !== 'profile_self_access' && event.event_type !== 'session_validation') || [];
+          eventsData = eventsData?.filter((event) => event.severity !== 'low' && event.event_type !== 'developer_tools_detected' && event.event_type !== 'profile_self_access' && event.event_type !== 'session_validation') || [];
         }
       } catch (securityError) {
         console.warn('Could not load security events (insufficient permissions):', securityError);
@@ -366,16 +366,16 @@ const AdminDashboard = () => {
       // Get actual total user count from profiles table
       let totalUsers = new Set(userRolesData.map((role: UserRole) => role.user_id)).size;
       try {
-        const { count, error: countError } = await supabase
-          .from('profiles')
-          .select('*', { count: 'exact', head: true });
+        const { count, error: countError } = await supabase.
+        from('profiles').
+        select('*', { count: 'exact', head: true });
         if (!countError && count !== null) {
           totalUsers = count;
         }
       } catch (e) {
         console.warn('Could not fetch total user count from profiles:', e);
       }
-      const recentEvents = eventsData?.filter(event => event.created_at && new Date(event.created_at) > new Date(Date.now() - 24 * 60 * 60 * 1000)).length || 0;
+      const recentEvents = eventsData?.filter((event) => event.created_at && new Date(event.created_at) > new Date(Date.now() - 24 * 60 * 60 * 1000)).length || 0;
       setStats({
         totalUsers,
         activeAdmins,
@@ -413,12 +413,12 @@ const AdminDashboard = () => {
       } = await supabase.rpc('check_current_user_admin_status');
       if (dbTest) {
         console.error('Database connectivity test failed:', dbTest);
-        setSystemStatus(prev => ({
+        setSystemStatus((prev) => ({
           ...prev,
           database: 'offline'
         }));
       } else {
-        setSystemStatus(prev => ({
+        setSystemStatus((prev) => ({
           ...prev,
           database: 'online'
         }));
@@ -431,12 +431,12 @@ const AdminDashboard = () => {
         }
       } = await supabase.auth.getUser();
       if (!user) {
-        setSystemStatus(prev => ({
+        setSystemStatus((prev) => ({
           ...prev,
           authentication: 'inactive'
         }));
       } else {
-        setSystemStatus(prev => ({
+        setSystemStatus((prev) => ({
           ...prev,
           authentication: 'active'
         }));
@@ -449,26 +449,26 @@ const AdminDashboard = () => {
           data: adminCheck
         } = await supabase.rpc('check_current_user_admin_status');
         if (adminCheck && typeof adminCheck === 'object' && 'is_admin' in adminCheck && adminCheck.is_admin) {
-          setSystemStatus(prev => ({
+          setSystemStatus((prev) => ({
             ...prev,
             securityMonitoring: 'enabled'
           }));
         } else {
-          setSystemStatus(prev => ({
+          setSystemStatus((prev) => ({
             ...prev,
             securityMonitoring: 'partial'
           }));
         }
       } catch (securityError) {
         console.warn('Security monitoring check failed:', securityError);
-        setSystemStatus(prev => ({
+        setSystemStatus((prev) => ({
           ...prev,
           securityMonitoring: 'disabled'
         }));
       }
     } catch (error) {
       console.error('System status check failed:', error);
-      setSystemStatus(prev => ({
+      setSystemStatus((prev) => ({
         ...prev,
         database: 'offline',
         authentication: 'error'
@@ -804,13 +804,13 @@ const AdminDashboard = () => {
         {/* Enhanced Dashboard Stats */}
         {!loading && <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
             <Card className="relative overflow-hidden group hover:shadow-elegant transition-all duration-500 bg-gradient-to-br from-card to-card/80 border-border/50">
-              <div className="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
+              <div className="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-10 transition-opacity duration-500 bg-white border border-black border-solid shadow-none"></div>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 relative z-10">
                 <CardTitle className="text-sm font-semibold text-muted-foreground">Total Users</CardTitle>
               </CardHeader>
               <CardContent className="relative z-10">
                 <div className="text-3xl font-bold text-foreground mb-2 bg-white">{stats.totalUsers}</div>
-                <p className="text-sm text-accent font-semibold">+12% from last month</p>
+                <p className="text-sm font-semibold text-black">+12% from last month</p>
               </CardContent>
             </Card>
             
@@ -821,7 +821,7 @@ const AdminDashboard = () => {
               </CardHeader>
               <CardContent className="relative z-10">
                 <div className="text-3xl font-bold text-foreground mb-2">{stats.activeAdmins}</div>
-                <p className="text-sm text-muted-foreground">System administrators</p>
+                <p className="text-sm text-black font-semibold">System administrators</p>
               </CardContent>
             </Card>
             
@@ -832,7 +832,7 @@ const AdminDashboard = () => {
               </CardHeader>
               <CardContent className="relative z-10">
                 <div className="text-3xl font-bold text-foreground mb-2">{stats.securityEvents}</div>
-                <p className="text-sm text-muted-foreground">Last 24 hours</p>
+                <p className="text-sm text-muted-foreground font-semibold">Last 24 hours</p>
               </CardContent>
             </Card>
             
@@ -843,7 +843,7 @@ const AdminDashboard = () => {
               </CardHeader>
               <CardContent className="relative z-10">
                 <div className="text-3xl font-bold text-foreground capitalize mb-2">{stats.systemHealth}</div>
-                <p className="text-sm text-muted-foreground capitalize">{stats.systemHealth}</p>
+                <p className="text-sm text-muted-foreground capitalize font-semibold">{stats.systemHealth}</p>
               </CardContent>
             </Card>
           </div>}
@@ -893,7 +893,7 @@ const AdminDashboard = () => {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
-                      {securityEvents.slice(0, 3).map(event => <div key={event.id} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg border border-border/30">
+                      {securityEvents.slice(0, 3).map((event) => <div key={event.id} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg border border-border/30">
                           <span className="text-sm font-medium">{event.event_type}</span>
                           <span className={`text-sm font-medium capitalize ${event.severity === 'critical' ? 'text-destructive' : 'text-foreground'}`}>
                             {event.severity}
@@ -965,17 +965,17 @@ const AdminDashboard = () => {
 
           <TabsContent value="users" className="space-y-6">
             <UserManagement
-              userRoles={userRoles}
-              currentUserRole={userRole}
-              currentUserId={user?.id}
-              loading={loading}
-              onAssignRole={assignRole}
-              onRevokeRole={revokeRole}
-              onDeleteUser={deleteUser}
-              onCreateUser={createNewUser}
-              deletingUser={deletingUser}
-              creatingUser={creatingUser}
-            />
+            userRoles={userRoles}
+            currentUserRole={userRole}
+            currentUserId={user?.id}
+            loading={loading}
+            onAssignRole={assignRole}
+            onRevokeRole={revokeRole}
+            onDeleteUser={deleteUser}
+            onCreateUser={createNewUser}
+            deletingUser={deletingUser}
+            creatingUser={creatingUser} />
+          
           </TabsContent>
 
                 <TabsContent value="security" className="space-y-6">
