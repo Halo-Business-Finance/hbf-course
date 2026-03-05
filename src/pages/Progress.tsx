@@ -14,90 +14,90 @@ import { GamificationSystem } from "@/components/GamificationSystem";
 const ProgressPage = () => {
   const navigate = useNavigate();
   const overallProgress = 15; // More realistic progress
-  
+
   const moduleProgress = [
-    { name: "Business Finance Foundations", progress: 65, status: "in-progress", timeSpent: "2h 45m", lessons: 8, completedLessons: 5 },
-    { name: "Capital Markets", progress: 0, status: "available", timeSpent: "0m", lessons: 6, completedLessons: 0 },
-    { name: "SBA Loan Programs", progress: 0, status: "locked", timeSpent: "0m", lessons: 10, completedLessons: 0 },
-    { name: "Conventional Lending", progress: 0, status: "locked", timeSpent: "0m", lessons: 7, completedLessons: 0 },
-    { name: "Bridge Financing", progress: 0, status: "locked", timeSpent: "0m", lessons: 5, completedLessons: 0 },
-    { name: "Alternative Finance", progress: 0, status: "locked", timeSpent: "0m", lessons: 6, completedLessons: 0 },
-    { name: "Credit Analysis", progress: 0, status: "locked", timeSpent: "0m", lessons: 9, completedLessons: 0 },
-    { name: "Compliance", progress: 0, status: "locked", timeSpent: "0m", lessons: 8, completedLessons: 0 },
-  ];
+  { name: "Business Finance Foundations", progress: 65, status: "in-progress", timeSpent: "2h 45m", lessons: 8, completedLessons: 5 },
+  { name: "Capital Markets", progress: 0, status: "available", timeSpent: "0m", lessons: 6, completedLessons: 0 },
+  { name: "SBA Loan Programs", progress: 0, status: "locked", timeSpent: "0m", lessons: 10, completedLessons: 0 },
+  { name: "Conventional Lending", progress: 0, status: "locked", timeSpent: "0m", lessons: 7, completedLessons: 0 },
+  { name: "Bridge Financing", progress: 0, status: "locked", timeSpent: "0m", lessons: 5, completedLessons: 0 },
+  { name: "Alternative Finance", progress: 0, status: "locked", timeSpent: "0m", lessons: 6, completedLessons: 0 },
+  { name: "Credit Analysis", progress: 0, status: "locked", timeSpent: "0m", lessons: 9, completedLessons: 0 },
+  { name: "Compliance", progress: 0, status: "locked", timeSpent: "0m", lessons: 8, completedLessons: 0 }];
+
 
   const certificatesList = [
-    {
-      name: "Business Finance Foundations",
-      status: "in-progress",
-      description: "Fundamental concepts in business finance and financial analysis",
-      progress: 65,
-      estimatedTime: "1h remaining"
-    },
-    {
-      name: "Capital Markets Specialist",
-      status: "available",
-      description: "Advanced understanding of capital markets and investment strategies",
-      progress: 0,
-      estimatedTime: "3-4 hours"
-    },
-    {
-      name: "SBA Loan Expert",
-      status: "locked",
-      description: "Comprehensive knowledge of SBA loan programs and application processes",
-      progress: 0,
-      estimatedTime: "5-6 hours"
-    },
-    {
-      name: "Conventional Lending Specialist",
-      status: "locked",
-      description: "Traditional lending practices and risk assessment methodologies",
-      progress: 0,
-      estimatedTime: "4-5 hours"
-    },
-    {
-      name: "Bridge Financing Expert",
-      status: "locked",
-      description: "Short-term financing solutions and bridge loan structuring",
-      progress: 0,
-      estimatedTime: "3-4 hours"
-    },
-    {
-      name: "Alternative Finance Specialist",
-      status: "locked",
-      description: "Non-traditional financing options and innovative funding solutions",
-      progress: 0,
-      estimatedTime: "4-5 hours"
-    },
-    {
-      name: "Credit Risk Analyst",
-      status: "locked",
-      description: "Advanced credit analysis and risk management techniques",
-      progress: 0,
-      estimatedTime: "6-7 hours"
-    },
-    {
-      name: "Regulatory Compliance Expert",
-      status: "locked",
-      description: "Financial regulations and compliance requirements",
-      progress: 0,
-      estimatedTime: "5-6 hours"
-    }
-  ];
+  {
+    name: "Business Finance Foundations",
+    status: "in-progress",
+    description: "Fundamental concepts in business finance and financial analysis",
+    progress: 65,
+    estimatedTime: "1h remaining"
+  },
+  {
+    name: "Capital Markets Specialist",
+    status: "available",
+    description: "Advanced understanding of capital markets and investment strategies",
+    progress: 0,
+    estimatedTime: "3-4 hours"
+  },
+  {
+    name: "SBA Loan Expert",
+    status: "locked",
+    description: "Comprehensive knowledge of SBA loan programs and application processes",
+    progress: 0,
+    estimatedTime: "5-6 hours"
+  },
+  {
+    name: "Conventional Lending Specialist",
+    status: "locked",
+    description: "Traditional lending practices and risk assessment methodologies",
+    progress: 0,
+    estimatedTime: "4-5 hours"
+  },
+  {
+    name: "Bridge Financing Expert",
+    status: "locked",
+    description: "Short-term financing solutions and bridge loan structuring",
+    progress: 0,
+    estimatedTime: "3-4 hours"
+  },
+  {
+    name: "Alternative Finance Specialist",
+    status: "locked",
+    description: "Non-traditional financing options and innovative funding solutions",
+    progress: 0,
+    estimatedTime: "4-5 hours"
+  },
+  {
+    name: "Credit Risk Analyst",
+    status: "locked",
+    description: "Advanced credit analysis and risk management techniques",
+    progress: 0,
+    estimatedTime: "6-7 hours"
+  },
+  {
+    name: "Regulatory Compliance Expert",
+    status: "locked",
+    description: "Financial regulations and compliance requirements",
+    progress: 0,
+    estimatedTime: "5-6 hours"
+  }];
+
 
   const achievements = [
-    { title: "First Steps", description: "Started your learning journey", earned: true },
-    { title: "Quick Learner", description: "Complete 3 lessons in one day", earned: false },
-    { title: "Consistent", description: "Study for 7 days straight", earned: false },
-    { title: "Knowledge Seeker", description: "Complete 5 modules", earned: false },
-  ];
+  { title: "First Steps", description: "Started your learning journey", earned: true },
+  { title: "Quick Learner", description: "Complete 3 lessons in one day", earned: false },
+  { title: "Consistent", description: "Study for 7 days straight", earned: false },
+  { title: "Knowledge Seeker", description: "Complete 5 modules", earned: false }];
+
 
   const getProgressStatusBadge = (status: string) => {
     switch (status) {
       case "completed":
         return <Badge className="bg-accent/15 text-accent border-accent/20 hover:bg-accent/15">Completed</Badge>;
       case "in-progress":
-        return <Badge className="bg-primary/15 text-primary border-primary/20 hover:bg-primary/15">In Progress</Badge>;
+        return <Badge className="text-primary border-primary/20 bg-white">In Progress</Badge>;
       case "available":
         return <Badge className="bg-halo-orange/15 text-halo-orange border-halo-orange/20 hover:bg-halo-orange/15">Ready to Start</Badge>;
       case "locked":
@@ -159,7 +159,7 @@ const ProgressPage = () => {
 
         {/* Hero Section */}
         <div className="text-center space-y-4 py-8 animate-fade-in">
-          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
+          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-primary/20 bg-white">
             <Target className="h-5 w-5 text-primary" />
             <span className="text-sm font-medium text-primary">Learning Progress</span>
           </div>
@@ -196,7 +196,7 @@ const ProgressPage = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-50" />
               <CardHeader className="relative z-10">
                 <CardTitle className="flex items-center gap-3 text-2xl">
-                  <div className="p-2 rounded-lg bg-primary/10">
+                  <div className="p-2 rounded-lg bg-white">
                     <Trophy className="h-6 w-6 text-primary" />
                   </div>
                   Overall Progress
@@ -219,7 +219,7 @@ const ProgressPage = () => {
                 
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                   <div className="text-center space-y-2 p-4 rounded-lg bg-background/50 border border-border/50 hover-scale">
-                    <div className="text-3xl font-bold text-accent">0</div>
+                    <div className="text-3xl font-bold text-black">0</div>
                     <div className="text-sm text-muted-foreground font-medium">Completed</div>
                   </div>
                   <div className="text-center space-y-2 p-4 rounded-lg bg-background/50 border border-border/50 hover-scale">
@@ -253,25 +253,25 @@ const ProgressPage = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {moduleProgress.map((module, index) => (
-                    <div 
-                      key={module.name} 
-                      className="group border rounded-xl p-6 space-y-4 hover:shadow-md transition-all duration-200 hover:border-primary/20 bg-gradient-to-r from-background to-background/50"
-                    >
+                  {moduleProgress.map((module, index) =>
+                  <div
+                    key={module.name}
+                    className="group border rounded-xl p-6 space-y-4 hover:shadow-md transition-all duration-200 hover:border-primary/20 bg-gradient-to-r from-background to-background/50">
+                    
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
                           <div className="relative">
                             <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-lg font-bold transition-colors ${
-                              module.status === 'completed' ? 'bg-accent/15 text-accent' :
-                              module.status === 'in-progress' ? 'bg-primary/15 text-primary' :
-                              module.status === 'available' ? 'bg-halo-orange/15 text-halo-orange' :
-                              'bg-muted text-muted-foreground'
-                            }`}>
+                          module.status === 'completed' ? 'bg-accent/15 text-accent' :
+                          module.status === 'in-progress' ? 'bg-primary/15 text-primary' :
+                          module.status === 'available' ? 'bg-halo-orange/15 text-halo-orange' :
+                          'bg-muted text-muted-foreground'}`
+                          }>
                               {module.status === 'completed' ? <CheckCircle className="h-6 w-6" /> : index + 1}
                             </div>
-                            {index < moduleProgress.length - 1 && (
-                              <div className="absolute top-12 left-1/2 transform -translate-x-1/2 w-0.5 h-8 bg-border" />
-                            )}
+                            {index < moduleProgress.length - 1 &&
+                          <div className="absolute top-12 left-1/2 transform -translate-x-1/2 w-0.5 h-8 bg-border" />
+                          }
                           </div>
                           <div className="space-y-2">
                             <h3 className="font-semibold text-lg text-foreground group-hover:text-primary transition-colors">
@@ -293,8 +293,8 @@ const ProgressPage = () => {
                         {getStatusIcon(module.status)}
                       </div>
                       
-                      {module.status !== "locked" && (
-                        <div className="space-y-3">
+                      {module.status !== "locked" &&
+                    <div className="space-y-3">
                           <div className="flex justify-between text-sm">
                             <span className="text-muted-foreground font-medium">Progress</span>
                             <span className="font-semibold text-primary">{module.progress}%</span>
@@ -304,9 +304,9 @@ const ProgressPage = () => {
                             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary/10 to-accent/10 opacity-50" />
                           </div>
                         </div>
-                      )}
+                    }
                     </div>
-                  ))}
+                  )}
                 </div>
               </CardContent>
             </Card>
@@ -359,32 +359,32 @@ const ProgressPage = () => {
 
             {/* Certificates Grid */}
             <div className="grid gap-6">
-              {certificatesList.map((certificate, index) => (
-                <Card 
-                  key={certificate.name} 
-                  className={`group border-0 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden ${
-                    certificate.status === "earned" ? "bg-accent/5 border-accent/20" :
-                    certificate.status === "in-progress" ? "bg-primary/5 border-primary/20" :
-                    certificate.status === "available" ? "bg-halo-orange/5 border-halo-orange/20" :
-                    "bg-gradient-to-r from-background to-muted/20"
-                  }`}
-                >
+              {certificatesList.map((certificate, index) =>
+              <Card
+                key={certificate.name}
+                className={`group border-0 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden ${
+                certificate.status === "earned" ? "bg-accent/5 border-accent/20" :
+                certificate.status === "in-progress" ? "bg-primary/5 border-primary/20" :
+                certificate.status === "available" ? "bg-halo-orange/5 border-halo-orange/20" :
+                "bg-gradient-to-r from-background to-muted/20"}`
+                }>
+                
                   <CardHeader>
                     <div className="flex items-start justify-between">
                       <div className="space-y-3">
                         <div className="flex items-center gap-3">
                           <div className={`p-2 rounded-lg ${
-                            certificate.status === "earned" ? "bg-accent/15" :
-                            certificate.status === "in-progress" ? "bg-primary/15" :
-                            certificate.status === "available" ? "bg-halo-orange/15" :
-                            "bg-muted"
-                          }`}>
+                        certificate.status === "earned" ? "bg-accent/15" :
+                        certificate.status === "in-progress" ? "bg-primary/15" :
+                        certificate.status === "available" ? "bg-halo-orange/15" :
+                        "bg-muted"}`
+                        }>
                             <Award className={`h-5 w-5 ${
-                              certificate.status === "earned" ? "text-accent" :
-                              certificate.status === "in-progress" ? "text-primary" :
-                              certificate.status === "available" ? "text-halo-orange" :
-                              "text-muted-foreground"
-                            }`} />
+                          certificate.status === "earned" ? "text-accent" :
+                          certificate.status === "in-progress" ? "text-primary" :
+                          certificate.status === "available" ? "text-halo-orange" :
+                          "text-muted-foreground"}`
+                          } />
                           </div>
                           <CardTitle className="text-xl text-foreground group-hover:text-primary transition-colors">
                             {certificate.name}
@@ -393,60 +393,60 @@ const ProgressPage = () => {
                         <CardDescription className="text-base leading-relaxed text-muted-foreground">
                           {certificate.description}
                         </CardDescription>
-                        {certificate.status !== "locked" && (
-                          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        {certificate.status !== "locked" &&
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
                             <Calendar className="h-4 w-4" />
                             <span>{certificate.estimatedTime}</span>
                           </div>
-                        )}
+                      }
                       </div>
                       {getCertificateStatusBadge(certificate.status)}
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    {certificate.status === "in-progress" && certificate.progress > 0 && (
-                      <div className="space-y-2">
+                    {certificate.status === "in-progress" && certificate.progress > 0 &&
+                  <div className="space-y-2">
                         <div className="flex justify-between text-sm">
                           <span className="text-muted-foreground font-medium">Progress</span>
                           <span className="font-semibold text-primary">{certificate.progress}%</span>
                         </div>
                         <Progress value={certificate.progress} className="h-2" />
                       </div>
-                    )}
+                  }
                     
-                    {certificate.status === "available" && (
-                      <Button 
-                        size="lg" 
-                        className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70" 
-                        onClick={() => navigate("/dashboard")}
-                      >
+                    {certificate.status === "available" &&
+                  <Button
+                    size="lg"
+                    className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
+                    onClick={() => navigate("/dashboard")}>
+                    
                         <Star className="h-4 w-4 mr-2" />
                         Start Learning Path
                       </Button>
-                    )}
+                  }
 
-                    {certificate.status === "in-progress" && (
-                      <Button 
-                        size="lg" 
-                        variant="outline" 
-                        className="w-full border-primary/20 hover:bg-primary/5" 
-                        onClick={() => navigate("/dashboard")}
-                      >
+                    {certificate.status === "in-progress" &&
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="w-full border-primary/20 hover:bg-primary/5"
+                    onClick={() => navigate("/dashboard")}>
+                    
                         <BookOpen className="h-4 w-4 mr-2" />
                         Continue Learning
                       </Button>
-                    )}
+                  }
 
-                    {certificate.status === "locked" && (
-                      <div className="p-4 rounded-lg bg-muted/30 border border-border/50">
+                    {certificate.status === "locked" &&
+                  <div className="p-4 rounded-lg bg-muted/30 border border-border/50">
                         <p className="text-sm text-muted-foreground leading-relaxed">
                           Complete prerequisite modules to unlock this certification and advance your expertise
                         </p>
                       </div>
-                    )}
+                  }
                   </CardContent>
                 </Card>
-              ))}
+              )}
             </div>
           </TabsContent>
 
@@ -471,8 +471,8 @@ const ProgressPage = () => {
           </TabsContent>
         </Tabs>
       </div>
-    </div>
-  );
+    </div>);
+
 };
 
 export default ProgressPage;
