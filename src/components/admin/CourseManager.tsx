@@ -373,10 +373,10 @@ export function CourseManager({}: CourseManagerProps) {
                             </CardDescription>
                           </div>
                           <div className="flex items-center gap-4">
-                            <Badge variant="outline">
+                            <Badge variant="outline" className="rounded border border-solid">
                               {coursesInCategory.reduce((sum, course) => sum + getModuleCount(course), 0)} modules total
                             </Badge>
-                            <Badge variant="secondary" className="text-primary bg-white">
+                            <Badge variant="secondary" className="text-primary bg-white rounded border border-black border-solid">
                               Connected: {coursesInCategory.filter((course) => getModuleCount(course) > 0).length}/{coursesInCategory.length}
                             </Badge>
                           </div>
