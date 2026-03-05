@@ -77,30 +77,30 @@ export function UserManagement({
     // Apply search filter
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
-      filtered = filtered.filter(user => 
-        user.profiles?.name?.toLowerCase().includes(query) ||
-        user.profiles?.email?.toLowerCase().includes(query) ||
-        user.user_id.toLowerCase().includes(query) ||
-        user.role.toLowerCase().includes(query)
+      filtered = filtered.filter((user) =>
+      user.profiles?.name?.toLowerCase().includes(query) ||
+      user.profiles?.email?.toLowerCase().includes(query) ||
+      user.user_id.toLowerCase().includes(query) ||
+      user.role.toLowerCase().includes(query)
       );
     }
 
     // Apply role filter
     if (roleFilter !== "all") {
-      filtered = filtered.filter(user => user.role === roleFilter);
+      filtered = filtered.filter((user) => user.role === roleFilter);
     }
 
     // Apply status filter
     if (statusFilter !== "all") {
-      filtered = filtered.filter(user => 
-        statusFilter === "active" ? user.is_active : !user.is_active
+      filtered = filtered.filter((user) =>
+      statusFilter === "active" ? user.is_active : !user.is_active
       );
     }
 
     // Apply sorting
     filtered.sort((a, b) => {
       let aVal: any, bVal: any;
-      
+
       switch (sortField) {
         case "name":
           aVal = a.profiles?.name || "";
@@ -156,7 +156,7 @@ export function UserManagement({
   // Handle select all
   const handleSelectAll = (checked: boolean) => {
     if (checked) {
-      setSelectedUsers(new Set(paginatedUsers.map(u => u.user_id)));
+      setSelectedUsers(new Set(paginatedUsers.map((u) => u.user_id)));
     } else {
       setSelectedUsers(new Set());
     }
@@ -186,9 +186,9 @@ export function UserManagement({
   // Stats
   const stats = {
     total: userRoles.length,
-    active: userRoles.filter(u => u.is_active).length,
-    admins: userRoles.filter(u => ["admin", "super_admin", "tech_support_admin"].includes(u.role)).length,
-    trainees: userRoles.filter(u => u.role === "trainee").length
+    active: userRoles.filter((u) => u.is_active).length,
+    admins: userRoles.filter((u) => ["admin", "super_admin", "tech_support_admin"].includes(u.role)).length,
+    trainees: userRoles.filter((u) => u.role === "trainee").length
   };
 
   return (
@@ -202,7 +202,7 @@ export function UserManagement({
                 <p className="text-sm font-medium text-muted-foreground">Total Users</p>
                 <p className="text-3xl font-bold mt-1">{stats.total}</p>
               </div>
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full flex items-center justify-center bg-white">
                 <User className="w-6 h-6 text-primary" />
               </div>
             </div>
@@ -217,7 +217,7 @@ export function UserManagement({
                 <p className="text-3xl font-bold mt-1">{stats.active}</p>
               </div>
               <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
-                <div className="w-3 h-3 rounded-full bg-accent animate-pulse" />
+                <div className="w-3 h-3 rounded-full bg-accent animate-pulse text-orange-600 border-primary" />
               </div>
             </div>
           </CardContent>
@@ -230,7 +230,7 @@ export function UserManagement({
                 <p className="text-sm font-medium text-muted-foreground">Administrators</p>
                 <p className="text-3xl font-bold mt-1">{stats.admins}</p>
               </div>
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full flex items-center justify-center bg-white">
                 <Shield className="w-6 h-6 text-primary" />
               </div>
             </div>
@@ -244,7 +244,7 @@ export function UserManagement({
                 <p className="text-sm font-medium text-muted-foreground">Trainees</p>
                 <p className="text-3xl font-bold mt-1">{stats.trainees}</p>
               </div>
-              <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full flex items-center justify-center bg-white">
                 <User className="w-6 h-6 text-muted-foreground" />
               </div>
             </div>
@@ -282,44 +282,44 @@ export function UserManagement({
                 <div className="grid gap-6 py-4">
                   <div className="grid gap-2">
                     <label htmlFor="email" className="text-sm font-semibold">Email Address</label>
-                    <Input 
-                      id="email" 
-                      type="email" 
+                    <Input
+                      id="email"
+                      type="email"
                       value={newUserData.email}
-                      onChange={e => setNewUserData({ ...newUserData, email: sanitizeInput(e.target.value) })}
+                      onChange={(e) => setNewUserData({ ...newUserData, email: sanitizeInput(e.target.value) })}
                       placeholder="user@example.com"
                       maxLength={100}
-                      autoComplete="off"
-                    />
+                      autoComplete="off" />
+                    
                   </div>
                   <div className="grid gap-2">
                     <label htmlFor="password" className="text-sm font-semibold">Password</label>
-                    <Input 
-                      id="password" 
-                      type="password" 
+                    <Input
+                      id="password"
+                      type="password"
                       value={newUserData.password}
-                      onChange={e => setNewUserData({ ...newUserData, password: e.target.value })}
+                      onChange={(e) => setNewUserData({ ...newUserData, password: e.target.value })}
                       placeholder="Strong password"
                       minLength={8}
                       maxLength={128}
-                      autoComplete="new-password"
-                    />
+                      autoComplete="new-password" />
+                    
                   </div>
                   <div className="grid gap-2">
                     <label htmlFor="fullName" className="text-sm font-semibold">Full Name</label>
-                    <Input 
-                      id="fullName" 
-                      type="text" 
+                    <Input
+                      id="fullName"
+                      type="text"
                       value={newUserData.fullName}
-                      onChange={e => setNewUserData({ ...newUserData, fullName: sanitizeInput(e.target.value) })}
+                      onChange={(e) => setNewUserData({ ...newUserData, fullName: sanitizeInput(e.target.value) })}
                       placeholder="John Doe"
                       maxLength={50}
-                      autoComplete="off"
-                    />
+                      autoComplete="off" />
+                    
                   </div>
                   <div className="grid gap-2">
                     <label htmlFor="role" className="text-sm font-semibold">Initial Role</label>
-                    <Select value={newUserData.role} onValueChange={role => setNewUserData({ ...newUserData, role })}>
+                    <Select value={newUserData.role} onValueChange={(role) => setNewUserData({ ...newUserData, role })}>
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
@@ -327,9 +327,9 @@ export function UserManagement({
                         <SelectItem value="trainee">Trainee</SelectItem>
                         <SelectItem value="admin">Admin</SelectItem>
                         <SelectItem value="tech_support_admin">Tech Support Admin</SelectItem>
-                        {currentUserRole === 'super_admin' && (
-                          <SelectItem value="super_admin">Super Admin</SelectItem>
-                        )}
+                        {currentUserRole === 'super_admin' &&
+                        <SelectItem value="super_admin">Super Admin</SelectItem>
+                        }
                       </SelectContent>
                     </Select>
                   </div>
@@ -338,16 +338,16 @@ export function UserManagement({
                   <DialogClose asChild>
                     <Button variant="outline" disabled={creatingUser}>Cancel</Button>
                   </DialogClose>
-                  <Button 
+                  <Button
                     onClick={() => onCreateUser(newUserData)}
-                    disabled={creatingUser || !newUserData.email || !newUserData.password}
-                  >
-                    {creatingUser ? (
-                      <>
+                    disabled={creatingUser || !newUserData.email || !newUserData.password}>
+                    
+                    {creatingUser ?
+                    <>
                         <div className="w-4 h-4 animate-spin rounded-full border border-current border-t-transparent mr-2" />
                         Creating...
-                      </>
-                    ) : 'Create User'}
+                      </> :
+                    'Create User'}
                   </Button>
                 </div>
               </DialogContent>
@@ -362,8 +362,8 @@ export function UserManagement({
                 placeholder="Search by name, email, or ID..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
-              />
+                className="pl-10" />
+              
             </div>
             
             <div className="flex gap-2">
@@ -395,8 +395,8 @@ export function UserManagement({
           </div>
 
           {/* Bulk Actions */}
-          {selectedUsers.size > 0 && (
-            <div className="mt-4 p-3 bg-primary/5 rounded-lg border border-primary/20">
+          {selectedUsers.size > 0 &&
+          <div className="mt-4 p-3 bg-primary/5 rounded-lg border border-primary/20">
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">
                   {selectedUsers.size} user{selectedUsers.size > 1 ? 's' : ''} selected
@@ -408,54 +408,54 @@ export function UserManagement({
                 </div>
               </div>
             </div>
-          )}
+          }
         </CardHeader>
 
         <CardContent className="p-0">
-          {loading ? (
-            <div className="flex items-center justify-center py-12">
+          {loading ?
+          <div className="flex items-center justify-center py-12">
               <div className="w-8 h-8 animate-spin rounded-full border-2 border-primary border-t-transparent"></div>
-            </div>
-          ) : filteredAndSortedUsers.length === 0 ? (
-            <div className="text-center py-12">
+            </div> :
+          filteredAndSortedUsers.length === 0 ?
+          <div className="text-center py-12">
               <p className="text-muted-foreground text-lg">No users found.</p>
               <p className="text-sm text-muted-foreground mt-2">Try adjusting your filters or search query.</p>
-            </div>
-          ) : (
-            <>
+            </div> :
+
+          <>
               <div className="overflow-x-auto">
                 <Table>
                   <TableHeader>
                     <TableRow className="border-border/50 hover:bg-transparent">
                       <TableHead className="w-[50px]">
                         <Checkbox
-                          checked={selectedUsers.size === paginatedUsers.length && paginatedUsers.length > 0}
-                          onCheckedChange={handleSelectAll}
-                        />
+                        checked={selectedUsers.size === paginatedUsers.length && paginatedUsers.length > 0}
+                        onCheckedChange={handleSelectAll} />
+                      
                       </TableHead>
                       <TableHead className="min-w-[200px]">
                         <button
-                          className="flex items-center gap-1 font-semibold hover:text-primary transition-colors"
-                          onClick={() => toggleSort("name")}
-                        >
+                        className="flex items-center gap-1 font-semibold hover:text-primary transition-colors"
+                        onClick={() => toggleSort("name")}>
+                        
                           User
                           <ArrowUpDown className="w-3 h-3" />
                         </button>
                       </TableHead>
                       <TableHead className="min-w-[220px]">
                         <button
-                          className="flex items-center gap-1 font-semibold hover:text-primary transition-colors"
-                          onClick={() => toggleSort("email")}
-                        >
+                        className="flex items-center gap-1 font-semibold hover:text-primary transition-colors"
+                        onClick={() => toggleSort("email")}>
+                        
                           Email
                           <ArrowUpDown className="w-3 h-3" />
                         </button>
                       </TableHead>
                       <TableHead className="min-w-[140px]">
                         <button
-                          className="flex items-center gap-1 font-semibold hover:text-primary transition-colors"
-                          onClick={() => toggleSort("role")}
-                        >
+                        className="flex items-center gap-1 font-semibold hover:text-primary transition-colors"
+                        onClick={() => toggleSort("role")}>
+                        
                           Role
                           <ArrowUpDown className="w-3 h-3" />
                         </button>
@@ -463,9 +463,9 @@ export function UserManagement({
                       <TableHead className="min-w-[100px] font-semibold">Status</TableHead>
                       <TableHead className="min-w-[120px]">
                         <button
-                          className="flex items-center gap-1 font-semibold hover:text-primary transition-colors"
-                          onClick={() => toggleSort("created_at")}
-                        >
+                        className="flex items-center gap-1 font-semibold hover:text-primary transition-colors"
+                        onClick={() => toggleSort("created_at")}>
+                        
                           Joined
                           <ArrowUpDown className="w-3 h-3" />
                         </button>
@@ -474,32 +474,32 @@ export function UserManagement({
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {paginatedUsers.map(userRoleItem => (
-                      <TableRow 
-                        key={userRoleItem.id} 
-                        className="border-border/30 hover:bg-muted/30 transition-colors"
-                      >
+                    {paginatedUsers.map((userRoleItem) =>
+                  <TableRow
+                    key={userRoleItem.id}
+                    className="border-border/30 hover:bg-muted/30 transition-colors">
+                    
                         <TableCell>
                           <Checkbox
-                            checked={selectedUsers.has(userRoleItem.user_id)}
-                            onCheckedChange={(checked) => handleSelectUser(userRoleItem.user_id, checked as boolean)}
-                          />
+                        checked={selectedUsers.has(userRoleItem.user_id)}
+                        onCheckedChange={(checked) => handleSelectUser(userRoleItem.user_id, checked as boolean)} />
+                      
                         </TableCell>
                         <TableCell className="py-4">
-                          <SecurePIIDisplay 
-                            value={userRoleItem.profiles?.name || null} 
-                            type="name" 
-                            showMaskingIndicator={false} 
-                            userRole={currentUserRole || 'user'} 
-                          />
+                          <SecurePIIDisplay
+                        value={userRoleItem.profiles?.name || null}
+                        type="name"
+                        showMaskingIndicator={false}
+                        userRole={currentUserRole || 'user'} />
+                      
                         </TableCell>
                         <TableCell className="py-4">
-                          <SecurePIIDisplay 
-                            value={userRoleItem.profiles?.email || null} 
-                            type="email" 
-                            showMaskingIndicator={false} 
-                            userRole={currentUserRole || 'user'} 
-                          />
+                          <SecurePIIDisplay
+                        value={userRoleItem.profiles?.email || null}
+                        type="email"
+                        showMaskingIndicator={false}
+                        userRole={currentUserRole || 'user'} />
+                      
                         </TableCell>
                         <TableCell className="py-4">
                           <span className="text-sm font-medium capitalize">
@@ -516,10 +516,10 @@ export function UserManagement({
                         </TableCell>
                         <TableCell className="py-4 text-sm text-muted-foreground">
                           {new Date(userRoleItem.created_at).toLocaleDateString('en-US', {
-                            year: 'numeric',
-                            month: 'short',
-                            day: 'numeric'
-                          })}
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                      })}
                         </TableCell>
                         <TableCell className="py-4 text-right">
                           <Popover>
@@ -532,61 +532,61 @@ export function UserManagement({
                               <div className="space-y-2">
                                 <p className="text-sm font-semibold px-2 py-1">Assign Role</p>
                                 <div className="space-y-1">
-                                  <Button 
-                                    size="sm" 
-                                    variant="ghost" 
-                                    className="w-full justify-start"
-                                    onClick={() => onAssignRole(userRoleItem.user_id, 'trainee')}
-                                    disabled={userRoleItem.role === 'trainee'}
-                                  >
+                                  <Button
+                                size="sm"
+                                variant="ghost"
+                                className="w-full justify-start"
+                                onClick={() => onAssignRole(userRoleItem.user_id, 'trainee')}
+                                disabled={userRoleItem.role === 'trainee'}>
+                                
                                     Trainee
                                   </Button>
-                                  <Button 
-                                    size="sm" 
-                                    variant="ghost" 
-                                    className="w-full justify-start"
-                                    onClick={() => onAssignRole(userRoleItem.user_id, 'tech_support_admin')}
-                                    disabled={userRoleItem.role === 'tech_support_admin'}
-                                  >
+                                  <Button
+                                size="sm"
+                                variant="ghost"
+                                className="w-full justify-start"
+                                onClick={() => onAssignRole(userRoleItem.user_id, 'tech_support_admin')}
+                                disabled={userRoleItem.role === 'tech_support_admin'}>
+                                
                                     Tech Support Admin
                                   </Button>
-                                  <Button 
-                                    size="sm" 
-                                    variant="ghost" 
-                                    className="w-full justify-start"
-                                    onClick={() => onAssignRole(userRoleItem.user_id, 'admin')}
-                                    disabled={userRoleItem.role === 'admin'}
-                                  >
+                                  <Button
+                                size="sm"
+                                variant="ghost"
+                                className="w-full justify-start"
+                                onClick={() => onAssignRole(userRoleItem.user_id, 'admin')}
+                                disabled={userRoleItem.role === 'admin'}>
+                                
                                     Admin
                                   </Button>
-                                  <Button 
-                                    size="sm" 
-                                    variant="ghost" 
-                                    className="w-full justify-start"
-                                    onClick={() => onAssignRole(userRoleItem.user_id, 'super_admin')}
-                                    disabled={userRoleItem.role === 'super_admin'}
-                                  >
+                                  <Button
+                                size="sm"
+                                variant="ghost"
+                                className="w-full justify-start"
+                                onClick={() => onAssignRole(userRoleItem.user_id, 'super_admin')}
+                                disabled={userRoleItem.role === 'super_admin'}>
+                                
                                     Super Admin
                                   </Button>
                                 </div>
                                 <div className="border-t pt-2 space-y-1">
-                                  <Button 
-                                    size="sm" 
-                                    variant="ghost" 
-                                    className="w-full justify-start"
-                                    onClick={() => onRevokeRole(userRoleItem.user_id)}
-                                    disabled={!userRoleItem.is_active}
-                                  >
+                                  <Button
+                                size="sm"
+                                variant="ghost"
+                                className="w-full justify-start"
+                                onClick={() => onRevokeRole(userRoleItem.user_id)}
+                                disabled={!userRoleItem.is_active}>
+                                
                                     Revoke Role
                                   </Button>
                                   <AlertDialog>
                                     <AlertDialogTrigger asChild>
-                                      <Button 
-                                        size="sm" 
-                                        variant="ghost" 
-                                        className="w-full justify-start text-destructive hover:text-destructive hover:bg-destructive/10"
-                                        disabled={userRoleItem.user_id === currentUserId || deletingUser === userRoleItem.user_id}
-                                      >
+                                      <Button
+                                    size="sm"
+                                    variant="ghost"
+                                    className="w-full justify-start text-destructive hover:text-destructive hover:bg-destructive/10"
+                                    disabled={userRoleItem.user_id === currentUserId || deletingUser === userRoleItem.user_id}>
+                                    
                                         <Trash2 className="w-4 h-4 mr-2" />
                                         {deletingUser === userRoleItem.user_id ? 'Deleting...' : 'Delete User'}
                                       </Button>
@@ -605,10 +605,10 @@ export function UserManagement({
                                       </AlertDialogHeader>
                                       <AlertDialogFooter>
                                         <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                        <AlertDialogAction 
-                                          onClick={() => onDeleteUser(userRoleItem.user_id)}
-                                          className="bg-destructive hover:bg-destructive/90"
-                                        >
+                                        <AlertDialogAction
+                                      onClick={() => onDeleteUser(userRoleItem.user_id)}
+                                      className="bg-destructive hover:bg-destructive/90">
+                                      
                                           Delete Permanently
                                         </AlertDialogAction>
                                       </AlertDialogFooter>
@@ -620,69 +620,69 @@ export function UserManagement({
                           </Popover>
                         </TableCell>
                       </TableRow>
-                    ))}
+                  )}
                   </TableBody>
                 </Table>
               </div>
 
               {/* Pagination */}
-              {totalPages > 1 && (
-                <div className="border-t border-border/20 p-4">
+              {totalPages > 1 &&
+            <div className="border-t border-border/20 p-4">
                   <div className="flex items-center justify-between">
                     <p className="text-sm text-muted-foreground">
-                      Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, filteredAndSortedUsers.length)} of {filteredAndSortedUsers.length} users
+                      Showing {(currentPage - 1) * itemsPerPage + 1} to {Math.min(currentPage * itemsPerPage, filteredAndSortedUsers.length)} of {filteredAndSortedUsers.length} users
                     </p>
                     <div className="flex items-center gap-2">
                       <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                        disabled={currentPage === 1}
-                      >
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                    disabled={currentPage === 1}>
+                    
                         Previous
                       </Button>
                       <div className="flex items-center gap-1">
                         {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-                          let pageNum;
-                          if (totalPages <= 5) {
-                            pageNum = i + 1;
-                          } else if (currentPage <= 3) {
-                            pageNum = i + 1;
-                          } else if (currentPage >= totalPages - 2) {
-                            pageNum = totalPages - 4 + i;
-                          } else {
-                            pageNum = currentPage - 2 + i;
-                          }
+                      let pageNum;
+                      if (totalPages <= 5) {
+                        pageNum = i + 1;
+                      } else if (currentPage <= 3) {
+                        pageNum = i + 1;
+                      } else if (currentPage >= totalPages - 2) {
+                        pageNum = totalPages - 4 + i;
+                      } else {
+                        pageNum = currentPage - 2 + i;
+                      }
+
+                      return (
+                        <Button
+                          key={pageNum}
+                          variant={currentPage === pageNum ? "default" : "outline"}
+                          size="sm"
+                          onClick={() => setCurrentPage(pageNum)}
+                          className="w-8 h-8 p-0">
                           
-                          return (
-                            <Button
-                              key={pageNum}
-                              variant={currentPage === pageNum ? "default" : "outline"}
-                              size="sm"
-                              onClick={() => setCurrentPage(pageNum)}
-                              className="w-8 h-8 p-0"
-                            >
                               {pageNum}
-                            </Button>
-                          );
-                        })}
+                            </Button>);
+
+                    })}
                       </div>
                       <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                        disabled={currentPage === totalPages}
-                      >
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                    disabled={currentPage === totalPages}>
+                    
                         Next
                       </Button>
                     </div>
                   </div>
                 </div>
-              )}
+            }
             </>
-          )}
+          }
         </CardContent>
       </Card>
-    </div>
-  );
+    </div>);
+
 }
