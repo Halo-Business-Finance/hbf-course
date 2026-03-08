@@ -22,6 +22,8 @@ import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
 import { useCourseSelection } from "@/contexts/CourseSelectionContext";
 import { useCourseProgress } from "@/hooks/useCourseProgress";
+import { useCourseCompletion } from "@/hooks/useCourseCompletion";
+import { CourseCompletionModal } from "@/components/progress/CourseCompletionModal";
 import { supabase } from "@/integrations/supabase/client";
 
 interface Lesson {
@@ -42,9 +44,17 @@ const ModulePage = () => {
   const { user } = useAuth();
   const { setSelectedCourse, setSelectedCourseForNavigation } = useCourseSelection();
   const { moduleProgress } = useCourseProgress(user?.id);
+  const { checkCourseCompletion, checking: checkingCompletion } = useCourseCompletion(user?.id);
   const [selectedLesson, setSelectedLesson] = useState<any>(null);
   const [isLessonModalOpen, setIsLessonModalOpen] = useState(false);
   const [courseName, setCourseName] = useState<string>("");
+  const [courseId, setCourseId] = useState<string>("");
+  const [showCompletionModal, setShowCompletionModal] = useState(false);
+  const [completionData, setCompletionData] = useState<{
+    certificateId?: string;
+    totalModules: number;
+    averageScore: number;
+  } | null>(null);
 
   const { isNotesModalOpen, setIsNotesModalOpen, setCurrentContext, getNotesByModule } = useNotes();
   const [isQuestionModalOpen, setIsQuestionModalOpen] = useState(false);
@@ -84,6 +94,7 @@ const ModulePage = () => {
               description: courseData.description
             });
             setCourseName(courseData.title);
+            setCourseId(courseData.id);
           }
         }
 
@@ -575,12 +586,25 @@ const ModulePage = () => {
                   moduleId={module.id}
                   moduleTitle={module.title}
                   courseId={module.course_id}
-                  onQuizComplete={passed => {
+                  onQuizComplete={async (passed) => {
                     if (passed) {
                       toast({
                         title: "🎉 Module Quiz Passed!",
                         description: "You can now proceed to the next module in your learning path."
                       });
+
+                      // Check if this completes the entire course
+                      if (courseId) {
+                        const result = await checkCourseCompletion(courseId);
+                        if (result?.isComplete) {
+                          setCompletionData({
+                            certificateId: result.certificateId,
+                            totalModules: result.totalModules,
+                            averageScore: result.averageScore,
+                          });
+                          setShowCompletionModal(true);
+                        }
+                      }
                     }
                   }}
                 />
@@ -665,6 +689,19 @@ const ModulePage = () => {
           lesson={selectedLesson}
           moduleTitle={module.title}
           moduleId={moduleId}
+        />
+      )}
+
+      {/* Course Completion Modal */}
+      {completionData && (
+        <CourseCompletionModal
+          isOpen={showCompletionModal}
+          onClose={() => setShowCompletionModal(false)}
+          courseName={courseName}
+          courseId={courseId}
+          certificateId={completionData.certificateId}
+          totalModules={completionData.totalModules}
+          averageScore={completionData.averageScore}
         />
       )}
     </div>
