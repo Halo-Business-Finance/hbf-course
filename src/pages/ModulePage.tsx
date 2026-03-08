@@ -48,6 +48,13 @@ const ModulePage = () => {
   const [selectedLesson, setSelectedLesson] = useState<any>(null);
   const [isLessonModalOpen, setIsLessonModalOpen] = useState(false);
   const [courseName, setCourseName] = useState<string>("");
+  const [courseId, setCourseId] = useState<string>("");
+  const [showCompletionModal, setShowCompletionModal] = useState(false);
+  const [completionData, setCompletionData] = useState<{
+    certificateId?: string;
+    totalModules: number;
+    averageScore: number;
+  } | null>(null);
 
   const { isNotesModalOpen, setIsNotesModalOpen, setCurrentContext, getNotesByModule } = useNotes();
   const [isQuestionModalOpen, setIsQuestionModalOpen] = useState(false);
