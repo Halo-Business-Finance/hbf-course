@@ -236,6 +236,16 @@ export const useCourseProgress = (userId?: string, courseId?: string) => {
     fetchProgress();
   }, [userId, courseId]);
 
+  const getCompletedModulesCount = () => {
+    const moduleMap = new Map<string, number>();
+    progress.forEach(prog => {
+      const key = prog.module_id || prog.id;
+      const existing = moduleMap.get(key) || 0;
+      moduleMap.set(key, Math.max(existing, prog.progress_percentage));
+    });
+    return Array.from(moduleMap.values()).filter(v => v === 100).length;
+  };
+
   return {
     progress,
     moduleProgress,
@@ -247,6 +257,7 @@ export const useCourseProgress = (userId?: string, courseId?: string) => {
     completeModule,
     getOverallProgress,
     getCompletedModulesCount,
+    getCourseProgress,
     isModuleUnlocked,
     isQuizRequired,
     getQuizStatus,
