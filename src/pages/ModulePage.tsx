@@ -586,12 +586,25 @@ const ModulePage = () => {
                   moduleId={module.id}
                   moduleTitle={module.title}
                   courseId={module.course_id}
-                  onQuizComplete={passed => {
+                  onQuizComplete={async (passed) => {
                     if (passed) {
                       toast({
                         title: "🎉 Module Quiz Passed!",
                         description: "You can now proceed to the next module in your learning path."
                       });
+
+                      // Check if this completes the entire course
+                      if (courseId) {
+                        const result = await checkCourseCompletion(courseId);
+                        if (result?.isComplete) {
+                          setCompletionData({
+                            certificateId: result.certificateId,
+                            totalModules: result.totalModules,
+                            averageScore: result.averageScore,
+                          });
+                          setShowCompletionModal(true);
+                        }
+                      }
                     }
                   }}
                 />
