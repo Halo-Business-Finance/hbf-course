@@ -164,12 +164,32 @@ export const useCourseProgress = (userId?: string, courseId?: string) => {
   const getOverallProgress = () => {
     if (progress.length === 0) return 0;
     
-    const totalProgress = progress.reduce((sum, prog) => sum + prog.progress_percentage, 0);
-    return Math.round(totalProgress / progress.length);
+    // Group by module_id and take the highest progress per module
+    const moduleMap = new Map<string, number>();
+    progress.forEach(prog => {
+      const key = prog.module_id || prog.id;
+      const existing = moduleMap.get(key) || 0;
+      moduleMap.set(key, Math.max(existing, prog.progress_percentage));
+    });
+    
+    const values = Array.from(moduleMap.values());
+    const totalProgress = values.reduce((sum, val) => sum + val, 0);
+    return Math.round(totalProgress / values.length);
   };
 
-  const getCompletedModulesCount = () => {
-    return progress.filter(prog => prog.progress_percentage === 100).length;
+  const getCourseProgress = (targetCourseId: string, totalModulesInCourse: number) => {
+    if (totalModulesInCourse === 0) return 0;
+    
+    const courseEntries = progress.filter(p => p.course_id === targetCourseId);
+    const moduleMap = new Map<string, number>();
+    courseEntries.forEach(prog => {
+      const key = prog.module_id || prog.id;
+      const existing = moduleMap.get(key) || 0;
+      moduleMap.set(key, Math.max(existing, prog.progress_percentage));
+    });
+    
+    const totalProgress = Array.from(moduleMap.values()).reduce((sum, val) => sum + val, 0);
+    return Math.round(totalProgress / totalModulesInCourse);
   };
 
   const isModuleUnlocked = (moduleIndex: number, modules: any[]) => {
