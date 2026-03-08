@@ -44,6 +44,7 @@ const ModulePage = () => {
   const { user } = useAuth();
   const { setSelectedCourse, setSelectedCourseForNavigation } = useCourseSelection();
   const { moduleProgress } = useCourseProgress(user?.id);
+  const { checkCourseCompletion, checking: checkingCompletion } = useCourseCompletion(user?.id);
   const [selectedLesson, setSelectedLesson] = useState<any>(null);
   const [isLessonModalOpen, setIsLessonModalOpen] = useState(false);
   const [courseName, setCourseName] = useState<string>("");
