@@ -22,6 +22,8 @@ import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
 import { useCourseSelection } from "@/contexts/CourseSelectionContext";
 import { useCourseProgress } from "@/hooks/useCourseProgress";
+import { useCourseCompletion } from "@/hooks/useCourseCompletion";
+import { CourseCompletionModal } from "@/components/progress/CourseCompletionModal";
 import { supabase } from "@/integrations/supabase/client";
 
 interface Lesson {
