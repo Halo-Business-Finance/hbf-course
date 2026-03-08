@@ -691,6 +691,19 @@ const ModulePage = () => {
           moduleId={moduleId}
         />
       )}
+
+      {/* Course Completion Modal */}
+      {completionData && (
+        <CourseCompletionModal
+          isOpen={showCompletionModal}
+          onClose={() => setShowCompletionModal(false)}
+          courseName={courseName}
+          courseId={courseId}
+          certificateId={completionData.certificateId}
+          totalModules={completionData.totalModules}
+          averageScore={completionData.averageScore}
+        />
+      )}
     </div>
   );
 };
