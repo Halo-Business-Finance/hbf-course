@@ -94,6 +94,7 @@ const ModulePage = () => {
               description: courseData.description
             });
             setCourseName(courseData.title);
+            setCourseId(courseData.id);
           }
         }
 
