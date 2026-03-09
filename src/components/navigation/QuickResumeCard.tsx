@@ -130,15 +130,15 @@ export function QuickResumeCard() {
   }
 
   return (
-    <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+    <Card className="overflow-hidden hover:shadow-elevated transition-all duration-300 border hover:border-primary/20 group">
       <CardContent className="p-0">
         <div className="p-4">
           <div className="flex items-start justify-between">
             <div className="flex-1">
-              <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">
+              <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1 font-semibold">
                 Continue where you left off
               </p>
-              <h3 className="font-semibold text-lg line-clamp-1">
+              <h3 className="font-semibold text-lg line-clamp-1 text-foreground">
                 {lastActivity.courseTitle}
               </h3>
               <p className="text-sm text-muted-foreground line-clamp-1">
@@ -148,7 +148,7 @@ export function QuickResumeCard() {
             <Button 
               onClick={handleResume}
               size="lg"
-              className="gap-2 shrink-0"
+              className="gap-2 shrink-0 bg-halo-navy hover:bg-halo-navy/90 text-white hover:scale-[1.02] transition-all"
             >
               <PlayCircle className="w-5 h-5" />
               Resume
@@ -159,9 +159,14 @@ export function QuickResumeCard() {
         <div className="p-4 pt-3">
           <div className="flex items-center justify-between text-sm mb-2">
             <span className="text-muted-foreground">Progress</span>
-            <span className="font-medium">{Math.round(lastActivity.progress)}%</span>
+            <span className="font-semibold text-foreground">{Math.round(lastActivity.progress)}%</span>
           </div>
-          <Progress value={lastActivity.progress} className="h-2" />
+          <div className="h-2.5 bg-muted rounded-full overflow-hidden">
+            <div 
+              className="h-full bg-gradient-to-r from-halo-navy to-halo-orange rounded-full transition-all duration-700"
+              style={{ width: `${lastActivity.progress}%` }}
+            />
+          </div>
           
           <div className="flex items-center gap-1 mt-3 text-xs text-muted-foreground">
             <Clock className="w-3 h-3" />

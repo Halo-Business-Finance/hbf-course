@@ -22,6 +22,8 @@ import { StreakCounter } from "@/components/dashboard/StreakCounter";
 import { AchievementBadges } from "@/components/dashboard/AchievementBadges";
 import { LearningAnalyticsCharts } from "@/components/dashboard/LearningAnalyticsCharts";
 import { DashboardCourseGrid } from "@/components/dashboard/DashboardCourseGrid";
+import { motion } from "framer-motion";
+import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/PageTransition";
 
 // Course images
 import courseSba7a from "@/assets/course-sba-7a.jpg";
@@ -277,54 +279,76 @@ const Dashboard = () => {
         <WelcomeWizard />
 
         {/* ── Welcome Header ── */}
-        <div className="border-b border-border">
+        <motion.div 
+          className="border-b border-border"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+        >
           <div className="px-4 sm:px-6 lg:px-10 py-6 sm:py-8 max-w-7xl mx-auto">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-              <div>
+              <motion.div
+                initial={{ opacity: 0, x: -15 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.1, duration: 0.4 }}
+              >
                 <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-1">
-                  Welcome back, {getFirstName()}
+                  Welcome back, <span className="text-halo-navy">{getFirstName()}</span>
                 </h1>
                 <p className="text-sm text-muted-foreground">
                   Continue your journey in business finance mastery.
                 </p>
-              </div>
+              </motion.div>
 
               {/* Stat pills */}
-              <div className="flex flex-wrap items-center gap-4 sm:gap-5">
+              <motion.div 
+                className="flex flex-wrap items-center gap-4 sm:gap-5"
+                initial={{ opacity: 0, x: 15 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2, duration: 0.4 }}
+              >
                 <StatPill icon={<Flame className="h-5 w-5 text-halo-orange" />} value={currentStreak} label="Day streak" />
                 <Separator orientation="vertical" className="h-10 hidden sm:block" />
                 <StatPill icon={<Target className="h-5 w-5 text-primary" />} value={`${Math.round(overallProgress)}%`} label="Complete" />
                 <Separator orientation="vertical" className="h-10 hidden sm:block" />
                 <StatPill icon={<Award className="h-5 w-5 text-halo-orange" />} value={completedCount} label="Modules done" />
-              </div>
+              </motion.div>
             </div>
 
             {/* Overall progress bar */}
-            <div className="mt-6 max-w-lg">
+            <motion.div 
+              className="mt-6 max-w-lg"
+              initial={{ opacity: 0, scaleX: 0.8 }}
+              animate={{ opacity: 1, scaleX: 1 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+              style={{ transformOrigin: "left" }}
+            >
               <div className="flex justify-between mb-2">
                 <span className="text-xs font-semibold text-foreground">Overall Progress</span>
                 <span className="text-xs text-muted-foreground">
                   {completedCount}/{flattenedModules.length} modules
                 </span>
               </div>
-              <div className="h-2 bg-muted rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-halo-orange rounded-full transition-all duration-500"
-                  style={{ width: `${overallProgress}%` }}
+              <div className="h-2.5 bg-muted rounded-full overflow-hidden">
+                <motion.div
+                  className="h-full bg-gradient-to-r from-halo-navy to-halo-orange rounded-full"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${overallProgress}%` }}
+                  transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
                 />
               </div>
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         {/* ── Main Content ── */}
         <div className="px-4 sm:px-6 lg:px-10 py-6 sm:py-8 max-w-7xl mx-auto space-y-8">
           {/* Quick Resume + Study Reminder — only at top level */}
           {isOnCatalog && (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <QuickResumeCard />
-              <StudyReminder />
-            </div>
+            <StaggerContainer className="grid grid-cols-1 lg:grid-cols-2 gap-6" staggerDelay={0.1}>
+              <StaggerItem><QuickResumeCard /></StaggerItem>
+              <StaggerItem><StudyReminder /></StaggerItem>
+            </StaggerContainer>
           )}
 
           {/* Tabbed Layout — only at catalog level */}
@@ -460,8 +484,8 @@ const Dashboard = () => {
 /** Small reusable stat pill for the header */
 function StatPill({ icon, value, label }: { icon: React.ReactNode; value: string | number; label: string }) {
   return (
-    <div className="flex items-center gap-3">
-      <div className="w-10 h-10 rounded-lg bg-background flex items-center justify-center border border-border">
+    <div className="flex items-center gap-3 group">
+      <div className="w-10 h-10 rounded-lg bg-background flex items-center justify-center border border-border group-hover:border-primary/30 transition-colors">
         {icon}
       </div>
       <div>
