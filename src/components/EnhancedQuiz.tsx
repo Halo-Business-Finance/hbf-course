@@ -339,29 +339,36 @@ export const EnhancedQuiz = ({
 
   // Quiz start screen
   if (!quizStarted) {
-    return <Card className="max-w-2xl mx-auto">
+    return <Card className="max-w-2xl mx-auto overflow-hidden">
         <CardHeader className="text-center px-4 sm:px-6">
-          <div className="w-20 h-20 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+          <motion.div 
+            className="w-20 h-20 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.4, type: "spring" }}
+          >
             <Brain className="h-10 w-10 text-primary" />
-          </div>
+          </motion.div>
           <CardTitle className="text-xl sm:text-2xl">{moduleTitle}</CardTitle>
           <p className="text-sm text-muted-foreground mt-1">Knowledge Assessment</p>
           <div className="grid grid-cols-3 gap-3 mt-6">
-            <div className="p-3 bg-muted rounded-lg text-center">
-              <Target className="h-5 w-5 mx-auto mb-1 text-primary" />
-              <div className="text-lg font-bold">{questions.length}</div>
-              <div className="text-xs text-muted-foreground">Questions</div>
-            </div>
-            <div className="p-3 bg-muted rounded-lg text-center">
-              <Timer className="h-5 w-5 mx-auto mb-1 text-primary" />
-              <div className="text-lg font-bold">{timeLimit}</div>
-              <div className="text-xs text-muted-foreground">Minutes</div>
-            </div>
-            <div className="p-3 bg-muted rounded-lg text-center">
-              <Trophy className="h-5 w-5 mx-auto mb-1 text-primary" />
-              <div className="text-lg font-bold">{passingScore}%</div>
-              <div className="text-xs text-muted-foreground">To Pass</div>
-            </div>
+            {[
+              { icon: Target, value: questions.length, label: "Questions" },
+              { icon: Timer, value: timeLimit, label: "Minutes" },
+              { icon: Trophy, value: `${passingScore}%`, label: "To Pass" },
+            ].map((stat, i) => (
+              <motion.div 
+                key={i}
+                className="p-3 bg-muted rounded-lg text-center"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 + i * 0.1, duration: 0.3 }}
+              >
+                <stat.icon className="h-5 w-5 mx-auto mb-1 text-primary" />
+                <div className="text-lg font-bold">{stat.value}</div>
+                <div className="text-xs text-muted-foreground">{stat.label}</div>
+              </motion.div>
+            ))}
           </div>
         </CardHeader>
         <CardContent className="space-y-6 px-4 sm:px-6">
@@ -379,7 +386,7 @@ export const EnhancedQuiz = ({
 
             {attemptCount >= maxAttempts ? <div className="text-center p-4 bg-destructive/10 rounded-lg">
                 <p className="text-destructive">You have reached the maximum number of attempts.</p>
-              </div> : <Button onClick={startQuiz} size="lg" className="w-full h-14 text-base bg-halo-navy hover:bg-halo-navy/90">
+              </div> : <Button onClick={startQuiz} size="lg" className="w-full h-14 text-base bg-halo-navy hover:bg-halo-navy/90 hover:scale-[1.01] transition-all">
                 Start Quiz
               </Button>}
           </div>
