@@ -484,13 +484,13 @@ const Dashboard = () => {
 /** Small reusable stat pill for the header */
 function StatPill({ icon, value, label }: { icon: React.ReactNode; value: string | number; label: string }) {
   return (
-    <div className="flex items-center gap-3 group">
-      <div className="w-10 h-10 rounded-lg bg-background flex items-center justify-center border border-border group-hover:border-primary/30 transition-colors">
+    <div className="flex items-center gap-2 sm:gap-3 group">
+      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-background flex items-center justify-center border border-border group-hover:border-primary/30 transition-colors">
         {icon}
       </div>
       <div>
-        <p className="text-lg font-bold text-foreground">{value}</p>
-        <p className="text-xs text-muted-foreground">{label}</p>
+        <p className="text-sm sm:text-lg font-bold text-foreground">{value}</p>
+        <p className="text-[10px] sm:text-xs text-muted-foreground">{label}</p>
       </div>
     </div>
   );

@@ -106,7 +106,7 @@ export function DashboardCourseFilter({
       </div>
 
       {/* Filter Pills Row */}
-      <div className="flex flex-wrap items-center gap-2.5">
+      <div className="flex flex-wrap items-center gap-2">
         {filterTopics.map((topic, index) => {
           const isSelected = selectedTopic === topic.label;
           
@@ -114,7 +114,7 @@ export function DashboardCourseFilter({
             <button
               key={index}
               onClick={() => onTopicSelect(isSelected ? null : topic.label)}
-              className={`inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
+              className={`inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 min-h-[40px] ${
                 isSelected
                   ? "border-2 border-foreground text-foreground shadow-sm"
                   : "border-2 border-border text-muted-foreground hover:border-foreground hover:text-foreground"
