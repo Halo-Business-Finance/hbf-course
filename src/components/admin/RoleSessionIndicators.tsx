@@ -40,7 +40,14 @@ export const RoleSessionIndicators = () => {
         .limit(5);
 
       if (!error && data) {
-        setSessions(data);
+        setSessions(data.map((s: any) => ({
+          id: s.id,
+          ip_address: s.ip_address as string | null,
+          user_agent: s.user_agent as string | null,
+          is_active: s.is_active,
+          created_at: s.created_at,
+          device_id: s.device_id as string | null,
+        })));
       }
     } catch (e) {
       console.warn("Could not load sessions:", e);
