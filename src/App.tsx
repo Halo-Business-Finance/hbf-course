@@ -20,6 +20,7 @@ import { MobileNav } from "./components/MobileNav";
 import { ScrollToTop } from "./components/ScrollToTop";
 import { SkipLinks } from "./components/accessibility/SkipLinks";
 import { useKeyboardShortcuts } from "./components/accessibility/KeyboardShortcuts";
+import { PageTransition } from "./components/PageTransition";
 
 // Lazy load heavy components not needed on initial page load
 const NotificationBell = lazy(() => import("@/components/NotificationBell").then(m => ({ default: m.NotificationBell })));
@@ -213,6 +214,7 @@ const AppContent = () => {
         
         <main id="main-content" className="flex-1 relative z-10 bg-background">
           <Suspense fallback={<PageLoader />}>
+            <PageTransition>
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/dashboard" element={<ProtectedRoute>
@@ -265,6 +267,7 @@ const AppContent = () => {
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
+            </PageTransition>
           </Suspense>
         </main>
       </div>

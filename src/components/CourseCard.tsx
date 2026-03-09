@@ -74,8 +74,8 @@ export function CourseCard({
   return (
     <Card 
       className={cn(
-        "relative border border-border shadow-sm hover:shadow-xl transition-all duration-300 bg-card overflow-hidden group",
-        isHovered && "scale-[1.01] border-primary/30",
+        "relative border border-border shadow-sm hover:shadow-elevated transition-all duration-300 bg-card overflow-hidden group hover:-translate-y-1",
+        isHovered && "border-primary/20",
         className
       )}
       onMouseEnter={() => setIsHovered(true)}
@@ -85,7 +85,7 @@ export function CourseCard({
       {/* Top accent bar */}
       <div className="h-1 bg-halo-navy" />
       
-      <CardHeader className="text-center pb-3 pt-5">
+      <CardHeader className="text-center pb-3 pt-5 relative">
         <div className="flex justify-center mb-3">
           <Badge className="bg-halo-navy text-white border-halo-navy px-3 py-1 text-xs font-semibold tracking-wide uppercase">
             <LevelIcon className="h-3 w-3 mr-1.5" />
