@@ -270,21 +270,23 @@ export function DashboardCourseGrid({
   if (currentFilterLevel === 2) {
     return (
       <div className="space-y-6">
-        <div className="flex items-center gap-3 flex-wrap">
+        <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
           <Button
             variant="outline"
+            size="sm"
             onClick={onReturnToDashboard}
-            className="hover:bg-primary hover:text-primary-foreground transition-colors"
+            className="hover:bg-primary hover:text-primary-foreground transition-colors text-xs sm:text-sm"
           >
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            All Courses
+            <ArrowLeft className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5 sm:mr-2" />
+            <span className="hidden sm:inline">All Courses</span>
+            <span className="sm:hidden">Back</span>
           </Button>
           <span className="text-muted-foreground">/</span>
-          <Button variant="outline" onClick={onBackToLevel1}>
+          <Button variant="outline" size="sm" onClick={onBackToLevel1} className="text-xs sm:text-sm truncate max-w-[140px] sm:max-w-none">
             {filterNavigationPath[0]?.name}
           </Button>
           <span className="text-muted-foreground">/</span>
-          <span className="text-foreground font-semibold">{filterNavigationPath[1]?.name}</span>
+          <span className="text-foreground font-semibold text-xs sm:text-sm">{filterNavigationPath[1]?.name}</span>
         </div>
 
         <h2 className="text-xl font-bold text-foreground">
