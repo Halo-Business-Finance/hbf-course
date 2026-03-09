@@ -422,7 +422,12 @@ const ModulePage = () => {
           {/* Main Content */}
           <div className="flex-1 min-w-0 space-y-6">
             {/* Module Header Card */}
-            <Card className="bg-halo-navy">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+            <Card className="bg-halo-navy overflow-hidden">
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div>
@@ -453,6 +458,7 @@ const ModulePage = () => {
                 </div>
               </CardContent>
             </Card>
+            </motion.div>
 
             {/* Key Takeaways - "What You'll Learn" */}
             <KeyTakeaways objectives={getModuleLearningObjectives(module)} />
