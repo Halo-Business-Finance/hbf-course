@@ -22,6 +22,8 @@ import { StreakCounter } from "@/components/dashboard/StreakCounter";
 import { AchievementBadges } from "@/components/dashboard/AchievementBadges";
 import { LearningAnalyticsCharts } from "@/components/dashboard/LearningAnalyticsCharts";
 import { DashboardCourseGrid } from "@/components/dashboard/DashboardCourseGrid";
+import { motion } from "framer-motion";
+import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/PageTransition";
 
 // Course images
 import courseSba7a from "@/assets/course-sba-7a.jpg";
