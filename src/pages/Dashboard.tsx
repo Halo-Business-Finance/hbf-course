@@ -302,16 +302,16 @@ const Dashboard = () => {
 
               {/* Stat pills */}
               <motion.div 
-                className="flex flex-wrap items-center gap-4 sm:gap-5"
+                className="grid grid-cols-3 gap-3 sm:flex sm:flex-wrap sm:items-center sm:gap-5"
                 initial={{ opacity: 0, x: 15 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.2, duration: 0.4 }}
               >
-                <StatPill icon={<Flame className="h-5 w-5 text-halo-orange" />} value={currentStreak} label="Day streak" />
+                <StatPill icon={<Flame className="h-4 w-4 sm:h-5 sm:w-5 text-halo-orange" />} value={currentStreak} label="Day streak" />
                 <Separator orientation="vertical" className="h-10 hidden sm:block" />
-                <StatPill icon={<Target className="h-5 w-5 text-primary" />} value={`${Math.round(overallProgress)}%`} label="Complete" />
+                <StatPill icon={<Target className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />} value={`${Math.round(overallProgress)}%`} label="Complete" />
                 <Separator orientation="vertical" className="h-10 hidden sm:block" />
-                <StatPill icon={<Award className="h-5 w-5 text-halo-orange" />} value={completedCount} label="Modules done" />
+                <StatPill icon={<Award className="h-4 w-4 sm:h-5 sm:w-5 text-halo-orange" />} value={completedCount} label="Modules done" />
               </motion.div>
             </div>
 
