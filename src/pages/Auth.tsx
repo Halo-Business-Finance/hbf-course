@@ -213,7 +213,7 @@ const AuthPage = () => {
                 </Button>}
               {showForgotPassword ? "Reset Password" : step === 'email' ? "Welcome Back" : "Enter Password"}
             </CardTitle>
-            <CardDescription className="text-white">
+            <CardDescription className="text-white/70">
               {showForgotPassword ? "Enter your email to receive password reset instructions" : step === 'email' ? "Enter your email to continue" : `Signing in as ${signInData.email}`}
             </CardDescription>
           </CardHeader>

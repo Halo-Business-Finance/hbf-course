@@ -84,7 +84,7 @@ export const MobileNav = () => {
                 })}
                 
                 {/* Mobile Sign In/Signup buttons in menu */}
-                <div className="sm:hidden pt-4 mt-4 border-t border-border space-y-2">
+                <div className="md:hidden pt-4 mt-4 border-t border-border space-y-2">
                   <NavLink
                     to="/auth"
                     onClick={() => setIsOpen(false)}
