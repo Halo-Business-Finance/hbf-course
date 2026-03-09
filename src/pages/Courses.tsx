@@ -12,6 +12,7 @@ import { FinPilotBrandFooter } from "@/components/FinPilotBrandFooter";
 import { SEOHead } from "@/components/SEOHead";
 import { DashboardCourseFilter } from "@/components/DashboardCourseFilter";
 import PublicModuleCard from "@/components/PublicModuleCard";
+import { CourseLearningPathMap } from "@/components/course/CourseLearningPathMap";
 import { useCourses, Course } from "@/hooks/useCourses";
 import { useModules } from "@/hooks/useModules";
 import coursesHero from "@/assets/courses-hero.jpg";
