@@ -115,13 +115,15 @@ export function QuickResumeCard() {
 
   if (!lastActivity) {
     return (
-      <Card className="border-dashed">
-        <CardContent className="p-6 text-center">
-          <BookOpen className="w-12 h-12 mx-auto text-muted-foreground mb-3" />
-          <p className="text-muted-foreground mb-3">No courses started yet</p>
-          <Button onClick={() => navigate('/courses')}>
-            Browse Courses
-          </Button>
+      <Card className="border border-dashed border-border">
+        <CardContent className="p-0">
+          <EmptyState
+            icon={<BookOpen className="h-6 w-6 text-muted-foreground" />}
+            title="Ready to start learning?"
+            description="Browse the course catalog below and enroll in your first program to begin tracking progress."
+            actionLabel="Browse Courses"
+            actionHref="/courses"
+          />
         </CardContent>
       </Card>
     );
