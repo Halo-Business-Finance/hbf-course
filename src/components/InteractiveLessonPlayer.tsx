@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
   Play, 
   Pause, 
@@ -21,6 +20,8 @@ import { ScenarioSimulation } from './interactive/ScenarioSimulation';
 import { KnowledgeCheck } from './interactive/KnowledgeCheck';
 import { VideoPlayer } from './VideoPlayer';
 import { useToast } from '@/hooks/use-toast';
+import { LessonPlayerHeader } from './lesson/LessonPlayerHeader';
+import { LessonSectionNav } from './lesson/LessonSectionNav';
 
 interface InteractiveLessonPlayerProps {
   lesson: any;
