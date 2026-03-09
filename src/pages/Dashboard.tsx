@@ -1,47 +1,29 @@
 import { useState, useEffect, useRef } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { useSecureAuth } from '@/hooks/useSecureAuth';
-import ModuleCard from "@/components/ModuleCard";
-import PublicModuleCard from "@/components/PublicModuleCard";
-import { EnhancedModuleCard } from "@/components/EnhancedModuleCard";
-import { DocumentLibrary } from "@/components/DocumentLibrary";
-import StatsCard from "@/components/StatsCard";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useSecureAuth } from "@/hooks/useSecureAuth";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import CourseHeader from "@/components/CourseHeader";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ModuleDetail from "@/components/ModuleDetail";
-import LearningObjectives from "@/components/LearningObjectives";
-import InstructorInfo from "@/components/InstructorInfo";
 import { FinPilotBrandFooter } from "@/components/FinPilotBrandFooter";
-import { InteractiveLearningPath } from "@/components/InteractiveLearningPath";
-import { AccessibilityEnhancer } from "@/components/AccessibilityEnhancer";
-import { AdvancedAssessmentSystem } from "@/components/AdvancedAssessmentSystem";
-import { CourseSelector } from "@/components/CourseSelector";
-import { LiveLearningStats } from "@/components/LiveLearningStats";
-import { DashboardCourseFilter } from "@/components/DashboardCourseFilter";
 import { useCourses } from "@/hooks/useCourses";
 import { useModules } from "@/hooks/useModules";
 import { useLearningStats } from "@/hooks/useLearningStats";
 import { useCourseProgress } from "@/hooks/useCourseProgress";
 import { useCourseSelection } from "@/contexts/CourseSelectionContext";
-import { supabase } from "@/integrations/supabase/client";
-import { BookOpen, Clock, Target, Trophy, Brain, Zap, ArrowLeft, Lock, Users, Flame, Award, TrendingUp } from "lucide-react";
+import { BookOpen, Clock, Target, Flame, Award, BarChart3, MessageSquare, Lightbulb } from "lucide-react";
 import { WelcomeWizard } from "@/components/onboarding/WelcomeWizard";
 import { QuickResumeCard } from "@/components/navigation/QuickResumeCard";
-import { Breadcrumbs } from "@/components/navigation/Breadcrumbs";
 import { StudyReminder } from "@/components/progress/StudyReminder";
 import { SmartRecommendations } from "@/components/recommendations/SmartRecommendations";
 import { DiscussionForum } from "@/components/social/DiscussionForum";
-import { AdvancedSearch } from "@/components/search/AdvancedSearch";
-import { ProgressRing } from "@/components/dashboard/ProgressRing";
 import { StreakCounter } from "@/components/dashboard/StreakCounter";
 import { AchievementBadges } from "@/components/dashboard/AchievementBadges";
-import { EnhancedCourseCard } from "@/components/dashboard/EnhancedCourseCard";
 import { LearningAnalyticsCharts } from "@/components/dashboard/LearningAnalyticsCharts";
+import { DashboardCourseGrid } from "@/components/dashboard/DashboardCourseGrid";
 
-// Import new course-specific images (no people)
+// Course images
 import courseSba7a from "@/assets/course-sba-7a.jpg";
 import courseSbaExpress from "@/assets/course-sba-express.jpg";
 import courseCommercialRealEstate from "@/assets/course-commercial-real-estate.jpg";
@@ -58,32 +40,47 @@ import courseRestaurantFinancing from "@/assets/course-restaurant-financing.jpg"
 import courseBridgeLoans from "@/assets/course-bridge-loans.jpg";
 import courseTermLoans from "@/assets/course-term-loans.jpg";
 import courseBusinessAcquisition from "@/assets/course-business-acquisition.jpg";
+
+const imageMap: Record<string, string> = {
+  "SBA 7(a)": courseSba7a,
+  "SBA Express": courseSbaExpress,
+  "Commercial Real Estate": courseCommercialRealEstate,
+  "Equipment Financing": courseEquipmentFinancing,
+  "Business Lines of Credit": courseLinesOfCredit,
+  "Invoice Factoring": courseInvoiceFactoring,
+  "Merchant Cash Advances": courseMerchantCashAdvances,
+  "Asset-Based Lending": courseAssetBasedLending,
+  "Construction Loans": courseConstructionLoans,
+  "Franchise Financing": courseFranchiseFinancing,
+  "Working Capital": courseWorkingCapital,
+  "Healthcare Financing": courseHealthcareFinancing,
+  "Restaurant Financing": courseRestaurantFinancing,
+  "Bridge Loans": courseBridgeLoans,
+  "Term Loans": courseTermLoans,
+  "Business Acquisition": courseBusinessAcquisition,
+};
+
+const topicToCourses: Record<string, string[]> = {
+  Featured: ["SBA 7(a)", "Commercial Real Estate", "Equipment Financing"],
+  "SBA Lending": ["SBA 7(a)", "SBA Express"],
+  "Commercial Real Estate": ["Commercial Real Estate", "Construction Loans", "Bridge Loans"],
+  "Equipment Financing": ["Equipment Financing"],
+  "Working Capital": ["Working Capital", "Business Lines of Credit", "Invoice Factoring"],
+  "Credit Analysis": ["Asset-Based Lending", "Business Acquisition"],
+  "Risk Management": ["Merchant Cash Advances", "Term Loans"],
+};
+
+const getCourseImage = (courseTitle: string) => {
+  const baseTitle = courseTitle.replace(/ - (Beginner|Expert)$/, "");
+  return imageMap[baseTitle] || courseSba7a;
+};
+
 const Dashboard = () => {
-  const {
-    user,
-    hasEnrollment,
-    enrollmentVerified,
-    isLoading: authLoading
-  } = useSecureAuth();
-  const {
-    availableCourses,
-    canSelectCourse,
-    getActiveStudyCourse,
-    refreshCourses
-  } = useCourseSelection();
-  const {
-    courses: databaseCourses,
-    loading: coursesLoading,
-    getCoursesByCategory
-  } = useCourses();
-  const {
-    modules: databaseModules,
-    loading: modulesLoading
-  } = useModules();
-  const {
-    dashboardStats,
-    loading: statsLoading
-  } = useLearningStats(user?.id);
+  const { user, hasEnrollment, enrollmentVerified, isLoading: authLoading } = useSecureAuth();
+  const { availableCourses, canSelectCourse, getActiveStudyCourse, refreshCourses } = useCourseSelection();
+  const { courses: databaseCourses, loading: coursesLoading } = useCourses();
+  const { modules: databaseModules, loading: modulesLoading } = useModules();
+  const { dashboardStats } = useLearningStats(user?.id);
   const {
     moduleProgress,
     loading: progressLoading,
@@ -91,445 +88,198 @@ const Dashboard = () => {
     completeModule,
     isModuleUnlocked,
     getOverallProgress,
-    getCompletedModulesCount
+    getCompletedModulesCount,
   } = useCourseProgress(user?.id);
-  const {
-    toast
-  } = useToast();
+  const { toast } = useToast();
+
   const [selectedModule, setSelectedModule] = useState<string | null>(null);
   const [currentFilterLevel, setCurrentFilterLevel] = useState(0);
   const [filterNavigationPath, setFilterNavigationPath] = useState<any[]>([]);
-  const [selectedCourseProgram, setSelectedCourseProgram] = useState<string | null>(null);
   const [selectedSkillLevelForCourse, setSelectedSkillLevelForCourse] = useState<string | null>(null);
-  const [renderKey, setRenderKey] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
 
-  // Scroll position management refs
   const containerRef = useRef<HTMLDivElement>(null);
-  const savedScrollPosition = useRef<number>(0);
-
-  // Get the active study course to show locked status
   const activeStudyCourse = getActiveStudyCourse();
 
-  // Combine courses with their modules from database
-  const coursesWithModules = databaseCourses.map((course) => {
-    const courseModules = databaseModules.filter((module) => module.course_id === course.id && module.is_active);
-    return {
-      ...course,
-      modules: courseModules
-    };
-  });
+  // Combine courses with modules
+  const coursesWithModules = databaseCourses.map((course) => ({
+    ...course,
+    modules: databaseModules.filter((m) => m.course_id === course.id && m.is_active),
+  }));
 
-  console.log('Total courses from DB:', databaseCourses.length);
-  console.log('Total modules from DB:', databaseModules.length);
-  console.log('Courses with modules:', coursesWithModules.length);
-  console.log('Courses with >0 modules:', coursesWithModules.filter((c) => c.modules.length > 0).length);
-
-  // Topic to course title mapping
-  const topicToCourses: Record<string, string[]> = {
-    "Featured": ["SBA 7(a)", "Commercial Real Estate", "Equipment Financing"],
-    "SBA Lending": ["SBA 7(a)", "SBA Express"],
-    "Commercial Real Estate": ["Commercial Real Estate", "Construction Loans", "Bridge Loans"],
-    "Equipment Financing": ["Equipment Financing"],
-    "Working Capital": ["Working Capital", "Business Lines of Credit", "Invoice Factoring"],
-    "Credit Analysis": ["Asset-Based Lending", "Business Acquisition"],
-    "Risk Management": ["Merchant Cash Advances", "Term Loans"]
-  };
-
-  // Filter courses based on selected topic only (simpler logic)
+  // Filter by topic
   const filteredCoursesWithModules = (() => {
-    // If a topic is selected and mapped, filter courses by that topic
     if (selectedTopic && topicToCourses[selectedTopic]) {
       const topicCourses = new Set(topicToCourses[selectedTopic]);
-
       return coursesWithModules.filter((course) => {
         const baseTitle = course.title.replace(/ - (Beginner|Expert)$/i, "").trim();
         return topicCourses.has(baseTitle);
       });
     }
-
-    // Otherwise, return all courses with modules (no category filter applied)
     return coursesWithModules;
   })();
 
-  // Create flattened modules for filtering and display
-  const flattenedModules = filteredCoursesWithModules.flatMap((course) => course.modules.map((module) => ({
-    ...module,
-    course_title: course.title,
-    course_level: course.level,
-    skill_level: course.level,
-    // Map database fields to expected format
-    id: module.id,
-    title: module.title,
-    description: module.description,
-    duration: module.duration,
-    lessons: module.lessons_count,
-    order: module.order_index
-  })));
+  const flattenedModules = filteredCoursesWithModules.flatMap((course) =>
+    course.modules.map((module) => ({
+      ...module,
+      course_title: course.title,
+      course_level: course.level,
+      skill_level: course.level,
+      id: module.id,
+      title: module.title,
+      description: module.description,
+      duration: module.duration,
+      lessons: module.lessons_count,
+      order: module.order_index,
+    }))
+  );
 
-  // Get loading state
   const loading = coursesLoading || modulesLoading || progressLoading;
 
-  // Force scroll to top on view changes to prevent bottom jumps
+  // Scroll to top on filter changes
   useEffect(() => {
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        if (containerRef.current) {
-          containerRef.current.scrollTo({
-            top: 0,
-            behavior: 'auto'
-          });
-        } else {
-          window.scrollTo({
-            top: 0,
-            behavior: 'auto'
-          });
-        }
-      });
-    });
-  }, [currentFilterLevel, filterNavigationPath.length]);
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, [currentFilterLevel]);
 
-  // Function to handle course program selection
   const handleStartCourse = (courseName: string) => {
-    // Save current scroll position before state changes and reset to top immediately
-    if (containerRef.current) {
-      savedScrollPosition.current = containerRef.current.scrollTop || window.scrollY;
-      containerRef.current.scrollTo({
-        top: 0,
-        behavior: 'auto'
-      });
-    } else {
-      savedScrollPosition.current = window.scrollY;
-      window.scrollTo({
-        top: 0,
-        behavior: 'auto'
-      });
-    }
-
-    // Find the course in available courses to check if it can be selected
-    const targetCourse = availableCourses.find((course) => {
-      const baseName = course.title.split(' - ')[0];
-      return baseName.toLowerCase() === courseName.toLowerCase();
-    });
-
-    // Check if user can select this course (not locked)
+    const targetCourse = availableCourses.find(
+      (c) => c.title.split(" - ")[0].toLowerCase() === courseName.toLowerCase()
+    );
     if (targetCourse && !canSelectCourse(targetCourse.id)) {
       toast({
         title: "Course Locked",
         description: `Complete your current course (${activeStudyCourse?.title}) before starting a new one.`,
-        variant: "destructive"
+        variant: "destructive",
       });
       return;
     }
-    try {
-      const courseModules = flattenedModules.filter((m) => {
-        if (!m.course_title) return false;
-        // Extract base course name from the module's course title (remove skill level suffix)
-        const moduleBaseName = m.course_title.replace(/\s*-\s*(Beginner|Expert)$/i, '').trim();
-        return moduleBaseName.toLowerCase() === courseName.toLowerCase();
-      });
-      if (courseModules.length === 0) {
-        toast({
-          title: "No modules found",
-          description: `No modules found for ${courseName}. Please contact support.`,
-          variant: "destructive"
-        });
-        return;
-      }
-      const navigationPath = [{
-        id: courseName.toLowerCase().replace(/\s+/g, '-'),
-        name: courseName,
-        count: courseModules.length
-      }];
-      setFilterNavigationPath(navigationPath);
 
-      // Update state and maintain scroll position
-      setCurrentFilterLevel(1);
-      setRenderKey((prev) => prev + 1);
+    const courseModules = flattenedModules.filter((m) => {
+      const moduleBaseName = m.course_title.replace(/\s*-\s*(Beginner|Expert)$/i, "").trim();
+      return moduleBaseName.toLowerCase() === courseName.toLowerCase();
+    });
 
-      // Scroll to top of new content after state update
-      requestAnimationFrame(() => {
-        if (containerRef.current) {
-          containerRef.current.scrollTo({
-            top: 0,
-            behavior: 'auto'
-          });
-        } else {
-          window.scrollTo({
-            top: 0,
-            behavior: 'auto'
-          });
-        }
-        // Enforce again after paint to prevent scroll anchoring to bottom
-        setTimeout(() => {
-          if (containerRef.current) {
-            containerRef.current.scrollTo({
-              top: 0,
-              behavior: 'auto'
-            });
-          } else {
-            window.scrollTo({
-              top: 0,
-              behavior: 'auto'
-            });
-          }
-        }, 50);
-      });
-    } catch (error) {
-      console.error('Error in handleStartCourse:', error);
+    if (courseModules.length === 0) {
+      toast({ title: "No modules found", description: `No modules found for ${courseName}.`, variant: "destructive" });
+      return;
     }
+
+    setFilterNavigationPath([{ id: courseName.toLowerCase().replace(/\s+/g, "-"), name: courseName, count: courseModules.length }]);
+    setCurrentFilterLevel(1);
   };
 
-  // Function to handle skill level selection and proceed to modules
   const handleProceedToModules = (level: string) => {
-    // Save current scroll position before state changes and reset to top immediately
-    if (containerRef.current) {
-      savedScrollPosition.current = containerRef.current.scrollTop || window.scrollY;
-      containerRef.current.scrollTo({
-        top: 0,
-        behavior: 'auto'
-      });
-    } else {
-      savedScrollPosition.current = window.scrollY;
-      window.scrollTo({
-        top: 0,
-        behavior: 'auto'
-      });
-    }
-    try {
-      const selectedCourse = filterNavigationPath[0];
-      const courseSkillId = `${selectedCourse.id}-${level}`;
-      setSelectedSkillLevelForCourse(level);
-      setCurrentFilterLevel(2);
-      const levelModules = flattenedModules.filter((m) => {
-        if (!m.course_title) return false;
-        const matchesCourse = m.course_title.toLowerCase().includes(selectedCourse.name.toLowerCase());
-        const moduleLevel = m.skill_level === 'none' ? 'beginner' : m.skill_level;
-        return matchesCourse && moduleLevel === level;
-      });
-      setFilterNavigationPath([selectedCourse, {
-        id: courseSkillId,
-        name: `${level.charAt(0).toUpperCase() + level.slice(1)} Level`,
-        count: levelModules.length
-      }]);
+    const selectedCourse = filterNavigationPath[0];
+    setSelectedSkillLevelForCourse(level);
+    setCurrentFilterLevel(2);
 
-      // Scroll to top of new content after state update
-      requestAnimationFrame(() => {
-        if (containerRef.current) {
-          containerRef.current.scrollTo({
-            top: 0,
-            behavior: 'auto'
-          });
-        } else {
-          window.scrollTo({
-            top: 0,
-            behavior: 'auto'
-          });
-        }
-        // Enforce again after paint to prevent scroll anchoring to bottom
-        setTimeout(() => {
-          if (containerRef.current) {
-            containerRef.current.scrollTo({
-              top: 0,
-              behavior: 'auto'
-            });
-          } else {
-            window.scrollTo({
-              top: 0,
-              behavior: 'auto'
-            });
-          }
-        }, 50);
-      });
-    } catch (error) {
-      console.error('Error in handleProceedToModules:', error);
-    }
+    const levelModules = flattenedModules.filter((m) => {
+      const matchesCourse = m.course_title.toLowerCase().includes(selectedCourse.name.toLowerCase());
+      const moduleLevel = m.skill_level === "none" ? "beginner" : m.skill_level;
+      return matchesCourse && moduleLevel === level;
+    });
+
+    setFilterNavigationPath([
+      selectedCourse,
+      { id: `${selectedCourse.id}-${level}`, name: `${level.charAt(0).toUpperCase() + level.slice(1)} Level`, count: levelModules.length },
+    ]);
   };
 
-  // Module unlocked check is now handled by the hook
-
-  // Function to start a course module
-  const handleStartCourseModule = async (moduleId: string) => {
-    if (!user?.id) {
-      toast({
-        title: "Authentication Error",
-        description: "Please refresh the page and try again.",
-        variant: "destructive"
-      });
-      return;
-    }
-    const success = await startModule(moduleId);
-    if (success) {
-      toast({
-        title: "Module Started",
-        description: "You've started this learning module!"
-      });
-      handleModuleStart(moduleId);
-    }
-  };
-
-  // Function to complete a module and unlock the next one
-  const handleCompleteModule = async (moduleId: string, moduleIndex: number, totalModules: number) => {
-    const success = await completeModule(moduleId);
-    if (success) {
-      toast({
-        title: "Module Completed!",
-        description: moduleIndex < totalModules - 1 ? "Next module unlocked!" : "Course completed! Congratulations!"
-      });
-    }
-  };
-
-  // Function to return to dashboard
   const handleReturnToDashboard = () => {
     setCurrentFilterLevel(0);
     setFilterNavigationPath([]);
-    setSelectedCourseProgram(null);
     setSelectedSkillLevelForCourse(null);
-    setRenderKey((prev) => prev + 1);
   };
 
-  // Simple filtering function for Level 2 modules
   const filteredModules = flattenedModules.filter((module) => {
     if (currentFilterLevel !== 2) return true;
     const selectedCourse = filterNavigationPath[0];
-    const selectedLevel = selectedSkillLevelForCourse;
-    const moduleLevel = module.skill_level === 'none' ? 'beginner' : module.skill_level;
-    const matchesCourse = module.course_title.toLowerCase().includes(selectedCourse?.name.toLowerCase() || '');
-    if (!selectedLevel) return matchesCourse;
-    return matchesCourse && moduleLevel === selectedLevel;
+    const moduleLevel = module.skill_level === "none" ? "beginner" : module.skill_level;
+    const matchesCourse = module.course_title.toLowerCase().includes(selectedCourse?.name.toLowerCase() || "");
+    if (!selectedSkillLevelForCourse) return matchesCourse;
+    return matchesCourse && moduleLevel === selectedSkillLevelForCourse;
   });
 
-  // Function to handle module start
-  const handleModuleStart = (moduleId: string) => {
-    // Navigate to the actual module page instead of just opening a modal
-    window.location.href = `/module/${moduleId}`;
+  const handleStartCourseModule = async (moduleId: string) => {
+    if (!user?.id) return;
+    const success = await startModule(moduleId);
+    if (success) {
+      toast({ title: "Module Started", description: "You've started this learning module!" });
+      window.location.href = `/module/${moduleId}`;
+    }
   };
 
-  // Get course details from database or fallback
   const getCourseDetails = (courseName: string) => {
-    // Find all courses that match this base name to determine available levels
-    const matchingCourses = coursesWithModules.filter((course) => {
-      const baseName = course.title.split(' - ')[0];
-      return baseName.toLowerCase() === courseName.toLowerCase();
-    });
-
-    // Determine difficulty based on available courses
-    const hasExpert = matchingCourses.some((c) => c.level === 'expert');
-    const hasBeginner = matchingCourses.some((c) => c.level === 'beginner');
-    let difficulty = 'Multiple Levels';
-    if (hasExpert && hasBeginner) {
-      difficulty = 'Multiple Levels';
-    } else if (hasExpert) {
-      difficulty = 'Expert';
-    } else if (hasBeginner) {
-      difficulty = 'Beginner';
-    }
+    const matchingCourses = coursesWithModules.filter(
+      (c) => c.title.split(" - ")[0].toLowerCase() === courseName.toLowerCase()
+    );
+    const hasExpert = matchingCourses.some((c) => c.level === "expert");
+    const hasBeginner = matchingCourses.some((c) => c.level === "beginner");
+    const difficulty = hasExpert && hasBeginner ? "Multiple Levels" : hasExpert ? "Expert" : "Beginner";
     const sampleCourse = matchingCourses[0];
     return {
       description: sampleCourse?.description || "Comprehensive training program with practical applications",
       duration: "6-8 weeks",
       difficulty,
-      topics: sampleCourse?.modules?.flatMap((m) => m.topics || []).slice(0, 6) || ["Core Concepts", "Practical Applications"],
-      outcome: `Master ${courseName} with professional expertise`
+      topics: sampleCourse?.modules?.flatMap((m: any) => m.topics || []).slice(0, 6) || ["Core Concepts"],
+      outcome: `Master ${courseName} with professional expertise`,
     };
   };
 
-  // Course image mapping function - maps course titles to specific images
-  const getCourseImage = (courseTitle: string) => {
-    // Extract the base course type from title (remove skill level)
-    const baseTitle = courseTitle.replace(/ - (Beginner|Expert)$/, '');
-
-    // Map course titles to specific images (no people)
-    const imageMap: {
-      [key: string]: string;
-    } = {
-      "SBA 7(a)": courseSba7a,
-      "SBA Express": courseSbaExpress,
-      "Commercial Real Estate": courseCommercialRealEstate,
-      "Equipment Financing": courseEquipmentFinancing,
-      "Business Lines of Credit": courseLinesOfCredit,
-      "Invoice Factoring": courseInvoiceFactoring,
-      "Merchant Cash Advances": courseMerchantCashAdvances,
-      "Asset-Based Lending": courseAssetBasedLending,
-      "Construction Loans": courseConstructionLoans,
-      "Franchise Financing": courseFranchiseFinancing,
-      "Working Capital": courseWorkingCapital,
-      "Healthcare Financing": courseHealthcareFinancing,
-      "Restaurant Financing": courseRestaurantFinancing,
-      "Bridge Loans": courseBridgeLoans,
-      "Term Loans": courseTermLoans,
-      "Business Acquisition": courseBusinessAcquisition
-    };
-    return imageMap[baseTitle] || courseSba7a; // Default to SBA 7(a) image
-  };
-  if (authLoading) {
-    return <div className="container mx-auto px-4 py-8">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
-          <p className="mt-4 text-muted-foreground">Loading your learning dashboard...</p>
-        </div>
-      </div>;
-  }
-  if (!user) {
-    return <div className="container mx-auto px-4 py-8">
-        <Card className="max-w-2xl mx-auto">
-          <CardHeader>
-            <CardTitle>Access Required</CardTitle>
-            <CardDescription>Please sign in to access your learning dashboard</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button onClick={() => window.location.href = '/auth'}>
-              Sign In
-            </Button>
-          </CardContent>
-        </Card>
-      </div>;
-  }
-  // Mock data for achievements
-  const mockBadges = [
-  { id: "1", name: "First Steps", description: "Complete your first module", icon: "target" as const, unlocked: true, color: "bronze" },
-  { id: "2", name: "Quick Learner", description: "Complete 5 modules in a week", icon: "zap" as const, unlocked: true, color: "silver" },
-  { id: "3", name: "SBA Expert", description: "Master all SBA courses", icon: "trophy" as const, unlocked: false, progress: 65, color: "gold" },
-  { id: "4", name: "Perfect Score", description: "Score 100% on any quiz", icon: "star" as const, unlocked: false, progress: 45, color: "platinum" },
-  { id: "5", name: "Dedicated Learner", description: "Maintain a 30-day streak", icon: "medal" as const, unlocked: false, progress: 23, color: "emerald" }];
-
-
-  // Calculate current streak (mock data - would come from database in production)
-  const currentStreak = dashboardStats?.currentStreak || 7;
-  const longestStreak = dashboardStats?.longestStreak || 14;
-
-  // Get user's first name for greeting
   const getFirstName = () => {
-    if (!user) return 'Learner';
-    if (user.user_metadata?.full_name) {
-      return user.user_metadata.full_name.split(' ')[0];
-    }
-    if (user.email) {
-      return user.email.split('@')[0].charAt(0).toUpperCase() + user.email.split('@')[0].slice(1);
-    }
-    return 'Learner';
+    if (!user) return "Learner";
+    if (user.user_metadata?.full_name) return user.user_metadata.full_name.split(" ")[0];
+    if (user.email) return user.email.split("@")[0].charAt(0).toUpperCase() + user.email.split("@")[0].slice(1);
+    return "Learner";
   };
 
   const overallProgress = getOverallProgress();
   const completedCount = getCompletedModulesCount();
+  const currentStreak = dashboardStats?.currentStreak || 0;
+  const longestStreak = dashboardStats?.longestStreak || 0;
+
+  // Loading state
+  if (authLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-primary mx-auto" />
+          <p className="mt-4 text-sm text-muted-foreground">Loading dashboard…</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <Card className="max-w-md w-full">
+          <CardHeader>
+            <CardTitle>Access Required</CardTitle>
+            <CardDescription>Sign in to access your learning dashboard.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button onClick={() => (window.location.href = "/auth")} className="w-full">
+              Sign In
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  const isOnCatalog = currentFilterLevel === 0;
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Main Content Area */}
-      <div
-        ref={containerRef}
-        className="w-full"
-        style={{ overflowAnchor: 'none' }}>
-        
-        {/* Welcome Wizard for new users */}
+      <div ref={containerRef} className="w-full">
         <WelcomeWizard />
-        
-        {/* Welcome Header */}
+
+        {/* ── Welcome Header ── */}
         <div className="border-b border-border">
           <div className="px-4 sm:px-6 lg:px-10 py-6 sm:py-8 max-w-7xl mx-auto">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-              {/* Greeting */}
               <div>
                 <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-1">
                   Welcome back, {getFirstName()}
@@ -539,44 +289,20 @@ const Dashboard = () => {
                 </p>
               </div>
 
-              {/* Quick Stats */}
-              <div className="flex items-center gap-6">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-halo-orange/10 flex items-center justify-center bg-white">
-                    <Flame className="h-5 w-5 text-halo-orange" />
-                  </div>
-                  <div>
-                    <p className="text-lg font-bold text-foreground">{currentStreak}</p>
-                    <p className="text-xs text-muted-foreground">Day streak</p>
-                  </div>
-                </div>
+              {/* Stat pills */}
+              <div className="flex items-center gap-5">
+                <StatPill icon={<Flame className="h-5 w-5 text-halo-orange" />} value={currentStreak} label="Day streak" />
                 <Separator orientation="vertical" className="h-10" />
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-white">
-                    <Target className="h-5 w-5 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-lg font-bold text-foreground">{Math.round(overallProgress)}%</p>
-                    <p className="text-xs text-muted-foreground">Complete</p>
-                  </div>
-                </div>
+                <StatPill icon={<Target className="h-5 w-5 text-primary" />} value={`${Math.round(overallProgress)}%`} label="Complete" />
                 <Separator orientation="vertical" className="h-10" />
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
-                    <Award className="h-5 w-5 text-orange-600" />
-                  </div>
-                  <div>
-                    <p className="text-lg font-bold text-foreground">{completedCount}</p>
-                    <p className="text-xs text-muted-foreground">Completed</p>
-                  </div>
-                </div>
+                <StatPill icon={<Award className="h-5 w-5 text-amber-600" />} value={completedCount} label="Modules done" />
               </div>
             </div>
 
-            {/* Progress Bar */}
+            {/* Overall progress bar */}
             <div className="mt-6 max-w-lg">
-              <div className="flex justify-between text-foreground mb-2">
-                <span className="text-xs font-semibold">Overall Progress</span>
+              <div className="flex justify-between mb-2">
+                <span className="text-xs font-semibold text-foreground">Overall Progress</span>
                 <span className="text-xs text-muted-foreground">
                   {completedCount}/{flattenedModules.length} modules
                 </span>
@@ -584,384 +310,166 @@ const Dashboard = () => {
               <div className="h-2 bg-muted rounded-full overflow-hidden">
                 <div
                   className="h-full bg-halo-orange rounded-full transition-all duration-500"
-                  style={{ width: `${overallProgress}%` }} />
-                
+                  style={{ width: `${overallProgress}%` }}
+                />
               </div>
             </div>
           </div>
         </div>
 
-      {/* Main Dashboard Content */}
-      <div className="px-4 sm:px-6 lg:px-10 py-6 sm:py-8 max-w-7xl mx-auto">
-        {/* Breadcrumb Navigation */}
-        {currentFilterLevel > 0 &&
-          <div className="mb-6">
-            <Breadcrumbs
-              items={[
-              { label: 'Dashboard', href: '/dashboard' },
-              ...filterNavigationPath.map((path, index) => ({
-                label: path.name,
-                href: index < filterNavigationPath.length - 1 ? undefined : undefined
-              }))]
-              } />
-            
-          </div>
-          }
-        
-        {/* Quick Resume & Study Reminder - Only show on level 0 */}
-        {currentFilterLevel === 0 &&
-          <div className="mb-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <QuickResumeCard />
-            <StudyReminder />
-          </div>
-          }
-        
-        {/* Learning Dashboard */}
-        <div className={`${currentFilterLevel === 0 ? 'w-full' : 'flex flex-col lg:flex-row gap-6 lg:gap-8'}`}>
-          
-          {/* Main Content */}
-          <div className={`${currentFilterLevel === 0 ? 'w-full' : 'flex-1 min-w-0'}`}>
-            {/* Section Divider - Only show on level 0 */}
-            {currentFilterLevel === 0 && <Separator className="mb-6" />}
-            
-            {/* Results Summary for other levels */}
-            {currentFilterLevel !== 0 &&
-              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-2 sm:gap-4">
-                <h3 className="text-xl lg:text-2xl font-bold text-foreground">
-                  {currentFilterLevel === 1 && "Select Your Skill Level"}
-                  {currentFilterLevel === 2 &&
-                  <span>
-                      {filteredModules.length} {filteredModules.length === 1 ? 'Module' : 'Modules'} Available
-                    </span>
-                  }
-                </h3>
-              </div>
-              }
+        {/* ── Main Content ── */}
+        <div className="px-4 sm:px-6 lg:px-10 py-6 sm:py-8 max-w-7xl mx-auto space-y-8">
+          {/* Quick Resume + Study Reminder — only at top level */}
+          {isOnCatalog && (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <QuickResumeCard />
+              <StudyReminder />
+            </div>
+          )}
 
-            {loading ?
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[1, 2, 3, 4, 5, 6].map((i) =>
-                <div key={i} className="animate-pulse">
-                     <div className="bg-card rounded-xl h-80 shadow-sm" />
-                  </div>
-                )}
-              </div> :
+          {/* Tabbed Layout — only at catalog level */}
+          {isOnCatalog ? (
+            <Tabs defaultValue="courses" className="w-full">
+              <TabsList className="w-full max-w-md bg-muted/50 p-1 rounded-lg">
+                <TabsTrigger value="courses" className="flex-1 gap-2 data-[state=active]:bg-background data-[state=active]:shadow-sm">
+                  <BookOpen className="h-4 w-4" />
+                  Courses
+                </TabsTrigger>
+                <TabsTrigger value="analytics" className="flex-1 gap-2 data-[state=active]:bg-background data-[state=active]:shadow-sm">
+                  <BarChart3 className="h-4 w-4" />
+                  Analytics
+                </TabsTrigger>
+                <TabsTrigger value="community" className="flex-1 gap-2 data-[state=active]:bg-background data-[state=active]:shadow-sm">
+                  <MessageSquare className="h-4 w-4" />
+                  Community
+                </TabsTrigger>
+              </TabsList>
 
-              <>
-                {/* Level 0: Course Filter and Course Program Cards */}
-                {currentFilterLevel === 0 &&
-                <div className="space-y-8">
-                    {/* Course Categories Filter */}
-                    <div className="w-full">
-                      <DashboardCourseFilter
-                      selectedCategory={selectedCategory}
-                      onCategorySelect={setSelectedCategory}
-                      selectedTopic={selectedTopic}
-                      onTopicSelect={setSelectedTopic} />
-                    
-                    </div>
-                    
-                    {/* Course Cards Grid */}
-                    <div className="w-full">
-                      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                        {coursesLoading && (!databaseCourses || databaseCourses.length === 0) ?
-                      Array.from({ length: 6 }).map((_, index) =>
-                      <div key={index} className="animate-pulse">
-                              <div className="bg-card rounded-xl h-80 shadow-sm" />
-                            </div>
-                      ) :
-                      filteredCoursesWithModules.length > 0 ?
-                      filteredCoursesWithModules.
-                      filter((course, index, self) =>
-                      index === self.findIndex((c) => c.title.split(' - ')[0] === course.title.split(' - ')[0])
-                      ).
-                      map((course) => {
-                        const courseName = course.title.split(' - ')[0];
-                        const courseDetails = getCourseDetails(courseName);
+              <TabsContent value="courses" className="mt-6">
+                <DashboardCourseGrid
+                  coursesWithModules={coursesWithModules}
+                  flattenedModules={flattenedModules}
+                  filteredCoursesWithModules={filteredCoursesWithModules}
+                  filteredModules={filteredModules}
+                  moduleProgress={moduleProgress}
+                  currentFilterLevel={currentFilterLevel}
+                  filterNavigationPath={filterNavigationPath}
+                  selectedCategory={selectedCategory}
+                  selectedTopic={selectedTopic}
+                  loading={loading}
+                  coursesLoading={coursesLoading}
+                  onCategorySelect={setSelectedCategory}
+                  onTopicSelect={setSelectedTopic}
+                  onStartCourse={handleStartCourse}
+                  onProceedToModules={handleProceedToModules}
+                  onReturnToDashboard={handleReturnToDashboard}
+                  onBackToLevel1={() => {
+                    setCurrentFilterLevel(1);
+                    setFilterNavigationPath([filterNavigationPath[0]]);
+                  }}
+                  getCourseDetails={getCourseDetails}
+                  getCourseImage={getCourseImage}
+                  isModuleUnlocked={isModuleUnlocked}
+                />
+              </TabsContent>
 
-                        return (
-                          <div
-                            key={courseName}
-                            className="group bg-card rounded-xl border-2 border-border hover:border-halo-navy/30 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
-                            
-                                  {/* Course Image */}
-                                  <div className="relative h-44 overflow-hidden">
-                                    <img
-                                src={getCourseImage(course.title)}
-                                alt={courseName}
-                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                              
-                                    {/* Image overlay removed */}
-                                    
-                                    {/* Level Badge */}
-                                    <div className="absolute top-4 left-4">
-                                      <span className="px-3 py-1 bg-white/90 backdrop-blur-sm text-halo-navy text-xs font-semibold rounded-full uppercase tracking-wide">
-                                        {courseDetails.difficulty}
-                                      </span>
-                                    </div>
-                                  </div>
-                                  
-                                  {/* Card Content */}
-                                  <div className="p-6 space-y-4">
-                                    {/* Title */}
-                                    <h3 className="text-lg font-bold text-halo-navy line-clamp-2 min-h-[3rem] leading-snug">
-                                      {courseName}
-                                    </h3>
-                                    
-                                    {/* Description */}
-                                    <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
-                                      {courseDetails.description}
-                                    </p>
-                                    
-                                    {/* Meta Info */}
-                                    <div className="flex items-center gap-4 text-xs text-muted-foreground pt-2">
-                                      <div className="flex items-center gap-1.5">
-                                        <Clock className="h-3.5 w-3.5" />
-                                        <span>{courseDetails.duration}</span>
-                                      </div>
-                                      <div className="flex items-center gap-1.5">
-                                        <BookOpen className="h-3.5 w-3.5" />
-                                        <span>Self-Paced</span>
-                                      </div>
-                                    </div>
-                                    
-                                    {/* Topic Tags */}
-                                    <div className="flex flex-wrap gap-2 pt-1">
-                                      {courseDetails.topics.slice(0, 2).map((topic, idx) =>
-                                <span
-                                  key={idx}
-                                  className="px-2.5 py-1 bg-muted text-muted-foreground text-xs rounded-md font-medium">
-                                  
-                                          {topic}
-                                        </span>
-                                )}
-                                    </div>
-                                    
-                                    {/* CTA Button */}
-                                    <Button
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  e.stopPropagation();
-                                  handleStartCourse(courseName);
-                                }}
-                                className="w-full mt-4 h-11 bg-halo-navy hover:bg-halo-navy/90 text-white font-semibold rounded-lg transition-all duration-200">
-                                
-                                      Explore Course
-                                    </Button>
-                                  </div>
-                                </div>);
+              <TabsContent value="analytics" className="mt-6 space-y-6">
+                <LearningAnalyticsCharts />
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <StreakCounter
+                    currentStreak={currentStreak}
+                    longestStreak={longestStreak}
+                    lastActiveDate={new Date().toISOString().split("T")[0]}
+                  />
+                  <AchievementBadges
+                    badges={[
+                      { id: "1", name: "First Steps", description: "Complete your first module", icon: "target" as const, unlocked: completedCount >= 1, color: "bronze" },
+                      { id: "2", name: "Quick Learner", description: "Complete 5 modules", icon: "zap" as const, unlocked: completedCount >= 5, color: "silver" },
+                      { id: "3", name: "SBA Expert", description: "Master all SBA courses", icon: "trophy" as const, unlocked: false, progress: Math.min(100, completedCount * 10), color: "gold" },
+                    ]}
+                  />
+                </div>
+              </TabsContent>
 
-                      }) :
-
-                      <div className="col-span-full text-center py-12">
-                            <p className="text-muted-foreground">No courses available. Contact your administrator to add courses.</p>
-                          </div>
-                      }
-                      </div>
-                    </div>
-                  </div>
-                }
-
-                {(() => {
-                  console.log('=== LEVEL 1 RENDER CHECK ===');
-                  console.log('currentFilterLevel:', currentFilterLevel);
-                  console.log('filterNavigationPath.length:', filterNavigationPath.length);
-                  console.log('filterNavigationPath:', filterNavigationPath);
-                  const shouldRender = currentFilterLevel === 1 && filterNavigationPath.length > 0;
-                  console.log('Should render Level 1:', shouldRender);
-                  return shouldRender;
-                })() && <div className="space-y-4 sm:space-y-6">
-                    {/* Back button - Enhanced */}
-                    <Button
-                    variant="outline"
-                    size="lg"
-                    onClick={handleReturnToDashboard}
-                    className="mb-3 sm:mb-4 hover:bg-halo-navy hover:text-white transition-colors">
-                    
-                      <ArrowLeft className="h-5 w-5 mr-2" />
-                      Back to All Courses
-                    </Button>
-                    
-                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-                       {['beginner', 'expert'].map((level, index) => {
-                      const selectedCourse = filterNavigationPath[0];
-                      const levelModules = flattenedModules.filter((m) => m.course_title.toLowerCase().includes(selectedCourse.name.toLowerCase()) && m.skill_level === level);
-                      return <Card key={level} className="group relative overflow-hidden hover:shadow-xl transition-all duration-500 border hover:border-primary/30">
-                            {/* Modern gradient overlay */}
-                            {/* Hover overlay removed */}
-                            
-                            <div className="relative overflow-hidden rounded-t-lg">
-                              <img src={getCourseImage(selectedCourse.name)} alt={`${selectedCourse.name} - ${level}`} className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" />
-                              {/* Image overlay removed */}
-                              <div className="absolute top-4 left-4">
-                                <span className={`text-xs font-semibold tracking-wider border-l-4 pl-2 backdrop-blur-sm ${level === "beginner" ? 'text-accent border-accent' : 'text-destructive border-destructive'}`}>
-                                  {level.charAt(0).toUpperCase() + level.slice(1).toUpperCase()} LEVEL
-                                </span>
-                              </div>
-                              <div className="absolute bottom-4 right-4">
-                                <Zap className="h-5 w-5 text-halo-navy" />
-                              </div>
-                            </div>
-                            
-                            <CardHeader className="pb-4 relative z-10 space-y-4">
-                              <div className="flex items-start justify-between">
-                                <div className="flex-1 space-y-3">
-                                  <CardTitle className="text-xl font-semibold line-clamp-2 text-foreground group-hover:text-primary transition-colors duration-300">
-                                    {selectedCourse.name}
-                                  </CardTitle>
-                                  <CardDescription className="line-clamp-2 text-muted-foreground leading-relaxed">
-                                    {level === 'beginner' && 'Introduction and fundamental concepts for new learners'}
-                                    {level === 'expert' && 'Advanced mastery and expert-level techniques'}
-                                  </CardDescription>
-                                </div>
-                              </div>
-                              
-                              <div className="flex items-center justify-between pt-2">
-                                <div className="flex items-center gap-2 text-sm">
-                                  <BookOpen className="h-4 w-4 text-halo-navy" />
-                                  <span className="text-primary font-medium">{levelModules.length} modules</span>
-                                </div>
-                                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                  <Clock className="h-4 w-4 text-halo-navy" />
-                                  <span className="font-medium">{levelModules.length * 30} min</span>
-                                </div>
-                              </div>
-                            </CardHeader>
-                            
-                            <CardContent className="pt-0 pb-6 relative z-10">
-                              <Button
-                            type="button"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              console.log('Proceed to Modules button clicked for level:', level);
-                              handleProceedToModules(level);
-                            }}
-                            className="w-full h-11 bg-halo-navy hover:bg-halo-navy/90 text-white font-semibold tracking-wide uppercase text-sm border-none transition-all duration-200">
-                            
-                                <span className="flex items-center justify-center gap-2">
-                                  Proceed to Modules
-                                  <Brain className="h-4 w-4" />
-                                </span>
-                              </Button>
-                            </CardContent>
-                          </Card>;
-                    })}
-                    </div>
-                  </div>}
-
-                {/* Level 2: Individual Module Cards */}
-                {currentFilterLevel === 2 && <div className="space-y-4">
-                    {/* Navigation breadcrumb - Enhanced */}
-                    <div className="flex items-center gap-3 mb-6 flex-wrap">
-                      <Button
-                      variant="outline"
-                      size="lg"
-                      onClick={handleReturnToDashboard}
-                      className="hover:bg-halo-navy hover:text-white transition-colors">
-                      
-                        <ArrowLeft className="h-4 w-4 mr-2" />
-                        All Courses
-                      </Button>
-                <span className="text-muted-foreground">/</span>
-                      <Button
-                      variant="outline"
-                      size="lg"
-                      onClick={() => {
-                        console.log('Navigating back to level 1');
-                        setCurrentFilterLevel(1);
-                        setFilterNavigationPath([filterNavigationPath[0]]);
-                      }}
-                      className="hover:bg-halo-navy hover:text-white transition-colors">
-                      
-                        {filterNavigationPath[0]?.name}
-                      </Button>
-                      <span className="text-muted-foreground">/</span>
-                      <span className="text-foreground font-semibold">{filterNavigationPath[1]?.name}</span>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                      {filteredModules.map((module, index) => {
-                      const isUnlocked = isModuleUnlocked(index, filteredModules);
-                      const currentProgress = moduleProgress[module.id];
-                      const progressPercentage = currentProgress?.progress_percentage || 0;
-                      return <EnhancedModuleCard key={module.id} module={{
-                        ...module,
-                        module_id: module.id,
-                        lessons_count: module.lessons_count,
-                        order_index: index,
-                        progress: progressPercentage,
-                        is_completed: currentProgress?.completed || false,
-                        is_locked: !isUnlocked,
-                        prerequisites: index > 0 ? [filteredModules[index - 1].title] : [],
-                        skill_level: (module.skill_level === 'none' ? 'beginner' : module.skill_level) as 'beginner' | 'expert'
-                      }} userProgress={{
-                        completion_percentage: progressPercentage,
-                        is_completed: currentProgress?.completed || false,
-                        time_spent_minutes: Math.floor(progressPercentage * 30 / 100)
-                      }} />;
-                    })}
-                    </div>
-                  </div>}
-
-                {/* No results message */}
-                {(currentFilterLevel === 2 && filteredModules.length === 0 || currentFilterLevel === 1 && filterNavigationPath.length === 0) &&
-                <div className="text-center py-12">
-                    <h3 className="text-lg font-medium text-muted-foreground mb-2">
-                      No content found
-                    </h3>
-                    <p className="text-sm text-muted-foreground/70">
-                      Try navigating back or adjusting your selection.
-                    </p>
-                  </div>
-                }
-              </>
-              }
-          </div>
+              <TabsContent value="community" className="mt-6 space-y-6">
+                <SmartRecommendations />
+                <DiscussionForum />
+              </TabsContent>
+            </Tabs>
+          ) : (
+            /* Drill-down views (level 1 & 2) render course grid directly */
+            <DashboardCourseGrid
+              coursesWithModules={coursesWithModules}
+              flattenedModules={flattenedModules}
+              filteredCoursesWithModules={filteredCoursesWithModules}
+              filteredModules={filteredModules}
+              moduleProgress={moduleProgress}
+              currentFilterLevel={currentFilterLevel}
+              filterNavigationPath={filterNavigationPath}
+              selectedCategory={selectedCategory}
+              selectedTopic={selectedTopic}
+              loading={loading}
+              coursesLoading={coursesLoading}
+              onCategorySelect={setSelectedCategory}
+              onTopicSelect={setSelectedTopic}
+              onStartCourse={handleStartCourse}
+              onProceedToModules={handleProceedToModules}
+              onReturnToDashboard={handleReturnToDashboard}
+              onBackToLevel1={() => {
+                setCurrentFilterLevel(1);
+                setFilterNavigationPath([filterNavigationPath[0]]);
+              }}
+              getCourseDetails={getCourseDetails}
+              getCourseImage={getCourseImage}
+              isModuleUnlocked={isModuleUnlocked}
+            />
+          )}
         </div>
 
         {/* Module Detail Modal */}
-        {selectedModule && flattenedModules.find((m) => m.id === selectedModule) && <ModuleDetail module={{
-            ...flattenedModules.find((m) => m.id === selectedModule)!,
-            // Add required properties for Module type
-            progress: moduleProgress[selectedModule]?.progress_percentage || 0,
-            loanExamples: [],
-            videos: [],
-            caseStudies: [],
-            scripts: [],
-            quiz: {
-              id: `quiz-${selectedModule}`,
-              moduleId: selectedModule,
-              title: `${flattenedModules.find((m) => m.id === selectedModule)?.title} Assessment`,
-              description: "Complete this assessment to test your understanding",
-              questions: [],
-              passingScore: 80,
-              maxAttempts: 3,
-              timeLimit: 30
-            }
-          }} onClose={() => setSelectedModule(null)} />}
-
-        {/* Smart Recommendations & Community - Only show on level 0 */}
-        {currentFilterLevel === 0 &&
-          <div className="mt-8 space-y-6">
-            <LearningAnalyticsCharts className="mb-6" />
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <StreakCounter
-                currentStreak={currentStreak}
-                longestStreak={longestStreak}
-                lastActiveDate={new Date().toISOString().split('T')[0]} />
-              
-              <AchievementBadges badges={mockBadges} />
-            </div>
-            <SmartRecommendations />
-            <DiscussionForum />
-          </div>
-          }
-        </div>
+        {selectedModule && flattenedModules.find((m) => m.id === selectedModule) && (
+          <ModuleDetail
+            module={{
+              ...flattenedModules.find((m) => m.id === selectedModule)!,
+              progress: moduleProgress[selectedModule]?.progress_percentage || 0,
+              loanExamples: [],
+              videos: [],
+              caseStudies: [],
+              scripts: [],
+              quiz: {
+                id: `quiz-${selectedModule}`,
+                moduleId: selectedModule,
+                title: `${flattenedModules.find((m) => m.id === selectedModule)?.title} Assessment`,
+                description: "Complete this assessment to test your understanding",
+                questions: [],
+                passingScore: 80,
+                maxAttempts: 3,
+                timeLimit: 30,
+              },
+            }}
+            onClose={() => setSelectedModule(null)}
+          />
+        )}
 
         <FinPilotBrandFooter />
       </div>
-    </div>);
-
+    </div>
+  );
 };
+
+/** Small reusable stat pill for the header */
+function StatPill({ icon, value, label }: { icon: React.ReactNode; value: string | number; label: string }) {
+  return (
+    <div className="flex items-center gap-3">
+      <div className="w-10 h-10 rounded-lg bg-background flex items-center justify-center border border-border">
+        {icon}
+      </div>
+      <div>
+        <p className="text-lg font-bold text-foreground">{value}</p>
+        <p className="text-xs text-muted-foreground">{label}</p>
+      </div>
+    </div>
+  );
+}
+
 export default Dashboard;
