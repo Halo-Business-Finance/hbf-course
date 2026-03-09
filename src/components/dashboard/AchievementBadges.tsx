@@ -55,16 +55,18 @@ export function AchievementBadges({ badges, className }: AchievementBadgesProps)
             return (
               <Tooltip key={badge.id}>
                 <TooltipTrigger asChild>
-                  <div
-                    className={cn("relative flex items-center justify-center w-14 h-14 rounded-xl transition-all duration-300 cursor-pointer bg-orange-600 text-white",
-
+                  <motion.div
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: 0.1 * badges.indexOf(badge), duration: 0.3, type: "spring" }}
+                    whileHover={{ scale: 1.15 }}
+                    className={cn("relative flex items-center justify-center w-14 h-14 rounded-xl transition-all duration-300 cursor-pointer",
                     badge.unlocked ?
-                    `bg-gradient-to-br ${gradientClass} shadow-lg hover:scale-110 hover:shadow-xl` :
+                    `bg-gradient-to-br ${gradientClass} shadow-lg` :
                     "bg-muted/50 hover:bg-muted"
                     )}>
                     
-                    <Icon className={cn("h-6 w-6 transition-colors text-white",
-
+                    <Icon className={cn("h-6 w-6 transition-colors",
                     badge.unlocked ? "text-white" : "text-muted-foreground/50"
                     )} />
                     
@@ -73,7 +75,6 @@ export function AchievementBadges({ badges, className }: AchievementBadgesProps)
                         <div
                         className="h-full bg-primary/70 rounded-full transition-all duration-500"
                         style={{ width: `${badge.progress}%` }} />
-                      
                       </div>
                     }
                     
@@ -84,7 +85,7 @@ export function AchievementBadges({ badges, className }: AchievementBadgesProps)
                         </svg>
                       </div>
                     }
-                  </div>
+                  </motion.div>
                 </TooltipTrigger>
                 <TooltipContent side="bottom" className="max-w-[200px]">
                   <p className="font-semibold">{badge.name}</p>
