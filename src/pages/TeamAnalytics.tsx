@@ -301,6 +301,14 @@ export default function TeamAnalytics() {
                   <TabsTrigger value="courses" className="gap-1.5"><BookOpen className="h-3.5 w-3.5" />Courses</TabsTrigger>
                 </TabsList>
 
+                {/* Charts Tab */}
+                <TabsContent value="charts">
+                  <TeamAnalyticsCharts
+                    statusDistribution={chartData.statusDistribution}
+                    courseCompletionData={chartData.courseCompletionData}
+                  />
+                </TabsContent>
+
                 {/* Members Tab */}
                 <TabsContent value="members">
                   <Card>
