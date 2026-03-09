@@ -294,8 +294,9 @@ export default function TeamAnalytics() {
                 })}
               </div>
 
-              <Tabs defaultValue="members" className="w-full">
-                <TabsList className="grid w-full max-w-md grid-cols-2 mb-6">
+              <Tabs defaultValue="charts" className="w-full">
+                <TabsList className="grid w-full max-w-lg grid-cols-3 mb-6">
+                  <TabsTrigger value="charts" className="gap-1.5"><BarChart3 className="h-3.5 w-3.5" />Charts</TabsTrigger>
                   <TabsTrigger value="members" className="gap-1.5"><Users className="h-3.5 w-3.5" />Members</TabsTrigger>
                   <TabsTrigger value="courses" className="gap-1.5"><BookOpen className="h-3.5 w-3.5" />Courses</TabsTrigger>
                 </TabsList>
