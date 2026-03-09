@@ -290,11 +290,11 @@ const Dashboard = () => {
               </div>
 
               {/* Stat pills */}
-              <div className="flex items-center gap-5">
+              <div className="flex flex-wrap items-center gap-4 sm:gap-5">
                 <StatPill icon={<Flame className="h-5 w-5 text-halo-orange" />} value={currentStreak} label="Day streak" />
-                <Separator orientation="vertical" className="h-10" />
+                <Separator orientation="vertical" className="h-10 hidden sm:block" />
                 <StatPill icon={<Target className="h-5 w-5 text-primary" />} value={`${Math.round(overallProgress)}%`} label="Complete" />
-                <Separator orientation="vertical" className="h-10" />
+                <Separator orientation="vertical" className="h-10 hidden sm:block" />
                 <StatPill icon={<Award className="h-5 w-5 text-halo-orange" />} value={completedCount} label="Modules done" />
               </div>
             </div>

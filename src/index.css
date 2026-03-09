@@ -218,13 +218,20 @@
     @apply border-border;
   }
 
+  html {
+    overflow-x: hidden;
+  }
+
   body {
     font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
     @apply bg-background text-foreground;
-    line-height: 1.5;  /* Carbon uses 1.5 line height */
-    font-size: 16px;   /* Better base font size for mobile */
+    line-height: 1.5;
+    font-size: 16px;
+    overflow-x: hidden;
     overflow-y: auto;
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
   }
 
   /* Mobile-first responsive typography */
