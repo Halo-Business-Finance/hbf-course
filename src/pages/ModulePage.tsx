@@ -583,6 +583,14 @@ const ModulePage = () => {
 
               {/* Assessment Tab */}
               <TabsContent value="assessment" className="space-y-6">
+                {/* Score History */}
+                {user && (
+                  <QuizScoreHistory
+                    moduleId={module.id}
+                    assessmentId={quizLessons[0]?.id}
+                  />
+                )}
+
                 <ModuleQuiz
                   moduleId={module.id}
                   moduleTitle={module.title}
