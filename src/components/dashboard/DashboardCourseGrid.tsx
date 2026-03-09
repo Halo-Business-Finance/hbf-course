@@ -87,7 +87,7 @@ export function DashboardCourseGrid({
             ))}
           </div>
         ) : filteredCoursesWithModules.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
             {filteredCoursesWithModules
               .filter((course, index, self) =>
                 index === self.findIndex((c) => c.title.split(' - ')[0] === course.title.split(' - ')[0])
