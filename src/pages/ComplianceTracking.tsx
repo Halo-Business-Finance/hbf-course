@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { SEOHead } from '@/components/SEOHead';
 import { HorizontalNav } from '@/components/HorizontalNav';
 import { FinPilotBrandFooter } from '@/components/FinPilotBrandFooter';
@@ -6,11 +6,12 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
   AlertTriangle, Calendar, CheckCircle, Clock, Download, 
-  Shield, Users, Bell, Target, FileCheck 
+  Shield, Users, Bell, Target, FileCheck, Loader2
 } from 'lucide-react';
+import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
 
 const complianceRequirements = [
   {
