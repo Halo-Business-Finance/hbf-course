@@ -74,8 +74,8 @@ export function CourseCard({
   return (
     <Card 
       className={cn(
-        "relative border border-border shadow-sm hover:shadow-xl transition-all duration-300 bg-card overflow-hidden group",
-        isHovered && "scale-[1.01] border-primary/30",
+        "relative border border-border shadow-sm hover:shadow-elevated transition-all duration-300 bg-card overflow-hidden group hover:-translate-y-1",
+        isHovered && "border-primary/20",
         className
       )}
       onMouseEnter={() => setIsHovered(true)}
