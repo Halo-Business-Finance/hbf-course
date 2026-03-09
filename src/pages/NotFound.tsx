@@ -9,7 +9,7 @@ const NotFound = () => {
   const location = useLocation();
 
   useEffect(() => {
-    logger.warn("404: non-existent route accessed", { path: location.pathname }, { component: "NotFound" });
+    logger.warn("404: non-existent route accessed", { component: "NotFound", path: location.pathname });
   }, [location.pathname]);
 
   return (
