@@ -249,12 +249,19 @@ export const EnhancedQuiz = ({
     switch (question.type) {
       case 'multiple-choice':
         return <RadioGroup value={userAnswer || ""} onValueChange={value => handleAnswer(question.id, value)}>
-            {question.options?.map((option, index) => <div key={index} className="flex items-center space-x-3 p-3 rounded-lg border hover:bg-muted/50 transition-colors min-h-[48px] cursor-pointer" onClick={() => handleAnswer(question.id, option)}>
+            {question.options?.map((option, index) => <motion.div 
+                key={index} 
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.06, duration: 0.3 }}
+                className={`flex items-center space-x-3 p-3 rounded-lg border hover:bg-muted/50 transition-all min-h-[48px] cursor-pointer ${userAnswer === option ? 'border-primary bg-primary/5 shadow-sm' : 'hover:border-primary/30'}`} 
+                onClick={() => handleAnswer(question.id, option)}
+              >
                 <RadioGroupItem value={option} id={`${question.id}-${index}`} />
                 <Label htmlFor={`${question.id}-${index}`} className="flex-1 cursor-pointer text-sm sm:text-base">
                   {option}
                 </Label>
-              </div>)}
+              </motion.div>)}
           </RadioGroup>;
       case 'multiple-select':
         return <div className="space-y-2">
