@@ -191,7 +191,7 @@ export function DashboardCourseGrid({
 
         <h2 className="text-xl font-bold text-foreground">Select Your Skill Level</h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           {['beginner', 'expert'].map((level) => {
             const levelModules = flattenedModules.filter(
               (m) =>
