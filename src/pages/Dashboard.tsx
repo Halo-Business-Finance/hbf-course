@@ -295,7 +295,7 @@ const Dashboard = () => {
                 <Separator orientation="vertical" className="h-10" />
                 <StatPill icon={<Target className="h-5 w-5 text-primary" />} value={`${Math.round(overallProgress)}%`} label="Complete" />
                 <Separator orientation="vertical" className="h-10" />
-                <StatPill icon={<Award className="h-5 w-5 text-amber-600" />} value={completedCount} label="Modules done" />
+                <StatPill icon={<Award className="h-5 w-5 text-halo-orange" />} value={completedCount} label="Modules done" />
               </div>
             </div>
 
