@@ -1,6 +1,7 @@
 import { Trophy, Star, Target, Zap, Award, Medal } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { motion } from "framer-motion";
 
 interface Badge {
   id: string;
