@@ -461,7 +461,9 @@ const ModulePage = () => {
             </motion.div>
 
             {/* Key Takeaways - "What You'll Learn" */}
+            <AnimatedSection delay={0.1}>
             <KeyTakeaways objectives={getModuleLearningObjectives(module)} />
+            </AnimatedSection>
 
             {/* Tabs */}
             <Tabs defaultValue="lessons" className="space-y-4 sm:space-y-6">
