@@ -208,7 +208,7 @@ const Dashboard = () => {
     const success = await startModule(moduleId);
     if (success) {
       toast({ title: "Module Started", description: "You've started this learning module!" });
-      window.location.href = `/module/${moduleId}`;
+      window.location.assign(`/module/${moduleId}`);
     }
   };
 

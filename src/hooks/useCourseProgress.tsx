@@ -233,7 +233,9 @@ export const useCourseProgress = (userId?: string, courseId?: string) => {
   };
 
   useEffect(() => {
-    fetchProgress();
+    if (userId) {
+      fetchProgress();
+    }
   }, [userId, courseId]);
 
   const getCompletedModulesCount = () => {
