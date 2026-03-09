@@ -373,11 +373,11 @@ const Index = () => {
             {/* Content - shows second on mobile/tablet */}
             <div className="space-y-6 md:space-y-8 order-2 lg:order-1">
               <div className="space-y-4">
-                <h2 className="text-responsive-lg font-bold">
+                <h2 className="text-responsive-lg font-bold text-white">
                   Transform Your Skills. Transform Your Career.
                 </h2>
-                <p className="text-responsive-sm opacity-90 leading-relaxed">
-                  <span className="block mb-2 font-medium">Unlock Your Potential in Commercial Lending.</span>
+                <p className="text-responsive-sm text-white/90 leading-relaxed">
+                  <span className="block mb-2 font-medium text-white">Unlock Your Potential in Commercial Lending.</span>
                   Join thousands of professionals who have advanced their careers through our comprehensive training program. 
                   Financial Success, Simplified.
                 </p>
