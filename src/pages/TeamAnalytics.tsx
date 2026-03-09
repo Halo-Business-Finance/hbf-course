@@ -9,6 +9,7 @@ import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { EmptyState } from '@/components/common/EmptyState';
+import { TeamAnalyticsCharts } from '@/components/analytics/TeamAnalyticsCharts';
 import {
   BarChart3, Users, TrendingUp, Clock, Download, Trophy,
   BookOpen, Target, AlertTriangle, CheckCircle, Search, Loader2,
