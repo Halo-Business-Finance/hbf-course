@@ -103,7 +103,7 @@ const Index = () => {
           <img 
             src={businessTeam} 
             alt="Professional business team collaborating on commercial lending"
-            fetchPriority="high"
+            loading="eager"
             className="absolute inset-0 w-full h-full object-cover object-[center_20%]"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-halo-navy/85 via-halo-navy/60 to-transparent" />
