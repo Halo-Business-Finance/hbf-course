@@ -214,6 +214,7 @@ const AppContent = () => {
         
         <main id="main-content" className="flex-1 relative z-10 bg-background">
           <Suspense fallback={<PageLoader />}>
+            <PageTransition>
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/dashboard" element={<ProtectedRoute>
