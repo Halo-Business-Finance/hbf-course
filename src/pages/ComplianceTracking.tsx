@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { SEOHead } from '@/components/SEOHead';
 import { HorizontalNav } from '@/components/HorizontalNav';
 import { FinPilotBrandFooter } from '@/components/FinPilotBrandFooter';
@@ -6,11 +6,12 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
   AlertTriangle, Calendar, CheckCircle, Clock, Download, 
-  Shield, Users, Bell, Target, FileCheck 
+  Shield, Users, Bell, Target, FileCheck, Loader2
 } from 'lucide-react';
+import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
 
 const complianceRequirements = [
   {
@@ -109,6 +110,7 @@ export default function ComplianceTracking() {
     a.click();
     URL.revokeObjectURL(url);
     setExportLoading(false);
+    toast.success('Compliance report exported');
   };
 
   const totalAssigned = complianceRequirements.reduce((sum, r) => sum + r.assignedTo, 0);
@@ -137,8 +139,8 @@ export default function ComplianceTracking() {
               </h1>
               <p className="text-muted-foreground mt-1">Mandatory training assignments, deadlines, and audit reports</p>
             </div>
-            <Button onClick={handleExport} disabled={exportLoading} className="gap-2">
-              <Download className="h-4 w-4" />
+            <Button onClick={handleExport} disabled={exportLoading} className="gap-2 bg-halo-navy hover:bg-halo-navy/90 text-white">
+              {exportLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
               Export Audit Report
             </Button>
           </div>
