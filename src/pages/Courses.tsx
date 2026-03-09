@@ -516,6 +516,20 @@ const Courses = () => {
                 </h2>
               </div>
 
+              {/* Learning Path Visualization */}
+              <CourseLearningPathMap
+                courses={allCourses.map(c => ({
+                  id: c.id,
+                  title: c.title,
+                  level: c.level,
+                  modulesCount: c.modules?.length || 0,
+                  isEnrolled: enrollmentStatus[c.id] || false,
+                  firstModuleId: c.modules?.[0]?.id,
+                  category: c.title.replace(/ - (Beginner|Expert)$/i, ''),
+                }))}
+                isAuthenticated={!!user}
+              />
+
               {/* Course Grid - Enhanced Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-6 lg:gap-8 mb-12">
                 {filteredCourses.map((course, index) => (
