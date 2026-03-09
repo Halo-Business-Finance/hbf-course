@@ -14,7 +14,8 @@ const AuthPage = () => {
   const navigate = useNavigate();
   const {
     user,
-    loading
+    loading,
+    signIn
   } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
