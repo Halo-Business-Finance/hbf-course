@@ -108,11 +108,22 @@ const Index = () => {
           />
           <div className="absolute inset-0 bg-gradient-to-r from-halo-navy/85 via-halo-navy/60 to-transparent" />
           <div className="page-container relative z-10">
-            <div className="max-w-3xl text-left">
-              <Badge className="mb-4 sm:mb-6 bg-white/15 text-white border border-white/30 backdrop-blur-sm text-xs sm:text-sm px-3 sm:px-4 py-1.5 hover:bg-white/20">
-                <Zap className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1.5 sm:mr-2" />
-                #1 Commercial Lending Training Platform
-              </Badge>
+            <motion.div 
+              className="max-w-3xl text-left"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: [0.2, 0, 0.38, 0.9] }}
+            >
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.5 }}
+              >
+                <Badge className="mb-4 sm:mb-6 bg-white/15 text-white border border-white/30 backdrop-blur-sm text-xs sm:text-sm px-3 sm:px-4 py-1.5 hover:bg-white/20">
+                  <Zap className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1.5 sm:mr-2" />
+                  #1 Commercial Lending Training Platform
+                </Badge>
+              </motion.div>
               <h1 className="hero-title mb-4 sm:mb-6 text-white tracking-tight">
                 Master Business Finance & Commercial Lending
               </h1>
@@ -120,7 +131,12 @@ const Index = () => {
                 Professional Training Platform for Finance Excellence
               </p>
               <p className="text-sm sm:text-base mb-6 sm:mb-8 text-white/80 max-w-2xl leading-relaxed">Transform your career with our comprehensive business finance and commercial lending program. Experience Stanford-level curriculum designed by industry experts.</p>
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-start">
+              <motion.div 
+                className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-start"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.5 }}
+              >
                 <Link to="/signup">
                   <Button size="lg" className="w-full sm:w-auto bg-halo-orange hover:bg-halo-orange/90 text-white font-semibold shadow-hero text-sm sm:text-base px-6 sm:px-8 py-5 sm:py-6 min-h-[48px]">
                     Start Free Trial
@@ -133,8 +149,8 @@ const Index = () => {
                     Explore Courses
                   </Button>
                 </Link>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
 
