@@ -21,22 +21,24 @@ export default defineConfig(({ mode }) => ({
   build: {
     chunkSizeWarningLimit: 1000,
     sourcemap: false,
-  },
-  optimizeDeps: {
-    // Exclude heavy unused packages from Vite's dependency pre-bundling
-    // to prevent timeouts. None of these are imported in src/.
-    exclude: [
-      'pg',
-      '@types/pg',
-      'http-proxy',
-      'drizzle-orm',
-      'drizzle-kit',
-      '@react-three/drei',
-      '@react-three/fiber',
-      'three',
-      'terser',
-      'fabric',
-      '@mendable/firecrawl-js',
-    ],
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Split heavy vendor libs into separate chunks for better caching
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          'vendor-charts': ['recharts'],
+          'vendor-radix': [
+            '@radix-ui/react-dialog',
+            '@radix-ui/react-popover',
+            '@radix-ui/react-tabs',
+            '@radix-ui/react-accordion',
+            '@radix-ui/react-select',
+            '@radix-ui/react-tooltip',
+          ],
+          'vendor-supabase': ['@supabase/supabase-js'],
+          'vendor-motion': ['framer-motion'],
+        },
+      },
+    },
   },
 }));
