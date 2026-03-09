@@ -397,17 +397,28 @@ export const EnhancedQuiz = ({
   // Quiz results screen
   if (quizCompleted && results) {
     const passed = results.percentage >= passingScore;
-    return <Card className="max-w-4xl mx-auto">
+    return <Card className="max-w-4xl mx-auto overflow-hidden">
         <CardHeader className="text-center px-4 sm:px-6">
-          <div className={`w-24 h-24 mx-auto mb-4 rounded-full flex items-center justify-center ${passed ? 'bg-accent/15 text-accent' : 'bg-destructive/15 text-destructive'}`}>
+          <motion.div 
+            className={`w-24 h-24 mx-auto mb-4 rounded-full flex items-center justify-center ${passed ? 'bg-accent/15 text-accent' : 'bg-destructive/15 text-destructive'}`}
+            initial={{ scale: 0, rotate: -180 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ duration: 0.6, type: "spring", bounce: 0.4 }}
+          >
             {passed ? <Trophy className="h-12 w-12" /> : <XCircle className="h-12 w-12" />}
-          </div>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.4 }}
+          >
           <CardTitle className="text-2xl sm:text-3xl">
             {passed ? "Congratulations! 🎉" : "Quiz Complete 📝"}
           </CardTitle>
           <p className={`mt-2 text-sm ${passed ? 'text-accent' : 'text-destructive'}`}>
             {passed ? `You passed with ${results.percentage.toFixed(1)}%!` : `You scored ${results.percentage.toFixed(1)}%. ${passingScore}% needed to pass.`}
           </p>
+          </motion.div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-6">
             <div className="p-3 bg-muted rounded-lg text-center">
               <div className="text-2xl font-bold">{results.percentage.toFixed(0)}%</div>
