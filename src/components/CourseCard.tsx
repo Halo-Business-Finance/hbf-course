@@ -85,7 +85,7 @@ export function CourseCard({
       {/* Top accent bar */}
       <div className="h-1 bg-halo-navy" />
       
-      <CardHeader className="text-center pb-3 pt-5">
+      <CardHeader className="text-center pb-3 pt-5 relative">
         <div className="flex justify-center mb-3">
           <Badge className="bg-halo-navy text-white border-halo-navy px-3 py-1 text-xs font-semibold tracking-wide uppercase">
             <LevelIcon className="h-3 w-3 mr-1.5" />
