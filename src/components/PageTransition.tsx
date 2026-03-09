@@ -20,7 +20,7 @@ const pageVariants = {
     y: -8,
     transition: {
       duration: 0.2,
-      ease: [0.2, 0, 0.38, 0.9],
+      ease: [0.2, 0, 0.38, 0.9] as const,
     },
   },
 };
