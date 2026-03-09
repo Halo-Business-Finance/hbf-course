@@ -79,7 +79,7 @@ export function DashboardCourseGrid({
         />
 
         {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
             {Array.from({ length: 6 }).map((_, i) => (
               <div key={i} className="animate-pulse">
                 <div className="bg-card rounded-xl h-80 border border-border" />
@@ -87,7 +87,7 @@ export function DashboardCourseGrid({
             ))}
           </div>
         ) : filteredCoursesWithModules.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
             {filteredCoursesWithModules
               .filter((course, index, self) =>
                 index === self.findIndex((c) => c.title.split(' - ')[0] === course.title.split(' - ')[0])
@@ -191,7 +191,7 @@ export function DashboardCourseGrid({
 
         <h2 className="text-xl font-bold text-foreground">Select Your Skill Level</h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           {['beginner', 'expert'].map((level) => {
             const levelModules = flattenedModules.filter(
               (m) =>
@@ -270,21 +270,23 @@ export function DashboardCourseGrid({
   if (currentFilterLevel === 2) {
     return (
       <div className="space-y-6">
-        <div className="flex items-center gap-3 flex-wrap">
+        <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
           <Button
             variant="outline"
+            size="sm"
             onClick={onReturnToDashboard}
-            className="hover:bg-primary hover:text-primary-foreground transition-colors"
+            className="hover:bg-primary hover:text-primary-foreground transition-colors text-xs sm:text-sm"
           >
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            All Courses
+            <ArrowLeft className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5 sm:mr-2" />
+            <span className="hidden sm:inline">All Courses</span>
+            <span className="sm:hidden">Back</span>
           </Button>
           <span className="text-muted-foreground">/</span>
-          <Button variant="outline" onClick={onBackToLevel1}>
+          <Button variant="outline" size="sm" onClick={onBackToLevel1} className="text-xs sm:text-sm truncate max-w-[140px] sm:max-w-none">
             {filterNavigationPath[0]?.name}
           </Button>
           <span className="text-muted-foreground">/</span>
-          <span className="text-foreground font-semibold">{filterNavigationPath[1]?.name}</span>
+          <span className="text-foreground font-semibold text-xs sm:text-sm">{filterNavigationPath[1]?.name}</span>
         </div>
 
         <h2 className="text-xl font-bold text-foreground">
@@ -292,7 +294,7 @@ export function DashboardCourseGrid({
         </h2>
 
         {filteredModules.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {filteredModules.map((module, index) => {
               const currentProgress = moduleProgress[module.id];
               const progressPercentage = currentProgress?.progress_percentage || 0;
