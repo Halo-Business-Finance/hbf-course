@@ -164,10 +164,17 @@ const Index = () => {
                 { value: "150+", label: "Expert Modules" },
                 { value: "4.9/5", label: "Average Rating" },
               ].map((stat, i) => (
-                <div key={i} className="space-y-1">
+                <motion.div 
+                  key={i} 
+                  className="space-y-1"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ delay: i * 0.1, duration: 0.5 }}
+                >
                   <div className="text-xl sm:text-2xl md:text-3xl font-bold text-halo-navy">{stat.value}</div>
                   <div className="text-xs sm:text-sm text-muted-foreground">{stat.label}</div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
