@@ -83,7 +83,7 @@ export function DashboardCourseFilter({
               variant="outline"
               onClick={() => onCategorySelect(category.key)}
               disabled={count === 0}
-              className={`h-12 px-6 rounded-xl font-semibold transition-all duration-300 gap-2 ${
+              className={`h-10 sm:h-12 px-3 sm:px-6 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 gap-1.5 sm:gap-2 ${
                 isSelected
                   ? "border-2 border-foreground text-foreground shadow-sm"
                   : "border-2 border-border text-muted-foreground hover:border-foreground hover:text-foreground disabled:opacity-40"
