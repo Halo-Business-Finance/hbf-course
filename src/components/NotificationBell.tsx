@@ -1,278 +1,254 @@
-import { useState, useEffect } from "react";
-import { Bell, X, CheckCircle, AlertTriangle, Info, AlertCircle } from "lucide-react";
+import { useState } from "react";
+import {
+  Bell, X, CheckCircle, AlertTriangle, Info, AlertCircle,
+  Trophy, BookOpen, Trash2, CheckCheck, Clock,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "@/contexts/AuthContext";
-import { toast } from "@/hooks/use-toast";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
-interface Notification {
-  id: string;
-  title: string;
-  message: string;
-  type: string;
-  read: boolean;
-  user_id: string;
-  data?: any; // Json type from Supabase
-  created_at: string;
-}
-const NotificationIcon = ({
-  type
-}: {
-  type: string;
-}) => {
-  const iconProps = {
-    className: "h-4 w-4"
-  };
-  switch (type) {
-    case 'success':
-      return <CheckCircle {...iconProps} className="h-4 w-4 text-accent" />;
-    case 'warning':
-      return <AlertTriangle {...iconProps} className="h-4 w-4 text-halo-orange" />;
-    case 'error':
-      return <AlertCircle {...iconProps} className="h-4 w-4 text-destructive" />;
-    case 'info':
-    default:
-      return <Info {...iconProps} className="h-4 w-4 text-primary" />;
-  }
+import { useNotifications, type AppNotification } from "@/hooks/useNotifications";
+import { formatDistanceToNow } from "date-fns";
+import { motion, AnimatePresence } from "framer-motion";
+
+const typeConfig: Record<string, { icon: React.ElementType; color: string; label: string }> = {
+  success: { icon: CheckCircle, color: "text-emerald-500", label: "Success" },
+  warning: { icon: AlertTriangle, color: "text-halo-orange", label: "Warning" },
+  error: { icon: AlertCircle, color: "text-destructive", label: "Alert" },
+  achievement: { icon: Trophy, color: "text-amber-500", label: "Achievement" },
+  course: { icon: BookOpen, color: "text-halo-navy", label: "Course" },
+  info: { icon: Info, color: "text-primary", label: "Info" },
 };
+
+function NotificationIcon({ type }: { type: string }) {
+  const config = typeConfig[type] || typeConfig.info;
+  const Icon = config.icon;
+  return <Icon className={cn("h-4 w-4 flex-shrink-0", config.color)} />;
+}
+
+function RelativeTime({ date }: { date: string }) {
+  return (
+    <span className="text-[11px] text-muted-foreground">
+      {formatDistanceToNow(new Date(date), { addSuffix: true })}
+    </span>
+  );
+}
+
+function NotificationItem({
+  notification,
+  onRead,
+  onDelete,
+  onClick,
+}: {
+  notification: AppNotification;
+  onRead: () => void;
+  onDelete: () => void;
+  onClick: () => void;
+}) {
+  return (
+    <motion.div
+      layout
+      initial={{ opacity: 0, y: -4 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, x: 40, height: 0 }}
+      transition={{ duration: 0.2 }}
+      className={cn(
+        "group flex items-start gap-3 p-3 cursor-pointer transition-colors hover:bg-muted/60",
+        !notification.read && "bg-primary/[0.04]"
+      )}
+      onClick={onClick}
+    >
+      <div className="mt-0.5">
+        <NotificationIcon type={notification.type} />
+      </div>
+      <div className="flex-1 min-w-0 space-y-0.5">
+        <div className="flex items-start justify-between gap-2">
+          <p className={cn("text-sm leading-snug line-clamp-1", !notification.read ? "font-semibold text-foreground" : "text-foreground/80")}>
+            {notification.title}
+          </p>
+          {!notification.read && (
+            <span className="mt-1.5 h-2 w-2 rounded-full bg-halo-navy flex-shrink-0" />
+          )}
+        </div>
+        <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+          {notification.message}
+        </p>
+        <RelativeTime date={notification.created_at} />
+      </div>
+      {/* Actions on hover */}
+      <div className="flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+        {!notification.read && (
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-6 w-6"
+            onClick={(e) => { e.stopPropagation(); onRead(); }}
+            title="Mark as read"
+          >
+            <CheckCircle className="h-3 w-3 text-muted-foreground" />
+          </Button>
+        )}
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-6 w-6 hover:text-destructive"
+          onClick={(e) => { e.stopPropagation(); onDelete(); }}
+          title="Delete"
+        >
+          <Trash2 className="h-3 w-3" />
+        </Button>
+      </div>
+    </motion.div>
+  );
+}
+
+function EmptyState({ message }: { message: string }) {
+  return (
+    <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
+      <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center mb-3">
+        <Bell className="h-6 w-6 opacity-40" />
+      </div>
+      <p className="text-sm">{message}</p>
+    </div>
+  );
+}
+
 export const NotificationBell = () => {
   const {
-    user
-  } = useAuth();
-  const [notifications, setNotifications] = useState<Notification[]>([]);
-  const [unreadCount, setUnreadCount] = useState(0);
+    notifications,
+    unreadCount,
+    loading,
+    markAsRead,
+    markAllAsRead,
+    deleteNotification,
+    clearAll,
+  } = useNotifications();
   const [isOpen, setIsOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
 
-  // Fetch notifications
-  const fetchNotifications = async () => {
-    if (!user) return;
-    setLoading(true);
-    try {
-      const {
-        data,
-        error
-      } = await supabase.from('notifications').select('*').eq('user_id', user.id).order('created_at', {
-        ascending: false
-      }).limit(20);
-      if (error) {
-        console.error('Error fetching notifications:', error);
-        return;
-      }
-      if (data) {
-        setNotifications(data);
-        setUnreadCount(data.filter(n => !n.read).length);
-      }
-    } catch (error) {
-      console.error('Error fetching notifications:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Mark notification as read
-  const markAsRead = async (notificationId: string) => {
-    if (!user) return;
-    try {
-      const {
-        error
-      } = await supabase.from('notifications').update({
-        read: true
-      }).eq('id', notificationId).eq('user_id', user.id);
-      if (error) {
-        console.error('Error marking notification as read:', error);
-        return;
-      }
-
-      // Update local state
-      setNotifications(prev => prev.map(n => n.id === notificationId ? {
-        ...n,
-        read: true
-      } : n));
-      setUnreadCount(prev => Math.max(0, prev - 1));
-    } catch (error) {
-      console.error('Error marking notification as read:', error);
-    }
-  };
-
-  // Mark all as read
-  const markAllAsRead = async () => {
-    if (!user || unreadCount === 0) return;
-    try {
-      const {
-        error
-      } = await supabase.from('notifications').update({
-        read: true
-      }).eq('user_id', user.id).eq('read', false);
-      if (error) {
-        console.error('Error marking all notifications as read:', error);
-        return;
-      }
-
-      // Update local state
-      setNotifications(prev => prev.map(n => ({
-        ...n,
-        read: true
-      })));
-      setUnreadCount(0);
-      toast({
-        title: "All notifications marked as read",
-        description: "Your notifications have been updated."
-      });
-    } catch (error) {
-      console.error('Error marking all notifications as read:', error);
-    }
-  };
-
-  // Handle notification click
-  const handleNotificationClick = async (notification: Notification) => {
-    if (!notification.read) {
-      await markAsRead(notification.id);
-    }
-
-    // If there's action data, navigate accordingly
+  const handleClick = (notification: AppNotification) => {
+    if (!notification.read) markAsRead(notification.id);
     if (notification.data?.action_url) {
-      window.location.href = notification.data.action_url;
+      window.location.assign(notification.data.action_url);
     }
     setIsOpen(false);
   };
 
-  // Real-time subscription for new notifications with error handling
-  useEffect(() => {
-    if (!user) return;
-    let channel: any = null;
-    try {
-      channel = supabase.channel('notifications-changes').on('postgres_changes', {
-        event: 'INSERT',
-        schema: 'public',
-        table: 'notifications',
-        filter: `user_id=eq.${user.id}`
-      }, payload => {
-        console.log('New notification received:', payload);
-        const newNotification = payload.new as Notification;
+  const filterByTab = (tab: string) => {
+    if (tab === "unread") return notifications.filter(n => !n.read);
+    return notifications;
+  };
 
-        // Add to notifications list
-        setNotifications(prev => [newNotification, ...prev.slice(0, 19)]);
-        setUnreadCount(prev => prev + 1);
-
-        // Show toast for important notifications
-        if (newNotification.type === 'error' || newNotification.data?.priority === 'high') {
-          toast({
-            title: newNotification.title,
-            description: newNotification.message,
-            variant: newNotification.type === 'error' ? 'destructive' : 'default'
-          });
-        }
-      }).on('postgres_changes', {
-        event: 'UPDATE',
-        schema: 'public',
-        table: 'notifications',
-        filter: `user_id=eq.${user.id}`
-      }, payload => {
-        const updatedNotification = payload.new as Notification;
-        setNotifications(prev => prev.map(n => n.id === updatedNotification.id ? updatedNotification : n));
-      });
-
-      // Subscribe with error handling
-      channel.subscribe((status: string) => {
-        console.log('Notifications channel subscription status:', status);
-        if (status === 'SUBSCRIBED') {
-          console.log('Successfully subscribed to notifications channel');
-        } else if (status === 'CLOSED') {
-          console.warn('Notifications channel subscription closed - continuing without realtime updates');
-        } else if (status === 'CHANNEL_ERROR') {
-          console.warn('Notifications channel error - continuing without realtime updates');
-        }
-      });
-    } catch (error) {
-      console.warn('Failed to set up notifications realtime subscription:', error);
-      // Continue without realtime updates - not critical functionality
-    }
-    return () => {
-      if (channel) {
-        try {
-          supabase.removeChannel(channel);
-        } catch (error) {
-          console.warn('Error cleaning up notifications channel:', error);
-        }
-      }
-    };
-  }, [user]);
-
-  // Initial fetch
-  useEffect(() => {
-    fetchNotifications();
-  }, [user]);
-  if (!user) return null;
-  return <Popover open={isOpen} onOpenChange={setIsOpen}>
+  return (
+    <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
-        <Button variant="ghost" size="sm" title="Notifications" className="relative p-2 h-14 w-14 text-slate-50 py-0 px-0 text-xl mx-0">
-          <Bell className="h-8 w-8 text-amber-500" fill="currentColor" />
-          {unreadCount > 0 && <Badge variant="destructive" className="absolute -top-1 -right-1 h-7 w-7 p-0 flex items-center justify-center text-sm min-w-[24px]">
-              {unreadCount > 99 ? '99+' : unreadCount}
-            </Badge>}
+        <Button
+          variant="ghost"
+          size="icon"
+          title="Notifications"
+          className="relative h-10 w-10 text-foreground hover:bg-muted"
+        >
+          <Bell className="h-5 w-5" />
+          {unreadCount > 0 && (
+            <Badge
+              variant="destructive"
+              className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center text-[10px] font-bold min-w-[20px]"
+            >
+              {unreadCount > 99 ? "99+" : unreadCount}
+            </Badge>
+          )}
         </Button>
       </PopoverTrigger>
-      
-      <PopoverContent className="w-80 p-0" align="end" sideOffset={5}>
-        <Card className="border-0 shadow-lg">
-          <CardHeader className="pb-3">
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-base">Notifications</CardTitle>
-              <div className="flex items-center gap-2">
-                {unreadCount > 0 && <Button variant="ghost" size="sm" onClick={markAllAsRead} className="text-xs h-6 px-2">
-                    Mark all read
-                  </Button>}
-                <Button variant="ghost" size="sm" onClick={() => setIsOpen(false)} className="h-6 w-6 p-0">
-                  <X className="h-3 w-3" />
-                </Button>
-              </div>
-            </div>
-          </CardHeader>
-          
-          <Separator />
-          
-          <CardContent className="p-0">
-            <ScrollArea className="h-96">
-              {loading ? <div className="p-4 text-center text-sm text-muted-foreground">
-                  Loading notifications...
-                </div> : notifications.length === 0 ? <div className="p-4 text-center text-sm text-muted-foreground">
-                  <Bell className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                  No notifications yet
-                </div> : <div className="divide-y">
-                  {notifications.map(notification => <div key={notification.id} className={cn("p-3 hover:bg-muted/50 cursor-pointer transition-colors", !notification.read && "bg-primary/5")} onClick={() => handleNotificationClick(notification)}>
-                      <div className="flex items-start gap-3">
-                        <NotificationIcon type={notification.type} />
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 mb-1">
-                            <p className={cn("text-sm font-medium line-clamp-1", !notification.read && "font-semibold")}>
-                              {notification.title}
-                            </p>
-                            {!notification.read && <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0" />}
-                          </div>
-                          <p className="text-xs text-muted-foreground line-clamp-2 mb-1">
-                            {notification.message}
-                          </p>
-                          <p className="text-xs text-muted-foreground">
-                            {new Date(notification.created_at).toLocaleDateString('en-US', {
-                        month: 'short',
-                        day: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit'
-                      })}
-                          </p>
-                        </div>
-                      </div>
-                    </div>)}
-                </div>}
-            </ScrollArea>
-          </CardContent>
-        </Card>
+
+      <PopoverContent className="w-[380px] p-0 shadow-xl border-border" align="end" sideOffset={8}>
+        {/* Header */}
+        <div className="flex items-center justify-between px-4 py-3 border-b bg-muted/30">
+          <div className="flex items-center gap-2">
+            <h4 className="text-sm font-semibold text-foreground">Notifications</h4>
+            {unreadCount > 0 && (
+              <Badge variant="secondary" className="h-5 px-1.5 text-[10px] font-medium">
+                {unreadCount} new
+              </Badge>
+            )}
+          </div>
+          <div className="flex items-center gap-1">
+            {unreadCount > 0 && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={markAllAsRead}
+                className="text-xs h-7 px-2 text-muted-foreground hover:text-foreground"
+              >
+                <CheckCheck className="h-3 w-3 mr-1" />
+                Read all
+              </Button>
+            )}
+            {notifications.length > 0 && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={clearAll}
+                className="text-xs h-7 px-2 text-muted-foreground hover:text-destructive"
+              >
+                <Trash2 className="h-3 w-3 mr-1" />
+                Clear
+              </Button>
+            )}
+          </div>
+        </div>
+
+        {/* Tabs */}
+        <Tabs defaultValue="all" className="w-full">
+          <TabsList className="w-full justify-start rounded-none border-b h-9 bg-transparent px-2">
+            <TabsTrigger
+              value="all"
+              className="text-xs rounded-sm data-[state=active]:bg-muted data-[state=active]:shadow-none"
+            >
+              All
+            </TabsTrigger>
+            <TabsTrigger
+              value="unread"
+              className="text-xs rounded-sm data-[state=active]:bg-muted data-[state=active]:shadow-none"
+            >
+              Unread{unreadCount > 0 ? ` (${unreadCount})` : ""}
+            </TabsTrigger>
+          </TabsList>
+
+          {["all", "unread"].map((tab) => (
+            <TabsContent key={tab} value={tab} className="m-0">
+              <ScrollArea className="h-[360px]">
+                {loading ? (
+                  <div className="space-y-1 p-3">
+                    {[1, 2, 3].map(i => (
+                      <div key={i} className="h-16 bg-muted/50 rounded-lg animate-pulse" />
+                    ))}
+                  </div>
+                ) : filterByTab(tab).length === 0 ? (
+                  <EmptyState
+                    message={tab === "unread" ? "You're all caught up!" : "No notifications yet"}
+                  />
+                ) : (
+                  <div className="divide-y divide-border/50">
+                    <AnimatePresence mode="popLayout">
+                      {filterByTab(tab).map((notification) => (
+                        <NotificationItem
+                          key={notification.id}
+                          notification={notification}
+                          onRead={() => markAsRead(notification.id)}
+                          onDelete={() => deleteNotification(notification.id)}
+                          onClick={() => handleClick(notification)}
+                        />
+                      ))}
+                    </AnimatePresence>
+                  </div>
+                )}
+              </ScrollArea>
+            </TabsContent>
+          ))}
+        </Tabs>
       </PopoverContent>
-    </Popover>;
+    </Popover>
+  );
 };
