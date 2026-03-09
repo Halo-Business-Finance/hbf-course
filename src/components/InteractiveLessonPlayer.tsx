@@ -245,64 +245,24 @@ export const InteractiveLessonPlayer = ({ lesson, learningProfile, onComplete }:
 
   return (
     <div className="space-y-6">
-      {/* Lesson Header - Corporate styled */}
-      <Card className="border-2 border-border bg-card shadow-lg">
-        <CardHeader className="pb-4">
-          <div className="flex items-center justify-between flex-wrap gap-4">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-navy-900 rounded-xl">
-                <currentSectionData.icon className="h-6 w-6 text-white" />
-              </div>
-              <div>
-                <CardTitle className="text-xl font-bold text-navy-900">{lesson.title}</CardTitle>
-                <p className="text-sm text-muted-foreground mt-1">
-                  Section {currentSection + 1} of {sections.length} — <span className="font-medium text-foreground">{currentSectionData.title}</span>
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-1.5 text-sm text-muted-foreground bg-muted/40 px-3 py-1.5 rounded-full">
-                <Timer className="h-3.5 w-3.5" />
-                <span>{lesson.estimated_duration} min</span>
-              </div>
-              <div className="text-sm text-muted-foreground bg-muted/40 px-3 py-1.5 rounded-full">
-                Level {lesson.difficulty_level}
-              </div>
-            </div>
-          </div>
-          <div className="space-y-2 mt-4">
-            <div className="flex justify-between text-sm">
-              <span className="font-medium text-foreground">Lesson Progress</span>
-              <span className="font-semibold text-primary">{Math.round(progress)}%</span>
-            </div>
-            <Progress value={progress} className="h-2.5" />
-          </div>
-        </CardHeader>
-      </Card>
+      {/* Lesson Header - Extracted component */}
+      <LessonPlayerHeader
+        lessonTitle={lesson.title}
+        currentSection={currentSection}
+        totalSections={sections.length}
+        sectionTitle={currentSectionData.title}
+        SectionIcon={currentSectionData.icon}
+        estimatedDuration={lesson.estimated_duration}
+        difficultyLevel={lesson.difficulty_level}
+        progress={progress}
+      />
 
-      {/* Section Navigation - Step indicator */}
-      <div className="flex items-center gap-1.5 overflow-x-auto pb-2 px-1">
-        {sections.map((section, index) => (
-          <Button
-            key={index}
-            variant={index === currentSection ? "navy" : index < currentSection ? "outline" : "ghost"}
-            size="sm"
-            className={`flex items-center gap-2 whitespace-nowrap transition-all ${
-              index < currentSection ? "border-primary/30 text-primary" : ""
-            } ${index === currentSection ? "shadow-md" : ""}`}
-            disabled={index > currentSection}
-            onClick={() => index <= currentSection && setCurrentSection(index)}
-          >
-            {index < currentSection ? (
-              <CheckCircle className="h-4 w-4 text-primary" />
-            ) : (
-              <section.icon className="h-4 w-4" />
-            )}
-            <span className="hidden sm:inline">{section.title}</span>
-            <span className="sm:hidden">{index + 1}</span>
-          </Button>
-        ))}
-      </div>
+      {/* Section Navigation - Extracted component */}
+      <LessonSectionNav
+        sections={sections}
+        currentSection={currentSection}
+        onSectionSelect={setCurrentSection}
+      />
 
       {/* Main Content */}
       <Card className="min-h-[500px] border-2 border-border shadow-sm">
