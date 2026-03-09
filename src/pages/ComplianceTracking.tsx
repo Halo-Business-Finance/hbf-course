@@ -111,6 +111,7 @@ export default function ComplianceTracking() {
     URL.revokeObjectURL(url);
     setExportLoading(false);
     toast.success('Compliance report exported');
+  };
 
   const totalAssigned = complianceRequirements.reduce((sum, r) => sum + r.assignedTo, 0);
   const totalCompleted = complianceRequirements.reduce((sum, r) => sum + r.completed, 0);
