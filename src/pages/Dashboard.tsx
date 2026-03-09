@@ -355,16 +355,16 @@ const Dashboard = () => {
           {isOnCatalog ? (
             <Tabs defaultValue="courses" className="w-full">
               <TabsList className="w-full max-w-md bg-muted/50 p-1 rounded-lg">
-                <TabsTrigger value="courses" className="flex-1 gap-2 data-[state=active]:bg-background data-[state=active]:shadow-sm">
-                  <BookOpen className="h-4 w-4" />
+                <TabsTrigger value="courses" className="flex-1 gap-1.5 sm:gap-2 text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">
+                  <BookOpen className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                   Courses
                 </TabsTrigger>
-                <TabsTrigger value="analytics" className="flex-1 gap-2 data-[state=active]:bg-background data-[state=active]:shadow-sm">
-                  <BarChart3 className="h-4 w-4" />
+                <TabsTrigger value="analytics" className="flex-1 gap-1.5 sm:gap-2 text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">
+                  <BarChart3 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                   Analytics
                 </TabsTrigger>
-                <TabsTrigger value="community" className="flex-1 gap-2 data-[state=active]:bg-background data-[state=active]:shadow-sm">
-                  <MessageSquare className="h-4 w-4" />
+                <TabsTrigger value="community" className="flex-1 gap-1.5 sm:gap-2 text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">
+                  <MessageSquare className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                   Community
                 </TabsTrigger>
               </TabsList>
