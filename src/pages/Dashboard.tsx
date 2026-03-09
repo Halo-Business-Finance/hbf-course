@@ -345,10 +345,10 @@ const Dashboard = () => {
         <div className="px-4 sm:px-6 lg:px-10 py-6 sm:py-8 max-w-7xl mx-auto space-y-8">
           {/* Quick Resume + Study Reminder — only at top level */}
           {isOnCatalog && (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <QuickResumeCard />
-              <StudyReminder />
-            </div>
+            <StaggerContainer className="grid grid-cols-1 lg:grid-cols-2 gap-6" staggerDelay={0.1}>
+              <StaggerItem><QuickResumeCard /></StaggerItem>
+              <StaggerItem><StudyReminder /></StaggerItem>
+            </StaggerContainer>
           )}
 
           {/* Tabbed Layout — only at catalog level */}
