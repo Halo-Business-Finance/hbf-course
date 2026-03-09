@@ -249,12 +249,19 @@ export const EnhancedQuiz = ({
     switch (question.type) {
       case 'multiple-choice':
         return <RadioGroup value={userAnswer || ""} onValueChange={value => handleAnswer(question.id, value)}>
-            {question.options?.map((option, index) => <div key={index} className="flex items-center space-x-3 p-3 rounded-lg border hover:bg-muted/50 transition-colors min-h-[48px] cursor-pointer" onClick={() => handleAnswer(question.id, option)}>
+            {question.options?.map((option, index) => <motion.div 
+                key={index} 
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.06, duration: 0.3 }}
+                className={`flex items-center space-x-3 p-3 rounded-lg border hover:bg-muted/50 transition-all min-h-[48px] cursor-pointer ${userAnswer === option ? 'border-primary bg-primary/5 shadow-sm' : 'hover:border-primary/30'}`} 
+                onClick={() => handleAnswer(question.id, option)}
+              >
                 <RadioGroupItem value={option} id={`${question.id}-${index}`} />
                 <Label htmlFor={`${question.id}-${index}`} className="flex-1 cursor-pointer text-sm sm:text-base">
                   {option}
                 </Label>
-              </div>)}
+              </motion.div>)}
           </RadioGroup>;
       case 'multiple-select':
         return <div className="space-y-2">
@@ -332,29 +339,36 @@ export const EnhancedQuiz = ({
 
   // Quiz start screen
   if (!quizStarted) {
-    return <Card className="max-w-2xl mx-auto">
+    return <Card className="max-w-2xl mx-auto overflow-hidden">
         <CardHeader className="text-center px-4 sm:px-6">
-          <div className="w-20 h-20 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+          <motion.div 
+            className="w-20 h-20 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.4, type: "spring" }}
+          >
             <Brain className="h-10 w-10 text-primary" />
-          </div>
+          </motion.div>
           <CardTitle className="text-xl sm:text-2xl">{moduleTitle}</CardTitle>
           <p className="text-sm text-muted-foreground mt-1">Knowledge Assessment</p>
           <div className="grid grid-cols-3 gap-3 mt-6">
-            <div className="p-3 bg-muted rounded-lg text-center">
-              <Target className="h-5 w-5 mx-auto mb-1 text-primary" />
-              <div className="text-lg font-bold">{questions.length}</div>
-              <div className="text-xs text-muted-foreground">Questions</div>
-            </div>
-            <div className="p-3 bg-muted rounded-lg text-center">
-              <Timer className="h-5 w-5 mx-auto mb-1 text-primary" />
-              <div className="text-lg font-bold">{timeLimit}</div>
-              <div className="text-xs text-muted-foreground">Minutes</div>
-            </div>
-            <div className="p-3 bg-muted rounded-lg text-center">
-              <Trophy className="h-5 w-5 mx-auto mb-1 text-primary" />
-              <div className="text-lg font-bold">{passingScore}%</div>
-              <div className="text-xs text-muted-foreground">To Pass</div>
-            </div>
+            {[
+              { icon: Target, value: questions.length, label: "Questions" },
+              { icon: Timer, value: timeLimit, label: "Minutes" },
+              { icon: Trophy, value: `${passingScore}%`, label: "To Pass" },
+            ].map((stat, i) => (
+              <motion.div 
+                key={i}
+                className="p-3 bg-muted rounded-lg text-center"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 + i * 0.1, duration: 0.3 }}
+              >
+                <stat.icon className="h-5 w-5 mx-auto mb-1 text-primary" />
+                <div className="text-lg font-bold">{stat.value}</div>
+                <div className="text-xs text-muted-foreground">{stat.label}</div>
+              </motion.div>
+            ))}
           </div>
         </CardHeader>
         <CardContent className="space-y-6 px-4 sm:px-6">
@@ -372,7 +386,7 @@ export const EnhancedQuiz = ({
 
             {attemptCount >= maxAttempts ? <div className="text-center p-4 bg-destructive/10 rounded-lg">
                 <p className="text-destructive">You have reached the maximum number of attempts.</p>
-              </div> : <Button onClick={startQuiz} size="lg" className="w-full h-14 text-base bg-halo-navy hover:bg-halo-navy/90">
+              </div> : <Button onClick={startQuiz} size="lg" className="w-full h-14 text-base bg-halo-navy hover:bg-halo-navy/90 hover:scale-[1.01] transition-all">
                 Start Quiz
               </Button>}
           </div>
@@ -383,17 +397,28 @@ export const EnhancedQuiz = ({
   // Quiz results screen
   if (quizCompleted && results) {
     const passed = results.percentage >= passingScore;
-    return <Card className="max-w-4xl mx-auto">
+    return <Card className="max-w-4xl mx-auto overflow-hidden">
         <CardHeader className="text-center px-4 sm:px-6">
-          <div className={`w-24 h-24 mx-auto mb-4 rounded-full flex items-center justify-center ${passed ? 'bg-accent/15 text-accent' : 'bg-destructive/15 text-destructive'}`}>
+          <motion.div 
+            className={`w-24 h-24 mx-auto mb-4 rounded-full flex items-center justify-center ${passed ? 'bg-accent/15 text-accent' : 'bg-destructive/15 text-destructive'}`}
+            initial={{ scale: 0, rotate: -180 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ duration: 0.6, type: "spring", bounce: 0.4 }}
+          >
             {passed ? <Trophy className="h-12 w-12" /> : <XCircle className="h-12 w-12" />}
-          </div>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.4 }}
+          >
           <CardTitle className="text-2xl sm:text-3xl">
             {passed ? "Congratulations! 🎉" : "Quiz Complete 📝"}
           </CardTitle>
           <p className={`mt-2 text-sm ${passed ? 'text-accent' : 'text-destructive'}`}>
             {passed ? `You passed with ${results.percentage.toFixed(1)}%!` : `You scored ${results.percentage.toFixed(1)}%. ${passingScore}% needed to pass.`}
           </p>
+          </motion.div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-6">
             <div className="p-3 bg-muted rounded-lg text-center">
               <div className="text-2xl font-bold">{results.percentage.toFixed(0)}%</div>

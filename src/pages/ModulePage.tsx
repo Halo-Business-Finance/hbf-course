@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/PageTransition";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
@@ -420,7 +422,12 @@ const ModulePage = () => {
           {/* Main Content */}
           <div className="flex-1 min-w-0 space-y-6">
             {/* Module Header Card */}
-            <Card className="bg-halo-navy">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+            <Card className="bg-halo-navy overflow-hidden">
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div>
@@ -451,9 +458,12 @@ const ModulePage = () => {
                 </div>
               </CardContent>
             </Card>
+            </motion.div>
 
             {/* Key Takeaways - "What You'll Learn" */}
+            <AnimatedSection delay={0.1}>
             <KeyTakeaways objectives={getModuleLearningObjectives(module)} />
+            </AnimatedSection>
 
             {/* Tabs */}
             <Tabs defaultValue="lessons" className="space-y-4 sm:space-y-6">
@@ -488,9 +498,12 @@ const ModulePage = () => {
                         </AccordionTrigger>
                         <AccordionContent className="px-0 pb-0">
                           <div className="divide-y">
-                            {group.items.map((lesson) => (
-                              <div
+                            {group.items.map((lesson, lessonIdx) => (
+                              <motion.div
                                 key={lesson.id}
+                                initial={{ opacity: 0, x: -8 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: lessonIdx * 0.05, duration: 0.3 }}
                                 className="flex items-center justify-between gap-3 px-4 py-3 hover:bg-muted/30 transition-colors"
                               >
                                 <div className="flex items-center gap-3 min-w-0 flex-1">
@@ -508,13 +521,13 @@ const ModulePage = () => {
                                 <Button
                                   size="sm"
                                   variant={lesson.completed ? "outline" : "default"}
-                                  className="h-9 px-3 text-xs shrink-0 min-w-[72px]"
+                                  className="h-9 px-3 text-xs shrink-0 min-w-[72px] hover:scale-[1.03] transition-transform"
                                   onClick={() => handleLessonStart(lesson)}
                                 >
                                   <Play className="h-3 w-3 mr-1" />
                                   {lesson.completed ? "Review" : "Start"}
                                 </Button>
-                              </div>
+                              </motion.div>
                             ))}
                           </div>
                         </AccordionContent>
