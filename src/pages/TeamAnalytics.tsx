@@ -199,6 +199,24 @@ export default function TeamAnalytics() {
     return { total, avgProgress, avgScore, totalCompleted, activeThisWeek, atRisk };
   }, [members]);
 
+  const chartData = useMemo(() => {
+    const statusCounts = { ahead: 0, on_track: 0, at_risk: 0, behind: 0 };
+    members.forEach((m) => { statusCounts[m.status]++; });
+    const statusDistribution = [
+      { name: 'Ahead', value: statusCounts.ahead, color: 'hsl(var(--accent-foreground))' },
+      { name: 'On Track', value: statusCounts.on_track, color: 'hsl(var(--primary))' },
+      { name: 'At Risk', value: statusCounts.at_risk, color: 'hsl(var(--halo-orange))' },
+      { name: 'Behind', value: statusCounts.behind, color: 'hsl(var(--destructive))' },
+    ].filter((d) => d.value > 0);
+
+    const courseCompletionData = courseStats.slice(0, 8).map((c) => ({
+      course: c.courseTitle.length > 18 ? c.courseTitle.slice(0, 18) + '…' : c.courseTitle,
+      completion: c.enrolled > 0 ? Math.round((c.completed / c.enrolled) * 100) : 0,
+    }));
+
+    return { statusDistribution, courseCompletionData };
+  }, [members, courseStats]);
+
   const handleExport = () => {
     setExportLoading(true);
     const headers = ['Name', 'Email', 'Role', 'Modules Completed', 'Total Modules', 'Avg Score', 'Status', 'Last Active'];
