@@ -97,14 +97,20 @@ export function CourseCard({
           {description}
         </CardDescription>
         <div className="mt-4 flex items-center justify-center gap-5 text-sm text-muted-foreground">
-          <div className="flex items-center gap-1.5">
-            <BookOpen className="h-4 w-4 text-primary" />
-            <span className="font-medium">{modulesCount} Modules</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <Clock className="h-4 w-4 text-primary" />
-            <span className="font-medium">{modulesCount * 2}+ hrs</span>
-          </div>
+          {isEnrolled ? (
+            <CourseProgressIndicator courseId={id} totalModules={modulesCount} />
+          ) : (
+            <>
+              <div className="flex items-center gap-1.5">
+                <BookOpen className="h-4 w-4 text-primary" />
+                <span className="font-medium">{modulesCount} Modules</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Clock className="h-4 w-4 text-primary" />
+                <span className="font-medium">{modulesCount * 2}+ hrs</span>
+              </div>
+            </>
+          )}
         </div>
       </CardHeader>
       
