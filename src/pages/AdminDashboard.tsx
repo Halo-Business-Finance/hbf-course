@@ -13,6 +13,10 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useAdminRole } from "@/hooks/useAdminRole";
 import { SecurityDashboard } from "@/components/SecurityDashboard";
 import { SecurityMonitoringDashboard } from "@/components/admin/SecurityMonitoringDashboard";
+import { AuditLogViewer } from "@/components/admin/AuditLogViewer";
+import { DataRetentionControls } from "@/components/admin/DataRetentionControls";
+import { RoleSessionIndicators } from "@/components/admin/RoleSessionIndicators";
+import { UserRoleManager } from "@/components/admin/UserRoleManager";
 import { SecurityEventManager } from "@/components/SecurityEventManager";
 import { SecurityFixCenter } from "@/components/SecurityFixCenter";
 import { VideoManager } from "@/components/admin/VideoManager";
@@ -851,24 +855,33 @@ const AdminDashboard = () => {
         {/* Modern Tabs Interface */}
         <Tabs defaultValue="overview" className="space-y-8">
           <div className="bg-card/50 backdrop-blur-sm p-3 border-0 border-white rounded-none shadow-none">
-            <TabsList className="grid w-full grid-cols-7 bg-transparent gap-2">
+            <TabsList className="grid w-full grid-cols-10 bg-transparent gap-2">
               <TabsTrigger value="overview" className="data-[state=active]:bg-background data-[state=active]:shadow-elegant transition-all duration-300 rounded-xl">
                 <span>Overview</span>
               </TabsTrigger>
               <TabsTrigger value="users" className="data-[state=active]:bg-background data-[state=active]:shadow-elegant transition-all duration-300 rounded-xl">
                 <span>Users</span>
               </TabsTrigger>
+              <TabsTrigger value="roles" className="data-[state=active]:bg-background data-[state=active]:shadow-elegant transition-all duration-300 rounded-xl">
+                <span>Roles</span>
+              </TabsTrigger>
+              <TabsTrigger value="audit" className="data-[state=active]:bg-background data-[state=active]:shadow-elegant transition-all duration-300 rounded-xl">
+                <span>Audit Log</span>
+              </TabsTrigger>
               <TabsTrigger value="security" className="data-[state=active]:bg-background data-[state=active]:shadow-elegant transition-all duration-300 rounded-xl">
                 <span>Security</span>
+              </TabsTrigger>
+              <TabsTrigger value="retention" className="data-[state=active]:bg-background data-[state=active]:shadow-elegant transition-all duration-300 rounded-xl">
+                <span>Retention</span>
+              </TabsTrigger>
+              <TabsTrigger value="session" className="data-[state=active]:bg-background data-[state=active]:shadow-elegant transition-all duration-300 rounded-xl">
+                <span>Session</span>
               </TabsTrigger>
               <TabsTrigger value="trainee-progress" className="data-[state=active]:bg-background data-[state=active]:shadow-elegant transition-all duration-300 rounded-xl">
                 <span>Progress</span>
               </TabsTrigger>
               <TabsTrigger value="courses" className="data-[state=active]:shadow-elegant transition-all duration-300 rounded-xl bg-white">
                 <span>Courses</span>
-              </TabsTrigger>
-              <TabsTrigger value="videos" className="data-[state=active]:bg-background data-[state=active]:shadow-elegant transition-all duration-300 rounded-xl">
-                <span>Videos</span>
               </TabsTrigger>
               <TabsTrigger value="cms" className="data-[state=active]:bg-background data-[state=active]:shadow-elegant transition-all duration-300 rounded-xl">
                 <span>CMS</span>
@@ -978,11 +991,27 @@ const AdminDashboard = () => {
           
           </TabsContent>
 
+                <TabsContent value="roles" className="space-y-6">
+                  <UserRoleManager />
+                </TabsContent>
+
+                <TabsContent value="audit" className="space-y-6">
+                  <AuditLogViewer />
+                </TabsContent>
+
                 <TabsContent value="security" className="space-y-6">
                   <SecurityMonitoringDashboard />
                   <SecurityComplianceStatus />
                   <SecurityFixCenter />
                   <SecurityDashboard />
+                </TabsContent>
+
+                <TabsContent value="retention" className="space-y-6">
+                  <DataRetentionControls />
+                </TabsContent>
+
+                <TabsContent value="session" className="space-y-6">
+                  <RoleSessionIndicators />
                 </TabsContent>
 
           <TabsContent value="trainee-progress" className="space-y-4">
@@ -991,11 +1020,6 @@ const AdminDashboard = () => {
 
           <TabsContent value="courses" className="space-y-4">
             <CourseManager />
-          </TabsContent>
-
-
-          <TabsContent value="videos" className="space-y-4">
-            <VideoManager />
           </TabsContent>
 
           <TabsContent value="cms" className="space-y-4">
