@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { CourseProgressIndicator } from "@/components/course/CourseProgressIndicator";
 
 interface CourseCardProps {
   id: string;
