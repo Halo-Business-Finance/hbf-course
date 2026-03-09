@@ -9,6 +9,7 @@ import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { EmptyState } from '@/components/common/EmptyState';
+import { TeamAnalyticsCharts } from '@/components/analytics/TeamAnalyticsCharts';
 import {
   BarChart3, Users, TrendingUp, Clock, Download, Trophy,
   BookOpen, Target, AlertTriangle, CheckCircle, Search, Loader2,
@@ -198,6 +199,24 @@ export default function TeamAnalytics() {
     return { total, avgProgress, avgScore, totalCompleted, activeThisWeek, atRisk };
   }, [members]);
 
+  const chartData = useMemo(() => {
+    const statusCounts = { ahead: 0, on_track: 0, at_risk: 0, behind: 0 };
+    members.forEach((m) => { statusCounts[m.status]++; });
+    const statusDistribution = [
+      { name: 'Ahead', value: statusCounts.ahead, color: 'hsl(var(--accent-foreground))' },
+      { name: 'On Track', value: statusCounts.on_track, color: 'hsl(var(--primary))' },
+      { name: 'At Risk', value: statusCounts.at_risk, color: 'hsl(var(--halo-orange))' },
+      { name: 'Behind', value: statusCounts.behind, color: 'hsl(var(--destructive))' },
+    ].filter((d) => d.value > 0);
+
+    const courseCompletionData = courseStats.slice(0, 8).map((c) => ({
+      course: c.courseTitle.length > 18 ? c.courseTitle.slice(0, 18) + '…' : c.courseTitle,
+      completion: c.enrolled > 0 ? Math.round((c.completed / c.enrolled) * 100) : 0,
+    }));
+
+    return { statusDistribution, courseCompletionData };
+  }, [members, courseStats]);
+
   const handleExport = () => {
     setExportLoading(true);
     const headers = ['Name', 'Email', 'Role', 'Modules Completed', 'Total Modules', 'Avg Score', 'Status', 'Last Active'];
@@ -275,11 +294,20 @@ export default function TeamAnalytics() {
                 })}
               </div>
 
-              <Tabs defaultValue="members" className="w-full">
-                <TabsList className="grid w-full max-w-md grid-cols-2 mb-6">
+              <Tabs defaultValue="charts" className="w-full">
+                <TabsList className="grid w-full max-w-lg grid-cols-3 mb-6">
+                  <TabsTrigger value="charts" className="gap-1.5"><BarChart3 className="h-3.5 w-3.5" />Charts</TabsTrigger>
                   <TabsTrigger value="members" className="gap-1.5"><Users className="h-3.5 w-3.5" />Members</TabsTrigger>
                   <TabsTrigger value="courses" className="gap-1.5"><BookOpen className="h-3.5 w-3.5" />Courses</TabsTrigger>
                 </TabsList>
+
+                {/* Charts Tab */}
+                <TabsContent value="charts">
+                  <TeamAnalyticsCharts
+                    statusDistribution={chartData.statusDistribution}
+                    courseCompletionData={chartData.courseCompletionData}
+                  />
+                </TabsContent>
 
                 {/* Members Tab */}
                 <TabsContent value="members">
