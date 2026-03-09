@@ -200,13 +200,15 @@ export default function Cohorts() {
               <p className="text-muted-foreground mt-1">Organize team-based learning with shared goals and deadlines</p>
             </div>
             <div className="flex gap-2">
-              <Button variant="outline" onClick={() => setShowBulkEnroll(true)} className="gap-2">
+              <Button variant="outline" onClick={() => setShowBulkEnroll(true)} className="gap-2 flex-1 sm:flex-none">
                 <UserPlus className="h-4 w-4" />
-                Bulk Enroll
+                <span className="hidden sm:inline">Bulk Enroll</span>
+                <span className="sm:hidden">Enroll</span>
               </Button>
-              <Button onClick={() => setShowCreate(true)} className="gap-2 bg-halo-navy hover:bg-halo-navy/90 text-white">
+              <Button onClick={() => setShowCreate(true)} className="gap-2 bg-halo-navy hover:bg-halo-navy/90 text-white flex-1 sm:flex-none">
                 <Plus className="h-4 w-4" />
-                Create Cohort
+                <span className="hidden sm:inline">Create Cohort</span>
+                <span className="sm:hidden">Create</span>
               </Button>
             </div>
           </div>
