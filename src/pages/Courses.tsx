@@ -12,6 +12,7 @@ import { FinPilotBrandFooter } from "@/components/FinPilotBrandFooter";
 import { SEOHead } from "@/components/SEOHead";
 import { DashboardCourseFilter } from "@/components/DashboardCourseFilter";
 import PublicModuleCard from "@/components/PublicModuleCard";
+import { CourseLearningPathMap } from "@/components/course/CourseLearningPathMap";
 import { useCourses, Course } from "@/hooks/useCourses";
 import { useModules } from "@/hooks/useModules";
 import coursesHero from "@/assets/courses-hero.jpg";
@@ -514,6 +515,20 @@ const Courses = () => {
                   {selectedCategory ? `${selectedCategory} Courses (${filteredCourses.length})` : `All Courses (${filteredCourses.length})`}
                 </h2>
               </div>
+
+              {/* Learning Path Visualization */}
+              <CourseLearningPathMap
+                courses={allCourses.map(c => ({
+                  id: c.id,
+                  title: c.title,
+                  level: c.level,
+                  modulesCount: c.modules?.length || 0,
+                  isEnrolled: enrollmentStatus[c.id] || false,
+                  firstModuleId: c.modules?.[0]?.id,
+                  category: c.title.replace(/ - (Beginner|Expert)$/i, ''),
+                }))}
+                isAuthenticated={!!user}
+              />
 
               {/* Course Grid - Enhanced Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-6 lg:gap-8 mb-12">

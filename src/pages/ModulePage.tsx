@@ -24,6 +24,7 @@ import { useCourseSelection } from "@/contexts/CourseSelectionContext";
 import { useCourseProgress } from "@/hooks/useCourseProgress";
 import { useCourseCompletion } from "@/hooks/useCourseCompletion";
 import { CourseCompletionModal } from "@/components/progress/CourseCompletionModal";
+import { QuizScoreHistory } from "@/components/quiz/QuizScoreHistory";
 import { supabase } from "@/integrations/supabase/client";
 
 interface Lesson {
@@ -582,6 +583,14 @@ const ModulePage = () => {
 
               {/* Assessment Tab */}
               <TabsContent value="assessment" className="space-y-6">
+                {/* Score History */}
+                {user && (
+                  <QuizScoreHistory
+                    moduleId={module.id}
+                    assessmentId={quizLessons[0]?.id}
+                  />
+                )}
+
                 <ModuleQuiz
                   moduleId={module.id}
                   moduleTitle={module.title}
