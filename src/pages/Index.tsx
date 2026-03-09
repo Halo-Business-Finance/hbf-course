@@ -9,6 +9,7 @@ import { DemoVideoModal } from "@/components/DemoVideoModal";
 import { CurriculumModal } from "@/components/CurriculumModal";
 import { SEOHead } from "@/components/SEOHead";
 import { useState } from "react";
+import { motion } from "framer-motion";
 import heroBusinessTraining from "@/assets/commercial-lending-hero.jpg";
 import businessTeam from "@/assets/business-team.jpg";
 const learningPathsImage = "/lovable-uploads/49422402-b861-468e-8955-3f3cdaf3530c.png";
