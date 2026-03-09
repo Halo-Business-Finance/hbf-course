@@ -106,7 +106,7 @@ export function AppSidebar({ onOpenSupport }: { onOpenSupport?: () => void }) {
 
   return (
     <Sidebar collapsible="icon" variant="inset" className="bg-sidebar border-sidebar-border border-r">
-      <SidebarContent className="bg-sidebar pt-[60px] sm:pt-[80px]">
+      <SidebarContent className="bg-sidebar pt-[56px] sm:pt-[70px]">
         {/* Welcome */}
         {user && !collapsed && (
           <div className="px-4 pb-1 pt-4">
