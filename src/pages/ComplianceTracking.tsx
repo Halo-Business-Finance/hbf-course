@@ -139,8 +139,8 @@ export default function ComplianceTracking() {
               </h1>
               <p className="text-muted-foreground mt-1">Mandatory training assignments, deadlines, and audit reports</p>
             </div>
-            <Button onClick={handleExport} disabled={exportLoading} className="gap-2">
-              <Download className="h-4 w-4" />
+            <Button onClick={handleExport} disabled={exportLoading} className="gap-2 bg-halo-navy hover:bg-halo-navy/90 text-white">
+              {exportLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
               Export Audit Report
             </Button>
           </div>
