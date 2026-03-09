@@ -14,7 +14,8 @@ const AuthPage = () => {
   const navigate = useNavigate();
   const {
     user,
-    loading
+    loading,
+    signIn
   } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -85,22 +86,13 @@ const AuthPage = () => {
     setIsLoading(true);
     try {
       const sanitizedEmail = sanitizeInput(signInData.email);
-      const {
-        data,
-        error
-      } = await supabase.auth.signInWithPassword({
-        email: sanitizedEmail,
-        password: signInData.password
-      });
+      const { data, error } = await signIn(sanitizedEmail, signInData.password);
+      
       if (error) {
-        toast({
-          title: "Sign In Failed",
-          description: error.message,
-          variant: "destructive"
-        });
+        // Error toast is already handled by AuthContext.signIn
         return;
       }
-      if (data.user) {
+      if (data?.user) {
         // Reset rate limiter on successful login
         authRateLimiter.reset(clientId);
 
@@ -113,23 +105,8 @@ const AuthPage = () => {
         } catch (logError) {
           // Silent fail - auth success is primary concern
         }
-        toast({
-          title: "Welcome back!",
-          description: "You have been successfully signed in."
-        });
 
-        // Check for redirect URL
-        const redirectUrl = sessionStorage.getItem('redirectUrl');
-        if (redirectUrl) {
-          sessionStorage.removeItem('redirectUrl');
-          navigate(redirectUrl, {
-            replace: true
-          });
-        } else {
-          navigate("/dashboard", {
-            replace: true
-          });
-        }
+        // Redirect is handled by the useEffect watching user state
       }
     } catch (error) {
       console.error('Sign in error:', error);
@@ -236,7 +213,7 @@ const AuthPage = () => {
                 </Button>}
               {showForgotPassword ? "Reset Password" : step === 'email' ? "Welcome Back" : "Enter Password"}
             </CardTitle>
-            <CardDescription className="text-white">
+            <CardDescription className="text-white/70">
               {showForgotPassword ? "Enter your email to receive password reset instructions" : step === 'email' ? "Enter your email to continue" : `Signing in as ${signInData.email}`}
             </CardDescription>
           </CardHeader>
