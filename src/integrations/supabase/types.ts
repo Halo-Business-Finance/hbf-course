@@ -2967,11 +2967,13 @@ export type Database = {
           encrypted_name: string | null
           encrypted_phone: string | null
           encryption_status: string | null
+          experience_level: string | null
           font_size: string | null
           id: string
           join_date: string
           language: string | null
           last_security_audit: string | null
+          learning_goals: string[] | null
           location: string | null
           marketing_communications: boolean | null
           marketing_emails: boolean | null
@@ -2981,6 +2983,7 @@ export type Database = {
           phone: string | null
           pii_access_level: string | null
           pii_last_encrypted_at: string | null
+          professional_role: string | null
           push_notifications: boolean | null
           reduced_motion: boolean | null
           state: string | null
@@ -3008,11 +3011,13 @@ export type Database = {
           encrypted_name?: string | null
           encrypted_phone?: string | null
           encryption_status?: string | null
+          experience_level?: string | null
           font_size?: string | null
           id?: string
           join_date?: string
           language?: string | null
           last_security_audit?: string | null
+          learning_goals?: string[] | null
           location?: string | null
           marketing_communications?: boolean | null
           marketing_emails?: boolean | null
@@ -3022,6 +3027,7 @@ export type Database = {
           phone?: string | null
           pii_access_level?: string | null
           pii_last_encrypted_at?: string | null
+          professional_role?: string | null
           push_notifications?: boolean | null
           reduced_motion?: boolean | null
           state?: string | null
@@ -3049,11 +3055,13 @@ export type Database = {
           encrypted_name?: string | null
           encrypted_phone?: string | null
           encryption_status?: string | null
+          experience_level?: string | null
           font_size?: string | null
           id?: string
           join_date?: string
           language?: string | null
           last_security_audit?: string | null
+          learning_goals?: string[] | null
           location?: string | null
           marketing_communications?: boolean | null
           marketing_emails?: boolean | null
@@ -3063,6 +3071,7 @@ export type Database = {
           phone?: string | null
           pii_access_level?: string | null
           pii_last_encrypted_at?: string | null
+          professional_role?: string | null
           push_notifications?: boolean | null
           reduced_motion?: boolean | null
           state?: string | null
