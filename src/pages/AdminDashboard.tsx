@@ -991,11 +991,27 @@ const AdminDashboard = () => {
           
           </TabsContent>
 
+                <TabsContent value="roles" className="space-y-6">
+                  <UserRoleManager />
+                </TabsContent>
+
+                <TabsContent value="audit" className="space-y-6">
+                  <AuditLogViewer />
+                </TabsContent>
+
                 <TabsContent value="security" className="space-y-6">
                   <SecurityMonitoringDashboard />
                   <SecurityComplianceStatus />
                   <SecurityFixCenter />
                   <SecurityDashboard />
+                </TabsContent>
+
+                <TabsContent value="retention" className="space-y-6">
+                  <DataRetentionControls />
+                </TabsContent>
+
+                <TabsContent value="session" className="space-y-6">
+                  <RoleSessionIndicators />
                 </TabsContent>
 
           <TabsContent value="trainee-progress" className="space-y-4">
@@ -1004,11 +1020,6 @@ const AdminDashboard = () => {
 
           <TabsContent value="courses" className="space-y-4">
             <CourseManager />
-          </TabsContent>
-
-
-          <TabsContent value="videos" className="space-y-4">
-            <VideoManager />
           </TabsContent>
 
           <TabsContent value="cms" className="space-y-4">
