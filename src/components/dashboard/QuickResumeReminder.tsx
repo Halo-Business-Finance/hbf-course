@@ -1,7 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
@@ -193,24 +191,12 @@ export function QuickResumeReminder() {
 
   /* ── Loading skeleton ── */
   if (loadingResume) {
-    return <Card className="animate-pulse"><CardContent className="p-6"><div className="h-28 bg-muted rounded" /></CardContent></Card>;
+    return <div className="animate-pulse mt-6"><div className="h-28 bg-white/5 rounded-lg" /></div>;
   }
 
   /* ── No activity yet ── */
   if (!lastActivity) {
-    return (
-      <Card className="border border-dashed border-border">
-        <CardContent className="p-0">
-          <EmptyState
-            icon={<BookOpen className="h-6 w-6 text-muted-foreground" />}
-            title="Ready to start learning?"
-            description="Browse the course catalog below and enroll in your first program to begin tracking progress."
-            actionLabel="Browse Courses"
-            actionHref="/courses"
-          />
-        </CardContent>
-      </Card>
-    );
+    return null;
   }
 
   /* ── Combined widget ── */
@@ -327,114 +313,5 @@ export function QuickResumeReminder() {
         </Collapsible>
       </div>
     </div>
-  );
-}
-              <h3 className="font-semibold text-lg line-clamp-1 text-foreground">
-                {lastActivity.courseTitle}
-              </h3>
-              <p className="text-sm text-muted-foreground line-clamp-1">
-                {lastActivity.moduleTitle}
-              </p>
-            </div>
-            <Button
-              onClick={handleResume}
-              size="lg"
-              className="gap-2 shrink-0 bg-halo-navy hover:bg-halo-navy/90 text-white hover:scale-[1.02] transition-all"
-            >
-              <PlayCircle className="w-5 h-5" />
-              Resume
-            </Button>
-          </div>
-
-          <div className="mt-4">
-            <div className="flex items-center justify-between text-sm mb-2">
-              <span className="text-muted-foreground">Progress</span>
-              <span className="font-semibold text-foreground">{Math.round(lastActivity.progress)}%</span>
-            </div>
-            <div className="h-2.5 bg-muted rounded-full overflow-hidden">
-              <div
-                className="h-full bg-gradient-to-r from-halo-navy to-halo-orange rounded-full transition-all duration-700"
-                style={{ width: `${lastActivity.progress}%` }}
-              />
-            </div>
-            <div className="flex items-center gap-1 mt-3 text-xs text-muted-foreground">
-              <Clock className="w-3 h-3" />
-              <span>Last studied {formatTimeAgo(lastActivity.lastAccessed)}</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Divider + Study Reminder collapsible */}
-        <div className="border-t border-border">
-          <Collapsible open={reminderOpen} onOpenChange={setReminderOpen}>
-            <CollapsibleTrigger asChild>
-              <button className="flex items-center justify-between w-full px-4 sm:px-5 py-3 text-sm hover:bg-muted/50 transition-colors">
-                <div className="flex items-center gap-2">
-                  <Bell className="w-4 h-4 text-primary" />
-                  <span className="font-medium text-foreground">Study Reminders</span>
-                  {settings.enabled && (
-                    <span className="text-[10px] font-semibold uppercase tracking-wider bg-primary/10 text-primary px-1.5 py-0.5 rounded">
-                      On · {settings.time}
-                    </span>
-                  )}
-                </div>
-                <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform duration-200 ${reminderOpen ? 'rotate-180' : ''}`} />
-              </button>
-            </CollapsibleTrigger>
-
-            <CollapsibleContent>
-              <div className="px-4 sm:px-5 pb-4 space-y-4">
-                <div className="flex items-center justify-between">
-                  <Label className="text-sm text-muted-foreground">Enable reminders</Label>
-                  <Switch checked={settings.enabled} onCheckedChange={handleToggle} aria-label="Enable study reminders" />
-                </div>
-
-                {settings.enabled && (
-                  <div className="space-y-4 animate-fade-in">
-                    <div className="flex items-center gap-4">
-                      <Label className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <Clock className="w-4 h-4" />
-                        Remind at
-                      </Label>
-                      <Select value={settings.time} onValueChange={handleTimeChange}>
-                        <SelectTrigger className="w-24">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {timeOptions.map(opt => (
-                            <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div>
-                      <Label className="text-sm text-muted-foreground mb-2 block">On these days</Label>
-                      <div className="flex flex-wrap gap-2">
-                        {dayOptions.map(day => (
-                          <Button
-                            key={day.value}
-                            variant={settings.days.includes(day.value) ? 'default' : 'outline'}
-                            size="sm"
-                            onClick={() => handleDayToggle(day.value)}
-                            className="w-10"
-                          >
-                            {day.label}
-                          </Button>
-                        ))}
-                      </div>
-                    </div>
-
-                    <p className="text-xs text-muted-foreground">
-                      You'll receive a browser notification at the scheduled time. Keep this tab open for reminders to work.
-                    </p>
-                  </div>
-                )}
-              </div>
-            </CollapsibleContent>
-          </Collapsible>
-        </div>
-      </CardContent>
-    </Card>
   );
 }
