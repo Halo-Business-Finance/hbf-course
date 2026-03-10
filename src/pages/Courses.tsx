@@ -71,6 +71,10 @@ const Courses = () => {
     modules: databaseModules,
     loading: modulesLoading
   } = useModules();
+  const {
+    getOverallProgress,
+    getCompletedModulesCount
+  } = useCourseProgress(user?.id);
 
   // Generate course-specific key topics based on course content
   const getCourseKeyTopics = (courseId: string, courseTitle: string): string[] => {
