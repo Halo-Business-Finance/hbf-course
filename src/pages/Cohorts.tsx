@@ -190,17 +190,13 @@ export default function Cohorts() {
       />
 
       <div className="min-h-screen bg-background">
-        <HorizontalNav />
-
-        <main className="container mx-auto px-4 py-8 pt-24 max-w-7xl">
-          {/* Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-            <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Learning Cohorts</h1>
-              <p className="text-muted-foreground mt-1">Organize team-based learning with shared goals and deadlines</p>
-            </div>
-            <div className="flex gap-2">
-              <Button variant="outline" onClick={() => setShowBulkEnroll(true)} className="gap-2 flex-1 sm:flex-none">
+        <PageHeader
+          title="Learning Cohorts"
+          subtitle="Organize team-based learning with shared goals and deadlines"
+          icon={<Users className="h-5 w-5 text-white" />}
+          actions={
+            <>
+              <Button variant="outline" onClick={() => setShowBulkEnroll(true)} className="gap-2 flex-1 sm:flex-none border-white/30 text-white hover:bg-white/10">
                 <UserPlus className="h-4 w-4" />
                 <span className="hidden sm:inline">Bulk Enroll</span>
                 <span className="sm:hidden">Enroll</span>
@@ -210,8 +206,11 @@ export default function Cohorts() {
                 <span className="hidden sm:inline">Create Cohort</span>
                 <span className="sm:hidden">Create</span>
               </Button>
-            </div>
-          </div>
+            </>
+          }
+        />
+
+        <main className="container mx-auto px-4 py-8 max-w-7xl">
 
           {/* Summary Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
