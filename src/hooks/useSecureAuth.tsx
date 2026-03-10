@@ -46,7 +46,7 @@ export const useSecureAuth = () => {
           .maybeSingle();
 
         if (enrollmentError && enrollmentError.code !== 'PGRST116') {
-          console.error('Error checking enrollment:', enrollmentError);
+          // Enrollment check failed silently
         }
 
         // Auto-enroll user if not already enrolled and not an admin

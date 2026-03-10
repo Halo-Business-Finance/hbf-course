@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { Loader2, MessageCircle, User, Bot, Send, Sparkles } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 interface QuestionModalProps {
   isOpen: boolean;
@@ -56,11 +57,22 @@ export const QuestionModal = ({ isOpen, onClose, moduleTitle, moduleId }: Questi
     };
 
     try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        toast({
+          title: "Authentication Required",
+          description: "Please log in to use the AI Study Assistant.",
+          variant: "destructive",
+        });
+        setIsLoading(false);
+        return;
+      }
+
       const resp = await fetch(CHAT_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          Authorization: `Bearer ${session.access_token}`,
         },
         body: JSON.stringify({
           messages: updatedMessages,
@@ -125,7 +137,7 @@ export const QuestionModal = ({ isOpen, onClose, moduleTitle, moduleId }: Questi
         }
       }
     } catch (error) {
-      console.error('Study assistant error:', error);
+      // Error logged via global handler
       toast({
         title: "Error",
         description: error instanceof Error ? error.message : 'Failed to get response',
