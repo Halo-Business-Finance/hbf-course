@@ -23,6 +23,7 @@ import { AchievementBadges } from "@/components/dashboard/AchievementBadges";
 import { LearningAnalyticsCharts } from "@/components/dashboard/LearningAnalyticsCharts";
 import { DashboardCourseGrid } from "@/components/dashboard/DashboardCourseGrid";
 import { motion } from "framer-motion";
+import { useNotificationTriggers } from "@/hooks/useNotificationTriggers";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/PageTransition";
 
 // Course images
@@ -93,6 +94,7 @@ const Dashboard = () => {
     getCompletedModulesCount,
   } = useCourseProgress(user?.id);
   const { toast } = useToast();
+  const notif = useNotificationTriggers(user?.id);
 
   const [selectedModule, setSelectedModule] = useState<string | null>(null);
   const [currentFilterLevel, setCurrentFilterLevel] = useState(0);
@@ -207,6 +209,8 @@ const Dashboard = () => {
     if (!user?.id) return;
     const success = await startModule(moduleId);
     if (success) {
+      const mod = flattenedModules.find(m => m.id === moduleId);
+      notif.onModuleStarted(mod?.title || 'Module', moduleId);
       toast({ title: "Module Started", description: "You've started this learning module!" });
       window.location.assign(`/module/${moduleId}`);
     }
