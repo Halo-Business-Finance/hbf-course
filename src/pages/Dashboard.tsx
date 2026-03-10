@@ -209,6 +209,8 @@ const Dashboard = () => {
     if (!user?.id) return;
     const success = await startModule(moduleId);
     if (success) {
+      const mod = flattenedModules.find(m => m.id === moduleId);
+      notif.onModuleStarted(mod?.title || 'Module', moduleId);
       toast({ title: "Module Started", description: "You've started this learning module!" });
       window.location.assign(`/module/${moduleId}`);
     }
