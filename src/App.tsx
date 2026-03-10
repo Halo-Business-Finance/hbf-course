@@ -115,7 +115,7 @@ const HeaderContent = ({
         <div className="flex items-center gap-1 sm:gap-2 md:gap-4 flex-shrink-0 rounded-2xl border-white border-0">
           {user && <SidebarTrigger variant="ghost" size="icon" className="ml-1 sm:ml-2 h-9 w-9 sm:h-10 sm:w-10 p-0 text-white hover:bg-white/10 hover:text-white" />}
           
-          {user && <div className="flex items-center gap-1 sm:gap-2">
+          {user && <div className="hidden sm:flex items-center gap-1 sm:gap-2">
               <Button variant="ghost" size="sm" onClick={goBack} title="Go back" className="h-8 w-8 p-0 text-white hover:bg-white/10 hover:text-white">
                 <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4" />
               </Button>
