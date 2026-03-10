@@ -100,10 +100,10 @@ export function AppSidebar({ onOpenSupport }: {onOpenSupport?: () => void;}) {
   const isActive = (url: string) => location.pathname === url;
 
   const navBtnClass = (url: string) =>
-  `w-full flex items-center ${collapsed ? "justify-center px-2" : "justify-start px-4 gap-3"} py-2 rounded-lg transition-all duration-200 min-h-[2.75rem] ${
+  `w-full flex items-center ${collapsed ? "justify-center px-0" : "justify-start px-4 gap-3"} py-2 rounded-lg transition-all duration-200 min-h-[2.75rem] ${
   isActive(url) ?
   "bg-halo-navy text-white font-medium" :
-  "text-foreground hover:bg-muted"}`;
+  "text-foreground hover:bg-white/10"}`;
 
 
   return (
