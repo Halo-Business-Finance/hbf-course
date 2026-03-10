@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route, useNavigate, NavLink, Navigate, useLocati
 import { ChevronLeft, ChevronRight, User, HelpCircle, Calculator } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import finpilotLogo from "@/assets/finpilot-logo.jpeg";
 import { AppSidebar } from "@/components/AppSidebar";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { CourseSelectionProvider } from "@/contexts/CourseSelectionContext";
@@ -126,9 +127,7 @@ const HeaderContent = ({
 
         {user && <div className="flex-1 flex items-center justify-center min-w-0">
             <NavLink to="/" className="flex items-center gap-3 sm:gap-4 flex-shrink-0 min-w-0">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center flex-shrink-0 bg-halo-navy rounded-sm">
-                <span className="text-white font-bold text-base sm:text-lg md:text-xl">FP</span>
-              </div>
+              <img src={finpilotLogo} alt="FinPilot" className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-lg object-cover flex-shrink-0" />
               <span className="text-lg sm:text-2xl md:text-3xl font-bold text-foreground truncate">FinPilot</span>
             </NavLink>
           </div>}
