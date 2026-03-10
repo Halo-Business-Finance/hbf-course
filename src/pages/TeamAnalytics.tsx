@@ -217,18 +217,37 @@ export default function TeamAnalytics() {
     return { statusDistribution, courseCompletionData };
   }, [members, courseStats]);
 
-  const handleExport = () => {
+  const handleExport = (type: 'members' | 'courses' = 'members') => {
     setExportLoading(true);
-    const headers = ['Name', 'Email', 'Role', 'Modules Completed', 'Total Modules', 'Avg Score', 'Status', 'Last Active'];
-    const rows = members.map((m) => [
-      m.name, m.email, m.role, m.modulesCompleted, m.totalModules, m.avgScore, m.status, m.lastActive || 'Never',
-    ]);
-    const csv = [headers, ...rows].map((r) => r.join(',')).join('\n');
+    let csv: string;
+    let filename: string;
+
+    if (type === 'courses') {
+      const headers = ['Course', 'Enrolled', 'Completed', 'Completion Rate', 'Avg Score'];
+      const rows = courseStats.map((c) => [
+        `"${c.courseTitle}"`, c.enrolled, c.completed, 
+        c.enrolled > 0 ? `${Math.round((c.completed / c.enrolled) * 100)}%` : '0%',
+        c.avgScore > 0 ? `${c.avgScore}%` : 'N/A',
+      ]);
+      csv = [headers, ...rows].map((r) => r.join(',')).join('\n');
+      filename = `course-report-${new Date().toISOString().split('T')[0]}.csv`;
+    } else {
+      const headers = ['Name', 'Email', 'Role', 'Modules Completed', 'Total Modules', 'Completion %', 'Avg Score', 'Status', 'Last Active'];
+      const rows = members.map((m) => [
+        `"${m.name}"`, m.email, m.role, m.modulesCompleted, m.totalModules,
+        m.totalModules > 0 ? `${Math.round((m.modulesCompleted / m.totalModules) * 100)}%` : '0%',
+        m.avgScore > 0 ? `${m.avgScore}%` : 'N/A',
+        m.status, m.lastActive || 'Never',
+      ]);
+      csv = [headers, ...rows].map((r) => r.join(',')).join('\n');
+      filename = `team-report-${new Date().toISOString().split('T')[0]}.csv`;
+    }
+
     const blob = new Blob([csv], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `team-report-${new Date().toISOString().split('T')[0]}.csv`;
+    a.download = filename;
     a.click();
     URL.revokeObjectURL(url);
     setExportLoading(false);
@@ -253,10 +272,16 @@ export default function TeamAnalytics() {
               <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Team Analytics</h1>
               <p className="text-muted-foreground mt-1">Monitor team progress and generate reports</p>
             </div>
-            <Button onClick={handleExport} disabled={exportLoading || members.length === 0} className="gap-2 bg-halo-navy hover:bg-halo-navy/90 text-white">
-              {exportLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
-              Export Report
-            </Button>
+            <div className="flex gap-2">
+              <Button onClick={() => handleExport('members')} disabled={exportLoading || members.length === 0} className="gap-2 bg-halo-navy hover:bg-halo-navy/90 text-white">
+                {exportLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
+                Export Members
+              </Button>
+              <Button onClick={() => handleExport('courses')} disabled={exportLoading || courseStats.length === 0} variant="outline" className="gap-2">
+                <Download className="h-4 w-4" />
+                Export Courses
+              </Button>
+            </div>
           </div>
 
           {loading ? (
