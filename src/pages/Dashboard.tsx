@@ -328,29 +328,43 @@ const Dashboard = () => {
               </motion.div>
             </div>
 
-            {/* Overall progress bar */}
-            <motion.div
-              className="mt-6 max-w-lg"
-              initial={{ opacity: 0, scaleX: 0.8 }}
-              animate={{ opacity: 1, scaleX: 1 }}
-              transition={{ delay: 0.3, duration: 0.5 }}
-              style={{ transformOrigin: "left" }}>
-              
-              <div className="flex justify-between mb-2 text-white">
-                <span className="text-xs font-semibold text-white">Overall Progress</span>
-                <span className="text-xs text-white">
-                  {completedCount}/{flattenedModules.length} modules
-                </span>
-              </div>
-              <div className="h-2.5 bg-muted rounded-full overflow-hidden">
-                <motion.div
-                  className="h-full bg-gradient-to-r from-halo-navy to-halo-orange rounded-full"
-                  initial={{ width: 0 }}
-                  animate={{ width: `${overallProgress}%` }}
-                  transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }} />
+            {/* Progress bar + Widget row */}
+            <div className="mt-6 flex flex-col lg:flex-row lg:items-start gap-6">
+              {/* Overall progress bar */}
+              <motion.div
+                className="flex-1 max-w-lg"
+                initial={{ opacity: 0, scaleX: 0.8 }}
+                animate={{ opacity: 1, scaleX: 1 }}
+                transition={{ delay: 0.3, duration: 0.5 }}
+                style={{ transformOrigin: "left" }}>
                 
-              </div>
-            </motion.div>
+                <div className="flex justify-between mb-2 text-white">
+                  <span className="text-xs font-semibold text-white">Overall Progress</span>
+                  <span className="text-xs text-white">
+                    {completedCount}/{flattenedModules.length} modules
+                  </span>
+                </div>
+                <div className="h-2.5 bg-muted rounded-full overflow-hidden">
+                  <motion.div
+                    className="h-full bg-gradient-to-r from-halo-navy to-halo-orange rounded-full"
+                    initial={{ width: 0 }}
+                    animate={{ width: `${overallProgress}%` }}
+                    transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }} />
+                  
+                </div>
+              </motion.div>
+
+              {/* Quick Resume Widget */}
+              {isOnCatalog && (
+                <motion.div
+                  className="w-full lg:max-w-md lg:ml-auto"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4, duration: 0.4 }}>
+                  <QuickResumeReminder />
+                </motion.div>
+              )}
+            </div>
           </div>
         </motion.div>
 
