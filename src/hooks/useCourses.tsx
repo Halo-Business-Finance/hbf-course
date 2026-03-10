@@ -10,6 +10,7 @@ export interface Course {
   image_url?: string | null;
   is_active: boolean;
   order_index: number;
+  prerequisite_course_ids: string[];
   created_at: string;
   updated_at: string;
 }
