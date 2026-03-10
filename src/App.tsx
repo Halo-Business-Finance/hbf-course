@@ -146,19 +146,19 @@ const HeaderContent = ({
           variant="ghost"
           size="icon"
           title="Loan Calculator"
-          className="h-10 w-10 text-foreground hover:bg-muted"
+          className="h-10 w-10 text-white hover:bg-white/10 hover:text-white"
           onClick={() => setCalculatorOpen(true)}>
           
-              <Calculator className="h-5 w-5 text-white" />
+              <Calculator className="h-5 w-5" />
             </Button>
             <Button
           variant="ghost"
           size="icon"
           title="Help & Support"
-          className="h-10 w-10 text-foreground hover:bg-muted"
+          className="h-10 w-10 text-white hover:bg-white/10 hover:text-white"
           onClick={() => setIsChatOpen(true)}>
           
-              <HelpCircle className="h-5 w-5 text-white" />
+              <HelpCircle className="h-5 w-5" />
             </Button>
             <Suspense fallback={<div className="h-10 w-10" />}>
               <NotificationBell />
@@ -167,10 +167,10 @@ const HeaderContent = ({
           variant="ghost"
           size="icon"
           title="My Account"
-          className="h-10 w-10 text-foreground hover:bg-muted"
+          className="h-10 w-10 text-white hover:bg-white/10 hover:text-white"
           onClick={() => navigate('/my-account')}>
           
-              <User className="h-5 w-5 text-white" />
+              <User className="h-5 w-5" />
             </Button>
           </div>}
       </div>
