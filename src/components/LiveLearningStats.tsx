@@ -6,18 +6,18 @@ import { Separator } from "@/components/ui/separator";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { 
-  Trophy, 
-  Clock, 
-  Target, 
-  TrendingUp, 
-  BookOpen, 
+import {
+  Trophy,
+  Clock,
+  Target,
+  TrendingUp,
+  BookOpen,
   Award,
   Calendar,
   Flame,
   BarChart3,
-  Activity
-} from "lucide-react";
+  Activity } from
+"lucide-react";
 
 interface LearningStats {
   total_modules_completed: number;
@@ -53,7 +53,7 @@ export const LiveLearningStats = () => {
   // Load initial data
   useEffect(() => {
     if (!user?.id) return;
-    
+
     loadLearningData();
   }, [user?.id]);
 
@@ -62,94 +62,94 @@ export const LiveLearningStats = () => {
     if (!user?.id) return;
 
     // Subscribe to learning stats changes with error handling
-    const statsChannel = supabase
-      .channel('learning-stats-changes')
-      .on(
-        'postgres_changes',
-        {
-          event: '*',
-          schema: 'public',
-          table: 'learning_stats',
-          filter: `user_id=eq.${user.id}`
-        },
-        (payload) => {
-          // Learning stats updated via realtime subscription
-          if (payload.new) {
-            setStats(payload.new as LearningStats);
-            
-            // Show toast for significant updates
-            if (payload.eventType === 'INSERT' || payload.eventType === 'UPDATE') {
-              toast({
-                title: "📊 Stats Updated!",
-                description: "Your learning statistics have been updated.",
-                duration: 3000,
-              });
-            }
-          }
-        }
-      )
-      .subscribe((status) => {
-        // Stats channel subscription active
-        if (status === 'CLOSED') {
-          console.warn('Stats channel subscription closed - continuing without realtime updates');
-        }
-      });
+    const statsChannel = supabase.
+    channel('learning-stats-changes').
+    on(
+      'postgres_changes',
+      {
+        event: '*',
+        schema: 'public',
+        table: 'learning_stats',
+        filter: `user_id=eq.${user.id}`
+      },
+      (payload) => {
+        // Learning stats updated via realtime subscription
+        if (payload.new) {
+          setStats(payload.new as LearningStats);
 
-    // Subscribe to daily activity changes with error handling
-    const activityChannel = supabase
-      .channel('daily-activity-changes')
-      .on(
-        'postgres_changes',
-        {
-          event: '*',
-          schema: 'public',
-          table: 'daily_learning_activity',
-          filter: `user_id=eq.${user.id}`
-        },
-        (payload) => {
-          // Daily activity updated via realtime subscription
-          loadRecentActivity();
-        }
-      )
-      .subscribe((status) => {
-        // Activity channel subscription active
-        if (status === 'CLOSED') {
-          console.warn('Activity channel subscription closed - continuing without realtime updates');
-        }
-      });
-
-    // Subscribe to new achievements with error handling
-    const achievementsChannel = supabase
-      .channel('achievements-changes')
-      .on(
-        'postgres_changes',
-        {
-          event: 'INSERT',
-          schema: 'public',
-          table: 'learning_achievements',
-          filter: `user_id=eq.${user.id}`
-        },
-        (payload) => {
-          // Achievement unlocked via realtime subscription
-          if (payload.new) {
-            const newAchievement = payload.new as Achievement;
-            setAchievements(prev => [newAchievement, ...prev]);
-            
-            // Show celebration toast
+          // Show toast for significant updates
+          if (payload.eventType === 'INSERT' || payload.eventType === 'UPDATE') {
             toast({
-              title: "🎉 Achievement Unlocked!",
-              description: `${newAchievement.achievement_title}: ${newAchievement.achievement_description}`,
-              duration: 5000,
+              title: "📊 Stats Updated!",
+              description: "Your learning statistics have been updated.",
+              duration: 3000
             });
           }
         }
-      )
-      .subscribe((status) => {
-        // Achievements channel subscription active
-        if (status === 'CLOSED') {
-          console.warn('Achievements channel subscription closed - continuing without realtime updates');
+      }
+    ).
+    subscribe((status) => {
+      // Stats channel subscription active
+      if (status === 'CLOSED') {
+        console.warn('Stats channel subscription closed - continuing without realtime updates');
+      }
+    });
+
+    // Subscribe to daily activity changes with error handling
+    const activityChannel = supabase.
+    channel('daily-activity-changes').
+    on(
+      'postgres_changes',
+      {
+        event: '*',
+        schema: 'public',
+        table: 'daily_learning_activity',
+        filter: `user_id=eq.${user.id}`
+      },
+      (payload) => {
+        // Daily activity updated via realtime subscription
+        loadRecentActivity();
+      }
+    ).
+    subscribe((status) => {
+      // Activity channel subscription active
+      if (status === 'CLOSED') {
+        console.warn('Activity channel subscription closed - continuing without realtime updates');
+      }
+    });
+
+    // Subscribe to new achievements with error handling
+    const achievementsChannel = supabase.
+    channel('achievements-changes').
+    on(
+      'postgres_changes',
+      {
+        event: 'INSERT',
+        schema: 'public',
+        table: 'learning_achievements',
+        filter: `user_id=eq.${user.id}`
+      },
+      (payload) => {
+        // Achievement unlocked via realtime subscription
+        if (payload.new) {
+          const newAchievement = payload.new as Achievement;
+          setAchievements((prev) => [newAchievement, ...prev]);
+
+          // Show celebration toast
+          toast({
+            title: "🎉 Achievement Unlocked!",
+            description: `${newAchievement.achievement_title}: ${newAchievement.achievement_description}`,
+            duration: 5000
+          });
         }
-      });
+      }
+    ).
+    subscribe((status) => {
+      // Achievements channel subscription active
+      if (status === 'CLOSED') {
+        console.warn('Achievements channel subscription closed - continuing without realtime updates');
+      }
+    });
 
     return () => {
       try {
@@ -167,11 +167,11 @@ export const LiveLearningStats = () => {
 
     try {
       // Load learning stats
-      const { data: statsData, error: statsError } = await supabase
-        .from('learning_stats')
-        .select('*')
-        .eq('user_id', user.id)
-        .single();
+      const { data: statsData, error: statsError } = await supabase.
+      from('learning_stats').
+      select('*').
+      eq('user_id', user.id).
+      single();
 
       if (statsError && statsError.code !== 'PGRST116') {
         console.error('Error loading stats:', statsError);
@@ -180,16 +180,16 @@ export const LiveLearningStats = () => {
       }
 
       await Promise.all([
-        loadRecentActivity(),
-        loadAchievements()
-      ]);
+      loadRecentActivity(),
+      loadAchievements()]
+      );
 
     } catch (error) {
       console.error('Error loading learning data:', error);
       toast({
         title: "Error",
         description: "Failed to load learning statistics.",
-        variant: "destructive",
+        variant: "destructive"
       });
     } finally {
       setLoading(false);
@@ -199,12 +199,12 @@ export const LiveLearningStats = () => {
   const loadRecentActivity = async () => {
     if (!user?.id) return;
 
-    const { data, error } = await supabase
-      .from('daily_learning_activity')
-      .select('*')
-      .eq('user_id', user.id)
-      .order('activity_date', { ascending: false })
-      .limit(7);
+    const { data, error } = await supabase.
+    from('daily_learning_activity').
+    select('*').
+    eq('user_id', user.id).
+    order('activity_date', { ascending: false }).
+    limit(7);
 
     if (error) {
       console.error('Error loading recent activity:', error);
@@ -216,12 +216,12 @@ export const LiveLearningStats = () => {
   const loadAchievements = async () => {
     if (!user?.id) return;
 
-    const { data, error } = await supabase
-      .from('learning_achievements')
-      .select('*')
-      .eq('user_id', user.id)
-      .order('earned_at', { ascending: false })
-      .limit(5);
+    const { data, error } = await supabase.
+    from('learning_achievements').
+    select('*').
+    eq('user_id', user.id).
+    order('earned_at', { ascending: false }).
+    limit(5);
 
     if (error) {
       console.error('Error loading achievements:', error);
@@ -250,16 +250,16 @@ export const LiveLearningStats = () => {
     return (
       <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {[...Array(4)].map((_, i) => (
-            <Card key={i} className="animate-pulse">
+          {[...Array(4)].map((_, i) =>
+          <Card key={i} className="animate-pulse">
               <CardContent className="p-6">
                 <div className="h-16 bg-muted rounded"></div>
               </CardContent>
             </Card>
-          ))}
+          )}
         </div>
-      </div>
-    );
+      </div>);
+
   }
 
   return (
@@ -286,11 +286,11 @@ export const LiveLearningStats = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Assessments Passed</p>
-                <p className="text-2xl font-bold text-accent">
+                <p className="text-2xl font-bold text-orange-600">
                   {stats?.total_assessments_passed || 0}
                 </p>
               </div>
-              <Award className="h-8 w-8 text-accent/70" />
+              <Award className="h-8 w-8 text-orange-500" />
             </div>
             <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-success"></div>
           </CardContent>
@@ -339,10 +339,10 @@ export const LiveLearningStats = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            {recentActivity.length > 0 ? (
-              <div className="space-y-3">
-                {recentActivity.map((activity, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+            {recentActivity.length > 0 ?
+            <div className="space-y-3">
+                {recentActivity.map((activity, index) =>
+              <div key={index} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
                     <div className="flex items-center gap-3">
                       <Calendar className="h-4 w-4 text-muted-foreground" />
                       <span className="text-sm font-medium">
@@ -350,35 +350,35 @@ export const LiveLearningStats = () => {
                       </span>
                     </div>
                     <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                      {activity.modules_completed > 0 && (
-                        <span className="flex items-center gap-1">
+                      {activity.modules_completed > 0 &&
+                  <span className="flex items-center gap-1">
                           <BookOpen className="h-3 w-3" />
                           {activity.modules_completed}
                         </span>
-                      )}
-                      {activity.assessments_taken > 0 && (
-                        <span className="flex items-center gap-1">
+                  }
+                      {activity.assessments_taken > 0 &&
+                  <span className="flex items-center gap-1">
                           <Trophy className="h-3 w-3" />
                           {activity.assessments_taken}
                         </span>
-                      )}
-                      {activity.time_spent_minutes > 0 && (
-                        <span className="flex items-center gap-1">
+                  }
+                      {activity.time_spent_minutes > 0 &&
+                  <span className="flex items-center gap-1">
                           <Clock className="h-3 w-3" />
                           {formatTime(activity.time_spent_minutes)}
                         </span>
-                      )}
+                  }
                     </div>
                   </div>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-8 text-muted-foreground">
+              )}
+              </div> :
+
+            <div className="text-center py-8 text-muted-foreground">
                 <Activity className="h-12 w-12 mx-auto mb-4 opacity-50" />
                 <p>No recent activity found</p>
                 <p className="text-sm">Start learning to see your activity here!</p>
               </div>
-            )}
+            }
           </CardContent>
         </Card>
 
@@ -391,10 +391,10 @@ export const LiveLearningStats = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            {achievements.length > 0 ? (
-              <div className="space-y-3">
-                {achievements.map((achievement, index) => (
-                  <div key={index} className="flex items-start gap-3 p-3 bg-muted/50 rounded-lg">
+            {achievements.length > 0 ?
+            <div className="space-y-3">
+                {achievements.map((achievement, index) =>
+              <div key={index} className="flex items-start gap-3 p-3 bg-muted/50 rounded-lg">
                     <Award className="h-5 w-5 text-halo-orange mt-0.5" />
                     <div className="flex-1">
                       <h4 className="text-sm font-medium">{achievement.achievement_title}</h4>
@@ -406,15 +406,15 @@ export const LiveLearningStats = () => {
                       </span>
                     </div>
                   </div>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-8 text-muted-foreground">
+              )}
+              </div> :
+
+            <div className="text-center py-8 text-muted-foreground">
                 <Trophy className="h-12 w-12 mx-auto mb-4 opacity-50" />
                 <p>No achievements yet</p>
                 <p className="text-sm">Complete modules and assessments to earn achievements!</p>
               </div>
-            )}
+            }
           </CardContent>
         </Card>
       </div>
@@ -452,19 +452,19 @@ export const LiveLearningStats = () => {
                 {Math.min(stats?.current_streak_days || 0, 7)}/7 days
               </span>
             </div>
-            <Progress 
-              value={Math.min(((stats?.current_streak_days || 0) / 7) * 100, 100)} 
-              className="h-2"
-            />
+            <Progress
+              value={Math.min((stats?.current_streak_days || 0) / 7 * 100, 100)}
+              className="h-2" />
+            
             <p className="text-xs text-muted-foreground">
-              {(stats?.current_streak_days || 0) >= 7 
-                ? "🎉 You've reached the weekly streak milestone!" 
-                : `${7 - (stats?.current_streak_days || 0)} more days to reach your weekly milestone!`
+              {(stats?.current_streak_days || 0) >= 7 ?
+              "🎉 You've reached the weekly streak milestone!" :
+              `${7 - (stats?.current_streak_days || 0)} more days to reach your weekly milestone!`
               }
             </p>
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
+    </div>);
+
 };
