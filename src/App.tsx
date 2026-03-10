@@ -127,7 +127,7 @@ const HeaderContent = ({
 
         {user && <div className="flex-1 flex items-center justify-center min-w-0 text-white">
             <NavLink to="/" className="flex items-center gap-3 sm:gap-4 flex-shrink-0 min-w-0">
-              <img src={finpilotLogo} alt="FinPilot" className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-lg object-cover flex-shrink-0" />
+              <img src={finpilotLogo} alt="FinPilot" className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 object-cover flex-shrink-0" />
               <span className="text-lg sm:text-2xl md:text-3xl font-bold truncate text-white">FinPilot</span>
             </NavLink>
           </div>}
