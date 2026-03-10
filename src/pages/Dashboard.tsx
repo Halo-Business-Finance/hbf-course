@@ -336,12 +336,12 @@ const Dashboard = () => {
               transition={{ delay: 0.3, duration: 0.5 }}
               style={{ transformOrigin: "left" }}>
               
-              <div className="flex justify-between mb-2 text-white">
-                <span className="text-xs font-semibold text-white">Overall Progress</span>
-                <span className="text-xs text-white">
-                  {completedCount}/{flattenedModules.length} modules
-                </span>
-              </div>
+              
+
+
+
+
+              
               <div className="h-2.5 bg-muted rounded-full overflow-hidden">
                 <motion.div
                   className="h-full bg-gradient-to-r from-halo-navy to-halo-orange rounded-full"
@@ -353,15 +353,15 @@ const Dashboard = () => {
             </motion.div>
 
             {/* Quick Resume + Study Reminder */}
-            {isOnCatalog && (
-              <motion.div
-                className="mt-6"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.4 }}>
+            {isOnCatalog &&
+            <motion.div
+              className="mt-6"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.4 }}>
                 <QuickResumeReminder />
               </motion.div>
-            )}
+            }
           </div>
         </motion.div>
 
@@ -371,7 +371,7 @@ const Dashboard = () => {
 
           {/* Tabbed Layout — only at catalog level */}
           {isOnCatalog ?
-           <Tabs defaultValue="courses" className="w-full">
+          <Tabs defaultValue="courses" className="w-full">
               <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
                 <TabsList className="w-full sm:w-auto sm:max-w-md bg-muted/50 p-1 rounded-lg inline-flex">
                   <TabsTrigger value="courses" className="flex-1 gap-1.5 sm:gap-2 text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm whitespace-nowrap">
