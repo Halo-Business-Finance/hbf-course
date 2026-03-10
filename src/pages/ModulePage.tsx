@@ -612,6 +612,7 @@ const ModulePage = () => {
                   courseId={module.course_id}
                   onQuizComplete={async (passed) => {
                     if (passed) {
+                      notif.onQuizPassed(module.title, 0);
                       toast({
                         title: "🎉 Module Quiz Passed!",
                         description: "You can now proceed to the next module in your learning path."
@@ -621,14 +622,19 @@ const ModulePage = () => {
                       if (courseId) {
                         const result = await checkCourseCompletion(courseId);
                         if (result?.isComplete) {
+                          notif.onCourseCompleted(courseName, result.certificateId);
                           setCompletionData({
                             certificateId: result.certificateId,
                             totalModules: result.totalModules,
                             averageScore: result.averageScore,
                           });
                           setShowCompletionModal(true);
+                        } else {
+                          notif.onModuleCompleted(module.title);
                         }
                       }
+                    } else {
+                      notif.onQuizFailed(module.title, 0);
                     }
                   }}
                 />
