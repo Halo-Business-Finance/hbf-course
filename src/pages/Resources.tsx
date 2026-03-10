@@ -106,11 +106,13 @@ const ResourcesPage = () => {
   }
 
   return (
-    <div className="container mx-auto p-6 space-y-6 bg-background min-h-screen">
-      <div className="flex items-center gap-2 mb-6">
-        <FileText className="h-6 w-6 text-primary" />
-        <h1 className="text-2xl font-bold text-foreground">Learning Resources</h1>
-      </div>
+    <div className="min-h-screen bg-background">
+      <PageHeader
+        title="Learning Resources"
+        subtitle="Documents, videos, tools, and interactive learning materials"
+        icon={<FileText className="h-5 w-5 text-white" />}
+      />
+      <div className="container mx-auto p-6 space-y-6">
 
       <Tabs defaultValue="interactive" className="space-y-6">
         <TabsList className="grid w-full grid-cols-3 md:grid-cols-5 gap-1 h-auto p-1">
