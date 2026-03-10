@@ -149,7 +149,6 @@ const Dashboard = () => {
   }))
   );
 
-  console.log('Dashboard render state:', { authLoading, user: !!user, coursesLoading, modulesLoading, progressLoading, coursesCount: databaseCourses.length, modulesCount: databaseModules.length });
   const loading = coursesLoading || modulesLoading || progressLoading;
 
   // Scroll to top on filter changes
@@ -301,7 +300,7 @@ const Dashboard = () => {
           transition={{ duration: 0.4 }}>
           
           <div className="px-4 sm:px-6 lg:px-10 py-6 sm:py-8 max-w-7xl mx-auto bg-black">
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 border-black">
               <motion.div
                 initial={{ opacity: 0, x: -15 }}
                 animate={{ opacity: 1, x: 0 }}
