@@ -90,13 +90,17 @@ export const useCourseProgress = (userId?: string, courseId?: string) => {
       
       const { data, error } = await supabase
         .from('course_progress')
-        .upsert({
-          user_id: userId,
-          course_id: targetCourseId,
-          module_id: moduleId,
-          progress_percentage: progressPercentage,
-          completed_at: progressPercentage === 100 ? new Date().toISOString() : null
-        })
+        .upsert(
+          {
+            user_id: userId,
+            course_id: targetCourseId,
+            module_id: moduleId,
+            lesson_id: null,
+            progress_percentage: progressPercentage,
+            completed_at: progressPercentage === 100 ? new Date().toISOString() : null
+          },
+          { onConflict: 'user_id,course_id,module_id,lesson_id' }
+        )
         .select()
         .single();
 
