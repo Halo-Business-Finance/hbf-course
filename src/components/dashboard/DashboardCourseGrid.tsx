@@ -1,16 +1,19 @@
-import { Clock, BookOpen, ArrowLeft, Brain, Zap } from "lucide-react";
+import { Clock, BookOpen, ArrowLeft, Brain, Zap, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { EnhancedModuleCard } from "@/components/EnhancedModuleCard";
 import { Breadcrumbs } from "@/components/navigation/Breadcrumbs";
 import { DashboardCourseFilter } from "@/components/DashboardCourseFilter";
 import { ModuleProgress } from "@/hooks/useCourseProgress";
+import { Badge } from "@/components/ui/badge";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface CourseWithModules {
   id: string;
   title: string;
   description: string;
   level: string;
+  prerequisite_course_ids?: string[];
   modules: any[];
 }
 
