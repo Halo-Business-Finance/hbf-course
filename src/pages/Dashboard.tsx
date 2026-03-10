@@ -86,12 +86,14 @@ const Dashboard = () => {
   const { dashboardStats } = useLearningStats(user?.id);
   const {
     moduleProgress,
+    progress,
     loading: progressLoading,
     startModule,
     completeModule,
     isModuleUnlocked,
     getOverallProgress,
     getCompletedModulesCount,
+    getCourseProgress,
   } = useCourseProgress(user?.id);
   const { toast } = useToast();
   const notif = useNotificationTriggers(user?.id);
@@ -111,6 +113,14 @@ const Dashboard = () => {
     ...course,
     modules: databaseModules.filter((m) => m.course_id === course.id && m.is_active),
   }));
+
+  // Compute which courses are fully completed (all modules at 100%)
+  const completedCourseIds = coursesWithModules
+    .filter((course) => {
+      if (course.modules.length === 0) return false;
+      return course.modules.every((m) => moduleProgress[m.id]?.completed);
+    })
+    .map((c) => c.id);
 
   // Filter by topic
   const filteredCoursesWithModules = (() => {
@@ -386,6 +396,7 @@ const Dashboard = () => {
                   selectedTopic={selectedTopic}
                   loading={loading}
                   coursesLoading={coursesLoading}
+                  completedCourseIds={completedCourseIds}
                   onCategorySelect={setSelectedCategory}
                   onTopicSelect={setSelectedTopic}
                   onStartCourse={handleStartCourse}
@@ -438,6 +449,7 @@ const Dashboard = () => {
               selectedTopic={selectedTopic}
               loading={loading}
               coursesLoading={coursesLoading}
+              completedCourseIds={completedCourseIds}
               onCategorySelect={setSelectedCategory}
               onTopicSelect={setSelectedTopic}
               onStartCourse={handleStartCourse}

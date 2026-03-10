@@ -1602,6 +1602,7 @@ export type Database = {
           is_active: boolean | null
           level: string
           order_index: number | null
+          prerequisite_course_ids: string[] | null
           title: string
           updated_at: string | null
         }
@@ -1613,6 +1614,7 @@ export type Database = {
           is_active?: boolean | null
           level: string
           order_index?: number | null
+          prerequisite_course_ids?: string[] | null
           title: string
           updated_at?: string | null
         }
@@ -1624,6 +1626,7 @@ export type Database = {
           is_active?: boolean | null
           level?: string
           order_index?: number | null
+          prerequisite_course_ids?: string[] | null
           title?: string
           updated_at?: string | null
         }
