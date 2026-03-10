@@ -76,7 +76,7 @@ export const useLessonProgress = (lessonId: string, moduleId: string) => {
 
       const timeSpent = Math.round((new Date().getTime() - sessionStartTime.getTime()) / 1000);
       const completedSteps = steps.filter(step => step.completed).length;
-      const completionPercentage = Math.round((completedSteps / steps.length) * 100);
+      const completionPercentage = steps.length > 0 ? Math.round((completedSteps / steps.length) * 100) : 0;
       const isCompleted = completionPercentage === 100;
 
       const progressData = {
@@ -212,7 +212,7 @@ export const useLessonProgress = (lessonId: string, moduleId: string) => {
     return {
       completedSteps,
       totalSteps: steps.length,
-      completionPercentage: Math.round((completedSteps / steps.length) * 100),
+      completionPercentage: steps.length > 0 ? Math.round((completedSteps / steps.length) * 100) : 0,
       totalTimeSpent,
       averageTimePerStep: Math.round(averageTimePerStep),
       isCompleted: completedSteps === steps.length
