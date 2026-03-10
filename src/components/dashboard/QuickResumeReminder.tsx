@@ -218,7 +218,7 @@ export function QuickResumeReminder() {
           <Button
             onClick={handleResume}
             size="lg"
-            className="gap-2 shrink-0 bg-white text-black hover:bg-white/90 hover:scale-[1.02] transition-all">
+            className="gap-2 shrink-0 bg-white hover:bg-white/90 hover:scale-[1.02] transition-all text-orange-500">
             
             <PlayCircle className="w-5 h-5" />
             Resume
@@ -237,7 +237,7 @@ export function QuickResumeReminder() {
             
           </div>
           <div className="flex items-center gap-1 mt-3 text-xs text-white/50">
-            <Clock className="w-3 h-3 text-white" />
+            <Clock className="w-3 h-3 text-orange-400" />
             <span className="text-white">Last studied {formatTimeAgo(lastActivity.lastAccessed)}</span>
           </div>
         </div>
