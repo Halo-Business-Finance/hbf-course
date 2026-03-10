@@ -141,36 +141,36 @@ const HeaderContent = ({
             </div>
           </div>}
         
-        {user && <div className="flex items-center gap-1 flex-shrink-0">
+        {user && <div className="flex items-center gap-0.5 sm:gap-1 flex-shrink-0">
             <Button
           variant="ghost"
           size="icon"
           title="Loan Calculator"
-          className="h-10 w-10 text-white hover:bg-white/10 hover:text-white"
+          className="h-9 w-9 sm:h-10 sm:w-10 text-white hover:bg-white/10 hover:text-white"
           onClick={() => setCalculatorOpen(true)}>
           
-              <Calculator className="h-5 w-5" />
+              <Calculator className="h-4 w-4 sm:h-5 sm:w-5" />
             </Button>
             <Button
           variant="ghost"
           size="icon"
           title="Help & Support"
-          className="h-10 w-10 text-white hover:bg-white/10 hover:text-white"
+          className="h-9 w-9 sm:h-10 sm:w-10 text-white hover:bg-white/10 hover:text-white hidden sm:flex"
           onClick={() => setIsChatOpen(true)}>
           
-              <HelpCircle className="h-5 w-5" />
+              <HelpCircle className="h-4 w-4 sm:h-5 sm:w-5" />
             </Button>
-            <Suspense fallback={<div className="h-10 w-10" />}>
+            <Suspense fallback={<div className="h-9 w-9 sm:h-10 sm:w-10" />}>
               <NotificationBell />
             </Suspense>
             <Button
           variant="ghost"
           size="icon"
           title="My Account"
-          className="h-10 w-10 text-white hover:bg-white/10 hover:text-white"
+          className="h-9 w-9 sm:h-10 sm:w-10 text-white hover:bg-white/10 hover:text-white"
           onClick={() => navigate('/my-account')}>
           
-              <User className="h-5 w-5" />
+              <User className="h-4 w-4 sm:h-5 sm:w-5" />
             </Button>
           </div>}
       </div>
