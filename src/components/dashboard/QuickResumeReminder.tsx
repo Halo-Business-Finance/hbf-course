@@ -227,7 +227,7 @@ export function QuickResumeReminder() {
 
         <div className="mt-4">
           <div className="flex items-center justify-between text-sm mb-2">
-            <span className="text-white">Progress</span>
+            <span className="text-white">Course Progress</span>
             <span className="font-semibold text-white">{Math.round(lastActivity.progress)}%</span>
           </div>
           <div className="h-4 w-full overflow-hidden rounded-full border border-solid border-blue-800 bg-white">
