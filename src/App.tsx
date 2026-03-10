@@ -132,7 +132,7 @@ const HeaderContent = ({
             </NavLink>
           </div>}
 
-        {!user && <div className="flex-1 flex items-center justify-center max-w-4xl mx-auto min-w-0">
+        {!user && <div className="flex-1 flex items-center justify-center min-w-0">
             <div className="hidden lg:block w-full">
               <HorizontalNav />
             </div>
