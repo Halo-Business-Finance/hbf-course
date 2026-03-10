@@ -215,16 +215,120 @@ export function QuickResumeReminder() {
 
   /* ── Combined widget ── */
   return (
-    <div className="overflow-hidden">
-      <div>
-      <CardContent className="p-0">
-        {/* Resume section */}
-        <div className="p-4 sm:p-5">
-          <div className="flex items-start justify-between gap-4">
-            <div className="flex-1 min-w-0">
-              <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1 font-semibold">
-                Continue where you left off
-              </p>
+    <div className="overflow-hidden rounded-lg border border-white/10 mt-6">
+      <div className="p-4 sm:p-5">
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex-1 min-w-0">
+            <p className="text-xs text-white/60 uppercase tracking-wide mb-1 font-semibold">
+              Continue where you left off
+            </p>
+            <h3 className="font-semibold text-lg line-clamp-1 text-white">
+              {lastActivity.courseTitle}
+            </h3>
+            <p className="text-sm text-white/60 line-clamp-1">
+              {lastActivity.moduleTitle}
+            </p>
+          </div>
+          <Button
+            onClick={handleResume}
+            size="lg"
+            className="gap-2 shrink-0 bg-white text-black hover:bg-white/90 hover:scale-[1.02] transition-all"
+          >
+            <PlayCircle className="w-5 h-5" />
+            Resume
+          </Button>
+        </div>
+
+        <div className="mt-4">
+          <div className="flex items-center justify-between text-sm mb-2">
+            <span className="text-white/60">Progress</span>
+            <span className="font-semibold text-white">{Math.round(lastActivity.progress)}%</span>
+          </div>
+          <div className="h-2.5 bg-white/10 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-gradient-to-r from-halo-navy to-halo-orange rounded-full transition-all duration-700"
+              style={{ width: `${lastActivity.progress}%` }}
+            />
+          </div>
+          <div className="flex items-center gap-1 mt-3 text-xs text-white/50">
+            <Clock className="w-3 h-3" />
+            <span>Last studied {formatTimeAgo(lastActivity.lastAccessed)}</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="border-t border-white/10">
+        <Collapsible open={reminderOpen} onOpenChange={setReminderOpen}>
+          <CollapsibleTrigger asChild>
+            <button className="flex items-center justify-between w-full px-4 sm:px-5 py-3 text-sm hover:bg-white/5 transition-colors">
+              <div className="flex items-center gap-2">
+                <Bell className="w-4 h-4 text-halo-orange" />
+                <span className="font-medium text-white">Study Reminders</span>
+                {settings.enabled && (
+                  <span className="text-[10px] font-semibold uppercase tracking-wider bg-white/10 text-white/80 px-1.5 py-0.5 rounded">
+                    On · {settings.time}
+                  </span>
+                )}
+              </div>
+              <ChevronDown className={`w-4 h-4 text-white/50 transition-transform duration-200 ${reminderOpen ? 'rotate-180' : ''}`} />
+            </button>
+          </CollapsibleTrigger>
+
+          <CollapsibleContent>
+            <div className="px-4 sm:px-5 pb-4 space-y-4">
+              <div className="flex items-center justify-between">
+                <Label className="text-sm text-white/60">Enable reminders</Label>
+                <Switch checked={settings.enabled} onCheckedChange={handleToggle} aria-label="Enable study reminders" />
+              </div>
+
+              {settings.enabled && (
+                <div className="space-y-4 animate-fade-in">
+                  <div className="flex items-center gap-4">
+                    <Label className="flex items-center gap-2 text-sm text-white/60">
+                      <Clock className="w-4 h-4" />
+                      Remind at
+                    </Label>
+                    <Select value={settings.time} onValueChange={handleTimeChange}>
+                      <SelectTrigger className="w-24 border-white/20 text-white bg-white/5">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {timeOptions.map(opt => (
+                          <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div>
+                    <Label className="text-sm text-white/60 mb-2 block">On these days</Label>
+                    <div className="flex flex-wrap gap-2">
+                      {dayOptions.map(day => (
+                        <Button
+                          key={day.value}
+                          variant={settings.days.includes(day.value) ? 'default' : 'outline'}
+                          size="sm"
+                          onClick={() => handleDayToggle(day.value)}
+                          className={`w-10 ${!settings.days.includes(day.value) ? 'border-white/20 text-white/70 hover:bg-white/10' : ''}`}
+                        >
+                          {day.label}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <p className="text-xs text-white/40">
+                    You'll receive a browser notification at the scheduled time. Keep this tab open for reminders to work.
+                  </p>
+                </div>
+              )}
+            </div>
+          </CollapsibleContent>
+        </Collapsible>
+      </div>
+    </div>
+  );
+}
               <h3 className="font-semibold text-lg line-clamp-1 text-foreground">
                 {lastActivity.courseTitle}
               </h3>
