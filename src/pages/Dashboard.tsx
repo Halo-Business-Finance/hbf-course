@@ -114,6 +114,14 @@ const Dashboard = () => {
     modules: databaseModules.filter((m) => m.course_id === course.id && m.is_active),
   }));
 
+  // Compute which courses are fully completed (all modules at 100%)
+  const completedCourseIds = coursesWithModules
+    .filter((course) => {
+      if (course.modules.length === 0) return false;
+      return course.modules.every((m) => moduleProgress[m.id]?.completed);
+    })
+    .map((c) => c.id);
+
   // Filter by topic
   const filteredCoursesWithModules = (() => {
     if (selectedTopic && topicToCourses[selectedTopic]) {
