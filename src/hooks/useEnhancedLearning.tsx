@@ -293,15 +293,31 @@ export const useEnhancedLearning = () => {
     if (!user?.id) return;
 
     try {
-      // Update course progress
-      await supabase.from('course_progress').upsert({
-        user_id: user.id,
-        module_id: moduleId,
-        course_id: 'halo-launch-pad-learn',
+      // Check-then-act pattern for course_progress
+      const { data: existing } = await supabase
+        .from('course_progress')
+        .select('id')
+        .eq('user_id', user.id)
+        .eq('course_id', 'halo-launch-pad-learn')
+        .eq('module_id', moduleId)
+        .maybeSingle();
+
+      const progressPayload = {
         progress_percentage: progressData.percentage || 0,
         completed_at: progressData.completed ? new Date().toISOString() : null,
-        updated_at: new Date().toISOString()
-      });
+        updated_at: new Date().toISOString(),
+      };
+
+      if (existing) {
+        await supabase.from('course_progress').update(progressPayload).eq('id', existing.id);
+      } else {
+        await supabase.from('course_progress').insert({
+          user_id: user.id,
+          module_id: moduleId,
+          course_id: 'halo-launch-pad-learn',
+          ...progressPayload,
+        });
+      }
 
       // Track progress event
       trackLearningEvent('progress_update', {

@@ -80,20 +80,47 @@ export const useLessonProgress = (lessonId: string, moduleId: string) => {
       const isCompleted = completionPercentage === 100;
 
       const progressData = {
-        user_id: user.id,
-        course_id: moduleId,
-        module_id: moduleId,
-        lesson_id: lessonId,
         progress_percentage: completionPercentage,
         quiz_completed: isCompleted,
         completed_at: isCompleted ? new Date().toISOString() : null,
+        updated_at: new Date().toISOString(),
       };
 
-      const { data, error } = await supabase
+      // Check-then-act pattern for NULL-safe upsert
+      const { data: existing } = await supabase
         .from('course_progress')
-        .upsert(progressData)
-        .select()
-        .single();
+        .select('id')
+        .eq('user_id', user.id)
+        .eq('course_id', moduleId)
+        .eq('module_id', moduleId)
+        .eq('lesson_id', lessonId)
+        .maybeSingle();
+
+      let data, error;
+      if (existing) {
+        const result = await supabase
+          .from('course_progress')
+          .update(progressData)
+          .eq('id', existing.id)
+          .select()
+          .single();
+        data = result.data;
+        error = result.error;
+      } else {
+        const result = await supabase
+          .from('course_progress')
+          .insert({
+            user_id: user.id,
+            course_id: moduleId,
+            module_id: moduleId,
+            lesson_id: lessonId,
+            ...progressData,
+          })
+          .select()
+          .single();
+        data = result.data;
+        error = result.error;
+      }
 
       if (error) throw error;
 

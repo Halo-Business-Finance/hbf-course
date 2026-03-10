@@ -272,10 +272,16 @@ export default function TeamAnalytics() {
               <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Team Analytics</h1>
               <p className="text-muted-foreground mt-1">Monitor team progress and generate reports</p>
             </div>
-            <Button onClick={handleExport} disabled={exportLoading || members.length === 0} className="gap-2 bg-halo-navy hover:bg-halo-navy/90 text-white">
-              {exportLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
-              Export Report
-            </Button>
+            <div className="flex gap-2">
+              <Button onClick={() => handleExport('members')} disabled={exportLoading || members.length === 0} className="gap-2 bg-halo-navy hover:bg-halo-navy/90 text-white">
+                {exportLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
+                Export Members
+              </Button>
+              <Button onClick={() => handleExport('courses')} disabled={exportLoading || courseStats.length === 0} variant="outline" className="gap-2">
+                <Download className="h-4 w-4" />
+                Export Courses
+              </Button>
+            </div>
           </div>
 
           {loading ? (
