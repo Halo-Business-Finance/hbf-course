@@ -433,7 +433,7 @@ const ModulePage = () => {
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div>
-                    <CardTitle className="text-xl sm:text-2xl text-white">{module.title}</CardTitle>
+                    <CardTitle className="text-lg sm:text-xl md:text-2xl text-white">{module.title}</CardTitle>
                     <CardDescription className="mt-2 text-white/80">{module.description}</CardDescription>
                   </div>
                   {module.skill_level && module.skill_level.toLowerCase() !== "beginner" &&
