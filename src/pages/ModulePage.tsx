@@ -688,9 +688,9 @@ const ModulePage = () => {
                 </CardContent>
               </Card>
 
-              <Card className="bg-halo-navy">
+              <Card className="bg-halo-navy bg-white">
                 <CardHeader>
-                  <CardTitle className="text-base text-white">Quick Actions</CardTitle>
+                  <CardTitle className="text-base text-black">Quick Actions</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <Button variant="outline" className="w-full justify-start" onClick={handleTakeNotes}>
