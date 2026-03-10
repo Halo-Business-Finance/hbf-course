@@ -235,11 +235,37 @@ const ProgressPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
-      <PageHeader 
-        title="Learning Dashboard" 
-        subtitle="Your personalized financial education journey"
-        icon={<Target className="h-5 w-5 text-white" />}
-      />
+      <div className="border-b border-white/30 bg-black">
+        <div className="px-4 sm:px-6 lg:px-10 py-6 sm:py-8 max-w-7xl mx-auto">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-halo-navy flex items-center justify-center flex-shrink-0">
+                <Target className="h-5 w-5 text-white" />
+              </div>
+              <div>
+                <h1 className="text-2xl sm:text-3xl font-bold text-white">Learning Dashboard</h1>
+                <p className="text-sm text-white/70 mt-1">Your personalized financial education journey</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Overall Progress Bar */}
+          <div className="mt-6 max-w-lg">
+            <div className="flex justify-between mb-2">
+              <span className="text-xs font-semibold text-white">Overall Progress</span>
+              <span className="text-xs text-white">
+                {statusCounts.completed}/{moduleProgress.length} modules
+              </span>
+            </div>
+            <div className="h-2.5 bg-muted rounded-full overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-halo-navy to-halo-orange rounded-full transition-all duration-700"
+                style={{ width: `${overallProgress}%` }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="container mx-auto p-6 space-y-8">
 
         {/* Live Learning Stats Widget */}
