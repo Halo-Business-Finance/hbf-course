@@ -351,17 +351,23 @@ const Dashboard = () => {
                 
               </div>
             </motion.div>
+
+            {/* Quick Resume + Study Reminder */}
+            {isOnCatalog && (
+              <motion.div
+                className="mt-6"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.4 }}>
+                <QuickResumeReminder />
+              </motion.div>
+            )}
           </div>
         </motion.div>
 
         {/* ── Main Content ── */}
         <div className="px-4 sm:px-6 lg:px-10 py-4 sm:py-8 max-w-7xl mx-auto space-y-6 sm:space-y-8">
-          {/* Quick Resume + Study Reminder — only at top level */}
-          {isOnCatalog &&
-          <AnimatedSection>
-              <QuickResumeReminder />
-            </AnimatedSection>
-          }
+          {/* Quick Resume moved to header */}
 
           {/* Tabbed Layout — only at catalog level */}
           {isOnCatalog ?
