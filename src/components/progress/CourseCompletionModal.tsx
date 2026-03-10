@@ -61,8 +61,8 @@ export function CourseCompletionModal({
           <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[hsl(38,40%,53%)] to-transparent" />
           
           <div className="relative z-10">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-amber-400/20 border-2 border-amber-400 mb-4">
-              <Trophy className="h-10 w-10 text-amber-400" />
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-[hsl(38,40%,53%)]/20 border-2 border-[hsl(38,40%,53%)] mb-4">
+              <Trophy className="h-10 w-10 text-[hsl(38,40%,53%)]" />
             </div>
             
             <DialogHeader className="space-y-2">
