@@ -28,8 +28,8 @@ export const HorizontalNav = () => {
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                `text-foreground hover:text-primary transition-colors font-medium text-base whitespace-nowrap ${
-                  isActive ? "text-primary" : ""
+                `text-white/80 hover:text-white transition-colors font-medium text-base whitespace-nowrap ${
+                  isActive ? "text-white" : ""
                 }`
               }
             >
