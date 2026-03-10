@@ -1,9 +1,11 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Check, Play, Mail, Star, Zap } from "lucide-react";
+import { Check, Mail, Star, Zap } from "lucide-react";
 import { FinPilotBrandFooter } from "@/components/FinPilotBrandFooter";
 import { SEOHead } from "@/components/SEOHead";
+import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/PageTransition";
+import { motion } from "framer-motion";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import pricingHero from "@/assets/pricing-hero.jpg";
@@ -12,288 +14,210 @@ import LeadIntakeModal from "@/components/LeadIntakeModal";
 const Pricing = () => {
   const [isAnnual, setIsAnnual] = useState(false);
   const [isLeadModalOpen, setIsLeadModalOpen] = useState(false);
+
   const plans = [
     {
-      name: "Basic",
-      price: "$29",
-      period: "per month",
-      annualPrice: "$290",
-      annualPeriod: "per year",
+      name: "Basic", price: "$29", period: "per month", annualPrice: "$290", annualPeriod: "per year",
       description: "Perfect for individuals getting started in finance",
-      features: [
-        "Access to 5 foundational courses",
-        "Basic email support (48h response)",
-        "Certificate of completion",
-        "Mobile app access",
-        "Basic progress tracking",
-        "Community forum access"
-      ],
-      popular: false,
-      savings: "Save $58 annually"
+      features: ["Access to 5 foundational courses", "Basic email support (48h response)", "Certificate of completion", "Mobile app access", "Basic progress tracking", "Community forum access"],
+      popular: false, savings: "Save $58 annually"
     },
     {
-      name: "Professional",
-      price: "$79",
-      period: "per month", 
-      annualPrice: "$790",
-      annualPeriod: "per year",
+      name: "Professional", price: "$79", period: "per month", annualPrice: "$790", annualPeriod: "per year",
       description: "Best for professionals and small teams",
-      features: [
-        "Access to ALL 25+ courses",
-        "Priority support (12h response)",
-        "Advanced certificates with LinkedIn integration",
-        "Live Q&A sessions with instructors",
-        "Advanced progress tracking & analytics",
-        "Custom learning paths",
-        "Downloadable resources & templates",
-        "Practice assessments & simulations",
-        "Career guidance consultations",
-        "Networking events access"
-      ],
-      popular: true,
-      savings: "Save $158 annually"
+      features: ["Access to ALL 25+ courses", "Priority support (12h response)", "Advanced certificates with LinkedIn integration", "Live Q&A sessions with instructors", "Advanced progress tracking & analytics", "Custom learning paths", "Downloadable resources & templates", "Practice assessments & simulations", "Career guidance consultations", "Networking events access"],
+      popular: true, savings: "Save $158 annually"
     },
     {
-      name: "Enterprise",
-      price: "Custom",
-      period: "contact us",
-      annualPrice: "Custom",
-      annualPeriod: "volume pricing",
+      name: "Enterprise", price: "Custom", period: "contact us", annualPrice: "Custom", annualPeriod: "volume pricing",
       description: "For organizations and large teams (10+ users)",
-      features: [
-        "Everything in Professional",
-        "Custom course development & branding",
-        "Dedicated customer success manager",
-        "Advanced team analytics & reporting",
-        "Single Sign-On (SSO) integration",
-        "API access for LMS integration",
-        "Custom user roles & permissions",
-        "White-label platform options",
-        "On-site training sessions",
-        "Compliance reporting & tracking",
-        "24/7 phone support",
-        "Service Level Agreement (SLA)"
-      ],
-      popular: false,
-      savings: "Volume discounts available"
+      features: ["Everything in Professional", "Custom course development & branding", "Dedicated customer success manager", "Advanced team analytics & reporting", "Single Sign-On (SSO) integration", "API access for LMS integration", "Custom user roles & permissions", "White-label platform options", "On-site training sessions", "Compliance reporting & tracking", "24/7 phone support", "Service Level Agreement (SLA)"],
+      popular: false, savings: "Volume discounts available"
     }
   ];
 
   const faqs = [
-    {
-      question: "Can I switch plans at any time?",
-      answer: "Yes! You can upgrade or downgrade your plan at any time. Changes take effect immediately and billing is prorated."
-    },
-    {
-      question: "Is there a free trial available?",
-      answer: "Yes, we offer a 3-day free trial for the Professional plan. No credit card required to start."
-    },
-    {
-      question: "What's included in the certificate?",
-      answer: "Our certificates include your name, course completion date, skills acquired, and are verifiable with a unique ID. Professional and Enterprise certificates integrate with LinkedIn."
-    },
-    {
-      question: "Do you offer refunds?",
-      answer: "Yes, we offer a 30-day money-back guarantee. If you're not satisfied, contact us for a full refund."
-    },
-    {
-      question: "Can I pay annually?",
-      answer: "Yes! Annual payments offer significant savings - 2 months free for Basic and Professional plans."
-    },
-    {
-      question: "What payment methods do you accept?",
-      answer: "We accept all major credit cards, PayPal, and bank transfers for Enterprise plans."
-    }
+    { question: "Can I switch plans at any time?", answer: "Yes! You can upgrade or downgrade your plan at any time. Changes take effect immediately and billing is prorated." },
+    { question: "Is there a free trial available?", answer: "Yes, we offer a 3-day free trial for the Professional plan. No credit card required to start." },
+    { question: "What's included in the certificate?", answer: "Our certificates include your name, course completion date, skills acquired, and are verifiable with a unique ID. Professional and Enterprise certificates integrate with LinkedIn." },
+    { question: "Do you offer refunds?", answer: "Yes, we offer a 30-day money-back guarantee. If you're not satisfied, contact us for a full refund." },
+    { question: "Can I pay annually?", answer: "Yes! Annual payments offer significant savings - 2 months free for Basic and Professional plans." },
+    { question: "What payment methods do you accept?", answer: "We accept all major credit cards, PayPal, and bank transfers for Enterprise plans." }
   ];
 
   const testimonials = [
-    {
-      name: "Jennifer Martinez",
-      role: "Senior Credit Analyst",
-      company: "Regional Bank",
-      quote: "The Professional plan gave me everything I needed to advance my career. The live sessions were invaluable.",
-      rating: 5
-    },
-    {
-      name: "Robert Chen", 
-      role: "VP of Training",
-      company: "Credit Union",
-      quote: "Our Enterprise plan implementation was seamless. The custom reporting helps us track our team's progress perfectly.",
-      rating: 5
-    }
+    { name: "Jennifer Martinez", role: "Senior Credit Analyst", company: "Regional Bank", quote: "The Professional plan gave me everything I needed to advance my career. The live sessions were invaluable.", rating: 5 },
+    { name: "Robert Chen", role: "VP of Training", company: "Credit Union", quote: "Our Enterprise plan implementation was seamless. The custom reporting helps us track our team's progress perfectly.", rating: 5 }
   ];
 
   return (
     <>
-      <SEOHead 
+      <SEOHead
         title="Pricing Plans | FinPilot Business Finance Training - Choose Your Plan"
-        description="Compare FinPilot training plans starting at $29/month. Basic, Professional, and Enterprise options available. 30-day money-back guarantee and free trial included."
-        keywords="FinPilot pricing, business finance training cost, commercial lending course pricing, professional development plans"
+        description="Compare FinPilot training plans starting at $29/month. Basic, Professional, and Enterprise options available."
+        keywords="FinPilot pricing, business finance training cost, commercial lending course pricing"
         canonicalUrl="https://finpilot.com/pricing"
       />
       <div className="bg-background min-h-screen">
-      {/* Hero Section */}
-      <div className="relative h-72 sm:h-80 md:h-[28rem] overflow-hidden">
-        <img 
-          src={pricingHero} 
-          alt="Professional learning online with computer" 
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-halo-navy/85 via-halo-navy/60 to-transparent flex items-center">
-          <div className="page-container">
-            <div className="max-w-2xl text-white">
-              <Badge className="mb-3 sm:mb-4 bg-white/15 text-white border border-white/30 backdrop-blur-sm text-xs sm:text-sm">
-                <Zap className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1.5 sm:mr-2" />
-                Pricing Plans
-              </Badge>
-              <h1 className="hero-title mb-3 sm:mb-4 leading-tight">Choose Your Learning Plan</h1>
-              <p className="text-sm sm:text-base md:text-lg max-w-3xl leading-relaxed text-white/90">
-                Invest in your future with our comprehensive finance and lending education programs. 
-                Start with a 3-day free trial and see the difference quality training makes.
-              </p>
+        {/* Hero */}
+        <div className="relative h-72 sm:h-80 md:h-[28rem] overflow-hidden">
+          <motion.img
+            src={pricingHero}
+            alt="Professional learning online"
+            className="w-full h-full object-cover"
+            initial={{ scale: 1.08 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 1.2, ease: [0.2, 0, 0.38, 0.9] }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-halo-navy/85 via-halo-navy/60 to-transparent flex items-center">
+            <div className="page-container">
+              <motion.div
+                className="max-w-2xl text-white"
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
+                <Badge className="mb-3 sm:mb-4 bg-white/15 text-white border border-white/30 backdrop-blur-sm text-xs sm:text-sm">
+                  <Zap className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1.5 sm:mr-2" />
+                  Pricing Plans
+                </Badge>
+                <h1 className="hero-title mb-3 sm:mb-4 leading-tight">Choose Your Learning Plan</h1>
+                <p className="text-sm sm:text-base md:text-lg max-w-3xl leading-relaxed text-white/90">
+                  Invest in your future with our comprehensive finance and lending education programs. Start with a 3-day free trial.
+                </p>
+              </motion.div>
             </div>
           </div>
         </div>
-      </div>
-      
-      <div className="page-container py-6 md:py-8">
-        <div className="text-center mb-6 md:mb-8">
-          <div className="inline-flex items-center gap-2 bg-halo-navy text-white px-3 md:px-4 py-2 rounded-full text-xs md:text-sm font-medium">
-            <Check className="h-3 w-3 md:h-4 md:w-4 text-white" />
-            <span className="hidden sm:inline">30-day money-back guarantee • Cancel anytime</span>
-            <span className="sm:hidden">30-day guarantee</span>
-          </div>
+
+        <div className="page-container py-6 md:py-8">
+          <AnimatedSection className="text-center mb-6 md:mb-8">
+            <div className="inline-flex items-center gap-2 bg-halo-navy text-white px-3 md:px-4 py-2 rounded-full text-xs md:text-sm font-medium">
+              <Check className="h-3 w-3 md:h-4 md:w-4 text-white" />
+              <span className="hidden sm:inline">30-day money-back guarantee • Cancel anytime</span>
+              <span className="sm:hidden">30-day guarantee</span>
+            </div>
+          </AnimatedSection>
+
+          {/* Toggle */}
+          <AnimatedSection className="flex justify-center mb-6 md:mb-8" delay={0.1}>
+            <div className="inline-flex gap-8">
+              <button
+                className={`px-4 py-2 text-sm md:text-base font-medium transition-all ${!isAnnual ? 'text-halo-orange underline underline-offset-4 decoration-2 decoration-halo-navy' : 'text-muted-foreground hover:text-foreground hover:scale-105'}`}
+                onClick={() => setIsAnnual(false)}
+              >
+                Monthly
+              </button>
+              <button
+                className={`px-4 py-2 text-sm md:text-base font-medium transition-all ${isAnnual ? 'text-halo-orange underline underline-offset-4 decoration-2 decoration-halo-navy' : 'text-muted-foreground hover:text-foreground hover:scale-105'}`}
+                onClick={() => setIsAnnual(true)}
+              >
+                <span className="hidden sm:inline">Annual (Save up to 20%)</span>
+                <span className="sm:hidden">Annual</span>
+              </button>
+            </div>
+          </AnimatedSection>
+
+          {/* Plans */}
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto mb-12 md:mb-16">
+            {plans.map((plan) => (
+              <StaggerItem key={plan.name}>
+                <motion.div whileHover={{ y: -6 }} transition={{ duration: 0.25 }}>
+                  <Card className={`relative h-full ${plan.popular ? 'border-primary shadow-lg ring-2 ring-primary/20' : 'border-2 border-halo-navy shadow-md'}`}>
+                    {plan.popular && (
+                      <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-primary">
+                        Most Popular
+                      </Badge>
+                    )}
+                    <CardHeader className="text-center pb-2">
+                      <CardTitle className="text-2xl text-foreground">{plan.name}</CardTitle>
+                      <CardDescription>{plan.description}</CardDescription>
+                      <div className="mt-4">
+                        <span className="text-4xl font-bold text-foreground">
+                          {isAnnual ? plan.annualPrice : plan.price}
+                        </span>
+                        <span className="text-muted-foreground ml-2 text-sm">
+                          {isAnnual ? plan.annualPeriod : plan.period}
+                        </span>
+                      </div>
+                      {plan.savings && isAnnual && (
+                        <div className="text-sm text-halo-orange font-medium mt-1">{plan.savings}</div>
+                      )}
+                    </CardHeader>
+                    <CardContent>
+                      <ul className="space-y-3 mb-6">
+                        {plan.features.map((feature, index) => (
+                          <li key={index} className="flex items-start gap-2">
+                            <Check className="h-4 w-4 text-halo-orange mt-0.5 flex-shrink-0" />
+                            <span className="text-sm text-foreground">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      {plan.name === "Enterprise" ? (
+                        <Button className="w-full flex items-center gap-2 bg-halo-navy text-white hover:bg-halo-navy/90" variant="outline" onClick={() => setIsLeadModalOpen(true)}>
+                          <Mail className="h-4 w-4" />
+                          Contact Sales
+                        </Button>
+                      ) : (
+                        <Button className="w-full flex items-center gap-2 bg-halo-orange text-white hover:bg-halo-orange/90" asChild>
+                          <Link to="/signup">{plan.name === "Professional" ? "Start Free Trial" : "Get Started"}</Link>
+                        </Button>
+                      )}
+                      {(plan.name === "Basic" || plan.name === "Professional") && (
+                        <p className="text-xs text-center text-muted-foreground mt-2">3-day free trial, no credit card required</p>
+                      )}
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+
+          {/* Testimonials */}
+          <AnimatedSection className="mb-16">
+            <h2 className="section-title text-center mb-6 sm:mb-8 text-foreground">What Our Students Say</h2>
+            <StaggerContainer className="card-grid-2 max-w-4xl mx-auto">
+              {testimonials.map((testimonial, index) => (
+                <StaggerItem key={index}>
+                  <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
+                    <Card className="p-4 sm:p-6 h-full">
+                      <div className="flex mb-4">
+                        {[...Array(testimonial.rating)].map((_, i) => (
+                          <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                        ))}
+                      </div>
+                      <p className="text-foreground italic mb-4">"{testimonial.quote}"</p>
+                      <div>
+                        <p className="font-semibold text-foreground">{testimonial.name}</p>
+                        <p className="text-sm text-muted-foreground">{testimonial.role}, {testimonial.company}</p>
+                      </div>
+                    </Card>
+                  </motion.div>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+          </AnimatedSection>
+
+          {/* FAQ */}
+          <AnimatedSection className="max-w-3xl mx-auto">
+            <h2 className="text-2xl font-bold text-center mb-8 text-foreground">Frequently Asked Questions</h2>
+            <StaggerContainer className="space-y-4">
+              {faqs.map((faq, index) => (
+                <StaggerItem key={index}>
+                  <Card className="p-6">
+                    <h3 className="font-semibold mb-2 text-foreground">{faq.question}</h3>
+                    <p className="text-muted-foreground">{faq.answer}</p>
+                  </Card>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+          </AnimatedSection>
+
+          <FinPilotBrandFooter />
         </div>
 
-      {/* Pricing Toggle */}
-      <div className="flex justify-center mb-6 md:mb-8">
-        <div className="inline-flex gap-8">
-          <button 
-            className={`px-4 py-2 text-sm md:text-base font-medium transition-all ${
-              !isAnnual ? 'text-halo-orange underline underline-offset-4 decoration-2 decoration-halo-navy' : 'text-muted-foreground hover:text-foreground hover:scale-105'
-            }`}
-            onClick={() => setIsAnnual(false)}
-          >
-            Monthly
-          </button>
-          <button 
-            className={`px-4 py-2 text-sm md:text-base font-medium transition-all ${
-              isAnnual ? 'text-halo-orange underline underline-offset-4 decoration-2 decoration-halo-navy' : 'text-muted-foreground hover:text-foreground hover:scale-105'
-            }`}
-            onClick={() => setIsAnnual(true)}
-          >
-            <span className="hidden sm:inline">Annual (Save up to 20%)</span>
-            <span className="sm:hidden">Annual</span>
-          </button>
-        </div>
+        <LeadIntakeModal isOpen={isLeadModalOpen} onOpenChange={setIsLeadModalOpen} leadType="sales" leadSource="pricing_page" />
       </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto mb-12 md:mb-16">
-        {plans.map((plan) => (
-          <Card key={plan.name} className={`relative ${plan.popular ? 'border-primary shadow-lg ring-2 ring-primary/20' : 'border-2 border-halo-navy shadow-md'}`}>
-            {plan.popular && (
-              <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-primary">
-                Most Popular
-              </Badge>
-            )}
-            <CardHeader className="text-center pb-2">
-              <CardTitle className="text-2xl text-foreground">{plan.name}</CardTitle>
-              <CardDescription>{plan.description}</CardDescription>
-              <div className="mt-4">
-                <span className="text-4xl font-bold text-foreground">
-                  {isAnnual ? plan.annualPrice : plan.price}
-                </span>
-                <span className="text-muted-foreground ml-2 text-sm">
-                  {isAnnual ? plan.annualPeriod : plan.period}
-                </span>
-              </div>
-              {plan.savings && isAnnual && (
-                <div className="text-sm text-halo-orange font-medium mt-1">{plan.savings}</div>
-              )}
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-3 mb-6">
-                {plan.features.map((feature, index) => (
-                  <li key={index} className="flex items-start gap-2">
-                    <Check className="h-4 w-4 text-halo-orange mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-foreground">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-              {plan.name === "Enterprise" ? (
-                <Button 
-                  className="w-full flex items-center gap-2 bg-halo-navy text-white hover:bg-halo-navy/90 border-halo-navy hover:text-white" 
-                  variant="outline"
-                  onClick={() => setIsLeadModalOpen(true)}
-                >
-                  <Mail className="h-4 w-4" />
-                  Contact Sales
-                </Button>
-              ) : (
-                <Button 
-                  className="w-full flex items-center gap-2 bg-halo-orange text-white hover:bg-halo-orange/90" 
-                  asChild
-                >
-                  <Link to="/signup">
-                    {plan.name === "Professional" ? "Start Free Trial" : "Get Started"}
-                  </Link>
-                </Button>
-              )}
-              {(plan.name === "Basic" || plan.name === "Professional") && (
-                <p className="text-xs text-center text-muted-foreground mt-2">
-                  3-day free trial, no credit card required
-                </p>
-              )}
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-
-      {/* Testimonials Section */}
-      <div className="mb-16">
-        <h2 className="section-title text-center mb-6 sm:mb-8 text-foreground">What Our Students Say</h2>
-        <div className="card-grid-2 max-w-4xl mx-auto">
-          {testimonials.map((testimonial, index) => (
-            <Card key={index} className="p-4 sm:p-6">
-              <div className="flex mb-4">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                ))}
-              </div>
-              <p className="text-foreground italic mb-4">"{testimonial.quote}"</p>
-              <div>
-                <p className="font-semibold text-foreground">{testimonial.name}</p>
-                <p className="text-sm text-muted-foreground">{testimonial.role}, {testimonial.company}</p>
-              </div>
-            </Card>
-          ))}
-        </div>
-      </div>
-
-      {/* FAQ Section */}
-      <div className="max-w-3xl mx-auto">
-        <h2 className="text-2xl font-bold text-center mb-8 text-foreground">Frequently Asked Questions</h2>
-        <div className="space-y-4">
-          {faqs.map((faq, index) => (
-            <Card key={index} className="p-6">
-              <h3 className="font-semibold mb-2 text-foreground">{faq.question}</h3>
-              <p className="text-muted-foreground">{faq.answer}</p>
-            </Card>
-          ))}
-        </div>
-      </div>
-      
-      <FinPilotBrandFooter />
-      </div>
-
-      {/* Lead Intake Modal */}
-      <LeadIntakeModal
-        isOpen={isLeadModalOpen}
-        onOpenChange={setIsLeadModalOpen}
-        leadType="sales"
-        leadSource="pricing_page"
-      />
-    </div>
     </>
   );
 };
