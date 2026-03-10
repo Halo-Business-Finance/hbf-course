@@ -33,15 +33,16 @@ const FINANCE_KEYWORDS = [
   'credit risk', 'bank lending', 'commercial bank', 'finance training'
 ];
 
-function isVideoRelevant(title: string, description: string): boolean {
+function isVideoRelevant(title: string, description: string): { dominated: boolean; relevant: boolean } {
   const combined = (title + ' ' + description).toLowerCase();
   for (const bad of BLOCKLIST_KEYWORDS) {
-    if (combined.includes(bad.toLowerCase())) return false;
+    if (combined.includes(bad.toLowerCase())) return { dominated: true, relevant: false };
   }
   for (const good of FINANCE_KEYWORDS) {
-    if (combined.includes(good.toLowerCase())) return true;
+    if (combined.includes(good.toLowerCase())) return { dominated: false, relevant: true };
   }
-  return false;
+  // Not blocklisted but no finance keyword — still acceptable as fallback
+  return { dominated: false, relevant: false };
 }
 
 function buildSearchQuery(moduleTitle: string, description: string | null, courseId: string): string {
@@ -235,7 +236,9 @@ async function processVideoSearch(
           if (totalDurationForModule >= TARGET_DURATION_SECONDS) break;
 
           const encodedQuery = encodeURIComponent(searchQuery);
-          const youtubeSearchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=15&q=${encodedQuery}&type=video&videoDuration=medium&relevanceLanguage=en&key=${youtubeApiKey}`;
+          // Use 'medium' (4-20 min) for first 2 queries, 'long' (>20 min) for the rest
+          const durationFilter = searchVariants.indexOf(searchQuery) < 2 ? 'medium' : 'long';
+          const youtubeSearchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=15&q=${encodedQuery}&type=video&videoDuration=${durationFilter}&relevanceLanguage=en&key=${youtubeApiKey}`;
 
           const youtubeResponse = await fetch(youtubeSearchUrl);
           if (!youtubeResponse.ok) continue;
@@ -243,30 +246,26 @@ async function processVideoSearch(
           const youtubeData = await youtubeResponse.json();
           if (!youtubeData.items || youtubeData.items.length === 0) continue;
 
-          // Filter to relevant, unused videos
-          const candidateIds: string[] = [];
+          // Separate into relevant (finance keyword match) and acceptable (not blocklisted)
+          const relevantIds: string[] = [];
+          const acceptableIds: string[] = [];
           const candidateMap = new Map<string, any>();
           
           for (const item of youtubeData.items) {
             const videoId = item.id?.videoId;
             if (!videoId || usedYoutubeIds.has(videoId)) continue;
-            if (isVideoRelevant(item.snippet?.title || '', item.snippet?.description || '')) {
-              candidateIds.push(videoId);
-              candidateMap.set(videoId, item);
+            const check = isVideoRelevant(item.snippet?.title || '', item.snippet?.description || '');
+            if (check.dominated) continue; // blocklisted
+            candidateMap.set(videoId, item);
+            if (check.relevant) {
+              relevantIds.push(videoId);
+            } else {
+              acceptableIds.push(videoId);
             }
           }
 
-          // Also add non-blocklisted as fallbacks
-          for (const item of youtubeData.items) {
-            const videoId = item.id?.videoId;
-            if (!videoId || usedYoutubeIds.has(videoId) || candidateMap.has(videoId)) continue;
-            const combined = ((item.snippet?.title || '') + ' ' + (item.snippet?.description || '')).toLowerCase();
-            const blocked = BLOCKLIST_KEYWORDS.some(bad => combined.includes(bad.toLowerCase()));
-            if (!blocked) {
-              candidateIds.push(videoId);
-              candidateMap.set(videoId, item);
-            }
-          }
+          // Prioritize relevant videos, then fall back to acceptable ones
+          const candidateIds = [...relevantIds, ...acceptableIds];
 
           if (candidateIds.length === 0) continue;
 
