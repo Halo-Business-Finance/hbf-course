@@ -59,7 +59,7 @@ export function DashboardCourseFilter({
   return (
     <div className={`space-y-5 ${className}`}>
       {/* Main Category Tabs */}
-      <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+      <div className="flex items-center gap-2 sm:gap-3 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-none sm:flex-wrap sm:overflow-visible">
         <Button
           variant="outline"
           onClick={() => onCategorySelect(null)}
