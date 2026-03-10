@@ -358,7 +358,7 @@ const Dashboard = () => {
         <div className="px-4 sm:px-6 lg:px-10 py-4 sm:py-8 max-w-7xl mx-auto space-y-6 sm:space-y-8">
           {/* Quick Resume + Study Reminder — only at top level */}
           {isOnCatalog &&
-          <AnimatedSection>
+          <AnimatedSection className="max-w-2xl">
               <QuickResumeReminder />
             </AnimatedSection>
           }
