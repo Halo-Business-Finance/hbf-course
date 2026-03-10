@@ -409,7 +409,8 @@ export const InteractiveLessonComponents = () => {
   return (
     <div className="space-y-8">
       <div className="text-center space-y-2">
-        <h2 className="text-2xl font-bold">Interactive Learning Components</h2>
+        <h2 className="text-2xl font-bold">
+</h2>
         <p className="text-muted-foreground">
           Engage with hands-on tools and scenarios to master finance concepts
         </p>
@@ -430,8 +431,7 @@ export const InteractiveLessonComponents = () => {
       <InteractiveDragDrop onComplete={() => handleComponentComplete('dragdrop')} />
       <InteractiveScenario onComplete={() => handleComponentComplete('scenario')} />
 
-      {completedComponents.size === 3 &&
-      <Card className="border-green-200 bg-green-50">
+      {completedComponents.size === 3 && <Card className="border-green-200 bg-green-50">
           <CardContent className="text-center py-6">
             <CheckCircle className="h-12 w-12 text-green-600 mx-auto mb-3" />
             <h3 className="text-lg font-semibold text-green-800 mb-2">

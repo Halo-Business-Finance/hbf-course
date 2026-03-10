@@ -226,7 +226,7 @@ export const InteractiveFinancialTools = () => {
     <div className="space-y-6">
       <Card className="border-white">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+          <CardTitle className="flex items-center gap-2 text-blue-900">
             <Calculator className="h-6 w-6" />
             Interactive Financial Tools
           </CardTitle>
