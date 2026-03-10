@@ -246,7 +246,7 @@ export function QuickResumeReminder() {
       <div className="border-t border-white/10">
         <Collapsible open={reminderOpen} onOpenChange={setReminderOpen}>
           <CollapsibleTrigger asChild>
-            <button className="flex items-center justify-between w-full px-4 sm:px-5 py-3 text-sm hover:bg-white/5 transition-colors">
+            <button className="flex items-center justify-between w-full px-4 text-sm hover:bg-white/5 transition-colors sm:px-0 py-[10px]">
               <div className="flex items-center gap-2">
                 <Bell className="w-4 h-4 text-halo-orange" />
                 <span className="font-medium text-white">Study Reminders</span>
