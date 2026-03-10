@@ -22,7 +22,7 @@ export default defineConfig(({ mode }) => ({
     target: 'es2020',
     chunkSizeWarningLimit: 1000,
     sourcemap: false,
-    cssMinify: 'lightningcss',
+    cssMinify: true,
     rollupOptions: {
       output: {
         manualChunks: {
