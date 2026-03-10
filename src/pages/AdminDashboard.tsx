@@ -886,6 +886,12 @@ const AdminDashboard = () => {
               <TabsTrigger value="cms" className="data-[state=active]:bg-background data-[state=active]:shadow-elegant transition-all duration-300 rounded-xl">
                 <span>CMS</span>
               </TabsTrigger>
+              <TabsTrigger value="videos" className="data-[state=active]:bg-background data-[state=active]:shadow-elegant transition-all duration-300 rounded-xl">
+                <span>Videos</span>
+              </TabsTrigger>
+              <TabsTrigger value="articles" className="data-[state=active]:bg-background data-[state=active]:shadow-elegant transition-all duration-300 rounded-xl">
+                <span>Articles</span>
+              </TabsTrigger>
             </TabsList>
           </div>
 
