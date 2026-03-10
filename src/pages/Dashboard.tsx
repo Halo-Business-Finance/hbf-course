@@ -489,12 +489,12 @@ const Dashboard = () => {
 function StatPill({ icon, value, label }: { icon: React.ReactNode; value: string | number; label: string }) {
   return (
     <div className="flex items-center gap-2 sm:gap-3 group">
-      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-background flex items-center justify-center border border-border group-hover:border-primary/30 transition-colors">
+      <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-halo-navy/5 flex items-center justify-center border border-halo-navy/10 group-hover:border-halo-navy/30 group-hover:bg-halo-navy/10 transition-all duration-300">
         {icon}
       </div>
       <div>
-        <p className="text-sm sm:text-lg font-bold text-foreground">{value}</p>
-        <p className="text-[10px] sm:text-xs text-muted-foreground">{label}</p>
+        <p className="text-base sm:text-xl font-bold text-foreground tracking-tight">{value}</p>
+        <p className="text-[10px] sm:text-xs text-muted-foreground font-medium uppercase tracking-wider">{label}</p>
       </div>
     </div>
   );

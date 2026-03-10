@@ -81,11 +81,11 @@ export function EnhancedCourseCard({
       {/* Content section */}
       <div className="relative p-5 space-y-4">
         {/* Institution badge */}
-        <div className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-lg bg-navy-900 flex items-center justify-center text-white font-bold text-xs">
+        <div className="flex items-center gap-2.5">
+          <div className="h-8 w-8 rounded-lg bg-halo-navy flex items-center justify-center text-white font-bold text-xs shadow-sm">
             FP
           </div>
-          <span className="text-xs text-muted-foreground">FinPilot Academy</span>
+          <span className="text-xs font-medium text-muted-foreground tracking-wide">FinPilot Academy</span>
         </div>
         
         {/* Title */}
