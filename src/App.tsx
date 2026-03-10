@@ -24,9 +24,9 @@ import { useKeyboardShortcuts } from "./components/accessibility/KeyboardShortcu
 import { PageTransition } from "./components/PageTransition";
 
 // Lazy load heavy components not needed on initial page load
-const NotificationBell = lazy(() => import("@/components/NotificationBell").then(m => ({ default: m.NotificationBell })));
-const LiveChatSupport = lazy(() => import("@/components/LiveChatSupport").then(m => ({ default: m.LiveChatSupport })));
-const ToolModal = lazy(() => import("@/components/tools/ToolModal").then(m => ({ default: m.ToolModal })));
+const NotificationBell = lazy(() => import("@/components/NotificationBell").then((m) => ({ default: m.NotificationBell })));
+const LiveChatSupport = lazy(() => import("@/components/LiveChatSupport").then((m) => ({ default: m.LiveChatSupport })));
+const ToolModal = lazy(() => import("@/components/tools/ToolModal").then((m) => ({ default: m.ToolModal })));
 
 // Lazy load pages for better performance
 const Index = lazy(() => import("./pages/Index"));
@@ -61,19 +61,19 @@ const MyCertificates = lazy(() => import("./pages/MyCertificates"));
 const Branding = lazy(() => import("./pages/Branding"));
 
 // Loading fallback component for lazy-loaded pages
-const PageLoader = () => (
-  <div className="flex items-center justify-center min-h-screen">
+const PageLoader = () =>
+<div className="flex items-center justify-center min-h-screen">
     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-  </div>
-);
+  </div>;
+
 const queryClient = new QueryClient();
 const HeaderContent = ({
   isChatOpen,
   setIsChatOpen
-}: {
-  isChatOpen: boolean;
-  setIsChatOpen: (open: boolean) => void;
-}) => {
+
+
+
+}: {isChatOpen: boolean;setIsChatOpen: (open: boolean) => void;}) => {
   const navigate = useNavigate();
   const location = useLocation();
   const {
@@ -117,18 +117,18 @@ const HeaderContent = ({
           
           {user && <div className="flex items-center gap-1 sm:gap-2">
               <Button variant="ghost" size="sm" onClick={goBack} title="Go back" className="h-8 w-8 p-0 hover:bg-muted text-navy-900">
-                <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4" />
+                <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
               </Button>
               <Button variant="ghost" size="sm" onClick={goForward} className="h-8 w-8 p-0 text-navy-900 hover:bg-muted" title="Go forward">
-                <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
+                <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
               </Button>
             </div>}
         </div>
 
-        {user && <div className="flex-1 flex items-center justify-center min-w-0">
+        {user && <div className="flex-1 flex items-center justify-center min-w-0 text-white">
             <NavLink to="/" className="flex items-center gap-3 sm:gap-4 flex-shrink-0 min-w-0">
               <img src={finpilotLogo} alt="FinPilot" className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-lg object-cover flex-shrink-0" />
-              <span className="text-lg sm:text-2xl md:text-3xl font-bold text-foreground truncate">FinPilot</span>
+              <span className="text-lg sm:text-2xl md:text-3xl font-bold truncate text-white">FinPilot</span>
             </NavLink>
           </div>}
 
@@ -142,46 +142,46 @@ const HeaderContent = ({
           </div>}
         
         {user && <div className="flex items-center gap-1 flex-shrink-0">
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              title="Loan Calculator" 
-              className="h-10 w-10 text-foreground hover:bg-muted"
-              onClick={() => setCalculatorOpen(true)}
-            >
-              <Calculator className="h-5 w-5" />
+            <Button
+          variant="ghost"
+          size="icon"
+          title="Loan Calculator"
+          className="h-10 w-10 text-foreground hover:bg-muted"
+          onClick={() => setCalculatorOpen(true)}>
+          
+              <Calculator className="h-5 w-5 text-white" />
             </Button>
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              title="Help & Support" 
-              className="h-10 w-10 text-foreground hover:bg-muted"
-              onClick={() => setIsChatOpen(true)}
-            >
-              <HelpCircle className="h-5 w-5" />
+            <Button
+          variant="ghost"
+          size="icon"
+          title="Help & Support"
+          className="h-10 w-10 text-foreground hover:bg-muted"
+          onClick={() => setIsChatOpen(true)}>
+          
+              <HelpCircle className="h-5 w-5 text-white" />
             </Button>
             <Suspense fallback={<div className="h-10 w-10" />}>
               <NotificationBell />
             </Suspense>
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              title="My Account" 
-              className="h-10 w-10 text-foreground hover:bg-muted"
-              onClick={() => navigate('/my-account')}
-            >
-              <User className="h-5 w-5" />
+            <Button
+          variant="ghost"
+          size="icon"
+          title="My Account"
+          className="h-10 w-10 text-foreground hover:bg-muted"
+          onClick={() => navigate('/my-account')}>
+          
+              <User className="h-5 w-5 text-white" />
             </Button>
           </div>}
       </div>
       
       <Suspense fallback={null}>
         <ToolModal
-          open={calculatorOpen}
-          onOpenChange={setCalculatorOpen}
-          toolType="loan_calculator"
-          toolTitle="Loan Calculator"
-        />
+        open={calculatorOpen}
+        onOpenChange={setCalculatorOpen}
+        toolType="loan_calculator"
+        toolTitle="Loan Calculator" />
+      
       </Suspense>
     </header>;
 };
@@ -192,7 +192,7 @@ const AppContent = () => {
   } = useAuth();
   const [isChatOpen, setIsChatOpen] = useState(false);
   const { ShortcutsDialog } = useKeyboardShortcuts();
-  
+
   return <div className="min-h-screen flex flex-col w-full">
       {/* Skip Links for Accessibility */}
       <SkipLinks />
@@ -200,7 +200,7 @@ const AppContent = () => {
       {/* Keyboard Shortcuts Dialog */}
       {ShortcutsDialog}
       
-      <HeaderContent isChatOpen={isChatOpen} setIsChatOpen={setIsChatOpen} />
+      <HeaderContent isChatOpen={isChatOpen} setIsChatOpen={setIsChatOpen} className="bg-black" />
       
       <div className="flex flex-1 min-h-0">
         {user && <AppSidebar onOpenSupport={() => setIsChatOpen(true)} />}

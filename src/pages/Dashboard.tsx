@@ -299,17 +299,17 @@ const Dashboard = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}>
           
-          <div className="px-4 sm:px-6 lg:px-10 py-6 sm:py-8 max-w-7xl mx-auto">
+          <div className="px-4 sm:px-6 lg:px-10 py-6 sm:py-8 max-w-7xl mx-auto bg-black">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
               <motion.div
                 initial={{ opacity: 0, x: -15 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1, duration: 0.4 }}>
                 
-                <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-1">
-                  Welcome back, <span className="text-halo-navy">{getFirstName()}</span>
+                <h1 className="text-2xl sm:text-3xl font-bold mb-1 text-white">
+                  Welcome back, <span className="text-halo-navy text-white">{getFirstName()}</span>
                 </h1>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-white">
                   Continue your journey in business finance mastery.
                 </p>
               </motion.div>
@@ -337,9 +337,9 @@ const Dashboard = () => {
               transition={{ delay: 0.3, duration: 0.5 }}
               style={{ transformOrigin: "left" }}>
               
-              <div className="flex justify-between mb-2">
-                <span className="text-xs font-semibold text-foreground">Overall Progress</span>
-                <span className="text-xs text-muted-foreground">
+              <div className="flex justify-between mb-2 text-white">
+                <span className="text-xs font-semibold text-white">Overall Progress</span>
+                <span className="text-xs text-white">
                   {completedCount}/{flattenedModules.length} modules
                 </span>
               </div>
@@ -501,12 +501,12 @@ const Dashboard = () => {
 function StatPill({ icon, value, label }: {icon: React.ReactNode;value: string | number;label: string;}) {
   return (
     <div className="flex items-center gap-2 sm:gap-3 group">
-      <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-halo-navy/5 flex items-center justify-center border border-halo-navy/10 group-hover:border-halo-navy/30 group-hover:bg-halo-navy/10 transition-all duration-300 bg-white">
+      <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-halo-navy/5 flex items-center justify-center border border-halo-navy/10 group-hover:border-halo-navy/30 group-hover:bg-halo-navy/10 transition-all duration-300 bg-black">
         {icon}
       </div>
       <div>
-        <p className="text-base sm:text-xl font-bold text-foreground tracking-tight">{value}</p>
-        <p className="text-[10px] sm:text-xs text-muted-foreground font-medium uppercase tracking-wider">{label}</p>
+        <p className="text-base sm:text-xl font-bold tracking-tight text-blue-600">{value}</p>
+        <p className="text-[10px] sm:text-xs font-medium uppercase tracking-wider text-white">{label}</p>
       </div>
     </div>);
 
