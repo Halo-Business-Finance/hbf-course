@@ -50,7 +50,8 @@ export const useCourses = () => {
       // Type assertion to ensure data matches our Course interface
       const typedCourses = (data || []).map(course => ({
         ...course,
-        level: course.level as 'beginner' | 'expert' | 'none'
+        level: course.level as 'beginner' | 'expert' | 'none',
+        prerequisite_course_ids: (course as any).prerequisite_course_ids || [],
       }));
 
       setCourses(typedCourses);
