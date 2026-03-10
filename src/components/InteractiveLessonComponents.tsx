@@ -335,7 +335,7 @@ export const InteractiveScenario = ({ onComplete }: InteractiveScenarioProps) =>
   return (
     <Card className="w-full max-w-4xl mx-auto border-purple-200 bg-white">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-purple-800">
+        <CardTitle className="flex items-center gap-2 text-blue-800">
           <Lightbulb className="h-5 w-5" />
           {scenario.title}
         </CardTitle>
@@ -349,7 +349,7 @@ export const InteractiveScenario = ({ onComplete }: InteractiveScenarioProps) =>
         </div>
 
         <div className="space-y-3">
-          <h4 className="font-medium">What would you recommend?</h4>
+          <h4 className="font-medium text-blue-800">What would you recommend?</h4>
           {scenario.choices.map((choice) =>
           <Button
             key={choice.id}
