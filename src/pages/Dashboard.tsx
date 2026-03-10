@@ -14,8 +14,7 @@ import { useCourseProgress } from "@/hooks/useCourseProgress";
 import { useCourseSelection } from "@/contexts/CourseSelectionContext";
 import { BookOpen, Clock, Target, Flame, Award, BarChart3, MessageSquare, Lightbulb } from "lucide-react";
 import { WelcomeWizard } from "@/components/onboarding/WelcomeWizard";
-import { QuickResumeCard } from "@/components/navigation/QuickResumeCard";
-import { StudyReminder } from "@/components/progress/StudyReminder";
+import { QuickResumeReminder } from "@/components/dashboard/QuickResumeReminder";
 import { SmartRecommendations } from "@/components/recommendations/SmartRecommendations";
 import { DiscussionForum } from "@/components/social/DiscussionForum";
 import { StreakCounter } from "@/components/dashboard/StreakCounter";
@@ -359,10 +358,9 @@ const Dashboard = () => {
         <div className="px-4 sm:px-6 lg:px-10 py-4 sm:py-8 max-w-7xl mx-auto space-y-6 sm:space-y-8">
           {/* Quick Resume + Study Reminder — only at top level */}
           {isOnCatalog &&
-          <StaggerContainer className="flex flex-col gap-6" staggerDelay={0.1}>
-              <StaggerItem><StudyReminder /></StaggerItem>
-              <StaggerItem><QuickResumeCard /></StaggerItem>
-            </StaggerContainer>
+          <AnimatedSection>
+              <QuickResumeReminder />
+            </AnimatedSection>
           }
 
           {/* Tabbed Layout — only at catalog level */}
