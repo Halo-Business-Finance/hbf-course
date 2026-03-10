@@ -205,9 +205,9 @@ export function QuickResumeReminder() {
       <div className="p-4 sm:p-5 px-0 py-[10px]">
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1 min-w-0">
-            <p className="text-xs uppercase tracking-wide mb-1 font-semibold text-white">
-              Continue where you left off
-            </p>
+            
+
+            
             <h3 className="font-semibold text-lg line-clamp-1 text-white">
               {lastActivity.courseTitle}
             </h3>
