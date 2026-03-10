@@ -1029,6 +1029,10 @@ const AdminDashboard = () => {
             <TraineeProgressView />
           </TabsContent>
 
+          <TabsContent value="certificates" className="space-y-4">
+            <CertificateRecords />
+          </TabsContent>
+
           <TabsContent value="courses" className="space-y-4">
             <CourseManager />
           </TabsContent>
