@@ -86,12 +86,14 @@ const Dashboard = () => {
   const { dashboardStats } = useLearningStats(user?.id);
   const {
     moduleProgress,
+    progress,
     loading: progressLoading,
     startModule,
     completeModule,
     isModuleUnlocked,
     getOverallProgress,
     getCompletedModulesCount,
+    getCourseProgress,
   } = useCourseProgress(user?.id);
   const { toast } = useToast();
   const notif = useNotificationTriggers(user?.id);
