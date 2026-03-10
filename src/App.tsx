@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route, useNavigate, NavLink, Navigate, useLocati
 import { ChevronLeft, ChevronRight, User, HelpCircle, Calculator } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import finpilotLogo from "@/assets/finpilot-logo.jpeg";
 import { AppSidebar } from "@/components/AppSidebar";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { CourseSelectionProvider } from "@/contexts/CourseSelectionContext";
