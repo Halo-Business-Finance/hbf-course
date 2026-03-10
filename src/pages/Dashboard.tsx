@@ -328,52 +328,45 @@ const Dashboard = () => {
               </motion.div>
             </div>
 
-            {/* Progress bar + Widget row */}
-            <div className="mt-6 flex flex-col lg:flex-row lg:items-start gap-6">
-              {/* Overall progress bar */}
-              <motion.div
-                className="flex-1 max-w-lg"
-                initial={{ opacity: 0, scaleX: 0.8 }}
-                animate={{ opacity: 1, scaleX: 1 }}
-                transition={{ delay: 0.3, duration: 0.5 }}
-                style={{ transformOrigin: "left" }}>
-                
-                <div className="flex justify-between mb-2 text-white">
-                  <span className="text-xs font-semibold text-white">Overall Progress</span>
-                  <span className="text-xs text-white">
-                    {completedCount}/{flattenedModules.length} modules
-                  </span>
-                </div>
-                <div className="h-2.5 bg-muted rounded-full overflow-hidden">
-                  <motion.div
-                    className="h-full bg-gradient-to-r from-halo-navy to-halo-orange rounded-full"
-                    initial={{ width: 0 }}
-                    animate={{ width: `${overallProgress}%` }}
-                    transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }} />
-                  
-                </div>
-              </motion.div>
-
-              {/* Quick Resume Widget */}
-              {isOnCatalog && (
+            {/* Overall progress bar */}
+            <motion.div
+              className="mt-6 max-w-lg"
+              initial={{ opacity: 0, scaleX: 0.8 }}
+              animate={{ opacity: 1, scaleX: 1 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+              style={{ transformOrigin: "left" }}>
+              
+              <div className="flex justify-between mb-2 text-white">
+                <span className="text-xs font-semibold text-white">Overall Progress</span>
+                <span className="text-xs text-white">
+                  {completedCount}/{flattenedModules.length} modules
+                </span>
+              </div>
+              <div className="h-2.5 bg-muted rounded-full overflow-hidden">
                 <motion.div
-                  className="w-full lg:max-w-md lg:ml-auto"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4, duration: 0.4 }}>
-                  <QuickResumeReminder />
-                </motion.div>
-              )}
-            </div>
+                  className="h-full bg-gradient-to-r from-halo-navy to-halo-orange rounded-full"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${overallProgress}%` }}
+                  transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }} />
+                
+              </div>
+            </motion.div>
           </div>
         </motion.div>
 
         {/* ── Main Content ── */}
-        <div className="px-4 sm:px-6 lg:px-10 py-4 sm:py-6 max-w-7xl mx-auto">
+        <div className="px-4 sm:px-6 lg:px-10 py-4 sm:py-8 max-w-7xl mx-auto space-y-6 sm:space-y-8">
+          {/* Quick Resume + Study Reminder — only at top level */}
+          {isOnCatalog &&
+          <AnimatedSection>
+              <QuickResumeReminder />
+            </AnimatedSection>
+          }
+
           {/* Tabbed Layout — only at catalog level */}
           {isOnCatalog ?
            <Tabs defaultValue="courses" className="w-full">
-              <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0 mb-6">
+              <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
                 <TabsList className="w-full sm:w-auto sm:max-w-md bg-muted/50 p-1 rounded-lg inline-flex">
                   <TabsTrigger value="courses" className="flex-1 gap-1.5 sm:gap-2 text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm whitespace-nowrap">
                     <BookOpen className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
@@ -390,7 +383,7 @@ const Dashboard = () => {
                 </TabsList>
               </div>
 
-              <TabsContent value="courses" className="mt-0">
+              <TabsContent value="courses" className="mt-6">
                 <DashboardCourseGrid
                 coursesWithModules={coursesWithModules}
                 flattenedModules={flattenedModules}
@@ -419,7 +412,7 @@ const Dashboard = () => {
               
               </TabsContent>
 
-              <TabsContent value="analytics" className="mt-0 space-y-6">
+              <TabsContent value="analytics" className="mt-6 space-y-6">
                 <LearningAnalyticsCharts />
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   <StreakCounter
@@ -437,7 +430,7 @@ const Dashboard = () => {
                 </div>
               </TabsContent>
 
-              <TabsContent value="community" className="mt-0 space-y-6">
+              <TabsContent value="community" className="mt-6 space-y-6">
                 <SmartRecommendations />
                 <DiscussionForum />
               </TabsContent>
