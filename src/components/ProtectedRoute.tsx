@@ -82,7 +82,7 @@ export const ProtectedRoute = ({ children, requireAuth = true }: ProtectedRouteP
     const redirectUrl = sessionStorage.getItem('redirectUrl');
     if (redirectUrl) {
       sessionStorage.removeItem('redirectUrl');
-      return <>{children}</>;
+      return <Navigate to={redirectUrl} replace />;
     }
     return <Navigate to="/dashboard" replace />;
   }
