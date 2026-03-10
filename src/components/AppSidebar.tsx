@@ -251,19 +251,36 @@ export function AppSidebar({ onOpenSupport }: {onOpenSupport?: () => void;}) {
             <Collapsible open={adminOpen} onOpenChange={setAdminOpen}>
               <SidebarGroup className="pt-0">
                 {!collapsed &&
-              <CollapsibleTrigger className="w-full">
-                    <SidebarGroupLabel className="flex items-center justify-between cursor-pointer hover:text-foreground transition-colors pb-1">
-                      <span className="text-xs font-semibold uppercase tracking-wide text-white">
-                        Admin Tools
-                      </span>
-                      <ChevronDown
-                    className={`h-3.5 w-3.5 text-muted-foreground transition-transform duration-200 ${
-                    adminOpen ? "" : "-rotate-90"}`
-                    } />
-                  
-                    </SidebarGroupLabel>
-                  </CollapsibleTrigger>
+              <div className="flex items-center justify-between px-2 py-1">
+                    <button
+                      onClick={() => handleNavigation("/admin/dashboard")}
+                      className="flex-1 text-left">
+                      <SidebarGroupLabel className="cursor-pointer hover:text-foreground transition-colors pb-1">
+                        <span className="text-xs font-semibold uppercase tracking-wide text-white">
+                          Admin Tools
+                        </span>
+                      </SidebarGroupLabel>
+                    </button>
+                    <CollapsibleTrigger asChild>
+                      <button className="p-1 hover:bg-muted rounded" aria-label="Toggle admin tools">
+                        <ChevronDown
+                          className={`h-3.5 w-3.5 text-muted-foreground transition-transform duration-200 ${
+                          adminOpen ? "" : "-rotate-90"}`} />
+                      </button>
+                    </CollapsibleTrigger>
+                  </div>
               }
+                {collapsed &&
+                  <SidebarMenuButton asChild>
+                    <button
+                      onClick={() => handleNavigation("/admin/dashboard")}
+                      className={`w-full flex items-center justify-center px-2 py-2 rounded-lg transition-all duration-200 min-h-[2.75rem] ${
+                        location.pathname.startsWith('/admin') ? "bg-halo-navy text-white font-medium" : "text-foreground hover:bg-muted"}`}
+                      aria-label="Admin Dashboard">
+                      <ShieldCheck className="h-5 w-5 flex-shrink-0 text-orange-500" />
+                    </button>
+                  </SidebarMenuButton>
+                }
                 <CollapsibleContent>
                   <SidebarGroupContent>
                     <SidebarMenu className="space-y-0.5">
@@ -276,9 +293,9 @@ export function AppSidebar({ onOpenSupport }: {onOpenSupport?: () => void;}) {
                           aria-label={item.title}
                           aria-current={isActive(item.url) ? "page" : undefined}>
                           
-                              <item.icon className="h-5 w-5 flex-shrink-0" />
+                              <item.icon className="h-5 w-5 flex-shrink-0 text-orange-500" />
                               {!collapsed &&
-                          <span className="text-xs font-medium">{item.title}</span>
+                          <span className="text-xs font-medium text-white">{item.title}</span>
                           }
                             </button>
                           </SidebarMenuButton>
