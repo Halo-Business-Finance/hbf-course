@@ -63,7 +63,7 @@ export function DashboardCourseFilter({
         <Button
           variant="outline"
           onClick={() => onCategorySelect(null)}
-          className={`h-10 sm:h-12 px-3 sm:px-6 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 ${
+          className={`h-10 sm:h-12 px-3 sm:px-6 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 shrink-0 ${
             selectedCategory === null
               ? "border-2 border-foreground text-foreground shadow-sm"
               : "border-2 border-border text-muted-foreground hover:border-foreground hover:text-foreground"
