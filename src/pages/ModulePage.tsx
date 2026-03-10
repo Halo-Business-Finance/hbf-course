@@ -506,7 +506,7 @@ const ModulePage = () => {
                           initial={{ opacity: 0, x: -8 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: lessonIdx * 0.05, duration: 0.3 }}
-                          className="flex items-center justify-between gap-3 px-4 py-3 hover:bg-muted/30 transition-colors">
+                          className="flex items-center justify-between gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 hover:bg-muted/30 transition-colors">
                           
                                 <div className="flex items-center gap-3 min-w-0 flex-1">
                                   <div className={`p-1.5 rounded ${lesson.completed ? "text-accent" : "text-muted-foreground"}`}>
