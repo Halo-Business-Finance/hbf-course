@@ -294,7 +294,7 @@ const Dashboard = () => {
 
         {/* ── Welcome Header ── */}
         <motion.div
-          className="border-b border-border"
+          className="border-b border-border bg-black"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}>
