@@ -11,7 +11,7 @@ export const HorizontalNav = () => {
           <div className="w-10 h-10 bg-halo-navy rounded-sm flex items-center justify-center">
             <span className="text-white font-bold text-base">FP</span>
           </div>
-          <span className="text-2xl font-bold text-foreground">FinPilot</span>
+          <span className="text-2xl font-bold text-white">FinPilot</span>
         </NavLink>
 
         {/* Navigation Menu */}
