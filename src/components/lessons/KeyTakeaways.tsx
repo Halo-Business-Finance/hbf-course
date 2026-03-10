@@ -15,15 +15,15 @@ export function KeyTakeaways({ objectives, className = "" }: KeyTakeawaysProps) 
         <h3 className="font-semibold text-foreground text-sm sm:text-base">What You'll Learn</h3>
       </div>
       <ul className="space-y-2">
-        {objectives.map((obj, i) => (
-          <li key={i} className="flex items-start gap-2.5 text-sm text-foreground">
-            <span className="w-5 h-5 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
+        {objectives.map((obj, i) =>
+        <li key={i} className="flex items-start gap-2.5 text-sm text-foreground">
+            <span className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold shrink-0 mt-0.5 text-black bg-white">
               {i + 1}
             </span>
             <span>{obj}</span>
           </li>
-        ))}
+        )}
       </ul>
-    </div>
-  );
+    </div>);
+
 }

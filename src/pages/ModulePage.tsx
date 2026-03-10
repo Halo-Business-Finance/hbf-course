@@ -73,11 +73,11 @@ const ModulePage = () => {
       if (!moduleId) return;
       const dbModuleId = decodeURIComponent(moduleId);
       try {
-        const { data: dbModule, error: moduleError } = await supabase
-          .from('course_content_modules')
-          .select('*')
-          .eq('id', dbModuleId)
-          .maybeSingle();
+        const { data: dbModule, error: moduleError } = await supabase.
+        from('course_content_modules').
+        select('*').
+        eq('id', dbModuleId).
+        maybeSingle();
 
         if (moduleError || !dbModule) {
           setLoading(false);
@@ -86,11 +86,11 @@ const ModulePage = () => {
         setModule(dbModule);
 
         if (dbModule.course_id) {
-          const { data: courseData, error: courseError } = await supabase
-            .from('courses')
-            .select('id, title, description')
-            .eq('id', dbModule.course_id)
-            .maybeSingle();
+          const { data: courseData, error: courseError } = await supabase.
+          from('courses').
+          select('id, title, description').
+          eq('id', dbModule.course_id).
+          maybeSingle();
 
           if (courseData && !courseError) {
             setSelectedCourseForNavigation({
@@ -105,16 +105,16 @@ const ModulePage = () => {
 
         const moduleForContent = dbModule.id;
         const [videosResponse, articlesResponse, assessmentsResponse, documentsResponse] = await Promise.all([
-          supabase.from('course_videos').select('*').eq('module_id', moduleForContent).eq('is_active', true).order('order_index'),
-          supabase.from('course_articles').select('*').eq('module_id', moduleForContent).eq('is_published', true).order('order_index'),
-          supabase.from('course_assessments').select('*').eq('module_id', moduleForContent).order('order_index'),
-          supabase.from('course_documents').select('*').eq('module_id', moduleForContent).order('title')
-        ]);
+        supabase.from('course_videos').select('*').eq('module_id', moduleForContent).eq('is_active', true).order('order_index'),
+        supabase.from('course_articles').select('*').eq('module_id', moduleForContent).eq('is_published', true).order('order_index'),
+        supabase.from('course_assessments').select('*').eq('module_id', moduleForContent).order('order_index'),
+        supabase.from('course_documents').select('*').eq('module_id', moduleForContent).order('title')]
+        );
 
         const allLessons: Lesson[] = [];
 
         if (videosResponse.data?.length) {
-          videosResponse.data.forEach(video => {
+          videosResponse.data.forEach((video) => {
             allLessons.push({
               id: video.id, title: video.title, type: 'video',
               duration: video.duration_seconds ? `${Math.round(video.duration_seconds / 60)} min` : '15 min',
@@ -124,7 +124,7 @@ const ModulePage = () => {
         }
 
         if (articlesResponse.data?.length) {
-          articlesResponse.data.forEach(article => {
+          articlesResponse.data.forEach((article) => {
             allLessons.push({
               id: article.id, title: article.title, type: 'reading',
               duration: article.reading_time_minutes ? `${article.reading_time_minutes} min read` : '10 min read',
@@ -134,7 +134,7 @@ const ModulePage = () => {
         }
 
         if (assessmentsResponse.data?.length) {
-          assessmentsResponse.data.forEach(assessment => {
+          assessmentsResponse.data.forEach((assessment) => {
             allLessons.push({
               id: assessment.id, title: assessment.title, type: 'quiz',
               duration: assessment.time_limit_minutes ? `${assessment.time_limit_minutes} min` : '20 min',
@@ -144,7 +144,7 @@ const ModulePage = () => {
         }
 
         if (documentsResponse.data?.length) {
-          documentsResponse.data.forEach(document => {
+          documentsResponse.data.forEach((document) => {
             allLessons.push({
               id: document.id, title: document.title, type: 'document',
               duration: '5 min', completed: false, content: document,
@@ -184,8 +184,8 @@ const ModulePage = () => {
             <h2 className="text-xl font-semibold mb-2">Loading Module...</h2>
           </CardContent>
         </Card>
-      </div>
-    );
+      </div>);
+
   }
 
   if (!module) {
@@ -201,8 +201,8 @@ const ModulePage = () => {
             </Button>
           </CardContent>
         </Card>
-      </div>
-    );
+      </div>);
+
   }
 
   const handleLessonStart = (lesson: any) => {
@@ -226,12 +226,12 @@ const ModulePage = () => {
 
   const getTypeIcon = (type: string) => {
     switch (type) {
-      case "video": return <Video className="h-4 w-4" />;
-      case "reading": return <FileText className="h-4 w-4" />;
-      case "quiz": return <Users2 className="h-4 w-4" />;
-      case "document": return <Download className="h-4 w-4" />;
-      case "interactive": return <Zap className="h-4 w-4" />;
-      default: return <BookOpen className="h-4 w-4" />;
+      case "video":return <Video className="h-4 w-4" />;
+      case "reading":return <FileText className="h-4 w-4" />;
+      case "quiz":return <Users2 className="h-4 w-4" />;
+      case "document":return <Download className="h-4 w-4" />;
+      case "interactive":return <Zap className="h-4 w-4" />;
+      default:return <BookOpen className="h-4 w-4" />;
     }
   };
 
@@ -272,23 +272,23 @@ const ModulePage = () => {
         <h5 className="font-medium mb-2 text-foreground">{moduleContent.title}</h5>
         <p className="text-sm mb-2 text-foreground">{moduleContent.description}</p>
         <p className="text-xs font-medium text-foreground">Focus: {moduleContent.focus}</p>
-      </div>
-    );
+      </div>);
+
   };
 
   const getModuleLearningObjectives = (module: any) => {
     const moduleType = getModuleType(module);
     const isExpert = module.title.toLowerCase().includes('expert');
     const objectives: Record<string, string[]> = {
-      'sba-7a': isExpert
-        ? ['Master advanced SBA 7(a) underwriting techniques and risk assessment', 'Develop expertise in complex deal structuring and portfolio optimization', 'Implement advanced compliance and regulatory strategies', 'Execute sophisticated client relationship management approaches']
-        : ['Understand SBA 7(a) program structure and eligibility requirements', 'Learn application processes and required documentation', 'Master basic underwriting principles and risk assessment', 'Develop client consultation and presentation skills'],
-      'invoice-factoring': isExpert
-        ? ['Master advanced factoring portfolio management strategies', 'Develop innovative factoring structures and risk mitigation techniques', 'Execute complex client evaluation and due diligence processes', 'Implement advanced collection and account management systems']
-        : ['Understand invoice factoring fundamentals and cash flow benefits', 'Learn client eligibility assessment and account evaluation', 'Master basic factoring calculations and fee structures', 'Develop client onboarding and account setup processes'],
-      'equipment-financing': isExpert
-        ? ['Master complex equipment portfolio management and optimization', 'Develop advanced equipment valuation and risk assessment techniques', 'Execute innovative financing structures and vendor relationships', 'Implement sophisticated collection and remarketing strategies']
-        : ['Understand equipment financing basics and collateral evaluation', 'Learn equipment types, depreciation, and valuation methods', 'Master basic financing structures and payment calculations', 'Develop vendor relationships and client acquisition strategies']
+      'sba-7a': isExpert ?
+      ['Master advanced SBA 7(a) underwriting techniques and risk assessment', 'Develop expertise in complex deal structuring and portfolio optimization', 'Implement advanced compliance and regulatory strategies', 'Execute sophisticated client relationship management approaches'] :
+      ['Understand SBA 7(a) program structure and eligibility requirements', 'Learn application processes and required documentation', 'Master basic underwriting principles and risk assessment', 'Develop client consultation and presentation skills'],
+      'invoice-factoring': isExpert ?
+      ['Master advanced factoring portfolio management strategies', 'Develop innovative factoring structures and risk mitigation techniques', 'Execute complex client evaluation and due diligence processes', 'Implement advanced collection and account management systems'] :
+      ['Understand invoice factoring fundamentals and cash flow benefits', 'Learn client eligibility assessment and account evaluation', 'Master basic factoring calculations and fee structures', 'Develop client onboarding and account setup processes'],
+      'equipment-financing': isExpert ?
+      ['Master complex equipment portfolio management and optimization', 'Develop advanced equipment valuation and risk assessment techniques', 'Execute innovative financing structures and vendor relationships', 'Implement sophisticated collection and remarketing strategies'] :
+      ['Understand equipment financing basics and collateral evaluation', 'Learn equipment types, depreciation, and valuation methods', 'Master basic financing structures and payment calculations', 'Develop vendor relationships and client acquisition strategies']
     };
     return objectives[moduleType] || ['Master core concepts and industry best practices', 'Develop practical application skills through case studies', 'Build analytical and decision-making capabilities', 'Enhance client service and relationship management skills'];
   };
@@ -319,9 +319,9 @@ const ModulePage = () => {
 
   const getModuleProfessionalSkills = (module: any) => {
     const isExpert = module.title.toLowerCase().includes('expert');
-    return isExpert
-      ? 'Advanced analytical thinking, strategic portfolio management, complex problem-solving, and senior-level client relationship management.'
-      : 'Financial analysis fundamentals, client communication, documentation skills, and risk assessment basics.';
+    return isExpert ?
+    'Advanced analytical thinking, strategic portfolio management, complex problem-solving, and senior-level client relationship management.' :
+    'Financial analysis fundamentals, client communication, documentation skills, and risk assessment basics.';
   };
 
   const getModuleBusinessImpact = (module: any) => {
@@ -338,37 +338,37 @@ const ModulePage = () => {
 
   // Calculate progress and estimated time
   const currentProgress = moduleProgress[moduleId!]?.progress_percentage || 0;
-  const completedLessonsCount = lessons.filter(l => l.completed).length;
+  const completedLessonsCount = lessons.filter((l) => l.completed).length;
   const totalDurationMinutes = lessons.reduce((acc, l) => {
     const mins = parseInt(l.duration) || 15;
     return acc + mins;
   }, 0);
   const remainingMinutes = Math.round(totalDurationMinutes * (1 - currentProgress / 100));
-  const estimatedTimeRemaining = remainingMinutes > 60
-    ? `${Math.floor(remainingMinutes / 60)}h ${remainingMinutes % 60}m`
-    : `${remainingMinutes} min`;
+  const estimatedTimeRemaining = remainingMinutes > 60 ?
+  `${Math.floor(remainingMinutes / 60)}h ${remainingMinutes % 60}m` :
+  `${remainingMinutes} min`;
 
   // Group lessons by type for collapsible sections
-  const videoLessons = lessons.filter(l => l.type === 'video');
-  const readingLessons = lessons.filter(l => l.type === 'reading');
-  const quizLessons = lessons.filter(l => l.type === 'quiz');
-  const documentLessons = lessons.filter(l => l.type === 'document');
-  const interactiveLessons = lessons.filter(l => l.type === 'interactive');
+  const videoLessons = lessons.filter((l) => l.type === 'video');
+  const readingLessons = lessons.filter((l) => l.type === 'reading');
+  const quizLessons = lessons.filter((l) => l.type === 'quiz');
+  const documentLessons = lessons.filter((l) => l.type === 'document');
+  const interactiveLessons = lessons.filter((l) => l.type === 'interactive');
 
   const lessonGroups = [
-    { key: 'video', label: 'Video Lessons', icon: <Video className="h-4 w-4" />, items: videoLessons },
-    { key: 'reading', label: 'Reading Material', icon: <FileText className="h-4 w-4" />, items: readingLessons },
-    { key: 'quiz', label: 'Assessments', icon: <Users2 className="h-4 w-4" />, items: quizLessons },
-    { key: 'document', label: 'Documents & Resources', icon: <Download className="h-4 w-4" />, items: documentLessons },
-    { key: 'interactive', label: 'Interactive Activities', icon: <Zap className="h-4 w-4" />, items: interactiveLessons },
-  ].filter(g => g.items.length > 0);
+  { key: 'video', label: 'Video Lessons', icon: <Video className="h-4 w-4" />, items: videoLessons },
+  { key: 'reading', label: 'Reading Material', icon: <FileText className="h-4 w-4" />, items: readingLessons },
+  { key: 'quiz', label: 'Assessments', icon: <Users2 className="h-4 w-4" />, items: quizLessons },
+  { key: 'document', label: 'Documents & Resources', icon: <Download className="h-4 w-4" />, items: documentLessons },
+  { key: 'interactive', label: 'Interactive Activities', icon: <Zap className="h-4 w-4" />, items: interactiveLessons }].
+  filter((g) => g.items.length > 0);
 
   // Breadcrumb items
   const breadcrumbItems = [
-    { label: 'Dashboard', href: '/dashboard' },
-    ...(courseName ? [{ label: courseName.split(' - ')[0], href: '/dashboard' }] : []),
-    { label: module.title },
-  ];
+  { label: 'Dashboard', href: '/dashboard' },
+  ...(courseName ? [{ label: courseName.split(' - ')[0], href: '/dashboard' }] : []),
+  { label: module.title }];
+
 
   return (
     <div className="min-h-screen bg-background">
@@ -394,11 +394,11 @@ const ModulePage = () => {
         totalLessons={lessons.length}
         completedLessons={completedLessonsCount}
         moduleTitle={module.title}
-        estimatedTimeRemaining={estimatedTimeRemaining}
-      />
+        estimatedTimeRemaining={estimatedTimeRemaining} />
+      
 
-      {!user && (
-        <div className="container mx-auto px-4 mt-4">
+      {!user &&
+      <div className="container mx-auto px-4 mt-4">
           <Alert className="bg-primary/10 border-primary">
             <AlertCircle className="h-4 w-4" />
             <div className="flex-1">
@@ -409,7 +409,7 @@ const ModulePage = () => {
             <Button onClick={() => navigate('/auth')} size="sm" className="ml-4">Sign In</Button>
           </Alert>
         </div>
-      )}
+      }
 
       <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
         <div className="flex gap-6 lg:gap-8">
@@ -418,8 +418,8 @@ const ModulePage = () => {
             lessons={lessons}
             activeId={selectedLesson?.id}
             onSelect={handleLessonStart}
-            className="w-64 shrink-0"
-          />
+            className="w-64 shrink-0" />
+          
 
           {/* Main Content */}
           <div className="flex-1 min-w-0 space-y-6">
@@ -427,8 +427,8 @@ const ModulePage = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
+              transition={{ duration: 0.5 }}>
+              
             <Card className="bg-halo-navy overflow-hidden">
               <CardHeader>
                 <div className="flex items-start justify-between">
@@ -436,11 +436,11 @@ const ModulePage = () => {
                     <CardTitle className="text-xl sm:text-2xl text-white">{module.title}</CardTitle>
                     <CardDescription className="mt-2 text-white/80">{module.description}</CardDescription>
                   </div>
-                  {module.skill_level && module.skill_level.toLowerCase() !== "beginner" && (
+                  {module.skill_level && module.skill_level.toLowerCase() !== "beginner" &&
                     <Badge variant={module.skill_level.toLowerCase() === "expert" ? "success" : "outline"}>
                       {module.skill_level.charAt(0).toUpperCase() + module.skill_level.slice(1)}
                     </Badge>
-                  )}
+                    }
                 </div>
               </CardHeader>
               <CardContent>
@@ -464,7 +464,7 @@ const ModulePage = () => {
 
             {/* Key Takeaways - "What You'll Learn" */}
             <AnimatedSection delay={0.1}>
-            <KeyTakeaways objectives={getModuleLearningObjectives(module)} />
+            <KeyTakeaways objectives={getModuleLearningObjectives(module)} className="bg-white" />
             </AnimatedSection>
 
             {/* Tabs */}
@@ -485,29 +485,29 @@ const ModulePage = () => {
 
               {/* Lessons Tab - Collapsible sections */}
               <TabsContent value="lessons" className="space-y-4">
-                {lessons.length > 0 ? (
-                  <Accordion type="multiple" defaultValue={lessonGroups.map(g => g.key)} className="space-y-3">
-                    {lessonGroups.map(group => (
-                      <AccordionItem key={group.key} value={group.key} className="border rounded-lg overflow-hidden">
+                {lessons.length > 0 ?
+                <Accordion type="multiple" defaultValue={lessonGroups.map((g) => g.key)} className="space-y-3">
+                    {lessonGroups.map((group) =>
+                  <AccordionItem key={group.key} value={group.key} className="border rounded-lg overflow-hidden">
                         <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted/50">
                           <div className="flex items-center gap-3">
                             {group.icon}
                             <span className="font-semibold text-sm">{group.label}</span>
                             <Badge variant="outline" className="text-xs ml-2">
-                              {group.items.filter(l => l.completed).length}/{group.items.length}
+                              {group.items.filter((l) => l.completed).length}/{group.items.length}
                             </Badge>
                           </div>
                         </AccordionTrigger>
                         <AccordionContent className="px-0 pb-0">
                           <div className="divide-y">
-                            {group.items.map((lesson, lessonIdx) => (
-                              <motion.div
-                                key={lesson.id}
-                                initial={{ opacity: 0, x: -8 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: lessonIdx * 0.05, duration: 0.3 }}
-                                className="flex items-center justify-between gap-3 px-4 py-3 hover:bg-muted/30 transition-colors"
-                              >
+                            {group.items.map((lesson, lessonIdx) =>
+                        <motion.div
+                          key={lesson.id}
+                          initial={{ opacity: 0, x: -8 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: lessonIdx * 0.05, duration: 0.3 }}
+                          className="flex items-center justify-between gap-3 px-4 py-3 hover:bg-muted/30 transition-colors">
+                          
                                 <div className="flex items-center gap-3 min-w-0 flex-1">
                                   <div className={`p-1.5 rounded ${lesson.completed ? "text-accent" : "text-muted-foreground"}`}>
                                     {lesson.completed ? <CheckCircle className="h-4 w-4" /> : getTypeIcon(lesson.type)}
@@ -521,30 +521,30 @@ const ModulePage = () => {
                                   </div>
                                 </div>
                                 <Button
-                                  size="sm"
-                                  variant={lesson.completed ? "outline" : "default"}
-                                  className="h-9 px-3 text-xs shrink-0 min-w-[72px] hover:scale-[1.03] transition-transform"
-                                  onClick={() => handleLessonStart(lesson)}
-                                >
+                            size="sm"
+                            variant={lesson.completed ? "outline" : "default"}
+                            className="h-9 px-3 text-xs shrink-0 min-w-[72px] hover:scale-[1.03] transition-transform"
+                            onClick={() => handleLessonStart(lesson)}>
+                            
                                   <Play className="h-3 w-3 mr-1" />
                                   {lesson.completed ? "Review" : "Start"}
                                 </Button>
                               </motion.div>
-                            ))}
+                        )}
                           </div>
                         </AccordionContent>
                       </AccordionItem>
-                    ))}
-                  </Accordion>
-                ) : (
-                  <Card>
+                  )}
+                  </Accordion> :
+
+                <Card>
                     <CardContent className="p-8 text-center">
                       <BookOpen className="h-12 w-12 text-muted-foreground mx-auto" />
                       <h3 className="text-lg font-semibold mt-4 mb-2">No Lessons Available</h3>
                       <p className="text-muted-foreground">Content will be added soon.</p>
                     </CardContent>
                   </Card>
-                )}
+                }
               </TabsContent>
 
               {/* Overview Tab */}
@@ -559,12 +559,12 @@ const ModulePage = () => {
                     <div>
                       <h4 className="font-semibold mb-3">Key Topics Covered</h4>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                        {getModuleKeyTopics(module).map((topic, index) => (
-                          <div key={index} className="flex items-center gap-2 text-sm">
+                        {getModuleKeyTopics(module).map((topic, index) =>
+                        <div key={index} className="flex items-center gap-2 text-sm">
                             <CheckCircle className="h-3 w-3 text-primary" />
                             <span>{topic}</span>
                           </div>
-                        ))}
+                        )}
                       </div>
                     </div>
 
@@ -599,12 +599,12 @@ const ModulePage = () => {
               {/* Assessment Tab */}
               <TabsContent value="assessment" className="space-y-6">
                 {/* Score History */}
-                {user && (
-                  <QuizScoreHistory
-                    moduleId={module.id}
-                    assessmentId={quizLessons[0]?.id}
-                  />
-                )}
+                {user &&
+                <QuizScoreHistory
+                  moduleId={module.id}
+                  assessmentId={quizLessons[0]?.id} />
+
+                }
 
                 <ModuleQuiz
                   moduleId={module.id}
@@ -626,7 +626,7 @@ const ModulePage = () => {
                           setCompletionData({
                             certificateId: result.certificateId,
                             totalModules: result.totalModules,
-                            averageScore: result.averageScore,
+                            averageScore: result.averageScore
                           });
                           setShowCompletionModal(true);
                         } else {
@@ -636,8 +636,8 @@ const ModulePage = () => {
                     } else {
                       notif.onQuizFailed(module.title, 0);
                     }
-                  }}
-                />
+                  }} />
+                
               </TabsContent>
             </Tabs>
 
@@ -712,30 +712,30 @@ const ModulePage = () => {
       <NotesModal isOpen={isNotesModalOpen} onClose={() => setIsNotesModalOpen(false)} moduleTitle={module.title} />
       <QuestionModal isOpen={isQuestionModalOpen} onClose={() => setIsQuestionModalOpen(false)} moduleTitle={module.title} moduleId={moduleId} />
 
-      {selectedLesson && (
-        <LessonModal
-          isOpen={isLessonModalOpen}
-          onClose={() => { setIsLessonModalOpen(false); setSelectedLesson(null); }}
-          lesson={selectedLesson}
-          moduleTitle={module.title}
-          moduleId={moduleId}
-        />
-      )}
+      {selectedLesson &&
+      <LessonModal
+        isOpen={isLessonModalOpen}
+        onClose={() => {setIsLessonModalOpen(false);setSelectedLesson(null);}}
+        lesson={selectedLesson}
+        moduleTitle={module.title}
+        moduleId={moduleId} />
+
+      }
 
       {/* Course Completion Modal */}
-      {completionData && (
-        <CourseCompletionModal
-          isOpen={showCompletionModal}
-          onClose={() => setShowCompletionModal(false)}
-          courseName={courseName}
-          courseId={courseId}
-          certificateId={completionData.certificateId}
-          totalModules={completionData.totalModules}
-          averageScore={completionData.averageScore}
-        />
-      )}
-    </div>
-  );
+      {completionData &&
+      <CourseCompletionModal
+        isOpen={showCompletionModal}
+        onClose={() => setShowCompletionModal(false)}
+        courseName={courseName}
+        courseId={courseId}
+        certificateId={completionData.certificateId}
+        totalModules={completionData.totalModules}
+        averageScore={completionData.averageScore} />
+
+      }
+    </div>);
+
 };
 
 export default ModulePage;
