@@ -855,7 +855,7 @@ const AdminDashboard = () => {
         {/* Modern Tabs Interface */}
         <Tabs defaultValue="overview" className="space-y-8">
           <div className="bg-card/50 backdrop-blur-sm p-3 border-0 border-white rounded-none shadow-none">
-            <TabsList className="grid w-full grid-cols-10 bg-transparent gap-2">
+            <TabsList className="grid w-full grid-cols-12 bg-transparent gap-2">
               <TabsTrigger value="overview" className="data-[state=active]:bg-background data-[state=active]:shadow-elegant transition-all duration-300 rounded-xl">
                 <span>Overview</span>
               </TabsTrigger>
