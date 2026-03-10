@@ -26,6 +26,7 @@ import { ResourceManager } from "@/components/admin/ResourceManager";
 import CMSManager from "@/components/admin/CMSManager";
 import { TraineeProgressView } from "@/components/admin/TraineeProgressView";
 import { CourseManager } from "@/components/admin/CourseManager";
+import { CertificateRecords } from "@/components/admin/CertificateRecords";
 import { validateEmail, validatePassword, validateName, sanitizeInput } from "@/utils/validation";
 import { authRateLimiter } from "@/utils/validation";
 import { SecurePIIDisplay } from "@/components/SecurePIIDisplay";
