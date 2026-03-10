@@ -106,19 +106,19 @@ export function AppSidebar({ onOpenSupport }: {onOpenSupport?: () => void;}) {
 
 
   return (
-    <Sidebar collapsible="icon" variant="inset" className="bg-black border-r border-black">
+    <Sidebar collapsible="icon" variant="inset" className="bg-sidebar border-sidebar-border border-r">
       <SidebarContent className="pt-[56px] sm:pt-[70px] bg-black">
         {/* Welcome */}
-        {user && !collapsed &&
-        <div className="px-4 pb-1 pt-4">
-            <p className="text-sm font-semibold text-foreground">
-              Welcome back,{" "}
-              {user.user_metadata?.full_name?.split(" ")[0] ||
-            user.email?.split("@")[0] ||
-            "User"}
-              !
-            </p>
-          </div>
+        {user && !collapsed
+
+
+
+
+
+
+
+
+
         }
 
         {/* ── Learning Section ── */}
