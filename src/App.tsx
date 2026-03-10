@@ -113,14 +113,14 @@ const HeaderContent = ({
   return <header className="sticky top-0 h-[56px] sm:h-[70px] flex flex-col border-b border-white/10 bg-black z-50 px-2 sm:px-4">
       <div className="flex-1 flex items-center justify-between gap-1 sm:gap-2 md:gap-4 min-h-0 bg-black">
         <div className="flex items-center gap-1 sm:gap-2 md:gap-4 flex-shrink-0 rounded-2xl border-white border-0">
-          {user && <SidebarTrigger variant="ghost" size="icon" className="ml-1 sm:ml-2 h-9 w-9 sm:h-10 sm:w-10 p-0 text-navy-900" />}
+          {user && <SidebarTrigger variant="ghost" size="icon" className="ml-1 sm:ml-2 h-9 w-9 sm:h-10 sm:w-10 p-0 text-white hover:bg-white/10 hover:text-white" />}
           
           {user && <div className="flex items-center gap-1 sm:gap-2">
-              <Button variant="ghost" size="sm" onClick={goBack} title="Go back" className="h-8 w-8 p-0 hover:bg-muted text-navy-900">
-                <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
+              <Button variant="ghost" size="sm" onClick={goBack} title="Go back" className="h-8 w-8 p-0 text-white hover:bg-white/10 hover:text-white">
+                <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4" />
               </Button>
-              <Button variant="ghost" size="sm" onClick={goForward} className="h-8 w-8 p-0 text-navy-900 hover:bg-muted" title="Go forward">
-                <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
+              <Button variant="ghost" size="sm" onClick={goForward} className="h-8 w-8 p-0 text-white hover:bg-white/10 hover:text-white" title="Go forward">
+                <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
               </Button>
             </div>}
         </div>
