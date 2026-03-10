@@ -84,7 +84,7 @@ export function useCourseCompletion(userId?: string) {
           result.certificateId = existingCert.id;
         } else {
           // Generate certificate
-          const certNumber = `HALO-${courseId.toUpperCase().slice(0, 8)}-${Date.now().toString(36).toUpperCase()}`;
+          const certNumber = `FP-${courseId.toUpperCase().slice(0, 8)}-${Date.now().toString(36).toUpperCase()}`;
           const { data: newCert, error: certErr } = await supabase
             .from('certificates')
             .insert({

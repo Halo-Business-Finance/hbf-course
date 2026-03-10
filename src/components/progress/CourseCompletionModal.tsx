@@ -58,11 +58,11 @@ export function CourseCompletionModal({
         {/* Celebration Header */}
         <div className="bg-halo-navy px-6 pt-10 pb-8 text-center relative overflow-hidden">
           {/* Gold accent line */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-amber-400 to-transparent" />
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[hsl(38,40%,53%)] to-transparent" />
           
           <div className="relative z-10">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-amber-400/20 border-2 border-amber-400 mb-4">
-              <Trophy className="h-10 w-10 text-amber-400" />
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-[hsl(38,40%,53%)]/20 border-2 border-[hsl(38,40%,53%)] mb-4">
+              <Trophy className="h-10 w-10 text-[hsl(38,40%,53%)]" />
             </div>
             
             <DialogHeader className="space-y-2">
@@ -74,7 +74,7 @@ export function CourseCompletionModal({
               </DialogDescription>
             </DialogHeader>
             
-            <h3 className="text-lg font-semibold text-amber-400 mt-2">{courseName}</h3>
+            <h3 className="text-lg font-semibold text-[hsl(38,40%,53%)] mt-2">{courseName}</h3>
           </div>
         </div>
 

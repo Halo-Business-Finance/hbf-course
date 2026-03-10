@@ -26,6 +26,7 @@ import { ResourceManager } from "@/components/admin/ResourceManager";
 import CMSManager from "@/components/admin/CMSManager";
 import { TraineeProgressView } from "@/components/admin/TraineeProgressView";
 import { CourseManager } from "@/components/admin/CourseManager";
+import { CertificateRecords } from "@/components/admin/CertificateRecords";
 import { validateEmail, validatePassword, validateName, sanitizeInput } from "@/utils/validation";
 import { authRateLimiter } from "@/utils/validation";
 import { SecurePIIDisplay } from "@/components/SecurePIIDisplay";
@@ -856,7 +857,7 @@ const AdminDashboard = () => {
         {/* Modern Tabs Interface */}
         <Tabs defaultValue="overview" className="space-y-8">
           <div className="bg-card/50 backdrop-blur-sm p-3 border-0 border-white rounded-none shadow-none">
-            <TabsList className="grid w-full grid-cols-12 bg-transparent gap-2">
+            <TabsList className="flex flex-wrap gap-2 bg-transparent w-full">
               <TabsTrigger value="overview" className="data-[state=active]:bg-background data-[state=active]:shadow-elegant transition-all duration-300 rounded-xl">
                 <span>Overview</span>
               </TabsTrigger>
@@ -880,6 +881,9 @@ const AdminDashboard = () => {
               </TabsTrigger>
               <TabsTrigger value="trainee-progress" className="data-[state=active]:bg-background data-[state=active]:shadow-elegant transition-all duration-300 rounded-xl">
                 <span>Progress</span>
+              </TabsTrigger>
+              <TabsTrigger value="certificates" className="data-[state=active]:bg-background data-[state=active]:shadow-elegant transition-all duration-300 rounded-xl">
+                <span>Certificates</span>
               </TabsTrigger>
               <TabsTrigger value="courses" className="data-[state=active]:shadow-elegant transition-all duration-300 rounded-xl bg-white">
                 <span>Courses</span>
@@ -1023,6 +1027,10 @@ const AdminDashboard = () => {
 
           <TabsContent value="trainee-progress" className="space-y-4">
             <TraineeProgressView />
+          </TabsContent>
+
+          <TabsContent value="certificates" className="space-y-4">
+            <CertificateRecords />
           </TabsContent>
 
           <TabsContent value="courses" className="space-y-4">
