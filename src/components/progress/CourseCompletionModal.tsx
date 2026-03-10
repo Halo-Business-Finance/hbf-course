@@ -74,7 +74,7 @@ export function CourseCompletionModal({
               </DialogDescription>
             </DialogHeader>
             
-            <h3 className="text-lg font-semibold text-amber-400 mt-2">{courseName}</h3>
+            <h3 className="text-lg font-semibold text-[hsl(38,40%,53%)] mt-2">{courseName}</h3>
           </div>
         </div>
 
