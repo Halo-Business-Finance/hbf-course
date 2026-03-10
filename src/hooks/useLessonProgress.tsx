@@ -212,7 +212,7 @@ export const useLessonProgress = (lessonId: string, moduleId: string) => {
     return {
       completedSteps,
       totalSteps: steps.length,
-      completionPercentage: Math.round((completedSteps / steps.length) * 100),
+      completionPercentage: steps.length > 0 ? Math.round((completedSteps / steps.length) * 100) : 0,
       totalTimeSpent,
       averageTimePerStep: Math.round(averageTimePerStep),
       isCompleted: completedSteps === steps.length
