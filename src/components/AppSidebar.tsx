@@ -28,6 +28,7 @@ const learningNavItems = [
 
 
 const adminNavItems = [
+{ title: "Admin Dashboard", url: "/admin/dashboard", icon: Home },
 { title: "Team Analytics", url: "/team-analytics", icon: Users },
 { title: "Cohorts", url: "/cohorts", icon: UsersRound },
 { title: "Compliance", url: "/compliance", icon: ShieldCheck },
@@ -51,7 +52,7 @@ export function AppSidebar({ onOpenSupport }: {onOpenSupport?: () => void;}) {
 
   // Keep admin section open if user is on an admin page
   useEffect(() => {
-    if (adminNavItems.some((item) => location.pathname.startsWith(item.url))) {
+    if (location.pathname.startsWith('/admin') || adminNavItems.some((item) => location.pathname.startsWith(item.url))) {
       setAdminOpen(true);
     }
   }, [location.pathname]);
