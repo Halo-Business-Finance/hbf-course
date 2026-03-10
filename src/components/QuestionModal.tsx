@@ -137,7 +137,7 @@ export const QuestionModal = ({ isOpen, onClose, moduleTitle, moduleId }: Questi
         }
       }
     } catch (error) {
-      console.error('Study assistant error:', error);
+      // Error logged via global handler
       toast({
         title: "Error",
         description: error instanceof Error ? error.message : 'Failed to get response',
