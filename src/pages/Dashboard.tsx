@@ -449,6 +449,7 @@ const Dashboard = () => {
               selectedTopic={selectedTopic}
               loading={loading}
               coursesLoading={coursesLoading}
+              completedCourseIds={completedCourseIds}
               onCategorySelect={setSelectedCategory}
               onTopicSelect={setSelectedTopic}
               onStartCourse={handleStartCourse}
