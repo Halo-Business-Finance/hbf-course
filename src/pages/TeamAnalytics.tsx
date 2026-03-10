@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { SEOHead } from '@/components/SEOHead';
-import { HorizontalNav } from '@/components/HorizontalNav';
 import { FinPilotBrandFooter } from '@/components/FinPilotBrandFooter';
+import { PageHeader } from '@/components/PageHeader';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -263,26 +263,25 @@ export default function TeamAnalytics() {
       />
 
       <div className="min-h-screen bg-background">
-        <HorizontalNav />
-
-        <main className="container mx-auto px-4 py-8 pt-24 max-w-7xl">
-          {/* Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-            <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Team Analytics</h1>
-              <p className="text-muted-foreground mt-1">Monitor team progress and generate reports</p>
-            </div>
-            <div className="flex gap-2">
+        <PageHeader
+          title="Team Analytics"
+          subtitle="Monitor team progress and generate reports"
+          icon={<BarChart3 className="h-5 w-5 text-white" />}
+          actions={
+            <>
               <Button onClick={() => handleExport('members')} disabled={exportLoading || members.length === 0} className="gap-2 bg-halo-navy hover:bg-halo-navy/90 text-white">
                 {exportLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
                 Export Members
               </Button>
-              <Button onClick={() => handleExport('courses')} disabled={exportLoading || courseStats.length === 0} variant="outline" className="gap-2">
+              <Button onClick={() => handleExport('courses')} disabled={exportLoading || courseStats.length === 0} variant="outline" className="gap-2 border-white/30 text-white hover:bg-white/10">
                 <Download className="h-4 w-4" />
                 Export Courses
               </Button>
-            </div>
-          </div>
+            </>
+          }
+        />
+
+        <main className="container mx-auto px-4 py-8 max-w-7xl">
 
           {loading ? (
             <div className="flex items-center justify-center py-20">

@@ -1,10 +1,10 @@
 import { SEOHead } from '@/components/SEOHead';
-import { HorizontalNav } from '@/components/HorizontalNav';
 import { FinPilotBrandFooter } from '@/components/FinPilotBrandFooter';
 import { GamificationDashboard } from '@/components/gamification/GamificationDashboard';
 import { LearningAnalyticsDashboard } from '@/components/analytics/LearningAnalyticsDashboard';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Trophy, BarChart3 } from 'lucide-react';
+import { PageHeader } from '@/components/PageHeader';
 
 export default function Achievements() {
   return (
@@ -16,9 +16,13 @@ export default function Achievements() {
       />
       
       <div className="min-h-screen bg-background">
-        <HorizontalNav />
+        <PageHeader
+          title="Achievements & Analytics"
+          subtitle="Track your learning achievements, earn badges, and view analytics"
+          icon={<Trophy className="h-5 w-5 text-white" />}
+        />
         
-        <main className="container mx-auto px-4 py-8 pt-24">
+        <main className="container mx-auto px-4 py-8">
           <Tabs defaultValue="achievements" className="w-full">
             <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-8">
               <TabsTrigger value="achievements" className="flex items-center gap-2">

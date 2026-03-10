@@ -12,6 +12,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { User, Mail, Phone, MapPin, Calendar, Award, Target, Clock, Edit, Bell, Shield, Palette, Globe, Settings, CreditCard, MessageCircle, HelpCircle, Download, Trophy, X, Save, Brain, LogOut } from "lucide-react";
+import { PageHeader } from "@/components/PageHeader";
 import { LiveLearningStats } from "@/components/LiveLearningStats";
 import { AvatarUpload } from "@/components/AvatarUpload";
 import { SEOHead } from "@/components/SEOHead";
@@ -446,18 +447,21 @@ const AccountPage = (): JSX.Element => {
   }
 
   return (
-    <div className="container mx-auto p-4 md:p-8 space-y-6">
+    <div className="min-h-screen bg-background">
       <SEOHead 
         title="My Account - FinPilot Academy"
         description="Manage your account settings, learning preferences, privacy options, and billing information at FinPilot Academy."
         keywords="account management, user settings, learning preferences, privacy, billing"
       />
+      <PageHeader
+        title="My Account"
+        subtitle="Manage your profile and account settings"
+        icon={<User className="h-5 w-5 text-white" />}
+      />
       
+      <div className="container mx-auto p-4 md:p-8 space-y-6">
       <div className="mobile-container">
         <div className="mobile-section">
-          <h1 className="text-responsive-3xl font-bold">My Account</h1>
-          <p className="text-muted-foreground mt-1 text-responsive-sm">Manage your profile and account settings</p>
-        </div>
 
         <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
           <TabsList className="grid w-full grid-cols-2 md:grid-cols-6 gap-1 h-auto p-1">
@@ -1024,6 +1028,8 @@ const AccountPage = (): JSX.Element => {
           </TabsContent>
         </Tabs>
       </div>
+      </div>
+    </div>
     </div>
   );
 };

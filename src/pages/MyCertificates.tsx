@@ -8,6 +8,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { SEOHead } from "@/components/SEOHead";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/PageTransition";
+import { PageHeader } from "@/components/PageHeader";
 import { motion } from "framer-motion";
 
 interface CertificateRecord {
@@ -102,23 +103,14 @@ export default function MyCertificates() {
       />
 
       <div className="min-h-screen bg-background">
+        <PageHeader
+          title="My Certificates"
+          subtitle={certificates.length === 0
+            ? "Complete a course to earn your first certificate"
+            : `${certificates.length} certificate${certificates.length !== 1 ? "s" : ""} earned`}
+          icon={<Award className="h-5 w-5 text-white" />}
+        />
         <div className="container mx-auto px-4 py-8 max-w-5xl">
-          {/* Header */}
-          <AnimatedSection className="mb-8">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 rounded-lg bg-halo-navy flex items-center justify-center">
-                <Award className="h-5 w-5 text-white" />
-              </div>
-              <div>
-                <h1 className="text-2xl sm:text-3xl font-bold text-foreground">My Certificates</h1>
-                <p className="text-sm text-muted-foreground">
-                  {certificates.length === 0
-                    ? "Complete a course to earn your first certificate"
-                    : `${certificates.length} certificate${certificates.length !== 1 ? "s" : ""} earned`}
-                </p>
-              </div>
-            </div>
-          </AnimatedSection>
 
           {certificates.length === 0 ? (
             <AnimatedSection>

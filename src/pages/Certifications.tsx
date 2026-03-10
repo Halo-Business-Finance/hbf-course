@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { SEOHead } from '@/components/SEOHead';
-import { HorizontalNav } from '@/components/HorizontalNav';
 import { FinPilotBrandFooter } from '@/components/FinPilotBrandFooter';
+import { PageHeader } from '@/components/PageHeader';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -70,19 +70,13 @@ export default function Certifications() {
       />
       
       <div className="min-h-screen bg-background">
-        <HorizontalNav />
+        <PageHeader
+          title="Micro-Certifications"
+          subtitle="Earn industry-recognized digital badges by completing specialization tracks"
+          icon={<Award className="h-5 w-5 text-white" />}
+        />
         
-        <main className="container mx-auto px-4 py-8 pt-24 max-w-7xl">
-          {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-foreground flex items-center gap-2">
-              <Award className="h-8 w-8 text-halo-orange" />
-              Micro-Certifications
-            </h1>
-            <p className="text-muted-foreground mt-1">
-              Earn industry-recognized digital badges by completing specialization tracks
-            </p>
-          </div>
+        <main className="container mx-auto px-4 py-8 max-w-7xl">
 
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">

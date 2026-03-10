@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { SEOHead } from '@/components/SEOHead';
-import { HorizontalNav } from '@/components/HorizontalNav';
 import { FinPilotBrandFooter } from '@/components/FinPilotBrandFooter';
+import { PageHeader } from '@/components/PageHeader';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -127,23 +127,19 @@ export default function ComplianceTracking() {
       />
       
       <div className="min-h-screen bg-background">
-        <HorizontalNav />
-        
-        <main className="container mx-auto px-4 py-8 pt-24 max-w-7xl">
-          {/* Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-            <div>
-              <h1 className="text-3xl font-bold text-foreground flex items-center gap-2">
-                <Shield className="h-8 w-8 text-primary" />
-                Compliance Tracking
-              </h1>
-              <p className="text-muted-foreground mt-1">Mandatory training assignments, deadlines, and audit reports</p>
-            </div>
+        <PageHeader
+          title="Compliance Tracking"
+          subtitle="Mandatory training assignments, deadlines, and audit reports"
+          icon={<Shield className="h-5 w-5 text-white" />}
+          actions={
             <Button onClick={handleExport} disabled={exportLoading} className="gap-2 bg-halo-navy hover:bg-halo-navy/90 text-white">
               {exportLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
               Export Audit Report
             </Button>
-          </div>
+          }
+        />
+        
+        <main className="container mx-auto px-4 py-8 max-w-7xl">
 
           {/* Summary */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
