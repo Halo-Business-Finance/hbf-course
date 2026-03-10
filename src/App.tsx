@@ -56,6 +56,7 @@ const TeamAnalytics = lazy(() => import("./pages/TeamAnalytics"));
 const Cohorts = lazy(() => import("./pages/Cohorts"));
 const ComplianceTracking = lazy(() => import("./pages/ComplianceTracking"));
 const Certifications = lazy(() => import("./pages/Certifications"));
+const MyCertificates = lazy(() => import("./pages/MyCertificates"));
 const Branding = lazy(() => import("./pages/Branding"));
 
 // Loading fallback component for lazy-loaded pages
@@ -258,6 +259,7 @@ const AppContent = () => {
           <Route path="/terms" element={<Terms />} />
           <Route path="/data-security" element={<DataSecurity />} />
           <Route path="/achievements" element={<ProtectedRoute><Achievements /></ProtectedRoute>} />
+          <Route path="/my-certificates" element={<ProtectedRoute><MyCertificates /></ProtectedRoute>} />
           <Route path="/certificate/:certificateId" element={<Certificate />} />
           <Route path="/team-analytics" element={<ProtectedRoute><TeamAnalytics /></ProtectedRoute>} />
           <Route path="/cohorts" element={<ProtectedRoute><Cohorts /></ProtectedRoute>} />

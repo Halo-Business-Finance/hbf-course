@@ -22,6 +22,7 @@ import {
 const learningNavItems = [
   { title: "Dashboard", url: "/dashboard", icon: Home },
   { title: "My Course", url: "/my-course", icon: BarChart3 },
+  { title: "My Certificates", url: "/my-certificates", icon: Award },
   { title: "Achievements", url: "/achievements", icon: Trophy },
   { title: "Resources", url: "/resources", icon: FileText },
 ];
