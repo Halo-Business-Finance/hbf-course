@@ -505,7 +505,7 @@ function StatPill({ icon, value, label }: {icon: React.ReactNode;value: string |
         {icon}
       </div>
       <div>
-        <p className="text-base sm:text-xl font-bold tracking-tight text-blue-600">{value}</p>
+        <p className="text-base sm:text-xl font-bold tracking-tight text-white">{value}</p>
         <p className="text-[10px] sm:text-xs font-medium uppercase tracking-wider text-white">{label}</p>
       </div>
     </div>);
