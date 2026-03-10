@@ -468,16 +468,16 @@ const ModulePage = () => {
             </AnimatedSection>
 
             {/* Tabs */}
-            <Tabs defaultValue="lessons" className="space-y-4 sm:space-y-6">
-              <div className="overflow-x-auto pb-2">
-                <TabsList className="grid w-max min-w-full grid-cols-3 gap-1 bg-muted">
-                  <TabsTrigger value="lessons" className="text-xs sm:text-sm whitespace-nowrap data-[state=active]:bg-halo-navy data-[state=active]:text-white">
+            <Tabs defaultValue="lessons" className="space-y-3 sm:space-y-6">
+              <div className="overflow-x-auto -mx-3 px-3 sm:mx-0 sm:px-0 pb-1">
+                <TabsList className="inline-flex w-auto min-w-full sm:grid sm:w-full sm:grid-cols-3 gap-1 bg-muted">
+                  <TabsTrigger value="lessons" className="text-xs sm:text-sm whitespace-nowrap data-[state=active]:bg-halo-navy data-[state=active]:text-white flex-1">
                     Lessons
                   </TabsTrigger>
-                  <TabsTrigger value="overview" className="text-xs sm:text-sm whitespace-nowrap data-[state=active]:bg-halo-navy data-[state=active]:text-white">
+                  <TabsTrigger value="overview" className="text-xs sm:text-sm whitespace-nowrap data-[state=active]:bg-halo-navy data-[state=active]:text-white flex-1">
                     Overview
                   </TabsTrigger>
-                  <TabsTrigger value="assessment" className="text-xs sm:text-sm whitespace-nowrap data-[state=active]:bg-halo-navy data-[state=active]:text-white">
+                  <TabsTrigger value="assessment" className="text-xs sm:text-sm whitespace-nowrap data-[state=active]:bg-halo-navy data-[state=active]:text-white flex-1">
                     Assessment
                   </TabsTrigger>
                 </TabsList>
