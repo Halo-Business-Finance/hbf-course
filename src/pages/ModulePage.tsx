@@ -374,14 +374,14 @@ const ModulePage = () => {
     <div className="min-h-screen bg-background">
       {/* Top Navigation Bar */}
       <div className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-40">
-        <div className="container mx-auto px-4 py-3">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="sm" onClick={() => navigate("/dashboard")} className="flex items-center gap-2 shrink-0">
-              <ArrowLeft className="h-4 w-4" />
-              <span className="hidden sm:inline">Back</span>
+        <div className="px-3 sm:px-4 lg:px-6 max-w-7xl mx-auto py-2.5 sm:py-3">
+          <div className="flex items-center gap-2 sm:gap-4">
+            <Button variant="ghost" size="sm" onClick={() => navigate("/dashboard")} className="flex items-center gap-1.5 sm:gap-2 shrink-0 h-8 sm:h-9 px-2 sm:px-3">
+              <ArrowLeft className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+              <span className="hidden sm:inline text-sm">Back</span>
             </Button>
-            <div className="h-6 w-px bg-border hidden sm:block" />
-            <div className="min-w-0 flex-1">
+            <div className="h-5 sm:h-6 w-px bg-border hidden sm:block" />
+            <div className="min-w-0 flex-1 overflow-hidden">
               <Breadcrumbs items={breadcrumbItems} showHome={false} />
             </div>
           </div>
@@ -411,14 +411,14 @@ const ModulePage = () => {
         </div>
       }
 
-      <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
-        <div className="flex gap-6 lg:gap-8">
+      <div className="px-3 sm:px-4 lg:px-6 py-4 sm:py-6 lg:py-8 max-w-7xl mx-auto">
+        <div className="flex gap-4 lg:gap-8">
           {/* Sticky Sidebar TOC - Desktop only */}
           <LessonSidebarTOC
             lessons={lessons}
             activeId={selectedLesson?.id}
             onSelect={handleLessonStart}
-            className="w-64 shrink-0" />
+            className="w-56 lg:w-64 shrink-0 hidden lg:block" />
           
 
           {/* Main Content */}
@@ -433,7 +433,7 @@ const ModulePage = () => {
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div>
-                    <CardTitle className="text-xl sm:text-2xl text-white">{module.title}</CardTitle>
+                    <CardTitle className="text-lg sm:text-xl md:text-2xl text-white">{module.title}</CardTitle>
                     <CardDescription className="mt-2 text-white/80">{module.description}</CardDescription>
                   </div>
                   {module.skill_level && module.skill_level.toLowerCase() !== "beginner" &&
@@ -468,16 +468,16 @@ const ModulePage = () => {
             </AnimatedSection>
 
             {/* Tabs */}
-            <Tabs defaultValue="lessons" className="space-y-4 sm:space-y-6">
-              <div className="overflow-x-auto pb-2">
-                <TabsList className="grid w-max min-w-full grid-cols-3 gap-1 bg-muted">
-                  <TabsTrigger value="lessons" className="text-xs sm:text-sm whitespace-nowrap data-[state=active]:bg-halo-navy data-[state=active]:text-white">
+            <Tabs defaultValue="lessons" className="space-y-3 sm:space-y-6">
+              <div className="overflow-x-auto -mx-3 px-3 sm:mx-0 sm:px-0 pb-1">
+                <TabsList className="inline-flex w-auto min-w-full sm:grid sm:w-full sm:grid-cols-3 gap-1 bg-muted">
+                  <TabsTrigger value="lessons" className="text-xs sm:text-sm whitespace-nowrap data-[state=active]:bg-halo-navy data-[state=active]:text-white flex-1">
                     Lessons
                   </TabsTrigger>
-                  <TabsTrigger value="overview" className="text-xs sm:text-sm whitespace-nowrap data-[state=active]:bg-halo-navy data-[state=active]:text-white">
+                  <TabsTrigger value="overview" className="text-xs sm:text-sm whitespace-nowrap data-[state=active]:bg-halo-navy data-[state=active]:text-white flex-1">
                     Overview
                   </TabsTrigger>
-                  <TabsTrigger value="assessment" className="text-xs sm:text-sm whitespace-nowrap data-[state=active]:bg-halo-navy data-[state=active]:text-white">
+                  <TabsTrigger value="assessment" className="text-xs sm:text-sm whitespace-nowrap data-[state=active]:bg-halo-navy data-[state=active]:text-white flex-1">
                     Assessment
                   </TabsTrigger>
                 </TabsList>
@@ -506,7 +506,7 @@ const ModulePage = () => {
                           initial={{ opacity: 0, x: -8 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: lessonIdx * 0.05, duration: 0.3 }}
-                          className="flex items-center justify-between gap-3 px-4 py-3 hover:bg-muted/30 transition-colors">
+                          className="flex items-center justify-between gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 hover:bg-muted/30 transition-colors">
                           
                                 <div className="flex items-center gap-3 min-w-0 flex-1">
                                   <div className={`p-1.5 rounded ${lesson.completed ? "text-accent" : "text-muted-foreground"}`}>
@@ -523,11 +523,12 @@ const ModulePage = () => {
                                 <Button
                             size="sm"
                             variant={lesson.completed ? "outline" : "default"}
-                            className="h-9 px-3 text-xs shrink-0 min-w-[72px] hover:scale-[1.03] transition-transform"
+                            className="h-8 sm:h-9 px-2.5 sm:px-3 text-xs shrink-0 min-w-[60px] sm:min-w-[72px] hover:scale-[1.03] transition-transform"
                             onClick={() => handleLessonStart(lesson)}>
                             
                                   <Play className="h-3 w-3 mr-1" />
-                                  {lesson.completed ? "Review" : "Start"}
+                                  <span className="hidden sm:inline">{lesson.completed ? "Review" : "Start"}</span>
+                                  <span className="sm:hidden">{lesson.completed ? "↻" : "▶"}</span>
                                 </Button>
                               </motion.div>
                         )}
@@ -641,18 +642,41 @@ const ModulePage = () => {
               </TabsContent>
             </Tabs>
 
+            {/* Module Stats - Mobile/Tablet (horizontal) */}
+            <Card className="lg:hidden bg-halo-navy">
+              <CardContent className="py-3 px-4">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+                  <div>
+                    <span className="text-[10px] text-white/70 uppercase tracking-wide">Duration</span>
+                    <p className="text-sm font-semibold text-white">{module.duration || '45 min'}</p>
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-white/70 uppercase tracking-wide">Lessons</span>
+                    <p className="text-sm font-semibold text-white">{lessons.length}</p>
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-white/70 uppercase tracking-wide">Time Left</span>
+                    <p className="text-sm font-semibold text-white">{estimatedTimeRemaining}</p>
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-white/70 uppercase tracking-wide">Status</span>
+                    <p className="text-sm font-semibold text-white">
+                      {currentProgress === 100 ? "Done" : currentProgress > 0 ? "In Progress" : "Available"}
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
             {/* Quick Actions - Mobile friendly */}
             <Card className="lg:hidden">
-              <CardHeader>
-                <CardTitle className="text-lg">Quick Actions</CardTitle>
-              </CardHeader>
-              <CardContent className="flex gap-3">
-                <Button variant="outline" className="flex-1" onClick={handleTakeNotes}>
-                  <Book className="h-4 w-4 mr-2" />
+              <CardContent className="flex gap-3 py-3 px-4">
+                <Button variant="outline" className="flex-1 h-10 text-xs sm:text-sm" onClick={handleTakeNotes}>
+                  <Book className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5 sm:mr-2" />
                   Notes
                 </Button>
-                <Button variant="outline" className="flex-1" onClick={handleAskQuestion}>
-                  <Users2 className="h-4 w-4 mr-2" />
+                <Button variant="outline" className="flex-1 h-10 text-xs sm:text-sm" onClick={handleAskQuestion}>
+                  <Users2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5 sm:mr-2" />
                   Ask Question
                 </Button>
               </CardContent>

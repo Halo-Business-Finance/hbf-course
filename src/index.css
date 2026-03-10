@@ -561,6 +561,15 @@
   .text-responsive-3xl {
     @apply text-3xl sm:text-4xl lg:text-5xl;
   }
+
+  /* Hide scrollbar for horizontal scroll areas */
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* Custom scrollbar styling */

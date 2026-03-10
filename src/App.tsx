@@ -115,7 +115,7 @@ const HeaderContent = ({
         <div className="flex items-center gap-1 sm:gap-2 md:gap-4 flex-shrink-0 rounded-2xl border-white border-0">
           {user && <SidebarTrigger variant="ghost" size="icon" className="ml-1 sm:ml-2 h-9 w-9 sm:h-10 sm:w-10 p-0 text-white hover:bg-white/10 hover:text-white" />}
           
-          {user && <div className="flex items-center gap-1 sm:gap-2">
+          {user && <div className="hidden sm:flex items-center gap-1 sm:gap-2">
               <Button variant="ghost" size="sm" onClick={goBack} title="Go back" className="h-8 w-8 p-0 text-white hover:bg-white/10 hover:text-white">
                 <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4" />
               </Button>
@@ -126,9 +126,9 @@ const HeaderContent = ({
         </div>
 
         {user && <div className="flex-1 flex items-center justify-center min-w-0 text-white">
-            <NavLink to="/" className="flex items-center gap-3 sm:gap-4 flex-shrink-0 min-w-0">
-              <img src={finpilotLogo} alt="FinPilot" className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 object-cover flex-shrink-0" />
-              <span className="text-lg sm:text-2xl md:text-3xl font-bold truncate text-white">FinPilot</span>
+            <NavLink to="/" className="flex items-center gap-2 sm:gap-4 flex-shrink-0 min-w-0">
+              <img src={finpilotLogo} alt="FinPilot" className="w-8 h-8 sm:w-12 sm:h-12 md:w-14 md:h-14 object-cover flex-shrink-0" />
+              <span className="text-base sm:text-2xl md:text-3xl font-bold truncate text-white">FinPilot</span>
             </NavLink>
           </div>}
 
@@ -141,36 +141,36 @@ const HeaderContent = ({
             </div>
           </div>}
         
-        {user && <div className="flex items-center gap-1 flex-shrink-0">
+        {user && <div className="flex items-center gap-0.5 sm:gap-1 flex-shrink-0">
             <Button
           variant="ghost"
           size="icon"
           title="Loan Calculator"
-          className="h-10 w-10 text-white hover:bg-white/10 hover:text-white"
+          className="h-9 w-9 sm:h-10 sm:w-10 text-white hover:bg-white/10 hover:text-white"
           onClick={() => setCalculatorOpen(true)}>
           
-              <Calculator className="h-5 w-5" />
+              <Calculator className="h-4 w-4 sm:h-5 sm:w-5" />
             </Button>
             <Button
           variant="ghost"
           size="icon"
           title="Help & Support"
-          className="h-10 w-10 text-white hover:bg-white/10 hover:text-white"
+          className="h-9 w-9 sm:h-10 sm:w-10 text-white hover:bg-white/10 hover:text-white hidden sm:flex"
           onClick={() => setIsChatOpen(true)}>
           
-              <HelpCircle className="h-5 w-5" />
+              <HelpCircle className="h-4 w-4 sm:h-5 sm:w-5" />
             </Button>
-            <Suspense fallback={<div className="h-10 w-10" />}>
+            <Suspense fallback={<div className="h-9 w-9 sm:h-10 sm:w-10" />}>
               <NotificationBell />
             </Suspense>
             <Button
           variant="ghost"
           size="icon"
           title="My Account"
-          className="h-10 w-10 text-white hover:bg-white/10 hover:text-white"
+          className="h-9 w-9 sm:h-10 sm:w-10 text-white hover:bg-white/10 hover:text-white"
           onClick={() => navigate('/my-account')}>
           
-              <User className="h-5 w-5" />
+              <User className="h-4 w-4 sm:h-5 sm:w-5" />
             </Button>
           </div>}
       </div>

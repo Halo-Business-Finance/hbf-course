@@ -299,24 +299,24 @@ const Dashboard = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}>
           
-          <div className="px-4 sm:px-6 lg:px-10 py-6 sm:py-8 max-w-7xl mx-auto bg-black">
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 border-black">
+           <div className="px-4 sm:px-6 lg:px-10 py-4 sm:py-8 max-w-7xl mx-auto bg-black">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 sm:gap-6 border-black">
               <motion.div
                 initial={{ opacity: 0, x: -15 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1, duration: 0.4 }}>
                 
-                <h1 className="text-2xl sm:text-3xl font-bold mb-1 text-white">
+                <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mb-1 text-white">
                   Welcome back, <span className="text-halo-navy text-white">{getFirstName()}</span>
                 </h1>
-                <p className="text-sm text-white">
+                <p className="text-xs sm:text-sm text-white">
                   Continue your journey in business finance mastery.
                 </p>
               </motion.div>
 
               {/* Stat pills */}
               <motion.div
-                className="grid grid-cols-3 gap-3 sm:flex sm:flex-wrap sm:items-center sm:gap-5"
+                className="grid grid-cols-3 gap-2 sm:gap-3 sm:flex sm:flex-wrap sm:items-center sm:gap-5"
                 initial={{ opacity: 0, x: 15 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.2, duration: 0.4 }}>
@@ -356,7 +356,7 @@ const Dashboard = () => {
         </motion.div>
 
         {/* ── Main Content ── */}
-        <div className="px-4 sm:px-6 lg:px-10 py-6 sm:py-8 max-w-7xl mx-auto space-y-8">
+        <div className="px-4 sm:px-6 lg:px-10 py-4 sm:py-8 max-w-7xl mx-auto space-y-6 sm:space-y-8">
           {/* Quick Resume + Study Reminder — only at top level */}
           {isOnCatalog &&
           <StaggerContainer className="grid grid-cols-1 lg:grid-cols-2 gap-6" staggerDelay={0.1}>
@@ -367,21 +367,23 @@ const Dashboard = () => {
 
           {/* Tabbed Layout — only at catalog level */}
           {isOnCatalog ?
-          <Tabs defaultValue="courses" className="w-full">
-              <TabsList className="w-full max-w-md bg-muted/50 p-1 rounded-lg">
-                <TabsTrigger value="courses" className="flex-1 gap-1.5 sm:gap-2 text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">
-                  <BookOpen className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                  Courses
-                </TabsTrigger>
-                <TabsTrigger value="analytics" className="flex-1 gap-1.5 sm:gap-2 text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">
-                  <BarChart3 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                  Analytics
-                </TabsTrigger>
-                <TabsTrigger value="community" className="flex-1 gap-1.5 sm:gap-2 text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">
-                  <MessageSquare className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                  Community
-                </TabsTrigger>
-              </TabsList>
+           <Tabs defaultValue="courses" className="w-full">
+              <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
+                <TabsList className="w-full sm:w-auto sm:max-w-md bg-muted/50 p-1 rounded-lg inline-flex">
+                  <TabsTrigger value="courses" className="flex-1 gap-1.5 sm:gap-2 text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm whitespace-nowrap">
+                    <BookOpen className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                    Courses
+                  </TabsTrigger>
+                  <TabsTrigger value="analytics" className="flex-1 gap-1.5 sm:gap-2 text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm whitespace-nowrap">
+                    <BarChart3 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                    Analytics
+                  </TabsTrigger>
+                  <TabsTrigger value="community" className="flex-1 gap-1.5 sm:gap-2 text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm whitespace-nowrap">
+                    <MessageSquare className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                    Community
+                  </TabsTrigger>
+                </TabsList>
+              </div>
 
               <TabsContent value="courses" className="mt-6">
                 <DashboardCourseGrid
@@ -500,13 +502,13 @@ const Dashboard = () => {
 /** Small reusable stat pill for the header */
 function StatPill({ icon, value, label }: {icon: React.ReactNode;value: string | number;label: string;}) {
   return (
-    <div className="flex items-center gap-2 sm:gap-3 group">
-      <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-halo-navy/5 flex items-center justify-center border border-halo-navy/10 group-hover:border-halo-navy/30 group-hover:bg-halo-navy/10 transition-all duration-300 bg-black">
+    <div className="flex items-center gap-1.5 sm:gap-3 group">
+      <div className="w-8 h-8 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-halo-navy/5 flex items-center justify-center border border-halo-navy/10 group-hover:border-halo-navy/30 group-hover:bg-halo-navy/10 transition-all duration-300 bg-black">
         {icon}
       </div>
       <div>
-        <p className="text-base sm:text-xl font-bold tracking-tight text-white">{value}</p>
-        <p className="text-[10px] sm:text-xs font-medium uppercase tracking-wider text-white">{label}</p>
+        <p className="text-sm sm:text-xl font-bold tracking-tight text-white">{value}</p>
+        <p className="text-[9px] sm:text-xs font-medium uppercase tracking-wider text-white">{label}</p>
       </div>
     </div>);
 
