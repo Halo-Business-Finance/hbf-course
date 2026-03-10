@@ -230,9 +230,9 @@ export function QuickResumeReminder() {
             <span className="text-white">Progress</span>
             <span className="font-semibold text-white">{Math.round(lastActivity.progress)}%</span>
           </div>
-          <div className="h-2.5 bg-white/10 rounded-full overflow-hidden">
+          <div className="h-4 w-full overflow-hidden rounded-full border border-solid border-blue-800 bg-white">
             <div
-              className="h-full bg-gradient-to-r from-halo-navy to-halo-orange rounded-full transition-all duration-700"
+              className="h-full bg-primary rounded-full transition-all duration-700"
               style={{ width: `${lastActivity.progress}%` }} />
             
           </div>
