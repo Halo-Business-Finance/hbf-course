@@ -86,8 +86,9 @@ export const EnhancedVideoSection = ({
   const watchedDuration = videos
     .filter(v => completedVideos.has(v.id))
     .reduce((sum, v) => sum + (v.duration_seconds || 0), 0);
-  const progressPercent = totalDuration > 0 ? Math.round((watchedDuration / totalDuration) * 100) : 0;
-  const requiredMinutes = 60;
+  // Require watching all available content, capped at 60 minutes
+  const requiredMinutes = Math.min(60, Math.max(1, Math.ceil(totalDuration / 60)));
+  const progressPercent = requiredMinutes > 0 ? Math.round((Math.floor(watchedDuration / 60) / requiredMinutes) * 100) : 0;
   const watchedMinutes = Math.floor(watchedDuration / 60);
   const meetsRequirement = watchedMinutes >= requiredMinutes;
 

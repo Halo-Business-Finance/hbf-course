@@ -33,15 +33,16 @@ const FINANCE_KEYWORDS = [
   'credit risk', 'bank lending', 'commercial bank', 'finance training'
 ];
 
-function isVideoRelevant(title: string, description: string): boolean {
+function isVideoRelevant(title: string, description: string): { dominated: boolean; relevant: boolean } {
   const combined = (title + ' ' + description).toLowerCase();
   for (const bad of BLOCKLIST_KEYWORDS) {
-    if (combined.includes(bad.toLowerCase())) return false;
+    if (combined.includes(bad.toLowerCase())) return { dominated: true, relevant: false };
   }
   for (const good of FINANCE_KEYWORDS) {
-    if (combined.includes(good.toLowerCase())) return true;
+    if (combined.includes(good.toLowerCase())) return { dominated: false, relevant: true };
   }
-  return false;
+  // Not blocklisted but no finance keyword — still acceptable as fallback
+  return { dominated: false, relevant: false };
 }
 
 function buildSearchQuery(moduleTitle: string, description: string | null, courseId: string): string {
