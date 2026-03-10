@@ -77,9 +77,14 @@ export const ProtectedRoute = ({ children, requireAuth = true }: ProtectedRouteP
   }
 
   // If requireAuth is false (public-only routes like /auth, /signup),
-  // redirect authenticated users away
+  // redirect authenticated users to the dashboard
   if (!requireAuth && user) {
-    return null; // useEffect in Auth/SignUp pages handles redirect
+    const redirectUrl = sessionStorage.getItem('redirectUrl');
+    if (redirectUrl) {
+      sessionStorage.removeItem('redirectUrl');
+      return <>{children}</>;
+    }
+    return <Navigate to="/dashboard" replace />;
   }
 
   return <>{children}</>;
