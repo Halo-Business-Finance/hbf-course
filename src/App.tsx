@@ -3,10 +3,10 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, useNavigate, NavLink, Navigate, Link, useLocation } from "react-router-dom";
-import { ChevronLeft, ChevronRight, User, Building2, LogIn, Play, MessageCircle, Bell, HelpCircle, Calculator } from "lucide-react";
+import { BrowserRouter, Routes, Route, useNavigate, NavLink, Navigate, useLocation } from "react-router-dom";
+import { ChevronLeft, ChevronRight, User, HelpCircle, Calculator } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { AppSidebar } from "@/components/AppSidebar";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { CourseSelectionProvider } from "@/contexts/CourseSelectionContext";
@@ -78,14 +78,7 @@ const HeaderContent = ({
   const {
     user
   } = useAuth();
-  const [currentTime, setCurrentTime] = useState(new Date());
   const [calculatorOpen, setCalculatorOpen] = useState(false);
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
   const goBack = () => {
     navigate(-1);
   };
