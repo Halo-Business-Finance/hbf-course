@@ -411,14 +411,14 @@ const ModulePage = () => {
         </div>
       }
 
-      <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
-        <div className="flex gap-6 lg:gap-8">
+      <div className="px-3 sm:px-4 lg:px-6 py-4 sm:py-6 lg:py-8 max-w-7xl mx-auto">
+        <div className="flex gap-4 lg:gap-8">
           {/* Sticky Sidebar TOC - Desktop only */}
           <LessonSidebarTOC
             lessons={lessons}
             activeId={selectedLesson?.id}
             onSelect={handleLessonStart}
-            className="w-64 shrink-0" />
+            className="w-56 lg:w-64 shrink-0 hidden lg:block" />
           
 
           {/* Main Content */}
