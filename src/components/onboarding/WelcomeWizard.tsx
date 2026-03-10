@@ -166,7 +166,7 @@ export function WelcomeWizard({ onComplete }: WelcomeWizardProps) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-lg p-0 overflow-hidden border-0">
+      <DialogContent className="sm:max-w-lg max-h-[85vh] p-0 overflow-y-auto border-0">
         {/* Header with navy accent */}
         <div className="bg-halo-navy px-6 pt-6 pb-5 text-white">
           <div className="flex items-center justify-between mb-3">
