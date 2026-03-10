@@ -1,25 +1,125 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { SEOHead } from '@/components/SEOHead';
 import { HorizontalNav } from '@/components/HorizontalNav';
 import { FinPilotBrandFooter } from '@/components/FinPilotBrandFooter';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { 
   Palette, Upload, Building2, FileText, CheckCircle, 
-  Image, Type, Globe, Settings 
+  Image, Loader2
 } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/contexts/AuthContext';
+import { toast } from 'sonner';
+
+type BrandingSettings = Record<string, string>;
 
 export default function Branding() {
-  const [companyName, setCompanyName] = useState('');
-  const [tagline, setTagline] = useState('');
-  const [primaryColor, setPrimaryColor] = useState('#1a365d');
-  const [accentColor, setAccentColor] = useState('#e8590c');
+  const { user } = useAuth();
+  const [settings, setSettings] = useState<BrandingSettings>({
+    company_name: '',
+    tagline: '',
+    custom_domain: '',
+    primary_color: '#1a365d',
+    accent_color: '#e8590c',
+    certificate_title: 'Certificate of Completion',
+    signatory_name: '',
+    certificate_text: '',
+  });
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState<string | null>(null);
+
+  // Load settings on mount
+  useEffect(() => {
+    const loadSettings = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('branding_settings')
+          .select('setting_key, setting_value');
+
+        if (error) {
+          console.error('Error loading branding settings:', error);
+          toast.error('Could not load branding settings. You may not have admin access.');
+          setLoading(false);
+          return;
+        }
+
+        if (data) {
+          const loaded: BrandingSettings = { ...settings };
+          data.forEach((row: { setting_key: string; setting_value: string }) => {
+            loaded[row.setting_key] = row.setting_value;
+          });
+          setSettings(loaded);
+        }
+      } catch (err) {
+        console.error('Error:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (user) loadSettings();
+  }, [user]);
+
+  const updateSetting = (key: string, value: string) => {
+    setSettings((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const saveSettings = useCallback(async (keys: string[], sectionLabel: string) => {
+    if (!user) {
+      toast.error('You must be logged in to save settings');
+      return;
+    }
+
+    setSaving(sectionLabel);
+    try {
+      // Upsert each key
+      for (const key of keys) {
+        const { error } = await supabase
+          .from('branding_settings')
+          .update({ 
+            setting_value: settings[key] || '', 
+            updated_at: new Date().toISOString(),
+            updated_by: user.id 
+          })
+          .eq('setting_key', key);
+
+        if (error) {
+          // Try insert if update didn't match
+          const { error: insertErr } = await supabase
+            .from('branding_settings')
+            .insert({ 
+              setting_key: key, 
+              setting_value: settings[key] || '',
+              updated_by: user.id 
+            });
+          if (insertErr) {
+            console.error(`Error saving ${key}:`, insertErr);
+            throw insertErr;
+          }
+        }
+      }
+
+      toast.success(`${sectionLabel} saved successfully`);
+    } catch (err: any) {
+      console.error('Error saving settings:', err);
+      toast.error(err?.message || 'Failed to save settings. Check admin permissions.');
+    } finally {
+      setSaving(null);
+    }
+  }, [settings, user]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -62,8 +162,8 @@ export default function Branding() {
                       <Label htmlFor="companyName">Company Name</Label>
                       <Input 
                         id="companyName" 
-                        value={companyName} 
-                        onChange={e => setCompanyName(e.target.value)}
+                        value={settings.company_name} 
+                        onChange={e => updateSetting('company_name', e.target.value)}
                         placeholder="Acme Financial Services" 
                       />
                     </div>
@@ -71,19 +171,32 @@ export default function Branding() {
                       <Label htmlFor="tagline">Tagline</Label>
                       <Input 
                         id="tagline" 
-                        value={tagline} 
-                        onChange={e => setTagline(e.target.value)}
+                        value={settings.tagline} 
+                        onChange={e => updateSetting('tagline', e.target.value)}
                         placeholder="Empowering Financial Excellence" 
                       />
                     </div>
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="domain">Custom Domain</Label>
-                    <Input id="domain" placeholder="learn.acmefinancial.com" />
+                    <Input 
+                      id="domain" 
+                      value={settings.custom_domain}
+                      onChange={e => updateSetting('custom_domain', e.target.value)}
+                      placeholder="learn.acmefinancial.com" 
+                    />
                     <p className="text-xs text-muted-foreground">Point your domain's CNAME record to our servers</p>
                   </div>
-                  <Button className="gap-2">
-                    <CheckCircle className="h-4 w-4" />
+                  <Button 
+                    className="gap-2"
+                    disabled={saving === 'General settings'}
+                    onClick={() => saveSettings(['company_name', 'tagline', 'custom_domain'], 'General settings')}
+                  >
+                    {saving === 'General settings' ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <CheckCircle className="h-4 w-4" />
+                    )}
                     Save Changes
                   </Button>
                 </CardContent>
@@ -103,11 +216,11 @@ export default function Branding() {
                       <div className="flex items-center gap-3">
                         <input 
                           type="color" 
-                          value={primaryColor} 
-                          onChange={e => setPrimaryColor(e.target.value)}
+                          value={settings.primary_color} 
+                          onChange={e => updateSetting('primary_color', e.target.value)}
                           className="w-12 h-10 rounded border border-border cursor-pointer"
                         />
-                        <Input value={primaryColor} onChange={e => setPrimaryColor(e.target.value)} className="flex-1" />
+                        <Input value={settings.primary_color} onChange={e => updateSetting('primary_color', e.target.value)} className="flex-1" />
                       </div>
                       <p className="text-xs text-muted-foreground">Used for navigation, buttons, and primary actions</p>
                     </div>
@@ -116,11 +229,11 @@ export default function Branding() {
                       <div className="flex items-center gap-3">
                         <input 
                           type="color" 
-                          value={accentColor} 
-                          onChange={e => setAccentColor(e.target.value)}
+                          value={settings.accent_color} 
+                          onChange={e => updateSetting('accent_color', e.target.value)}
                           className="w-12 h-10 rounded border border-border cursor-pointer"
                         />
-                        <Input value={accentColor} onChange={e => setAccentColor(e.target.value)} className="flex-1" />
+                        <Input value={settings.accent_color} onChange={e => updateSetting('accent_color', e.target.value)} className="flex-1" />
                       </div>
                       <p className="text-xs text-muted-foreground">Used for CTAs, highlights, and success states</p>
                     </div>
@@ -130,25 +243,33 @@ export default function Branding() {
                   <div className="p-6 rounded-lg border border-border">
                     <p className="text-sm font-medium text-muted-foreground mb-3">Preview</p>
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="w-10 h-10 rounded flex items-center justify-center text-white font-bold" style={{ backgroundColor: primaryColor }}>
-                        {companyName ? companyName[0] : 'A'}
+                      <div className="w-10 h-10 rounded flex items-center justify-center text-white font-bold" style={{ backgroundColor: settings.primary_color }}>
+                        {settings.company_name ? settings.company_name[0] : 'A'}
                       </div>
-                      <span className="font-bold text-lg" style={{ color: primaryColor }}>
-                        {companyName || 'Your Company'}
+                      <span className="font-bold text-lg" style={{ color: settings.primary_color }}>
+                        {settings.company_name || 'Your Company'}
                       </span>
                     </div>
                     <div className="flex gap-2">
-                      <button className="px-4 py-2 rounded text-white text-sm font-medium" style={{ backgroundColor: primaryColor }}>
+                      <button className="px-4 py-2 rounded text-white text-sm font-medium" style={{ backgroundColor: settings.primary_color }}>
                         Primary Button
                       </button>
-                      <button className="px-4 py-2 rounded text-white text-sm font-medium" style={{ backgroundColor: accentColor }}>
+                      <button className="px-4 py-2 rounded text-white text-sm font-medium" style={{ backgroundColor: settings.accent_color }}>
                         Accent Button
                       </button>
                     </div>
                   </div>
                   
-                  <Button className="gap-2">
-                    <CheckCircle className="h-4 w-4" />
+                  <Button 
+                    className="gap-2"
+                    disabled={saving === 'Brand colors'}
+                    onClick={() => saveSettings(['primary_color', 'accent_color'], 'Brand colors')}
+                  >
+                    {saving === 'Brand colors' ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <CheckCircle className="h-4 w-4" />
+                    )}
                     Apply Colors
                   </Button>
                 </CardContent>
@@ -190,10 +311,11 @@ export default function Branding() {
                     </div>
                   </div>
                   
-                  <Button className="gap-2">
+                  <Button className="gap-2" disabled>
                     <CheckCircle className="h-4 w-4" />
                     Save Assets
                   </Button>
+                  <p className="text-xs text-muted-foreground">Asset uploads coming soon</p>
                 </CardContent>
               </Card>
             </TabsContent>
@@ -208,16 +330,29 @@ export default function Branding() {
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div className="space-y-2">
                       <Label>Certificate Title</Label>
-                      <Input placeholder="Certificate of Completion" />
+                      <Input 
+                        value={settings.certificate_title}
+                        onChange={e => updateSetting('certificate_title', e.target.value)}
+                        placeholder="Certificate of Completion" 
+                      />
                     </div>
                     <div className="space-y-2">
                       <Label>Signatory Name</Label>
-                      <Input placeholder="John Smith, VP of Training" />
+                      <Input 
+                        value={settings.signatory_name}
+                        onChange={e => updateSetting('signatory_name', e.target.value)}
+                        placeholder="John Smith, VP of Training" 
+                      />
                     </div>
                   </div>
                   <div className="space-y-2">
                     <Label>Additional Text</Label>
-                    <Textarea placeholder="This certifies that the above-named individual has successfully completed..." rows={3} />
+                    <Textarea 
+                      value={settings.certificate_text}
+                      onChange={e => updateSetting('certificate_text', e.target.value)}
+                      placeholder="This certifies that the above-named individual has successfully completed..." 
+                      rows={3} 
+                    />
                   </div>
                   <div className="p-6 rounded-lg border border-border bg-muted/30">
                     <p className="text-sm font-medium text-muted-foreground mb-3">Certificate Preview</p>
@@ -225,13 +360,23 @@ export default function Branding() {
                       <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                         <FileText className="h-8 w-8 text-primary" />
                       </div>
-                      <h3 className="text-xl font-bold text-foreground mb-1">Certificate of Completion</h3>
-                      <p className="text-sm text-muted-foreground mb-4">{companyName || 'Your Company'}</p>
-                      <p className="text-xs text-muted-foreground">This is a preview of how your branded certificate will appear</p>
+                      <h3 className="text-xl font-bold text-foreground mb-1">{settings.certificate_title || 'Certificate of Completion'}</h3>
+                      <p className="text-sm text-muted-foreground mb-2">{settings.company_name || 'Your Company'}</p>
+                      {settings.signatory_name && (
+                        <p className="text-xs text-muted-foreground italic">Signed by: {settings.signatory_name}</p>
+                      )}
                     </div>
                   </div>
-                  <Button className="gap-2">
-                    <CheckCircle className="h-4 w-4" />
+                  <Button 
+                    className="gap-2"
+                    disabled={saving === 'Certificate settings'}
+                    onClick={() => saveSettings(['certificate_title', 'signatory_name', 'certificate_text'], 'Certificate settings')}
+                  >
+                    {saving === 'Certificate settings' ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <CheckCircle className="h-4 w-4" />
+                    )}
                     Save Certificate Settings
                   </Button>
                 </CardContent>
