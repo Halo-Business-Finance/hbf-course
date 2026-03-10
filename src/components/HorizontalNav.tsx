@@ -50,7 +50,7 @@ export const HorizontalNav = () => {
             variant="outline"
             size="sm"
             asChild
-            className="text-sm border-white text-white hover:bg-white hover:text-black"
+            className="text-sm border-white text-black bg-white hover:bg-white/90"
           >
             <NavLink to="/auth" className="flex items-center gap-2">
               <Lock className="h-4 w-4" />
