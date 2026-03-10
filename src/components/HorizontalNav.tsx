@@ -4,14 +4,14 @@ import { Lock, ArrowRight } from "lucide-react";
 
 export const HorizontalNav = () => {
   return (
-    <div className="hidden lg:block px-8 py-3 w-full">
+    <div className="hidden lg:block px-8 py-3 w-full text-white">
       <div className="flex items-center gap-12 w-full max-w-7xl mx-auto">
         {/* Logo */}
         <NavLink to="/" className="flex items-center gap-3 flex-shrink-0">
           <div className="w-10 h-10 bg-halo-navy rounded-sm flex items-center justify-center">
             <span className="text-white font-bold text-base">FP</span>
           </div>
-          <span className="text-2xl font-bold text-foreground">FinPilot</span>
+          <span className="text-2xl font-bold text-white">FinPilot</span>
         </NavLink>
 
         {/* Navigation Menu */}
@@ -28,8 +28,8 @@ export const HorizontalNav = () => {
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                `text-foreground hover:text-primary transition-colors font-medium text-base whitespace-nowrap ${
-                  isActive ? "text-primary" : ""
+                `text-white/80 hover:text-white transition-colors font-medium text-base whitespace-nowrap ${
+                  isActive ? "text-white" : ""
                 }`
               }
             >
@@ -39,7 +39,7 @@ export const HorizontalNav = () => {
         </div>
 
         {/* Auth Buttons */}
-        <div className="flex items-center gap-3 ml-4 pl-4 border-l border-border flex-shrink-0">
+        <div className="flex items-center gap-3 ml-4 pl-4 border-l border-white/30 flex-shrink-0">
           <Button size="sm" asChild className="bg-halo-orange hover:bg-halo-orange/90 text-white text-sm">
             <NavLink to="/signup" className="flex items-center gap-2">
               Start Free Trial
@@ -50,7 +50,7 @@ export const HorizontalNav = () => {
             variant="outline"
             size="sm"
             asChild
-            className="text-sm border-halo-navy text-halo-navy hover:bg-halo-navy hover:text-white"
+            className="text-sm border-white text-white hover:bg-white hover:text-black"
           >
             <NavLink to="/auth" className="flex items-center gap-2">
               <Lock className="h-4 w-4" />
