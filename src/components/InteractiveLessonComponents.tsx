@@ -42,7 +42,7 @@ export const InteractiveCalculator = ({ onComplete }: InteractiveCalculatorProps
   return (
     <Card className="w-full max-w-2xl mx-auto bg-white border-black">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-green-800">
+        <CardTitle className="flex items-center gap-2 text-blue-900">
           <Calculator className="h-5 w-5" />
           Interactive Loan Calculator
         </CardTitle>
