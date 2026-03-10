@@ -56,6 +56,7 @@ const TeamAnalytics = lazy(() => import("./pages/TeamAnalytics"));
 const Cohorts = lazy(() => import("./pages/Cohorts"));
 const ComplianceTracking = lazy(() => import("./pages/ComplianceTracking"));
 const Certifications = lazy(() => import("./pages/Certifications"));
+const MyCertificates = lazy(() => import("./pages/MyCertificates"));
 const Branding = lazy(() => import("./pages/Branding"));
 
 // Loading fallback component for lazy-loaded pages
