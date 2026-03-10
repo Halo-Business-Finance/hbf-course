@@ -642,18 +642,41 @@ const ModulePage = () => {
               </TabsContent>
             </Tabs>
 
+            {/* Module Stats - Mobile/Tablet (horizontal) */}
+            <Card className="lg:hidden bg-halo-navy">
+              <CardContent className="py-3 px-4">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+                  <div>
+                    <span className="text-[10px] text-white/70 uppercase tracking-wide">Duration</span>
+                    <p className="text-sm font-semibold text-white">{module.duration || '45 min'}</p>
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-white/70 uppercase tracking-wide">Lessons</span>
+                    <p className="text-sm font-semibold text-white">{lessons.length}</p>
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-white/70 uppercase tracking-wide">Time Left</span>
+                    <p className="text-sm font-semibold text-white">{estimatedTimeRemaining}</p>
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-white/70 uppercase tracking-wide">Status</span>
+                    <p className="text-sm font-semibold text-white">
+                      {currentProgress === 100 ? "Done" : currentProgress > 0 ? "In Progress" : "Available"}
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
             {/* Quick Actions - Mobile friendly */}
             <Card className="lg:hidden">
-              <CardHeader>
-                <CardTitle className="text-lg">Quick Actions</CardTitle>
-              </CardHeader>
-              <CardContent className="flex gap-3">
-                <Button variant="outline" className="flex-1" onClick={handleTakeNotes}>
-                  <Book className="h-4 w-4 mr-2" />
+              <CardContent className="flex gap-3 py-3 px-4">
+                <Button variant="outline" className="flex-1 h-10 text-xs sm:text-sm" onClick={handleTakeNotes}>
+                  <Book className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5 sm:mr-2" />
                   Notes
                 </Button>
-                <Button variant="outline" className="flex-1" onClick={handleAskQuestion}>
-                  <Users2 className="h-4 w-4 mr-2" />
+                <Button variant="outline" className="flex-1 h-10 text-xs sm:text-sm" onClick={handleAskQuestion}>
+                  <Users2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5 sm:mr-2" />
                   Ask Question
                 </Button>
               </CardContent>
