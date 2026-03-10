@@ -259,6 +259,7 @@ const AppContent = () => {
           <Route path="/terms" element={<Terms />} />
           <Route path="/data-security" element={<DataSecurity />} />
           <Route path="/achievements" element={<ProtectedRoute><Achievements /></ProtectedRoute>} />
+          <Route path="/my-certificates" element={<ProtectedRoute><MyCertificates /></ProtectedRoute>} />
           <Route path="/certificate/:certificateId" element={<Certificate />} />
           <Route path="/team-analytics" element={<ProtectedRoute><TeamAnalytics /></ProtectedRoute>} />
           <Route path="/cohorts" element={<ProtectedRoute><Cohorts /></ProtectedRoute>} />
