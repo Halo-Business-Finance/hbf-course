@@ -106,7 +106,7 @@ export function DashboardCourseFilter({
       </div>
 
       {/* Filter Pills Row */}
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex items-center gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-none sm:flex-wrap sm:overflow-visible">
         {filterTopics.map((topic, index) => {
           const isSelected = selectedTopic === topic.label;
           
