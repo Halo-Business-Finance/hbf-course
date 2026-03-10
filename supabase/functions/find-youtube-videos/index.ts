@@ -244,30 +244,26 @@ async function processVideoSearch(
           const youtubeData = await youtubeResponse.json();
           if (!youtubeData.items || youtubeData.items.length === 0) continue;
 
-          // Filter to relevant, unused videos
-          const candidateIds: string[] = [];
+          // Separate into relevant (finance keyword match) and acceptable (not blocklisted)
+          const relevantIds: string[] = [];
+          const acceptableIds: string[] = [];
           const candidateMap = new Map<string, any>();
           
           for (const item of youtubeData.items) {
             const videoId = item.id?.videoId;
             if (!videoId || usedYoutubeIds.has(videoId)) continue;
-            if (isVideoRelevant(item.snippet?.title || '', item.snippet?.description || '')) {
-              candidateIds.push(videoId);
-              candidateMap.set(videoId, item);
+            const check = isVideoRelevant(item.snippet?.title || '', item.snippet?.description || '');
+            if (check.dominated) continue; // blocklisted
+            candidateMap.set(videoId, item);
+            if (check.relevant) {
+              relevantIds.push(videoId);
+            } else {
+              acceptableIds.push(videoId);
             }
           }
 
-          // Also add non-blocklisted as fallbacks
-          for (const item of youtubeData.items) {
-            const videoId = item.id?.videoId;
-            if (!videoId || usedYoutubeIds.has(videoId) || candidateMap.has(videoId)) continue;
-            const combined = ((item.snippet?.title || '') + ' ' + (item.snippet?.description || '')).toLowerCase();
-            const blocked = BLOCKLIST_KEYWORDS.some(bad => combined.includes(bad.toLowerCase()));
-            if (!blocked) {
-              candidateIds.push(videoId);
-              candidateMap.set(videoId, item);
-            }
-          }
+          // Prioritize relevant videos, then fall back to acceptable ones
+          const candidateIds = [...relevantIds, ...acceptableIds];
 
           if (candidateIds.length === 0) continue;
 
