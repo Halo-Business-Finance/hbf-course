@@ -118,24 +118,41 @@ export function DashboardCourseGrid({
               .map((course) => {
                 const courseName = course.title.split(' - ')[0];
                 const details = getCourseDetails(courseName);
+                const prerequisitesMet = arePrerequisitesMet(course);
+                const prereqNames = getPrerequisiteNames(course);
+                const isLocked = !prerequisitesMet;
 
                 return (
                   <div
                     key={courseName}
-                    className="group bg-card rounded-xl border border-border hover:border-primary/30 hover:shadow-lg transition-all duration-300 overflow-hidden"
+                    className={`group bg-card rounded-xl border transition-all duration-300 overflow-hidden ${
+                      isLocked 
+                        ? 'border-border/50 opacity-75' 
+                        : 'border-border hover:border-primary/30 hover:shadow-lg'
+                    }`}
                   >
                     <div className="relative h-44 overflow-hidden">
                       <img
                         src={getCourseImage(course.title)}
                         alt={courseName}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        className={`w-full h-full object-cover transition-transform duration-500 ${
+                          isLocked ? 'grayscale-[30%]' : 'group-hover:scale-105'
+                        }`}
                         loading="lazy"
                       />
-                      <div className="absolute top-4 left-4">
+                      <div className="absolute top-4 left-4 flex items-center gap-2">
                         <span className="px-3 py-1 bg-background/90 backdrop-blur-sm text-foreground text-xs font-semibold rounded-full uppercase tracking-wide">
                           {details.difficulty}
                         </span>
                       </div>
+                      {isLocked && (
+                        <div className="absolute top-4 right-4">
+                          <div className="flex items-center gap-1.5 px-2.5 py-1.5 bg-muted/90 backdrop-blur-sm text-muted-foreground text-xs font-semibold rounded-full">
+                            <Lock className="h-3 w-3" />
+                            Locked
+                          </div>
+                        </div>
+                      )}
                     </div>
 
                     <div className="p-5 space-y-3">
@@ -145,6 +162,17 @@ export function DashboardCourseGrid({
                       <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
                         {details.description}
                       </p>
+
+                      {isLocked && prereqNames.length > 0 && (
+                        <div className="flex items-start gap-2 p-2.5 rounded-lg bg-muted/50 border border-border/50">
+                          <Lock className="h-3.5 w-3.5 text-muted-foreground mt-0.5 shrink-0" />
+                          <p className="text-xs text-muted-foreground">
+                            <span className="font-medium">Prerequisite:</span>{' '}
+                            Complete {prereqNames.join(', ')} first
+                          </p>
+                        </div>
+                      )}
+
                       <div className="flex items-center gap-4 text-xs text-muted-foreground">
                         <div className="flex items-center gap-1.5">
                           <Clock className="h-3.5 w-3.5" />
@@ -169,11 +197,24 @@ export function DashboardCourseGrid({
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
+                          if (isLocked) return;
                           onStartCourse(courseName);
                         }}
-                        className="w-full mt-2 h-11 bg-halo-navy hover:bg-halo-navy/90 text-white font-semibold rounded-lg"
+                        disabled={isLocked}
+                        className={`w-full mt-2 h-11 font-semibold rounded-lg ${
+                          isLocked 
+                            ? 'bg-muted text-muted-foreground cursor-not-allowed' 
+                            : 'bg-halo-navy hover:bg-halo-navy/90 text-white'
+                        }`}
                       >
-                        Explore Course
+                        {isLocked ? (
+                          <>
+                            <Lock className="h-4 w-4 mr-2" />
+                            Complete Prerequisites
+                          </>
+                        ) : (
+                          'Explore Course'
+                        )}
                       </Button>
                     </div>
                   </div>
