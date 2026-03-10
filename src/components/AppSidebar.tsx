@@ -28,6 +28,7 @@ const learningNavItems = [
 
 
 const adminNavItems = [
+{ title: "Admin Dashboard", url: "/admin/dashboard", icon: Home },
 { title: "Team Analytics", url: "/team-analytics", icon: Users },
 { title: "Cohorts", url: "/cohorts", icon: UsersRound },
 { title: "Compliance", url: "/compliance", icon: ShieldCheck },
