@@ -6,10 +6,10 @@ import { Slider } from "@/components/ui/slider";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  Calculator, 
-  TrendingUp, 
-  DollarSign, 
+import {
+  Calculator,
+  TrendingUp,
+  DollarSign,
   Percent,
   PieChartIcon,
   BarChart3,
@@ -18,8 +18,8 @@ import {
   RefreshCw,
   Download,
   Share,
-  Info
-} from "lucide-react";
+  Info } from
+"lucide-react";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, PieChart, Pie, Cell, BarChart, Bar } from 'recharts';
 
 interface LoanScenario {
@@ -50,7 +50,7 @@ interface BusinessValuation {
 
 export const InteractiveFinancialTools = () => {
   const [activeTab, setActiveTab] = useState('loan-calculator');
-  
+
   // Loan Calculator State
   const [loanData, setLoanData] = useState<LoanScenario>({
     principal: 100000,
@@ -102,9 +102,9 @@ export const InteractiveFinancialTools = () => {
     const { principal, interestRate, termYears } = loanData;
     const monthlyRate = interestRate / 100 / 12;
     const totalPayments = termYears * 12;
-    
-    const monthlyPayment = (principal * monthlyRate * Math.pow(1 + monthlyRate, totalPayments)) / 
-                          (Math.pow(1 + monthlyRate, totalPayments) - 1);
+
+    const monthlyPayment = principal * monthlyRate * Math.pow(1 + monthlyRate, totalPayments) / (
+    Math.pow(1 + monthlyRate, totalPayments) - 1);
 
     const payments = [];
     let remainingBalance = principal;
@@ -180,30 +180,30 @@ export const InteractiveFinancialTools = () => {
         valuation = ebitda * multiplier.ebitda;
     }
 
-    setValuationData(prev => ({ ...prev, valuation }));
+    setValuationData((prev) => ({ ...prev, valuation }));
   };
 
   const calculateCreditScore = () => {
     const { paymentHistory, creditUtilization, creditHistory, creditMix, newCredit } = creditFactors;
-    
+
     // Simplified credit score calculation
     let score = 300; // Base score
-    
+
     // Payment history (35%)
-    score += (paymentHistory / 100) * 315;
-    
+    score += paymentHistory / 100 * 315;
+
     // Credit utilization (30%) - lower is better
     score += (1 - creditUtilization / 100) * 270;
-    
+
     // Credit history length (15%)
     score += Math.min(creditHistory / 240, 1) * 135; // 20 years max benefit
-    
+
     // Credit mix (10%)
     score += Math.min(creditMix / 5, 1) * 90;
-    
+
     // New credit (10%) - fewer inquiries is better
     score += (1 - Math.min(newCredit / 10, 1)) * 90;
-    
+
     return Math.round(Math.min(score, 850));
   };
 
@@ -224,7 +224,7 @@ export const InteractiveFinancialTools = () => {
 
   return (
     <div className="space-y-6">
-      <Card>
+      <Card className="border-white">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Calculator className="h-6 w-6" />
@@ -260,8 +260,8 @@ export const InteractiveFinancialTools = () => {
                     <Input
                       type="number"
                       value={loanData.principal}
-                      onChange={(e) => setLoanData(prev => ({ ...prev, principal: Number(e.target.value) }))}
-                    />
+                      onChange={(e) => setLoanData((prev) => ({ ...prev, principal: Number(e.target.value) }))} />
+                    
                   </div>
                 </div>
 
@@ -270,11 +270,11 @@ export const InteractiveFinancialTools = () => {
                   <div className="mt-2 space-y-2">
                     <Slider
                       value={[loanData.interestRate]}
-                      onValueChange={([value]) => setLoanData(prev => ({ ...prev, interestRate: value }))}
+                      onValueChange={([value]) => setLoanData((prev) => ({ ...prev, interestRate: value }))}
                       min={1}
                       max={20}
-                      step={0.1}
-                    />
+                      step={0.1} />
+                    
                     <div className="text-center text-sm text-muted-foreground">
                       {formatPercent(loanData.interestRate)}
                     </div>
@@ -286,11 +286,11 @@ export const InteractiveFinancialTools = () => {
                   <div className="mt-2 space-y-2">
                     <Slider
                       value={[loanData.termYears]}
-                      onValueChange={([value]) => setLoanData(prev => ({ ...prev, termYears: value }))}
+                      onValueChange={([value]) => setLoanData((prev) => ({ ...prev, termYears: value }))}
                       min={1}
                       max={30}
-                      step={1}
-                    />
+                      step={1} />
+                    
                     <div className="text-center text-sm text-muted-foreground">
                       {loanData.termYears} years
                     </div>
@@ -303,8 +303,8 @@ export const InteractiveFinancialTools = () => {
                     <Input
                       type="number"
                       value={loanData.downPayment}
-                      onChange={(e) => setLoanData(prev => ({ ...prev, downPayment: Number(e.target.value) }))}
-                    />
+                      onChange={(e) => setLoanData((prev) => ({ ...prev, downPayment: Number(e.target.value) }))} />
+                    
                   </div>
                 </div>
               </CardContent>
@@ -318,8 +318,8 @@ export const InteractiveFinancialTools = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                {loanPayments.length > 0 && (
-                  <div className="space-y-6">
+                {loanPayments.length > 0 &&
+                <div className="space-y-6">
                     <div className="grid grid-cols-2 gap-4">
                       <div className="text-center p-4 bg-muted rounded-lg">
                         <p className="text-sm text-muted-foreground">Monthly Payment</p>
@@ -331,8 +331,8 @@ export const InteractiveFinancialTools = () => {
                         <p className="text-sm text-muted-foreground">Total Interest</p>
                         <p className="text-2xl font-bold">
                           {formatCurrency(
-                            loanPayments.reduce((sum, payment) => sum + payment.interest, 0)
-                          )}
+                          loanPayments.reduce((sum, payment) => sum + payment.interest, 0)
+                        )}
                         </p>
                       </div>
                     </div>
@@ -349,7 +349,7 @@ export const InteractiveFinancialTools = () => {
                       </ResponsiveContainer>
                     </div>
                   </div>
-                )}
+                }
               </CardContent>
             </Card>
           </div>
@@ -371,8 +371,8 @@ export const InteractiveFinancialTools = () => {
                     <Input
                       type="number"
                       value={cashFlowData.initialRevenue}
-                      onChange={(e) => setCashFlowData(prev => ({ ...prev, initialRevenue: Number(e.target.value) }))}
-                    />
+                      onChange={(e) => setCashFlowData((prev) => ({ ...prev, initialRevenue: Number(e.target.value) }))} />
+                    
                   </div>
                 </div>
 
@@ -381,11 +381,11 @@ export const InteractiveFinancialTools = () => {
                   <div className="mt-2 space-y-2">
                     <Slider
                       value={[cashFlowData.revenueGrowth]}
-                      onValueChange={([value]) => setCashFlowData(prev => ({ ...prev, revenueGrowth: value }))}
+                      onValueChange={([value]) => setCashFlowData((prev) => ({ ...prev, revenueGrowth: value }))}
                       min={-10}
                       max={50}
-                      step={1}
-                    />
+                      step={1} />
+                    
                     <div className="text-center text-sm text-muted-foreground">
                       {formatPercent(cashFlowData.revenueGrowth)} annually
                     </div>
@@ -398,8 +398,8 @@ export const InteractiveFinancialTools = () => {
                     <Input
                       type="number"
                       value={cashFlowData.fixedExpenses}
-                      onChange={(e) => setCashFlowData(prev => ({ ...prev, fixedExpenses: Number(e.target.value) }))}
-                    />
+                      onChange={(e) => setCashFlowData((prev) => ({ ...prev, fixedExpenses: Number(e.target.value) }))} />
+                    
                   </div>
                 </div>
 
@@ -408,11 +408,11 @@ export const InteractiveFinancialTools = () => {
                   <div className="mt-2 space-y-2">
                     <Slider
                       value={[cashFlowData.variableExpenseRate]}
-                      onValueChange={([value]) => setCashFlowData(prev => ({ ...prev, variableExpenseRate: value }))}
+                      onValueChange={([value]) => setCashFlowData((prev) => ({ ...prev, variableExpenseRate: value }))}
                       min={10}
                       max={90}
-                      step={5}
-                    />
+                      step={5} />
+                    
                     <div className="text-center text-sm text-muted-foreground">
                       {formatPercent(cashFlowData.variableExpenseRate)} of revenue
                     </div>
@@ -436,27 +436,27 @@ export const InteractiveFinancialTools = () => {
                       <XAxis dataKey="month" />
                       <YAxis />
                       <Tooltip formatter={(value) => formatCurrency(Number(value))} />
-                      <Line 
-                        type="monotone" 
-                        dataKey="revenue" 
-                        stroke="#10B981" 
+                      <Line
+                        type="monotone"
+                        dataKey="revenue"
+                        stroke="#10B981"
                         strokeWidth={2}
-                        name="Revenue"
-                      />
-                      <Line 
-                        type="monotone" 
-                        dataKey="expenses" 
-                        stroke="#EF4444" 
+                        name="Revenue" />
+                      
+                      <Line
+                        type="monotone"
+                        dataKey="expenses"
+                        stroke="#EF4444"
                         strokeWidth={2}
-                        name="Expenses"
-                      />
-                      <Line 
-                        type="monotone" 
-                        dataKey="netCashFlow" 
-                        stroke="#3B82F6" 
+                        name="Expenses" />
+                      
+                      <Line
+                        type="monotone"
+                        dataKey="netCashFlow"
+                        stroke="#3B82F6"
                         strokeWidth={2}
-                        name="Net Cash Flow"
-                      />
+                        name="Net Cash Flow" />
+                      
                     </LineChart>
                   </ResponsiveContainer>
                 </div>
@@ -481,8 +481,8 @@ export const InteractiveFinancialTools = () => {
                     <Input
                       type="number"
                       value={valuationData.revenue}
-                      onChange={(e) => setValuationData(prev => ({ ...prev, revenue: Number(e.target.value) }))}
-                    />
+                      onChange={(e) => setValuationData((prev) => ({ ...prev, revenue: Number(e.target.value) }))} />
+                    
                   </div>
                 </div>
 
@@ -492,8 +492,8 @@ export const InteractiveFinancialTools = () => {
                     <Input
                       type="number"
                       value={valuationData.ebitda}
-                      onChange={(e) => setValuationData(prev => ({ ...prev, ebitda: Number(e.target.value) }))}
-                    />
+                      onChange={(e) => setValuationData((prev) => ({ ...prev, ebitda: Number(e.target.value) }))} />
+                    
                   </div>
                 </div>
 
@@ -504,8 +504,8 @@ export const InteractiveFinancialTools = () => {
                       <Input
                         type="number"
                         value={valuationData.assets}
-                        onChange={(e) => setValuationData(prev => ({ ...prev, assets: Number(e.target.value) }))}
-                      />
+                        onChange={(e) => setValuationData((prev) => ({ ...prev, assets: Number(e.target.value) }))} />
+                      
                     </div>
                   </div>
                   <div>
@@ -514,8 +514,8 @@ export const InteractiveFinancialTools = () => {
                       <Input
                         type="number"
                         value={valuationData.liabilities}
-                        onChange={(e) => setValuationData(prev => ({ ...prev, liabilities: Number(e.target.value) }))}
-                      />
+                        onChange={(e) => setValuationData((prev) => ({ ...prev, liabilities: Number(e.target.value) }))} />
+                      
                     </div>
                   </div>
                 </div>
@@ -526,8 +526,8 @@ export const InteractiveFinancialTools = () => {
                     <select
                       className="w-full p-2 border rounded-md"
                       value={valuationData.industry}
-                      onChange={(e) => setValuationData(prev => ({ ...prev, industry: e.target.value }))}
-                    >
+                      onChange={(e) => setValuationData((prev) => ({ ...prev, industry: e.target.value }))}>
+                      
                       <option value="manufacturing">Manufacturing</option>
                       <option value="technology">Technology</option>
                       <option value="retail">Retail</option>
@@ -543,8 +543,8 @@ export const InteractiveFinancialTools = () => {
                     <select
                       className="w-full p-2 border rounded-md"
                       value={valuationData.method}
-                      onChange={(e) => setValuationData(prev => ({ ...prev, method: e.target.value }))}
-                    >
+                      onChange={(e) => setValuationData((prev) => ({ ...prev, method: e.target.value }))}>
+                      
                       <option value="multiple">EBITDA Multiple</option>
                       <option value="revenue">Revenue Multiple</option>
                       <option value="asset">Asset-Based</option>
@@ -623,11 +623,11 @@ export const InteractiveFinancialTools = () => {
                   <div className="mt-2 space-y-2">
                     <Slider
                       value={[creditFactors.paymentHistory]}
-                      onValueChange={([value]) => setCreditFactors(prev => ({ ...prev, paymentHistory: value }))}
+                      onValueChange={([value]) => setCreditFactors((prev) => ({ ...prev, paymentHistory: value }))}
                       min={0}
                       max={100}
-                      step={1}
-                    />
+                      step={1} />
+                    
                     <div className="text-center text-sm text-muted-foreground">
                       {creditFactors.paymentHistory}% on-time payments
                     </div>
@@ -639,11 +639,11 @@ export const InteractiveFinancialTools = () => {
                   <div className="mt-2 space-y-2">
                     <Slider
                       value={[creditFactors.creditUtilization]}
-                      onValueChange={([value]) => setCreditFactors(prev => ({ ...prev, creditUtilization: value }))}
+                      onValueChange={([value]) => setCreditFactors((prev) => ({ ...prev, creditUtilization: value }))}
                       min={0}
                       max={100}
-                      step={1}
-                    />
+                      step={1} />
+                    
                     <div className="text-center text-sm text-muted-foreground">
                       {creditFactors.creditUtilization}% of available credit used
                     </div>
@@ -655,11 +655,11 @@ export const InteractiveFinancialTools = () => {
                   <div className="mt-2 space-y-2">
                     <Slider
                       value={[creditFactors.creditHistory]}
-                      onValueChange={([value]) => setCreditFactors(prev => ({ ...prev, creditHistory: value }))}
+                      onValueChange={([value]) => setCreditFactors((prev) => ({ ...prev, creditHistory: value }))}
                       min={6}
                       max={240}
-                      step={6}
-                    />
+                      step={6} />
+                    
                     <div className="text-center text-sm text-muted-foreground">
                       {Math.floor(creditFactors.creditHistory / 12)} years, {creditFactors.creditHistory % 12} months
                     </div>
@@ -671,11 +671,11 @@ export const InteractiveFinancialTools = () => {
                   <div className="mt-2 space-y-2">
                     <Slider
                       value={[creditFactors.creditMix]}
-                      onValueChange={([value]) => setCreditFactors(prev => ({ ...prev, creditMix: value }))}
+                      onValueChange={([value]) => setCreditFactors((prev) => ({ ...prev, creditMix: value }))}
                       min={1}
                       max={5}
-                      step={1}
-                    />
+                      step={1} />
+                    
                     <div className="text-center text-sm text-muted-foreground">
                       {creditFactors.creditMix} different account types
                     </div>
@@ -687,11 +687,11 @@ export const InteractiveFinancialTools = () => {
                   <div className="mt-2 space-y-2">
                     <Slider
                       value={[creditFactors.newCredit]}
-                      onValueChange={([value]) => setCreditFactors(prev => ({ ...prev, newCredit: value }))}
+                      onValueChange={([value]) => setCreditFactors((prev) => ({ ...prev, newCredit: value }))}
                       min={0}
                       max={10}
-                      step={1}
-                    />
+                      step={1} />
+                    
                     <div className="text-center text-sm text-muted-foreground">
                       {creditFactors.newCredit} inquiries in last 2 years
                     </div>
@@ -716,9 +716,9 @@ export const InteractiveFinancialTools = () => {
                     </p>
                     <div className="mt-2">
                       <Badge variant={calculateCreditScore() >= 750 ? 'default' : calculateCreditScore() >= 670 ? 'secondary' : 'destructive'}>
-                        {calculateCreditScore() >= 750 ? 'Excellent' : 
-                         calculateCreditScore() >= 670 ? 'Good' : 
-                         calculateCreditScore() >= 580 ? 'Fair' : 'Poor'}
+                        {calculateCreditScore() >= 750 ? 'Excellent' :
+                        calculateCreditScore() >= 670 ? 'Good' :
+                        calculateCreditScore() >= 580 ? 'Fair' : 'Poor'}
                       </Badge>
                     </div>
                   </div>
@@ -780,6 +780,6 @@ export const InteractiveFinancialTools = () => {
           </div>
         </TabsContent>
       </Tabs>
-    </div>
-  );
+    </div>);
+
 };
