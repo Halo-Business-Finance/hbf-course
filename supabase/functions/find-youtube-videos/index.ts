@@ -236,7 +236,9 @@ async function processVideoSearch(
           if (totalDurationForModule >= TARGET_DURATION_SECONDS) break;
 
           const encodedQuery = encodeURIComponent(searchQuery);
-          const youtubeSearchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=15&q=${encodedQuery}&type=video&videoDuration=medium&relevanceLanguage=en&key=${youtubeApiKey}`;
+          // Use 'medium' (4-20 min) for first 2 queries, 'long' (>20 min) for the rest
+          const durationFilter = searchVariants.indexOf(searchQuery) < 2 ? 'medium' : 'long';
+          const youtubeSearchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=15&q=${encodedQuery}&type=video&videoDuration=${durationFilter}&relevanceLanguage=en&key=${youtubeApiKey}`;
 
           const youtubeResponse = await fetch(youtubeSearchUrl);
           if (!youtubeResponse.ok) continue;
