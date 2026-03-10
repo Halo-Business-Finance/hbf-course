@@ -193,16 +193,14 @@ export const GamificationSystem = () => {
     const userIds = streaks.map(s => s.user_id);
     const { data: profiles } = await supabase
       .from('profiles')
-      .select('id, first_name, last_name')
-      .in('id', userIds);
+      .select('user_id, name')
+      .in('user_id', userIds);
 
-    const profileMap = new Map((profiles || []).map(p => [p.id, p]));
+    const profileMap = new Map((profiles || []).map(p => [p.user_id, p]));
 
     const entries: LeaderboardEntry[] = streaks.map((s, i) => {
       const profile = profileMap.get(s.user_id);
-      const name = profile
-        ? `${profile.first_name || ''} ${profile.last_name || ''}`.trim() || 'Learner'
-        : 'Learner';
+      const name = profile?.name || 'Learner';
       const { level } = calculateLevel(s.total_points);
       return {
         rank: i + 1,
