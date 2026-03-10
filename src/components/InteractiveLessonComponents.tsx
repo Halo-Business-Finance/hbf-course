@@ -412,7 +412,7 @@ export const InteractiveLessonComponents = () => {
         <h2 className="text-2xl font-bold">
 </h2>
         <p className="text-muted-foreground">
-          Engage with hands-on tools and scenarios to master finance concepts
+          ​         
         </p>
         <div className="flex justify-center gap-4 text-sm">
           <Badge variant={completedComponents.has('calculator') ? 'default' : 'outline'}>
