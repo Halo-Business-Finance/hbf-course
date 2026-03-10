@@ -110,7 +110,7 @@ const HeaderContent = ({
       minute: '2-digit'
     });
   };
-  return <header className="sticky top-0 h-[56px] sm:h-[70px] flex flex-col border-b border-white/30 bg-black z-50 px-2 sm:px-4">
+  return <header className={`sticky top-0 h-[56px] sm:h-[70px] flex flex-col border-b z-50 px-2 sm:px-4 ${user ? 'bg-black border-white/30' : 'bg-background border-border'}`}>
       <div className="flex-1 flex items-center justify-between gap-1 sm:gap-2 md:gap-4 min-h-0">
         <div className="flex items-center gap-1 sm:gap-2 md:gap-4 flex-shrink-0 rounded-2xl border-white border">
           {user && <SidebarTrigger variant="ghost" size="icon" className="ml-1 sm:ml-2 h-9 w-9 sm:h-10 sm:w-10 p-0 text-navy-900" />}
@@ -132,7 +132,7 @@ const HeaderContent = ({
             </NavLink>
           </div>}
 
-        {!user && <div className="flex-1 flex items-center justify-center max-w-4xl mx-auto min-w-0">
+        {!user && <div className="flex-1 flex items-center justify-center min-w-0">
             <div className="hidden lg:block w-full">
               <HorizontalNav />
             </div>
