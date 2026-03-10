@@ -305,6 +305,7 @@ const ResourcesPage = () => {
         toolType={selectedTool?.type || ""}
         toolTitle={selectedTool?.title || ""} />
       
+    </div>
     </div>);
 
 };

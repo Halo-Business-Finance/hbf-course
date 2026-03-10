@@ -1028,6 +1028,8 @@ const AccountPage = (): JSX.Element => {
           </TabsContent>
         </Tabs>
       </div>
+      </div>
+    </div>
     </div>
   );
 };
