@@ -502,13 +502,13 @@ const Dashboard = () => {
 /** Small reusable stat pill for the header */
 function StatPill({ icon, value, label }: {icon: React.ReactNode;value: string | number;label: string;}) {
   return (
-    <div className="flex items-center gap-2 sm:gap-3 group">
-      <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-halo-navy/5 flex items-center justify-center border border-halo-navy/10 group-hover:border-halo-navy/30 group-hover:bg-halo-navy/10 transition-all duration-300 bg-black">
+    <div className="flex items-center gap-1.5 sm:gap-3 group">
+      <div className="w-8 h-8 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-halo-navy/5 flex items-center justify-center border border-halo-navy/10 group-hover:border-halo-navy/30 group-hover:bg-halo-navy/10 transition-all duration-300 bg-black">
         {icon}
       </div>
       <div>
-        <p className="text-base sm:text-xl font-bold tracking-tight text-white">{value}</p>
-        <p className="text-[10px] sm:text-xs font-medium uppercase tracking-wider text-white">{label}</p>
+        <p className="text-sm sm:text-xl font-bold tracking-tight text-white">{value}</p>
+        <p className="text-[9px] sm:text-xs font-medium uppercase tracking-wider text-white">{label}</p>
       </div>
     </div>);
 
