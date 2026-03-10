@@ -149,6 +149,7 @@ const Dashboard = () => {
   }))
   );
 
+  console.log('Dashboard render state:', { authLoading, user: !!user, coursesLoading, modulesLoading, progressLoading, coursesCount: databaseCourses.length, modulesCount: databaseModules.length });
   const loading = coursesLoading || modulesLoading || progressLoading;
 
   // Scroll to top on filter changes

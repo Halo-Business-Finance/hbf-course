@@ -114,6 +114,7 @@ const AdminDashboard = () => {
   });
   const [hasAccessError, setHasAccessError] = useState(false);
   useEffect(() => {
+    console.log('AdminDashboard effect:', { roleLoading, isAdmin, user: !!user, loading, hasAccessError });
     // Prevent loading if role is still loading or if user doesn't have admin access
     if (roleLoading || !user) {
       return;
