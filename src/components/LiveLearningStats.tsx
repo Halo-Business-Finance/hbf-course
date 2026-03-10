@@ -342,7 +342,7 @@ export const LiveLearningStats = () => {
             {recentActivity.length > 0 ?
             <div className="space-y-3">
                 {recentActivity.map((activity, index) =>
-              <div key={index} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+              <div key={index} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg border-black border-solid border">
                     <div className="flex items-center gap-3">
                       <Calendar className="h-4 w-4 text-muted-foreground" />
                       <span className="text-sm font-medium">
@@ -410,7 +410,7 @@ export const LiveLearningStats = () => {
               </div> :
 
             <div className="text-center py-8 text-muted-foreground">
-                <Trophy className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                <Trophy className="h-12 w-12 mx-auto mb-4 opacity-50 text-orange-700" />
                 <p>No achievements yet</p>
                 <p className="text-sm">Complete modules and assessments to earn achievements!</p>
               </div>

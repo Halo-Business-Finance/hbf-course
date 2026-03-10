@@ -37,8 +37,8 @@ const ProgressPage = () => {
   const [loading, setLoading] = useState(true);
   const [moduleProgress, setModuleProgress] = useState<ModuleProgress[]>([]);
   const [certificatesList, setCertificatesList] = useState<CertificateItem[]>([]);
-  const [scoreTrend, setScoreTrend] = useState<{ date: string; score: number }[]>([]);
-  const [activityTrend, setActivityTrend] = useState<{ date: string; minutes: number }[]>([]);
+  const [scoreTrend, setScoreTrend] = useState<{date: string;score: number;}[]>([]);
+  const [activityTrend, setActivityTrend] = useState<{date: string;minutes: number;}[]>([]);
 
   useEffect(() => {
     if (user) fetchProgressData();
@@ -50,12 +50,12 @@ const ProgressPage = () => {
     try {
       // Fetch courses, modules, progress, certificates, and activity in parallel
       const [coursesRes, modulesRes, progressRes, certsRes, activityRes] = await Promise.all([
-        supabase.from("courses").select("id, title, level").eq("is_active", true).order("order_index"),
-        supabase.from("course_content_modules").select("id, course_id, title, lessons_count, order_index").eq("is_active", true).order("order_index"),
-        supabase.from("course_progress").select("course_id, module_id, progress_percentage, quiz_score, updated_at").eq("user_id", user.id),
-        supabase.from("certificates").select("course_id, issued_at, final_score").eq("user_id", user.id),
-        supabase.from("daily_learning_activity").select("activity_date, time_spent_minutes").eq("user_id", user.id).order("activity_date", { ascending: true }).limit(14),
-      ]);
+      supabase.from("courses").select("id, title, level").eq("is_active", true).order("order_index"),
+      supabase.from("course_content_modules").select("id, course_id, title, lessons_count, order_index").eq("is_active", true).order("order_index"),
+      supabase.from("course_progress").select("course_id, module_id, progress_percentage, quiz_score, updated_at").eq("user_id", user.id),
+      supabase.from("certificates").select("course_id, issued_at, final_score").eq("user_id", user.id),
+      supabase.from("daily_learning_activity").select("activity_date, time_spent_minutes").eq("user_id", user.id).order("activity_date", { ascending: true }).limit(14)]
+      );
 
       const courses = coursesRes.data || [];
       const modules = modulesRes.data || [];
@@ -89,7 +89,7 @@ const ProgressPage = () => {
           status = idx === 0 ? "available" : "locked";
         }
         // Re-derive: first non-completed = in-progress or available, rest locked
-        const completedLessons = Math.round((pct / 100) * (m.lessons_count || 1));
+        const completedLessons = Math.round(pct / 100 * (m.lessons_count || 1));
         const estMinutes = completedLessons * 15;
         return {
           name: m.title,
@@ -97,7 +97,7 @@ const ProgressPage = () => {
           status,
           timeSpent: estMinutes >= 60 ? `${Math.floor(estMinutes / 60)}h ${estMinutes % 60}m` : `${estMinutes}m`,
           lessons: m.lessons_count || 0,
-          completedLessons,
+          completedLessons
         };
       });
 
@@ -132,26 +132,26 @@ const ProgressPage = () => {
           status: earned ? "earned" : coursePct > 0 ? "in-progress" : coursePct === 0 && courses.indexOf(c) <= 1 ? "available" : "locked",
           description: `${c.level} level certification`,
           progress: earned ? 100 : coursePct,
-          estimatedTime: earned ? "Completed" : `${3 + Math.floor(Math.random() * 4)} hours`,
+          estimatedTime: earned ? "Completed" : `${3 + Math.floor(Math.random() * 4)} hours`
         };
       });
 
       setCertificatesList(certList.length > 0 ? certList : fallbackCertificates());
 
       // Build score trend from quiz scores
-      const scoresWithDates = progress
-        .filter((p) => p.quiz_score && p.quiz_score > 0 && p.updated_at)
-        .sort((a, b) => new Date(a.updated_at).getTime() - new Date(b.updated_at).getTime())
-        .map((p) => ({
-          date: new Date(p.updated_at).toLocaleDateString("en-US", { month: "short", day: "numeric" }),
-          score: p.quiz_score!,
-        }));
+      const scoresWithDates = progress.
+      filter((p) => p.quiz_score && p.quiz_score > 0 && p.updated_at).
+      sort((a, b) => new Date(a.updated_at).getTime() - new Date(b.updated_at).getTime()).
+      map((p) => ({
+        date: new Date(p.updated_at).toLocaleDateString("en-US", { month: "short", day: "numeric" }),
+        score: p.quiz_score!
+      }));
       setScoreTrend(scoresWithDates);
 
       // Build activity trend
       const actData = (activityRes.data || []).map((a) => ({
         date: new Date(a.activity_date + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" }),
-        minutes: a.time_spent_minutes || 0,
+        minutes: a.time_spent_minutes || 0
       }));
       setActivityTrend(actData);
     } catch (err) {
@@ -171,10 +171,10 @@ const ProgressPage = () => {
   const statusCounts = useMemo(() => {
     const counts = { completed: 0, inProgress: 0, available: 0, locked: 0 };
     moduleProgress.forEach((m) => {
-      if (m.status === "completed") counts.completed++;
-      else if (m.status === "in-progress") counts.inProgress++;
-      else if (m.status === "available") counts.available++;
-      else counts.locked++;
+      if (m.status === "completed") counts.completed++;else
+      if (m.status === "in-progress") counts.inProgress++;else
+      if (m.status === "available") counts.available++;else
+      counts.locked++;
     });
     return counts;
   }, [moduleProgress]);
@@ -228,8 +228,8 @@ const ProgressPage = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      </div>
-    );
+      </div>);
+
   }
 
   return (
@@ -288,7 +288,7 @@ const ProgressPage = () => {
           <TabsContent value="progress" className="space-y-8 animate-fade-in">
             {/* Overall Progress Card */}
             <Card className="relative overflow-hidden border-0 shadow-lg bg-gradient-to-br from-background to-primary/5">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-50" />
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-50 bg-white" />
               <CardHeader className="relative z-10">
                 <CardTitle className="flex items-center gap-3 text-2xl">
                   <div className="p-2 rounded-lg bg-white">
@@ -351,25 +351,25 @@ const ProgressPage = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {moduleProgress.map((module, index) => (
-                    <div
-                      key={module.name}
-                      className="group border rounded-xl p-6 space-y-4 hover:shadow-md transition-all duration-200 hover:border-primary/20 bg-gradient-to-r from-background to-background/50"
-                    >
+                  {moduleProgress.map((module, index) =>
+                  <div
+                    key={module.name}
+                    className="group border rounded-xl p-6 space-y-4 hover:shadow-md transition-all duration-200 hover:border-primary/20 bg-gradient-to-r from-background to-background/50">
+                    
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
                           <div className="relative">
                             <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-lg font-bold transition-colors ${
-                              module.status === 'completed' ? 'bg-accent/15 text-accent' :
-                              module.status === 'in-progress' ? 'bg-primary/15 text-primary' :
-                              module.status === 'available' ? 'bg-halo-orange/15 text-halo-orange' :
-                              'bg-muted text-muted-foreground'
-                            }`}>
+                          module.status === 'completed' ? 'bg-accent/15 text-accent' :
+                          module.status === 'in-progress' ? 'bg-primary/15 text-primary' :
+                          module.status === 'available' ? 'bg-halo-orange/15 text-halo-orange' :
+                          'bg-muted text-muted-foreground'}`
+                          }>
                               {module.status === 'completed' ? <CheckCircle className="h-6 w-6" /> : index + 1}
                             </div>
-                            {index < moduleProgress.length - 1 && (
-                              <div className="absolute top-12 left-1/2 transform -translate-x-1/2 w-0.5 h-8 bg-border" />
-                            )}
+                            {index < moduleProgress.length - 1 &&
+                          <div className="absolute top-12 left-1/2 transform -translate-x-1/2 w-0.5 h-8 bg-border" />
+                          }
                           </div>
                           <div className="space-y-2">
                             <h3 className="font-semibold text-lg text-foreground group-hover:text-primary transition-colors">
@@ -391,8 +391,8 @@ const ProgressPage = () => {
                         {getStatusIcon(module.status)}
                       </div>
 
-                      {module.status !== "locked" && (
-                        <div className="space-y-3">
+                      {module.status !== "locked" &&
+                    <div className="space-y-3">
                           <div className="flex justify-between text-sm">
                             <span className="text-muted-foreground font-medium">Progress</span>
                             <span className="font-semibold text-primary">{module.progress}%</span>
@@ -402,9 +402,9 @@ const ProgressPage = () => {
                             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary/10 to-accent/10 opacity-50" />
                           </div>
                         </div>
-                      )}
+                    }
                     </div>
-                  ))}
+                  )}
                 </div>
               </CardContent>
             </Card>
@@ -436,48 +436,48 @@ const ProgressPage = () => {
               <CardContent className="relative z-10">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                   {[
-                    { label: "Earned", value: certificatesList.filter((c) => c.status === "earned").length, color: "text-accent" },
-                    { label: "In Progress", value: certificatesList.filter((c) => c.status === "in-progress").length, color: "text-primary" },
-                    { label: "Available", value: certificatesList.filter((c) => c.status === "available").length, color: "text-halo-orange" },
-                    { label: "Locked", value: certificatesList.filter((c) => c.status === "locked").length, color: "text-muted-foreground" },
-                  ].map((stat) => (
-                    <div key={stat.label} className="text-center space-y-2 p-4 rounded-lg bg-background/50 border border-border/50 hover-scale">
+                  { label: "Earned", value: certificatesList.filter((c) => c.status === "earned").length, color: "text-accent" },
+                  { label: "In Progress", value: certificatesList.filter((c) => c.status === "in-progress").length, color: "text-primary" },
+                  { label: "Available", value: certificatesList.filter((c) => c.status === "available").length, color: "text-halo-orange" },
+                  { label: "Locked", value: certificatesList.filter((c) => c.status === "locked").length, color: "text-muted-foreground" }].
+                  map((stat) =>
+                  <div key={stat.label} className="text-center space-y-2 p-4 rounded-lg bg-background/50 border border-border/50 hover-scale">
                       <div className={`text-3xl font-bold ${stat.color}`}>{stat.value}</div>
                       <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
                     </div>
-                  ))}
+                  )}
                 </div>
               </CardContent>
             </Card>
 
             {/* Certificates Grid */}
             <div className="grid gap-6">
-              {certificatesList.map((certificate) => (
-                <Card
-                  key={certificate.name}
-                  className={`group border-0 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden ${
-                    certificate.status === "earned" ? "bg-accent/5 border-accent/20" :
-                    certificate.status === "in-progress" ? "bg-primary/5 border-primary/20" :
-                    certificate.status === "available" ? "bg-halo-orange/5 border-halo-orange/20" :
-                    "bg-gradient-to-r from-background to-muted/20"
-                  }`}
-                >
+              {certificatesList.map((certificate) =>
+              <Card
+                key={certificate.name}
+                className={`group border-0 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden ${
+                certificate.status === "earned" ? "bg-accent/5 border-accent/20" :
+                certificate.status === "in-progress" ? "bg-primary/5 border-primary/20" :
+                certificate.status === "available" ? "bg-halo-orange/5 border-halo-orange/20" :
+                "bg-gradient-to-r from-background to-muted/20"}`
+                }>
+                
                   <CardHeader>
                     <div className="flex items-start justify-between">
                       <div className="space-y-3">
                         <div className="flex items-center gap-3">
                           <div className={`p-2 rounded-lg ${
-                            certificate.status === "earned" ? "bg-accent/15" :
-                            certificate.status === "in-progress" ? "bg-primary/15" :
-                            certificate.status === "available" ? "bg-halo-orange/15" :
-                            "bg-muted"
-                          }`}>
+                        certificate.status === "earned" ? "bg-accent/15" :
+                        certificate.status === "in-progress" ? "bg-primary/15" :
+                        certificate.status === "available" ? "bg-halo-orange/15" :
+                        "bg-muted"}`
+                        }>
                             <Award className={`h-5 w-5 ${
-                              certificate.status === "earned" ? "text-accent" :
-                              certificate.status === "in-progress" ? "text-primary" :
-                              certificate.status === "available" ? "text-halo-orange" :
-                              "text-muted-foreground"
-                            }`} />
+                          certificate.status === "earned" ? "text-accent" :
+                          certificate.status === "in-progress" ? "text-primary" :
+                          certificate.status === "available" ? "text-halo-orange" :
+                          "text-muted-foreground"}`
+                          } />
                           </div>
                           <CardTitle className="text-xl text-foreground group-hover:text-primary transition-colors">
                             {certificate.name}
@@ -486,60 +486,60 @@ const ProgressPage = () => {
                         <CardDescription className="text-base leading-relaxed text-muted-foreground">
                           {certificate.description}
                         </CardDescription>
-                        {certificate.status !== "locked" && (
-                          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        {certificate.status !== "locked" &&
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
                             <Calendar className="h-4 w-4" />
                             <span>{certificate.estimatedTime}</span>
                           </div>
-                        )}
+                      }
                       </div>
                       {getCertificateStatusBadge(certificate.status)}
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    {certificate.status === "in-progress" && certificate.progress > 0 && (
-                      <div className="space-y-2">
+                    {certificate.status === "in-progress" && certificate.progress > 0 &&
+                  <div className="space-y-2">
                         <div className="flex justify-between text-sm">
                           <span className="text-muted-foreground font-medium">Progress</span>
                           <span className="font-semibold text-primary">{certificate.progress}%</span>
                         </div>
                         <Progress value={certificate.progress} className="h-2" />
                       </div>
-                    )}
+                  }
 
-                    {certificate.status === "available" && (
-                      <Button
-                        size="lg"
-                        className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
-                        onClick={() => navigate("/dashboard")}
-                      >
+                    {certificate.status === "available" &&
+                  <Button
+                    size="lg"
+                    className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
+                    onClick={() => navigate("/dashboard")}>
+                    
                         <Star className="h-4 w-4 mr-2" />
                         Start Learning Path
                       </Button>
-                    )}
+                  }
 
-                    {certificate.status === "in-progress" && (
-                      <Button
-                        size="lg"
-                        variant="outline"
-                        className="w-full border-primary/20 hover:bg-primary/5"
-                        onClick={() => navigate("/dashboard")}
-                      >
+                    {certificate.status === "in-progress" &&
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="w-full border-primary/20 hover:bg-primary/5"
+                    onClick={() => navigate("/dashboard")}>
+                    
                         <BookOpen className="h-4 w-4 mr-2" />
                         Continue Learning
                       </Button>
-                    )}
+                  }
 
-                    {certificate.status === "locked" && (
-                      <div className="p-4 rounded-lg bg-muted/30 border border-border/50">
+                    {certificate.status === "locked" &&
+                  <div className="p-4 rounded-lg bg-muted/30 border border-border/50">
                         <p className="text-sm text-muted-foreground leading-relaxed">
                           Complete prerequisite modules to unlock this certification and advance your expertise
                         </p>
                       </div>
-                    )}
+                  }
                   </CardContent>
                 </Card>
-              ))}
+              )}
             </div>
           </TabsContent>
 
@@ -564,25 +564,25 @@ const ProgressPage = () => {
           </TabsContent>
         </Tabs>
       </div>
-    </div>
-  );
+    </div>);
+
 };
 
 // Fallback data when no Supabase data exists
 function fallbackModules(): ModuleProgress[] {
   return [
-    { name: "Business Finance Foundations", progress: 0, status: "available", timeSpent: "0m", lessons: 8, completedLessons: 0 },
-    { name: "Capital Markets", progress: 0, status: "locked", timeSpent: "0m", lessons: 6, completedLessons: 0 },
-    { name: "SBA Loan Programs", progress: 0, status: "locked", timeSpent: "0m", lessons: 10, completedLessons: 0 },
-    { name: "Conventional Lending", progress: 0, status: "locked", timeSpent: "0m", lessons: 7, completedLessons: 0 },
-  ];
+  { name: "Business Finance Foundations", progress: 0, status: "available", timeSpent: "0m", lessons: 8, completedLessons: 0 },
+  { name: "Capital Markets", progress: 0, status: "locked", timeSpent: "0m", lessons: 6, completedLessons: 0 },
+  { name: "SBA Loan Programs", progress: 0, status: "locked", timeSpent: "0m", lessons: 10, completedLessons: 0 },
+  { name: "Conventional Lending", progress: 0, status: "locked", timeSpent: "0m", lessons: 7, completedLessons: 0 }];
+
 }
 
 function fallbackCertificates(): CertificateItem[] {
   return [
-    { name: "Business Finance Foundations", status: "available", description: "Fundamental concepts in business finance", progress: 0, estimatedTime: "3-4 hours" },
-    { name: "Capital Markets Specialist", status: "locked", description: "Advanced understanding of capital markets", progress: 0, estimatedTime: "4-5 hours" },
-  ];
+  { name: "Business Finance Foundations", status: "available", description: "Fundamental concepts in business finance", progress: 0, estimatedTime: "3-4 hours" },
+  { name: "Capital Markets Specialist", status: "locked", description: "Advanced understanding of capital markets", progress: 0, estimatedTime: "4-5 hours" }];
+
 }
 
 export default ProgressPage;
