@@ -27,6 +27,7 @@ import { useCourseProgress } from "@/hooks/useCourseProgress";
 import { useCourseCompletion } from "@/hooks/useCourseCompletion";
 import { CourseCompletionModal } from "@/components/progress/CourseCompletionModal";
 import { QuizScoreHistory } from "@/components/quiz/QuizScoreHistory";
+import { useNotificationTriggers } from "@/hooks/useNotificationTriggers";
 import { supabase } from "@/integrations/supabase/client";
 
 interface Lesson {
