@@ -299,24 +299,24 @@ const Dashboard = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}>
           
-          <div className="px-4 sm:px-6 lg:px-10 py-6 sm:py-8 max-w-7xl mx-auto bg-black">
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 border-black">
+           <div className="px-4 sm:px-6 lg:px-10 py-4 sm:py-8 max-w-7xl mx-auto bg-black">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 sm:gap-6 border-black">
               <motion.div
                 initial={{ opacity: 0, x: -15 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1, duration: 0.4 }}>
                 
-                <h1 className="text-2xl sm:text-3xl font-bold mb-1 text-white">
+                <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mb-1 text-white">
                   Welcome back, <span className="text-halo-navy text-white">{getFirstName()}</span>
                 </h1>
-                <p className="text-sm text-white">
+                <p className="text-xs sm:text-sm text-white">
                   Continue your journey in business finance mastery.
                 </p>
               </motion.div>
 
               {/* Stat pills */}
               <motion.div
-                className="grid grid-cols-3 gap-3 sm:flex sm:flex-wrap sm:items-center sm:gap-5"
+                className="grid grid-cols-3 gap-2 sm:gap-3 sm:flex sm:flex-wrap sm:items-center sm:gap-5"
                 initial={{ opacity: 0, x: 15 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.2, duration: 0.4 }}>
