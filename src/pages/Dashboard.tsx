@@ -94,6 +94,7 @@ const Dashboard = () => {
     getCompletedModulesCount,
   } = useCourseProgress(user?.id);
   const { toast } = useToast();
+  const notif = useNotificationTriggers(user?.id);
 
   const [selectedModule, setSelectedModule] = useState<string | null>(null);
   const [currentFilterLevel, setCurrentFilterLevel] = useState(0);
