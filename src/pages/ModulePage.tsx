@@ -688,7 +688,7 @@ const ModulePage = () => {
                 </CardContent>
               </Card>
 
-              <Card className="bg-halo-navy bg-white">
+              <Card className="bg-halo-navy bg-white border-blue-900 border">
                 <CardHeader>
                   <CardTitle className="text-base text-black">Quick Actions</CardTitle>
                 </CardHeader>
