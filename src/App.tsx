@@ -110,9 +110,9 @@ const HeaderContent = ({
       minute: '2-digit'
     });
   };
-  return <header className="sticky top-0 h-[56px] sm:h-[70px] flex flex-col border-b bg-black z-50 px-2 sm:px-4">
-      <div className="flex-1 flex items-center justify-between gap-1 sm:gap-2 md:gap-4 min-h-0">
-        <div className="flex items-center gap-1 sm:gap-2 md:gap-4 flex-shrink-0 rounded-2xl">
+  return <header className="sticky top-0 h-[56px] sm:h-[70px] flex flex-col border-b bg-background/95 backdrop-blur-md z-50 px-2 sm:px-4">
+      <div className="flex-1 flex items-center justify-between gap-1 sm:gap-2 md:gap-4 min-h-0 bg-black">
+        <div className="flex items-center gap-1 sm:gap-2 md:gap-4 flex-shrink-0 rounded-2xl border-white border">
           {user && <SidebarTrigger variant="ghost" size="icon" className="ml-1 sm:ml-2 h-9 w-9 sm:h-10 sm:w-10 p-0 text-navy-900" />}
           
           {user && <div className="flex items-center gap-1 sm:gap-2">
@@ -200,7 +200,7 @@ const AppContent = () => {
       {/* Keyboard Shortcuts Dialog */}
       {ShortcutsDialog}
       
-      <HeaderContent isChatOpen={isChatOpen} setIsChatOpen={setIsChatOpen} />
+      <HeaderContent isChatOpen={isChatOpen} setIsChatOpen={setIsChatOpen} className="bg-black" />
       
       <div className="flex flex-1 min-h-0">
         {user && <AppSidebar onOpenSupport={() => setIsChatOpen(true)} />}
