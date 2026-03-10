@@ -52,6 +52,7 @@ export function DashboardCourseGrid({
   selectedTopic,
   loading,
   coursesLoading,
+  completedCourseIds = [],
   onCategorySelect,
   onTopicSelect,
   onStartCourse,
@@ -62,6 +63,24 @@ export function DashboardCourseGrid({
   getCourseImage,
   isModuleUnlocked,
 }: DashboardCourseGridProps) {
+
+  // Check if a course's prerequisites are all completed
+  const arePrerequisitesMet = (course: CourseWithModules): boolean => {
+    const prereqs = course.prerequisite_course_ids || [];
+    if (prereqs.length === 0) return true;
+    return prereqs.every(id => completedCourseIds.includes(id));
+  };
+
+  // Get prerequisite course names for display
+  const getPrerequisiteNames = (course: CourseWithModules): string[] => {
+    const prereqs = course.prerequisite_course_ids || [];
+    return prereqs.map(id => {
+      const prereqCourse = filteredCoursesWithModules.find(c => c.id === id) ||
+        ({ title: id } as CourseWithModules);
+      return prereqCourse.title.split(' - ')[0];
+    });
+  };
+
   // Level 0: Course catalog
   if (currentFilterLevel === 0) {
     return (
