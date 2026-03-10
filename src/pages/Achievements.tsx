@@ -1,10 +1,10 @@
 import { SEOHead } from '@/components/SEOHead';
-import { HorizontalNav } from '@/components/HorizontalNav';
 import { FinPilotBrandFooter } from '@/components/FinPilotBrandFooter';
 import { GamificationDashboard } from '@/components/gamification/GamificationDashboard';
 import { LearningAnalyticsDashboard } from '@/components/analytics/LearningAnalyticsDashboard';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Trophy, BarChart3 } from 'lucide-react';
+import { PageHeader } from '@/components/PageHeader';
 
 export default function Achievements() {
   return (

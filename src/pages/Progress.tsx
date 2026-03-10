@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Trophy, Clock, CheckCircle, Target, Award, Lock, Star, BookOpen, Calendar, TrendingUp, Zap, Loader2 } from "lucide-react";
+import { PageHeader } from "@/components/PageHeader";
 import { useNavigate } from "react-router-dom";
 import { LiveLearningStats } from "@/components/LiveLearningStats";
 import { AdaptiveLearningEngine } from "@/components/AdaptiveLearningEngine";

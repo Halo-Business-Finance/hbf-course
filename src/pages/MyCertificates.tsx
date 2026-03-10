@@ -8,6 +8,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { SEOHead } from "@/components/SEOHead";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/PageTransition";
+import { PageHeader } from "@/components/PageHeader";
 import { motion } from "framer-motion";
 
 interface CertificateRecord {

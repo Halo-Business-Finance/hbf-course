@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, Download, ExternalLink, BookOpen, Video, FileSpreadsheet, Play, Zap, TrendingUp, Calculator } from "lucide-react";
+import { PageHeader } from "@/components/PageHeader";
 import { VideoPlayer } from "@/components/VideoPlayer";
 import { ToolModal } from "@/components/tools/ToolModal";
 import { InteractiveLessonComponents } from "@/components/InteractiveLessonComponents";
