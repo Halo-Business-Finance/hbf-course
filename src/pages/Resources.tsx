@@ -17,7 +17,7 @@ const ResourcesPage = () => {
   const [videos, setVideos] = useState<any[]>([]);
   const [tools, setTools] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedTool, setSelectedTool] = useState<{type: string, title: string} | null>(null);
+  const [selectedTool, setSelectedTool] = useState<{type: string;title: string;} | null>(null);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -27,10 +27,10 @@ const ResourcesPage = () => {
   const loadResources = async () => {
     try {
       const [docsRes, videosRes, toolsRes] = await Promise.all([
-        supabase.from('course_documents').select('*').eq('is_downloadable', true).order('created_at', { ascending: false }),
-        supabase.from('course_videos').select('*').eq('is_active', true).order('created_at', { ascending: false }),
-        supabase.from('learning_tools').select('*').eq('is_active', true).order('order_index', { ascending: true })
-      ]);
+      supabase.from('course_documents').select('*').eq('is_downloadable', true).order('created_at', { ascending: false }),
+      supabase.from('course_videos').select('*').eq('is_active', true).order('created_at', { ascending: false }),
+      supabase.from('learning_tools').select('*').eq('is_active', true).order('order_index', { ascending: true })]
+      );
 
       if (docsRes.error) throw docsRes.error;
       if (videosRes.error) throw videosRes.error;
@@ -44,7 +44,7 @@ const ResourcesPage = () => {
       toast({
         title: 'Error',
         description: 'Failed to load resources.',
-        variant: 'destructive',
+        variant: 'destructive'
       });
     } finally {
       setLoading(false);
@@ -73,24 +73,24 @@ const ResourcesPage = () => {
   const handleDownload = async (document: any) => {
     try {
       // Update download count
-      await supabase
-        .from('course_documents')
-        .update({ download_count: (document.download_count || 0) + 1 })
-        .eq('id', document.id);
+      await supabase.
+      from('course_documents').
+      update({ download_count: (document.download_count || 0) + 1 }).
+      eq('id', document.id);
 
       // Open file in new tab
       window.open(document.file_url, "_blank");
 
       toast({
         title: "Download Started",
-        description: `Downloading ${document.title}`,
+        description: `Downloading ${document.title}`
       });
     } catch (error) {
       console.error("Error downloading document:", error);
       toast({
         title: "Download Failed",
         description: "Could not download the document. Please try again.",
-        variant: "destructive",
+        variant: "destructive"
       });
     }
   };
@@ -101,8 +101,8 @@ const ResourcesPage = () => {
         <div className="flex items-center justify-center h-64">
           <div className="w-8 h-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
         </div>
-      </div>
-    );
+      </div>);
+
   }
 
   return (
@@ -139,12 +139,12 @@ const ResourcesPage = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Calculator className="h-5 w-5" />
-                Interactive Financial Tools
-              </CardTitle>
-              <CardDescription>
-                Practice with real-world financial calculators and simulators
+              
+
+
+              
+              <CardDescription className="text-black">
+
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -166,13 +166,13 @@ const ResourcesPage = () => {
             </CardHeader>
             <CardContent>
               <div className="grid gap-4">
-                {documents.length === 0 ? (
-                  <div className="text-center py-8 text-muted-foreground">
+                {documents.length === 0 ?
+                <div className="text-center py-8 text-muted-foreground">
                     No documents available yet.
-                  </div>
-                ) : (
-                  documents.map((doc) => (
-                    <div key={doc.id} className="flex items-center justify-between p-4 border rounded-lg">
+                  </div> :
+
+                documents.map((doc) =>
+                <div key={doc.id} className="flex items-center justify-between p-4 border rounded-lg">
                       <div className="flex items-center gap-3">
                         {getFileIcon(doc.file_type)}
                         <div>
@@ -189,8 +189,8 @@ const ResourcesPage = () => {
                         Download
                       </Button>
                     </div>
-                  ))
-                )}
+                )
+                }
               </div>
             </CardContent>
           </Card>
@@ -209,26 +209,26 @@ const ResourcesPage = () => {
             </CardHeader>
             <CardContent>
               <div className="grid gap-6">
-                {videos.length === 0 ? (
-                  <div className="text-center py-8 text-muted-foreground">
+                {videos.length === 0 ?
+                <div className="text-center py-8 text-muted-foreground">
                     No videos available yet.
-                  </div>
-                ) : (
-                  videos.map((video) => (
-                    <VideoPlayer
-                      key={video.id}
-                      title={video.title}
-                      description={video.description}
-                      duration={video.duration_seconds ? `${Math.floor(video.duration_seconds / 60)}:${(video.duration_seconds % 60).toString().padStart(2, '0')}` : undefined}
-                      videoType={video.video_type as 'youtube' | 'file'}
-                      videoUrl={video.video_url}
-                      youtubeId={video.youtube_id}
-                      onProgress={(progress) => {}}
-                      onComplete={() => {}}
-                      className="w-full"
-                    />
-                  ))
-                )}
+                  </div> :
+
+                videos.map((video) =>
+                <VideoPlayer
+                  key={video.id}
+                  title={video.title}
+                  description={video.description}
+                  duration={video.duration_seconds ? `${Math.floor(video.duration_seconds / 60)}:${(video.duration_seconds % 60).toString().padStart(2, '0')}` : undefined}
+                  videoType={video.video_type as 'youtube' | 'file'}
+                  videoUrl={video.video_url}
+                  youtubeId={video.youtube_id}
+                  onProgress={(progress) => {}}
+                  onComplete={() => {}}
+                  className="w-full" />
+
+                )
+                }
               </div>
             </CardContent>
           </Card>
@@ -247,13 +247,13 @@ const ResourcesPage = () => {
             </CardHeader>
             <CardContent>
               <div className="grid gap-4">
-                {tools.length === 0 ? (
-                  <div className="text-center py-8 text-muted-foreground">
+                {tools.length === 0 ?
+                <div className="text-center py-8 text-muted-foreground">
                     No tools available yet.
-                  </div>
-                ) : (
-                  tools.map((tool) => (
-                    <div key={tool.id} className="flex items-center justify-between p-4 border rounded-lg">
+                  </div> :
+
+                tools.map((tool) =>
+                <div key={tool.id} className="flex items-center justify-between p-4 border rounded-lg">
                       <div className="flex items-center gap-3">
                         <ExternalLink className="h-4 w-4 text-primary" />
                         <div>
@@ -263,16 +263,16 @@ const ResourcesPage = () => {
                         </div>
                       </div>
                       <Button size="sm" variant="outline" onClick={() => {
-                        setSelectedTool({
-                          type: tool.tool_type,
-                          title: tool.title
-                        });
-                      }}>
+                    setSelectedTool({
+                      type: tool.tool_type,
+                      title: tool.title
+                    });
+                  }}>
                         Launch Tool
                       </Button>
                     </div>
-                  ))
-                )}
+                )
+                }
               </div>
             </CardContent>
           </Card>
@@ -300,10 +300,10 @@ const ResourcesPage = () => {
         open={!!selectedTool}
         onOpenChange={(open) => !open && setSelectedTool(null)}
         toolType={selectedTool?.type || ""}
-        toolTitle={selectedTool?.title || ""}
-      />
-    </div>
-  );
+        toolTitle={selectedTool?.title || ""} />
+      
+    </div>);
+
 };
 
 export default ResourcesPage;
