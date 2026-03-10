@@ -29,6 +29,7 @@ interface DashboardCourseGridProps {
   selectedTopic: string | null;
   loading: boolean;
   coursesLoading: boolean;
+  completedCourseIds?: string[];
   onCategorySelect: (cat: string | null) => void;
   onTopicSelect: (topic: string | null) => void;
   onStartCourse: (name: string) => void;
