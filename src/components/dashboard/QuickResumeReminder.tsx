@@ -201,7 +201,7 @@ export function QuickResumeReminder() {
 
   /* ── Combined widget ── */
   return (
-    <div className="overflow-hidden rounded-lg border border-white/10 mt-6">
+    <div className="overflow-hidden rounded-lg border border-white/10 bg-black text-white">
       <div className="p-4 sm:p-5">
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1 min-w-0">
