@@ -15,6 +15,8 @@ import PublicModuleCard from "@/components/PublicModuleCard";
 import { CourseLearningPathMap } from "@/components/course/CourseLearningPathMap";
 import { useCourses, Course } from "@/hooks/useCourses";
 import { useModules } from "@/hooks/useModules";
+import { useCourseProgress } from "@/hooks/useCourseProgress";
+import { motion } from "framer-motion";
 import coursesHero from "@/assets/courses-hero.jpg";
 import financeCourseBg from "@/assets/finance-course-bg.jpg";
 import learningBackground from "@/assets/learning-background.jpg";
