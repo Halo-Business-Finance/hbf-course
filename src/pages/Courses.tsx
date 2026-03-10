@@ -15,6 +15,8 @@ import PublicModuleCard from "@/components/PublicModuleCard";
 import { CourseLearningPathMap } from "@/components/course/CourseLearningPathMap";
 import { useCourses, Course } from "@/hooks/useCourses";
 import { useModules } from "@/hooks/useModules";
+import { useCourseProgress } from "@/hooks/useCourseProgress";
+import { motion } from "framer-motion";
 import coursesHero from "@/assets/courses-hero.jpg";
 import financeCourseBg from "@/assets/finance-course-bg.jpg";
 import learningBackground from "@/assets/learning-background.jpg";
@@ -69,6 +71,10 @@ const Courses = () => {
     modules: databaseModules,
     loading: modulesLoading
   } = useModules();
+  const {
+    getOverallProgress,
+    getCompletedModulesCount
+  } = useCourseProgress(user?.id);
 
   // Generate course-specific key topics based on course content
   const getCourseKeyTopics = (courseId: string, courseTitle: string): string[] => {
@@ -446,27 +452,51 @@ const Courses = () => {
       <div className="bg-background min-h-screen">
         
         {/* Header Section */}
-        <div className="border-b border-border py-12 sm:py-16 md:py-20 bg-background">
+        <div className="border-b border-white/30 py-12 sm:py-16 md:py-20 bg-black">
           <div className="page-container">
             <div className="max-w-4xl mx-auto text-center">
-              <h1 className="hero-title mb-4 sm:mb-6 text-halo-navy">
+              <h1 className="hero-title mb-4 sm:mb-6 text-white">
                 Course Catalog
               </h1>
-              <p className="text-base sm:text-xl mb-3 sm:mb-4 text-foreground font-medium">
+              <p className="text-base sm:text-xl mb-3 sm:mb-4 text-white font-medium">
                 {user ? "AI-Powered Personalized Finance Training" : "Comprehensive Training for Finance Professionals"}
               </p>
-              <p className="text-sm sm:text-base mb-6 sm:mb-8 text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-sm sm:text-base mb-6 sm:mb-8 text-white/60 max-w-2xl mx-auto">
                 Experience personalized learning paths with interactive simulations
                 and real-time progress tracking. Master finance through adaptive experiences.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                 <Link to="/signup">
-                  <Button size="lg" className="w-full sm:w-auto bg-halo-navy hover:bg-halo-navy/90 text-white font-semibold min-h-[48px]">
+                  <Button size="lg" className="w-full sm:w-auto bg-white text-black hover:bg-white/90 font-semibold min-h-[48px]">
                     Start Learning
                   </Button>
                 </Link>
               </div>
             </div>
+
+            {/* Overall Progress Bar */}
+            {user && (
+              <motion.div
+                className="mt-8 max-w-lg mx-auto"
+                initial={{ opacity: 0, scaleX: 0.8 }}
+                animate={{ opacity: 1, scaleX: 1 }}
+                transition={{ delay: 0.3, duration: 0.5 }}
+                style={{ transformOrigin: "left" }}>
+                <div className="flex justify-between mb-2">
+                  <span className="text-xs font-semibold text-white">Overall Progress</span>
+                  <span className="text-xs text-white">
+                    {getCompletedModulesCount()}/{databaseModules.filter(m => m.is_active).length} modules
+                  </span>
+                </div>
+                <div className="h-2.5 bg-muted rounded-full overflow-hidden">
+                  <motion.div
+                    className="h-full bg-gradient-to-r from-halo-navy to-halo-orange rounded-full"
+                    initial={{ width: 0 }}
+                    animate={{ width: `${getOverallProgress()}%` }}
+                    transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }} />
+                </div>
+              </motion.div>
+            )}
           </div>
         </div>
       
