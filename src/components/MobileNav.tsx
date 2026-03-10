@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom"; 
+import { NavLink } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Menu, Lock, ArrowRight, MessageCircle } from "lucide-react";
@@ -8,13 +8,13 @@ export const MobileNav = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { title: "About", href: "/about" },
-    { title: "Course Catalog", href: "/course-catalog" },
-    { title: "Pricing", href: "/pricing" },
-    { title: "Enterprise", href: "/enterprise" },
-    { title: "Blog", href: "/blog" },
-    { title: "Support", href: "/support", icon: MessageCircle },
-  ];
+  { title: "About", href: "/about" },
+  { title: "Course Catalog", href: "/course-catalog" },
+  { title: "Pricing", href: "/pricing" },
+  { title: "Enterprise", href: "/enterprise" },
+  { title: "Blog", href: "/blog" },
+  { title: "Support", href: "/support", icon: MessageCircle }];
+
 
   return (
     <div className="lg:hidden w-full">
@@ -24,7 +24,7 @@ export const MobileNav = () => {
           <div className="w-10 h-10 bg-halo-navy rounded-sm flex items-center justify-center flex-shrink-0">
             <span className="text-white font-bold text-base">FP</span>
           </div>
-          <span className="text-xl md:text-2xl font-bold text-foreground truncate">FinPilot</span>
+          <span className="text-xl md:text-2xl font-bold truncate text-white">FinPilot</span>
         </NavLink>
 
         {/* Action Buttons and Menu */}
@@ -47,7 +47,7 @@ export const MobileNav = () => {
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="sm" className="text-foreground hover:bg-muted p-2">
-                <Menu className="h-5 w-5" />
+                <Menu className="h-5 w-5 text-white" />
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-full sm:w-4/5 md:w-80">
@@ -70,17 +70,17 @@ export const MobileNav = () => {
                       to={item.href}
                       onClick={() => setIsOpen(false)}
                       className={({ isActive }) =>
-                        `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
-                          isActive
-                            ? "bg-primary text-primary-foreground"
-                            : "hover:bg-muted text-foreground"
-                        }`
-                      }
-                    >
+                      `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+                      isActive ?
+                      "bg-primary text-primary-foreground" :
+                      "hover:bg-muted text-foreground"}`
+
+                      }>
+                      
                       {Icon && <Icon className="h-4 w-4" />}
                       <span className="font-medium">{item.title}</span>
-                    </NavLink>
-                  );
+                    </NavLink>);
+
                 })}
                 
                 {/* Mobile Sign In/Signup buttons in menu */}
@@ -88,16 +88,16 @@ export const MobileNav = () => {
                   <NavLink
                     to="/auth"
                     onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors bg-halo-navy text-white hover:bg-halo-navy/90"
-                  >
+                    className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors bg-halo-navy text-white hover:bg-halo-navy/90">
+                    
                     <Lock className="h-4 w-4" />
                     <span className="font-medium">Sign In</span>
                   </NavLink>
                   <NavLink
                     to="/signup"
                     onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors bg-halo-orange text-white hover:bg-halo-orange/90"
-                  >
+                    className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors bg-halo-orange text-white hover:bg-halo-orange/90">
+                    
                     <span className="font-medium">Start Free Trial</span>
                     <ArrowRight className="h-4 w-4" />
                   </NavLink>
@@ -107,6 +107,6 @@ export const MobileNav = () => {
           </Sheet>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 };
