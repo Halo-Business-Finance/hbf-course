@@ -1031,6 +1031,14 @@ const AdminDashboard = () => {
           <TabsContent value="cms" className="space-y-4">
             <CMSManager />
           </TabsContent>
+
+          <TabsContent value="videos" className="space-y-4">
+            <VideoManager />
+          </TabsContent>
+
+          <TabsContent value="articles" className="space-y-4">
+            <ArticleManager />
+          </TabsContent>
         </Tabs>
       </div>
     </div>;
