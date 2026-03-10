@@ -355,7 +355,7 @@ const Dashboard = () => {
         </motion.div>
 
         {/* ── Main Content ── */}
-        <div className="px-4 sm:px-6 lg:px-10 py-4 sm:py-8 max-w-7xl mx-auto space-y-6 sm:space-y-8">
+        <div className="px-4 sm:px-6 lg:px-10 py-4 sm:py-8 max-w-7xl mx-auto space-y-4 sm:space-y-6">
           {/* Quick Resume + Study Reminder — only at top level */}
           {isOnCatalog &&
           <AnimatedSection className="max-w-2xl ml-auto">
