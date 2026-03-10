@@ -97,7 +97,7 @@
     --popover-foreground: 0 0% 0%;
 
     /* Sidebar using Carbon layer tokens */
-    --sidebar-background: 0 0% 98%;      /* Gray-10 */
+    --sidebar-background: 0 0% 0%;      /* Black */
     --sidebar-foreground: 0 0% 9%;       /* Gray-100 */
     --sidebar-primary: 20 90% 48%;          /* Gray-100 */
     --sidebar-primary-foreground: 33 100% 96%;
@@ -141,7 +141,7 @@
     --chart-3: 47 95% 53%;
     --chart-4: 24 94% 53%;
     --chart-5: 0 0% 45%;
-    --sidebar: 0 0% 98%;
+    --sidebar: 0 0% 0%;
     --font-sans: 'Roboto', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
     --font-serif: 'Libre Caslon Text', ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
     --font-mono: 'Roboto Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
@@ -188,7 +188,7 @@
     --ring: 27 95% 60%;         /* Blue-50 */
 
     /* Sidebar dark theme */
-    --sidebar-background: 0 0% 8%;
+    --sidebar-background: 0 0% 0%;
     --sidebar-foreground: 0 0% 98%;
     --sidebar-primary: 27 95% 60%;
     --sidebar-primary-foreground: 12 81% 14%;
@@ -201,7 +201,7 @@
     --chart-3: 48 96% 76%;
     --chart-4: 27 95% 60%;
     --chart-5: 0 0% 45%;
-    --sidebar: 0 0% 14%;
+    --sidebar: 0 0% 0%;
     --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
     --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
     --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
