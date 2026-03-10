@@ -200,7 +200,7 @@ const AppContent = () => {
       {/* Keyboard Shortcuts Dialog */}
       {ShortcutsDialog}
       
-      <HeaderContent isChatOpen={isChatOpen} setIsChatOpen={setIsChatOpen} className="bg-black" />
+      <HeaderContent isChatOpen={isChatOpen} setIsChatOpen={setIsChatOpen} />
       
       <div className="flex flex-1 min-h-0">
         {user && <AppSidebar onOpenSupport={() => setIsChatOpen(true)} />}
