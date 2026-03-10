@@ -234,20 +234,12 @@ const ProgressPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
+      <PageHeader 
+        title="Learning Dashboard" 
+        subtitle="Your personalized financial education journey"
+        icon={<Target className="h-5 w-5 text-white" />}
+      />
       <div className="container mx-auto p-6 space-y-8">
-        {/* Learning Dashboard Header */}
-        <div className="mb-8">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-            <div>
-              <h1 className="text-3xl lg:text-4xl font-bold tracking-tight">
-                Learning Dashboard
-              </h1>
-              <p className="text-muted-foreground mt-2">
-                Your personalized financial education journey
-              </p>
-            </div>
-          </div>
-        </div>
 
         {/* Live Learning Stats Widget */}
         <LiveLearningStats />
