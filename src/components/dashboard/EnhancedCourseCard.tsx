@@ -36,12 +36,13 @@ export function EnhancedCourseCard({
   
   return (
     <div className={cn(
-      "group relative overflow-hidden rounded-2xl bg-card border border-border/50 transition-all duration-500",
-      "hover:shadow-2xl hover:shadow-primary/10 hover:border-primary/30 hover:-translate-y-1",
+      "group relative overflow-hidden rounded-2xl bg-card border border-border/40 transition-all duration-500",
+      "hover:shadow-[0_20px_60px_-15px_hsl(var(--halo-navy)/0.15)] hover:border-halo-navy/20 hover:-translate-y-1.5",
+      isCompleted && "ring-1 ring-accent/30",
       className
     )}>
-      {/* Glassmorphism overlay on hover */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-chart-2/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+      {/* Subtle gradient overlay on hover */}
+      <div className="absolute inset-0 bg-gradient-to-br from-halo-navy/3 via-transparent to-halo-orange/3 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
       
       {/* Image section with overlay */}
       <div className="relative h-48 overflow-hidden">
@@ -80,11 +81,11 @@ export function EnhancedCourseCard({
       {/* Content section */}
       <div className="relative p-5 space-y-4">
         {/* Institution badge */}
-        <div className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-lg bg-navy-900 flex items-center justify-center text-white font-bold text-xs">
+        <div className="flex items-center gap-2.5">
+          <div className="h-8 w-8 rounded-lg bg-halo-navy flex items-center justify-center text-white font-bold text-xs shadow-sm">
             FP
           </div>
-          <span className="text-xs text-muted-foreground">FinPilot Academy</span>
+          <span className="text-xs font-medium text-muted-foreground tracking-wide">FinPilot Academy</span>
         </div>
         
         {/* Title */}

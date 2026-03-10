@@ -339,19 +339,42 @@ export const ModuleQuiz: React.FC<ModuleQuizProps> = ({
     try {
       const newAttempts = quizStatus.attempts + 1;
       
-      // Update course progress with quiz results
-      const { error } = await supabase
+      // Check for existing progress record (check-then-act pattern for NULL-safe upsert)
+      const { data: existing } = await supabase
         .from('course_progress')
-        .upsert({
-          user_id: user.id,
-          course_id: courseId,
-          module_id: moduleId,
-          quiz_completed: passed,
-          quiz_score: score,
-          quiz_attempts: newAttempts,
-          progress_percentage: passed ? 100 : 50, // 100% if passed, 50% if not
-          completed_at: passed ? new Date().toISOString() : null
-        });
+        .select('id')
+        .eq('user_id', user.id)
+        .eq('course_id', courseId)
+        .eq('module_id', moduleId)
+        .maybeSingle();
+
+      const quizData = {
+        quiz_completed: passed,
+        quiz_score: score,
+        quiz_attempts: newAttempts,
+        progress_percentage: passed ? 100 : 50,
+        completed_at: passed ? new Date().toISOString() : null,
+        updated_at: new Date().toISOString(),
+      };
+
+      let error;
+      if (existing) {
+        const result = await supabase
+          .from('course_progress')
+          .update(quizData)
+          .eq('id', existing.id);
+        error = result.error;
+      } else {
+        const result = await supabase
+          .from('course_progress')
+          .insert({
+            user_id: user.id,
+            course_id: courseId,
+            module_id: moduleId,
+            ...quizData,
+          });
+        error = result.error;
+      }
 
       if (error) throw error;
 
@@ -393,16 +416,40 @@ export const ModuleQuiz: React.FC<ModuleQuizProps> = ({
     if (!user?.id) return;
 
     try {
-      const { error } = await supabase
+      // Check for existing record first
+      const { data: existing } = await supabase
         .from('course_progress')
-        .upsert({
-          user_id: user.id,
-          course_id: courseId,
-          module_id: moduleId,
-          quiz_completed: false,
-          quiz_score: 0,
-          progress_percentage: 10 // Reset to started state
-        });
+        .select('id')
+        .eq('user_id', user.id)
+        .eq('course_id', courseId)
+        .eq('module_id', moduleId)
+        .maybeSingle();
+
+      const resetData = {
+        quiz_completed: false,
+        quiz_score: 0,
+        progress_percentage: 10,
+        updated_at: new Date().toISOString(),
+      };
+
+      let error;
+      if (existing) {
+        const result = await supabase
+          .from('course_progress')
+          .update(resetData)
+          .eq('id', existing.id);
+        error = result.error;
+      } else {
+        const result = await supabase
+          .from('course_progress')
+          .insert({
+            user_id: user.id,
+            course_id: courseId,
+            module_id: moduleId,
+            ...resetData,
+          });
+        error = result.error;
+      }
 
       if (error) throw error;
 

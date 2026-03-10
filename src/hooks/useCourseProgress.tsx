@@ -155,6 +155,14 @@ export const useCourseProgress = (userId?: string, courseId?: string) => {
         }
       }));
 
+      // Show success feedback for significant progress updates
+      if (progressPercentage === 100) {
+        toast({
+          title: "✅ Progress Saved",
+          description: "Module marked as complete!",
+        });
+      }
+
       return true;
     } catch (err: any) {
       const errorMessage = err.message || 'Failed to update progress';
