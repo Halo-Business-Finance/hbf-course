@@ -148,7 +148,7 @@ export const NotificationBell = () => {
           variant="ghost"
           size="icon"
           title="Notifications"
-          className="relative h-10 w-10 text-foreground hover:bg-muted">
+          className="relative h-10 w-10 text-white hover:bg-white/10 hover:text-white">
           
           <Bell className="h-5 w-5 text-yellow-300" />
           {unreadCount > 0 &&
