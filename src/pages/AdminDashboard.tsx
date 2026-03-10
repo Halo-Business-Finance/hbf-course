@@ -855,7 +855,7 @@ const AdminDashboard = () => {
         {/* Modern Tabs Interface */}
         <Tabs defaultValue="overview" className="space-y-8">
           <div className="bg-card/50 backdrop-blur-sm p-3 border-0 border-white rounded-none shadow-none">
-            <TabsList className="grid w-full grid-cols-10 bg-transparent gap-2">
+            <TabsList className="grid w-full grid-cols-12 bg-transparent gap-2">
               <TabsTrigger value="overview" className="data-[state=active]:bg-background data-[state=active]:shadow-elegant transition-all duration-300 rounded-xl">
                 <span>Overview</span>
               </TabsTrigger>
@@ -885,6 +885,12 @@ const AdminDashboard = () => {
               </TabsTrigger>
               <TabsTrigger value="cms" className="data-[state=active]:bg-background data-[state=active]:shadow-elegant transition-all duration-300 rounded-xl">
                 <span>CMS</span>
+              </TabsTrigger>
+              <TabsTrigger value="videos" className="data-[state=active]:bg-background data-[state=active]:shadow-elegant transition-all duration-300 rounded-xl">
+                <span>Videos</span>
+              </TabsTrigger>
+              <TabsTrigger value="articles" className="data-[state=active]:bg-background data-[state=active]:shadow-elegant transition-all duration-300 rounded-xl">
+                <span>Articles</span>
               </TabsTrigger>
             </TabsList>
           </div>
@@ -1024,6 +1030,14 @@ const AdminDashboard = () => {
 
           <TabsContent value="cms" className="space-y-4">
             <CMSManager />
+          </TabsContent>
+
+          <TabsContent value="videos" className="space-y-4">
+            <VideoManager />
+          </TabsContent>
+
+          <TabsContent value="articles" className="space-y-4">
+            <ArticleManager />
           </TabsContent>
         </Tabs>
       </div>
