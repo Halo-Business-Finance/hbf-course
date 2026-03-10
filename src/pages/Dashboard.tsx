@@ -373,27 +373,21 @@ const Dashboard = () => {
           {/* Tabbed Layout — only at catalog level */}
           {isOnCatalog ?
            <Tabs defaultValue="courses" className="w-full">
-              {/* Widget + Tab triggers row */}
-              <div className="flex flex-col-reverse lg:flex-row lg:items-start gap-4 mb-6">
-                <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0 lg:pt-2">
-                  <TabsList className="w-full sm:w-auto sm:max-w-md bg-muted/50 p-1 rounded-lg inline-flex">
-                    <TabsTrigger value="courses" className="flex-1 gap-1.5 sm:gap-2 text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm whitespace-nowrap">
-                      <BookOpen className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                      Courses
-                    </TabsTrigger>
-                    <TabsTrigger value="analytics" className="flex-1 gap-1.5 sm:gap-2 text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm whitespace-nowrap">
-                      <BarChart3 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                      Analytics
-                    </TabsTrigger>
-                    <TabsTrigger value="community" className="flex-1 gap-1.5 sm:gap-2 text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm whitespace-nowrap">
-                      <MessageSquare className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                      Community
-                    </TabsTrigger>
-                  </TabsList>
-                </div>
-                <div className="lg:ml-auto w-full lg:max-w-md">
-                  <QuickResumeReminder />
-                </div>
+              <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0 mb-6">
+                <TabsList className="w-full sm:w-auto sm:max-w-md bg-muted/50 p-1 rounded-lg inline-flex">
+                  <TabsTrigger value="courses" className="flex-1 gap-1.5 sm:gap-2 text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm whitespace-nowrap">
+                    <BookOpen className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                    Courses
+                  </TabsTrigger>
+                  <TabsTrigger value="analytics" className="flex-1 gap-1.5 sm:gap-2 text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm whitespace-nowrap">
+                    <BarChart3 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                    Analytics
+                  </TabsTrigger>
+                  <TabsTrigger value="community" className="flex-1 gap-1.5 sm:gap-2 text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm whitespace-nowrap">
+                    <MessageSquare className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                    Community
+                  </TabsTrigger>
+                </TabsList>
               </div>
 
               <TabsContent value="courses" className="mt-0">
