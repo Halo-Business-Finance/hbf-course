@@ -523,11 +523,12 @@ const ModulePage = () => {
                                 <Button
                             size="sm"
                             variant={lesson.completed ? "outline" : "default"}
-                            className="h-9 px-3 text-xs shrink-0 min-w-[72px] hover:scale-[1.03] transition-transform"
+                            className="h-8 sm:h-9 px-2.5 sm:px-3 text-xs shrink-0 min-w-[60px] sm:min-w-[72px] hover:scale-[1.03] transition-transform"
                             onClick={() => handleLessonStart(lesson)}>
                             
                                   <Play className="h-3 w-3 mr-1" />
-                                  {lesson.completed ? "Review" : "Start"}
+                                  <span className="hidden sm:inline">{lesson.completed ? "Review" : "Start"}</span>
+                                  <span className="sm:hidden">{lesson.completed ? "↻" : "▶"}</span>
                                 </Button>
                               </motion.div>
                         )}
