@@ -88,17 +88,48 @@ export const useCourseProgress = (userId?: string, courseId?: string) => {
     try {
       const targetCourseId = courseIdOverride || courseId || 'halo-launch-pad-learn';
       
-      const { data, error } = await supabase
+      // Check if a progress record already exists for this module
+      const { data: existing } = await supabase
         .from('course_progress')
-        .upsert({
-          user_id: userId,
-          course_id: targetCourseId,
-          module_id: moduleId,
-          progress_percentage: progressPercentage,
-          completed_at: progressPercentage === 100 ? new Date().toISOString() : null
-        })
-        .select()
-        .single();
+        .select('id')
+        .eq('user_id', userId)
+        .eq('course_id', targetCourseId)
+        .eq('module_id', moduleId)
+        .maybeSingle();
+
+      let data;
+      let error;
+
+      if (existing) {
+        // Update the existing record
+        const result = await supabase
+          .from('course_progress')
+          .update({
+            progress_percentage: progressPercentage,
+            completed_at: progressPercentage === 100 ? new Date().toISOString() : null,
+            updated_at: new Date().toISOString()
+          })
+          .eq('id', existing.id)
+          .select()
+          .single();
+        data = result.data;
+        error = result.error;
+      } else {
+        // Insert a new record
+        const result = await supabase
+          .from('course_progress')
+          .insert({
+            user_id: userId,
+            course_id: targetCourseId,
+            module_id: moduleId,
+            progress_percentage: progressPercentage,
+            completed_at: progressPercentage === 100 ? new Date().toISOString() : null
+          })
+          .select()
+          .single();
+        data = result.data;
+        error = result.error;
+      }
 
       if (error) throw error;
 
