@@ -215,7 +215,8 @@ export function QuickResumeReminder() {
 
   /* ── Combined widget ── */
   return (
-    <Card className="overflow-hidden hover:shadow-elevated transition-all duration-300 border hover:border-primary/20">
+    <div className="overflow-hidden">
+      <div>
       <CardContent className="p-0">
         {/* Resume section */}
         <div className="p-4 sm:p-5">
