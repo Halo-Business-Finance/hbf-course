@@ -60,7 +60,7 @@ const imageMap: Record<string, string> = {
   "Restaurant Financing": courseRestaurantFinancing,
   "Bridge Loans": courseBridgeLoans,
   "Term Loans": courseTermLoans,
-  "Business Acquisition": courseBusinessAcquisition,
+  "Business Acquisition": courseBusinessAcquisition
 };
 
 const topicToCourses: Record<string, string[]> = {
@@ -70,7 +70,7 @@ const topicToCourses: Record<string, string[]> = {
   "Equipment Financing": ["Equipment Financing"],
   "Working Capital": ["Working Capital", "Business Lines of Credit", "Invoice Factoring"],
   "Credit Analysis": ["Asset-Based Lending", "Business Acquisition"],
-  "Risk Management": ["Merchant Cash Advances", "Term Loans"],
+  "Risk Management": ["Merchant Cash Advances", "Term Loans"]
 };
 
 const getCourseImage = (courseTitle: string) => {
@@ -93,7 +93,7 @@ const Dashboard = () => {
     isModuleUnlocked,
     getOverallProgress,
     getCompletedModulesCount,
-    getCourseProgress,
+    getCourseProgress
   } = useCourseProgress(user?.id);
   const { toast } = useToast();
   const notif = useNotificationTriggers(user?.id);
@@ -111,16 +111,16 @@ const Dashboard = () => {
   // Combine courses with modules
   const coursesWithModules = databaseCourses.map((course) => ({
     ...course,
-    modules: databaseModules.filter((m) => m.course_id === course.id && m.is_active),
+    modules: databaseModules.filter((m) => m.course_id === course.id && m.is_active)
   }));
 
   // Compute which courses are fully completed (all modules at 100%)
-  const completedCourseIds = coursesWithModules
-    .filter((course) => {
-      if (course.modules.length === 0) return false;
-      return course.modules.every((m) => moduleProgress[m.id]?.completed);
-    })
-    .map((c) => c.id);
+  const completedCourseIds = coursesWithModules.
+  filter((course) => {
+    if (course.modules.length === 0) return false;
+    return course.modules.every((m) => moduleProgress[m.id]?.completed);
+  }).
+  map((c) => c.id);
 
   // Filter by topic
   const filteredCoursesWithModules = (() => {
@@ -135,18 +135,18 @@ const Dashboard = () => {
   })();
 
   const flattenedModules = filteredCoursesWithModules.flatMap((course) =>
-    course.modules.map((module) => ({
-      ...module,
-      course_title: course.title,
-      course_level: course.level,
-      skill_level: course.level,
-      id: module.id,
-      title: module.title,
-      description: module.description,
-      duration: module.duration,
-      lessons: module.lessons_count,
-      order: module.order_index,
-    }))
+  course.modules.map((module) => ({
+    ...module,
+    course_title: course.title,
+    course_level: course.level,
+    skill_level: course.level,
+    id: module.id,
+    title: module.title,
+    description: module.description,
+    duration: module.duration,
+    lessons: module.lessons_count,
+    order: module.order_index
+  }))
   );
 
   const loading = coursesLoading || modulesLoading || progressLoading;
@@ -164,7 +164,7 @@ const Dashboard = () => {
       toast({
         title: "Course Locked",
         description: `Complete your current course (${activeStudyCourse?.title}) before starting a new one.`,
-        variant: "destructive",
+        variant: "destructive"
       });
       return;
     }
@@ -195,9 +195,9 @@ const Dashboard = () => {
     });
 
     setFilterNavigationPath([
-      selectedCourse,
-      { id: `${selectedCourse.id}-${level}`, name: `${level.charAt(0).toUpperCase() + level.slice(1)} Level`, count: levelModules.length },
-    ]);
+    selectedCourse,
+    { id: `${selectedCourse.id}-${level}`, name: `${level.charAt(0).toUpperCase() + level.slice(1)} Level`, count: levelModules.length }]
+    );
   };
 
   const handleReturnToDashboard = () => {
@@ -219,7 +219,7 @@ const Dashboard = () => {
     if (!user?.id) return;
     const success = await startModule(moduleId);
     if (success) {
-      const mod = flattenedModules.find(m => m.id === moduleId);
+      const mod = flattenedModules.find((m) => m.id === moduleId);
       notif.onModuleStarted(mod?.title || 'Module', moduleId);
       toast({ title: "Module Started", description: "You've started this learning module!" });
       window.location.assign(`/module/${moduleId}`);
@@ -239,7 +239,7 @@ const Dashboard = () => {
       duration: "6-8 weeks",
       difficulty,
       topics: sampleCourse?.modules?.flatMap((m: any) => m.topics || []).slice(0, 6) || ["Core Concepts"],
-      outcome: `Master ${courseName} with professional expertise`,
+      outcome: `Master ${courseName} with professional expertise`
     };
   };
 
@@ -263,8 +263,8 @@ const Dashboard = () => {
           <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-primary mx-auto" />
           <p className="mt-4 text-sm text-muted-foreground">Loading dashboard…</p>
         </div>
-      </div>
-    );
+      </div>);
+
   }
 
   if (!user) {
@@ -276,13 +276,13 @@ const Dashboard = () => {
             <CardDescription>Sign in to access your learning dashboard.</CardDescription>
           </CardHeader>
           <CardContent>
-            <Button onClick={() => (window.location.href = "/auth")} className="w-full">
+            <Button onClick={() => window.location.href = "/auth"} className="w-full">
               Sign In
             </Button>
           </CardContent>
         </Card>
-      </div>
-    );
+      </div>);
+
   }
 
   const isOnCatalog = currentFilterLevel === 0;
@@ -293,19 +293,19 @@ const Dashboard = () => {
         <WelcomeWizard />
 
         {/* ── Welcome Header ── */}
-        <motion.div 
+        <motion.div
           className="border-b border-border"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-        >
+          transition={{ duration: 0.4 }}>
+          
           <div className="px-4 sm:px-6 lg:px-10 py-6 sm:py-8 max-w-7xl mx-auto">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
               <motion.div
                 initial={{ opacity: 0, x: -15 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.1, duration: 0.4 }}
-              >
+                transition={{ delay: 0.1, duration: 0.4 }}>
+                
                 <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-1">
                   Welcome back, <span className="text-halo-navy">{getFirstName()}</span>
                 </h1>
@@ -315,12 +315,12 @@ const Dashboard = () => {
               </motion.div>
 
               {/* Stat pills */}
-              <motion.div 
+              <motion.div
                 className="grid grid-cols-3 gap-3 sm:flex sm:flex-wrap sm:items-center sm:gap-5"
                 initial={{ opacity: 0, x: 15 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2, duration: 0.4 }}
-              >
+                transition={{ delay: 0.2, duration: 0.4 }}>
+                
                 <StatPill icon={<Flame className="h-4 w-4 sm:h-5 sm:w-5 text-halo-orange" />} value={currentStreak} label="Day streak" />
                 <Separator orientation="vertical" className="h-10 hidden sm:block" />
                 <StatPill icon={<Target className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />} value={`${Math.round(overallProgress)}%`} label="Complete" />
@@ -330,13 +330,13 @@ const Dashboard = () => {
             </div>
 
             {/* Overall progress bar */}
-            <motion.div 
+            <motion.div
               className="mt-6 max-w-lg"
               initial={{ opacity: 0, scaleX: 0.8 }}
               animate={{ opacity: 1, scaleX: 1 }}
               transition={{ delay: 0.3, duration: 0.5 }}
-              style={{ transformOrigin: "left" }}
-            >
+              style={{ transformOrigin: "left" }}>
+              
               <div className="flex justify-between mb-2">
                 <span className="text-xs font-semibold text-foreground">Overall Progress</span>
                 <span className="text-xs text-muted-foreground">
@@ -348,8 +348,8 @@ const Dashboard = () => {
                   className="h-full bg-gradient-to-r from-halo-navy to-halo-orange rounded-full"
                   initial={{ width: 0 }}
                   animate={{ width: `${overallProgress}%` }}
-                  transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
-                />
+                  transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }} />
+                
               </div>
             </motion.div>
           </div>
@@ -358,16 +358,16 @@ const Dashboard = () => {
         {/* ── Main Content ── */}
         <div className="px-4 sm:px-6 lg:px-10 py-6 sm:py-8 max-w-7xl mx-auto space-y-8">
           {/* Quick Resume + Study Reminder — only at top level */}
-          {isOnCatalog && (
-            <StaggerContainer className="grid grid-cols-1 lg:grid-cols-2 gap-6" staggerDelay={0.1}>
+          {isOnCatalog &&
+          <StaggerContainer className="grid grid-cols-1 lg:grid-cols-2 gap-6" staggerDelay={0.1}>
               <StaggerItem><QuickResumeCard /></StaggerItem>
               <StaggerItem><StudyReminder /></StaggerItem>
             </StaggerContainer>
-          )}
+          }
 
           {/* Tabbed Layout — only at catalog level */}
-          {isOnCatalog ? (
-            <Tabs defaultValue="courses" className="w-full">
+          {isOnCatalog ?
+          <Tabs defaultValue="courses" className="w-full">
               <TabsList className="w-full max-w-md bg-muted/50 p-1 rounded-lg">
                 <TabsTrigger value="courses" className="flex-1 gap-1.5 sm:gap-2 text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">
                   <BookOpen className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
@@ -385,48 +385,48 @@ const Dashboard = () => {
 
               <TabsContent value="courses" className="mt-6">
                 <DashboardCourseGrid
-                  coursesWithModules={coursesWithModules}
-                  flattenedModules={flattenedModules}
-                  filteredCoursesWithModules={filteredCoursesWithModules}
-                  filteredModules={filteredModules}
-                  moduleProgress={moduleProgress}
-                  currentFilterLevel={currentFilterLevel}
-                  filterNavigationPath={filterNavigationPath}
-                  selectedCategory={selectedCategory}
-                  selectedTopic={selectedTopic}
-                  loading={loading}
-                  coursesLoading={coursesLoading}
-                  completedCourseIds={completedCourseIds}
-                  onCategorySelect={setSelectedCategory}
-                  onTopicSelect={setSelectedTopic}
-                  onStartCourse={handleStartCourse}
-                  onProceedToModules={handleProceedToModules}
-                  onReturnToDashboard={handleReturnToDashboard}
-                  onBackToLevel1={() => {
-                    setCurrentFilterLevel(1);
-                    setFilterNavigationPath([filterNavigationPath[0]]);
-                  }}
-                  getCourseDetails={getCourseDetails}
-                  getCourseImage={getCourseImage}
-                  isModuleUnlocked={isModuleUnlocked}
-                />
+                coursesWithModules={coursesWithModules}
+                flattenedModules={flattenedModules}
+                filteredCoursesWithModules={filteredCoursesWithModules}
+                filteredModules={filteredModules}
+                moduleProgress={moduleProgress}
+                currentFilterLevel={currentFilterLevel}
+                filterNavigationPath={filterNavigationPath}
+                selectedCategory={selectedCategory}
+                selectedTopic={selectedTopic}
+                loading={loading}
+                coursesLoading={coursesLoading}
+                completedCourseIds={completedCourseIds}
+                onCategorySelect={setSelectedCategory}
+                onTopicSelect={setSelectedTopic}
+                onStartCourse={handleStartCourse}
+                onProceedToModules={handleProceedToModules}
+                onReturnToDashboard={handleReturnToDashboard}
+                onBackToLevel1={() => {
+                  setCurrentFilterLevel(1);
+                  setFilterNavigationPath([filterNavigationPath[0]]);
+                }}
+                getCourseDetails={getCourseDetails}
+                getCourseImage={getCourseImage}
+                isModuleUnlocked={isModuleUnlocked} />
+              
               </TabsContent>
 
               <TabsContent value="analytics" className="mt-6 space-y-6">
                 <LearningAnalyticsCharts />
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   <StreakCounter
-                    currentStreak={currentStreak}
-                    longestStreak={longestStreak}
-                    lastActiveDate={new Date().toISOString().split("T")[0]}
-                  />
+                  currentStreak={currentStreak}
+                  longestStreak={longestStreak}
+                  lastActiveDate={new Date().toISOString().split("T")[0]} />
+                
                   <AchievementBadges
-                    badges={[
-                      { id: "1", name: "First Steps", description: "Complete your first module", icon: "target" as const, unlocked: completedCount >= 1, color: "bronze" },
-                      { id: "2", name: "Quick Learner", description: "Complete 5 modules", icon: "zap" as const, unlocked: completedCount >= 5, color: "silver" },
-                      { id: "3", name: "SBA Expert", description: "Master all SBA courses", icon: "trophy" as const, unlocked: false, progress: Math.min(100, completedCount * 10), color: "gold" },
-                    ]}
-                  />
+                  badges={[
+                  { id: "1", name: "First Steps", description: "Complete your first module", icon: "target" as const, unlocked: completedCount >= 1, color: "bronze" },
+                  { id: "2", name: "Quick Learner", description: "Complete 5 modules", icon: "zap" as const, unlocked: completedCount >= 5, color: "silver" },
+                  { id: "3", name: "SBA Expert", description: "Master all SBA courses", icon: "trophy" as const, unlocked: false, progress: Math.min(100, completedCount * 10), color: "gold" }]
+                  } />
+                
                 </div>
               </TabsContent>
 
@@ -434,82 +434,82 @@ const Dashboard = () => {
                 <SmartRecommendations />
                 <DiscussionForum />
               </TabsContent>
-            </Tabs>
-          ) : (
-            /* Drill-down views (level 1 & 2) render course grid directly */
-            <DashboardCourseGrid
-              coursesWithModules={coursesWithModules}
-              flattenedModules={flattenedModules}
-              filteredCoursesWithModules={filteredCoursesWithModules}
-              filteredModules={filteredModules}
-              moduleProgress={moduleProgress}
-              currentFilterLevel={currentFilterLevel}
-              filterNavigationPath={filterNavigationPath}
-              selectedCategory={selectedCategory}
-              selectedTopic={selectedTopic}
-              loading={loading}
-              coursesLoading={coursesLoading}
-              completedCourseIds={completedCourseIds}
-              onCategorySelect={setSelectedCategory}
-              onTopicSelect={setSelectedTopic}
-              onStartCourse={handleStartCourse}
-              onProceedToModules={handleProceedToModules}
-              onReturnToDashboard={handleReturnToDashboard}
-              onBackToLevel1={() => {
-                setCurrentFilterLevel(1);
-                setFilterNavigationPath([filterNavigationPath[0]]);
-              }}
-              getCourseDetails={getCourseDetails}
-              getCourseImage={getCourseImage}
-              isModuleUnlocked={isModuleUnlocked}
-            />
-          )}
+            </Tabs> : (
+
+          /* Drill-down views (level 1 & 2) render course grid directly */
+          <DashboardCourseGrid
+            coursesWithModules={coursesWithModules}
+            flattenedModules={flattenedModules}
+            filteredCoursesWithModules={filteredCoursesWithModules}
+            filteredModules={filteredModules}
+            moduleProgress={moduleProgress}
+            currentFilterLevel={currentFilterLevel}
+            filterNavigationPath={filterNavigationPath}
+            selectedCategory={selectedCategory}
+            selectedTopic={selectedTopic}
+            loading={loading}
+            coursesLoading={coursesLoading}
+            completedCourseIds={completedCourseIds}
+            onCategorySelect={setSelectedCategory}
+            onTopicSelect={setSelectedTopic}
+            onStartCourse={handleStartCourse}
+            onProceedToModules={handleProceedToModules}
+            onReturnToDashboard={handleReturnToDashboard}
+            onBackToLevel1={() => {
+              setCurrentFilterLevel(1);
+              setFilterNavigationPath([filterNavigationPath[0]]);
+            }}
+            getCourseDetails={getCourseDetails}
+            getCourseImage={getCourseImage}
+            isModuleUnlocked={isModuleUnlocked} />)
+
+          }
         </div>
 
         {/* Module Detail Modal */}
-        {selectedModule && flattenedModules.find((m) => m.id === selectedModule) && (
-          <ModuleDetail
-            module={{
-              ...flattenedModules.find((m) => m.id === selectedModule)!,
-              progress: moduleProgress[selectedModule]?.progress_percentage || 0,
-              loanExamples: [],
-              videos: [],
-              caseStudies: [],
-              scripts: [],
-              quiz: {
-                id: `quiz-${selectedModule}`,
-                moduleId: selectedModule,
-                title: `${flattenedModules.find((m) => m.id === selectedModule)?.title} Assessment`,
-                description: "Complete this assessment to test your understanding",
-                questions: [],
-                passingScore: 80,
-                maxAttempts: 3,
-                timeLimit: 30,
-              },
-            }}
-            onClose={() => setSelectedModule(null)}
-          />
-        )}
+        {selectedModule && flattenedModules.find((m) => m.id === selectedModule) &&
+        <ModuleDetail
+          module={{
+            ...flattenedModules.find((m) => m.id === selectedModule)!,
+            progress: moduleProgress[selectedModule]?.progress_percentage || 0,
+            loanExamples: [],
+            videos: [],
+            caseStudies: [],
+            scripts: [],
+            quiz: {
+              id: `quiz-${selectedModule}`,
+              moduleId: selectedModule,
+              title: `${flattenedModules.find((m) => m.id === selectedModule)?.title} Assessment`,
+              description: "Complete this assessment to test your understanding",
+              questions: [],
+              passingScore: 80,
+              maxAttempts: 3,
+              timeLimit: 30
+            }
+          }}
+          onClose={() => setSelectedModule(null)} />
+
+        }
 
         <FinPilotBrandFooter />
       </div>
-    </div>
-  );
+    </div>);
+
 };
 
 /** Small reusable stat pill for the header */
-function StatPill({ icon, value, label }: { icon: React.ReactNode; value: string | number; label: string }) {
+function StatPill({ icon, value, label }: {icon: React.ReactNode;value: string | number;label: string;}) {
   return (
     <div className="flex items-center gap-2 sm:gap-3 group">
-      <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-halo-navy/5 flex items-center justify-center border border-halo-navy/10 group-hover:border-halo-navy/30 group-hover:bg-halo-navy/10 transition-all duration-300">
+      <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-halo-navy/5 flex items-center justify-center border border-halo-navy/10 group-hover:border-halo-navy/30 group-hover:bg-halo-navy/10 transition-all duration-300 bg-white">
         {icon}
       </div>
       <div>
         <p className="text-base sm:text-xl font-bold text-foreground tracking-tight">{value}</p>
         <p className="text-[10px] sm:text-xs text-muted-foreground font-medium uppercase tracking-wider">{label}</p>
       </div>
-    </div>
-  );
+    </div>);
+
 }
 
 export default Dashboard;
