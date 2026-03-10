@@ -78,14 +78,7 @@ const HeaderContent = ({
   const {
     user
   } = useAuth();
-  const [currentTime, setCurrentTime] = useState(new Date());
   const [calculatorOpen, setCalculatorOpen] = useState(false);
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
   const goBack = () => {
     navigate(-1);
   };
