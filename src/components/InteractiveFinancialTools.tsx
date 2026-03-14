@@ -10,13 +10,9 @@ import {
   TrendingUp,
   DollarSign,
   Percent,
-  PieChartIcon,
   BarChart3,
   Activity,
   Target,
-  RefreshCw,
-  Download,
-  Share,
   Info } from
 "lucide-react";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, PieChart } from 'recharts';

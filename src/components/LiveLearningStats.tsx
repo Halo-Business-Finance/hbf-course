@@ -7,13 +7,10 @@ import { useToast } from "@/hooks/use-toast";
 import {
   Trophy,
   Clock,
-  Target,
-  TrendingUp,
   BookOpen,
   Award,
   Calendar,
   Flame,
-  BarChart3,
   Activity } from
 "lucide-react";
 

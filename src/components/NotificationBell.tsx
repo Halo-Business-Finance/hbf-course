@@ -1,7 +1,7 @@
 import { useState } from "react";
 import {
-  Bell, X, CheckCircle, AlertTriangle, Info, AlertCircle,
-  Trophy, BookOpen, Trash2, CheckCheck, Clock } from
+  Bell, CheckCircle, AlertTriangle, Info, AlertCircle,
+  Trophy, BookOpen, Trash2, CheckCheck } from
 "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";

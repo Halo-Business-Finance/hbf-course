@@ -257,14 +257,6 @@ export const InteractiveDragDrop = ({ onComplete }: InteractiveDragDropProps) =>
 
 };
 
-interface ScenarioChoice {
-  id: string;
-  text: string;
-  isCorrect: boolean;
-  feedback: string;
-  consequence: string;
-}
-
 interface InteractiveScenarioProps {
   onComplete?: () => void;
 }

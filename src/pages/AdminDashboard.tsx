@@ -59,16 +59,6 @@ interface SystemStatus {
   realTimeUpdates: 'connected' | 'disconnected' | 'reconnecting';
 }
 
-// Add type definition for the RPC response
-interface ActiveAdminWithActivity {
-  user_id: string;
-  name: string;
-  email: string;
-  role: string;
-  is_active: boolean;
-  recent_activity_count: number;
-  last_activity: string;
-}
 const AdminDashboard = () => {
   const {
     user

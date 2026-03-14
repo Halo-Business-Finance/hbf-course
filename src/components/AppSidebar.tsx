@@ -1,7 +1,7 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {
-  BookOpen, Home, BarChart3, Award, FileText, User, LogIn, Lock, Trophy,
+  BookOpen, Home, BarChart3, Award, FileText, LogIn, Lock, Trophy,
   Users, ShieldCheck, GraduationCap, Palette, UsersRound, ChevronDown } from
 "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";

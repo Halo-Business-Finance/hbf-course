@@ -17,19 +17,6 @@ interface ProfileEditFormProps {
   loading?: boolean;
 }
 
-// Phone number formatting utility
-const formatPhoneNumber = (phone: string): string => {
-  if (!phone) return "";
-  
-  const digits = phone.replace(/\D/g, "");
-  
-  if (digits.length === 10) {
-    return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
-  }
-  
-  return phone;
-};
-
 const handlePhoneInput = (value: string): string => {
   const digits = value.replace(/\D/g, "");
   const limitedDigits = digits.slice(0, 10);

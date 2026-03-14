@@ -35,11 +35,6 @@ const formatPhoneNumber = (phone: string): string => {
   return phone;
 };
 
-// Phone input handler
-const handlePhoneInput = (e: React.ChangeEvent<HTMLInputElement>): string => {
-  return formatPhoneNumber(e.target.value);
-};
-
 const AccountPage = (): JSX.Element => {
   const location = useLocation();
   const navigate = useNavigate();
