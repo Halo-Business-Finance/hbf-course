@@ -95,7 +95,7 @@ export const InteractiveLessonPlayer = ({ lesson, learningProfile, onComplete }:
     const difficulty = lesson.difficulty_level;
     const style = profile.learning_style;
     
-    let content = lesson.adaptive_content.style_adaptations[style] || lesson.adaptive_content.main_content;
+    let content;
     
     if (difficulty <= 3) {
       content = lesson.adaptive_content.difficulty_variants.beginner;
