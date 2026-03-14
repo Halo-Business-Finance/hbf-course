@@ -150,7 +150,7 @@ const AdminDashboard = () => {
       console.log('Setting up realtime subscriptions...');
 
       // Debounce dashboard data loading to prevent overwhelming the system
-      let loadTimeout: NodeJS.Timeout;
+      let loadTimeout: ReturnType<typeof setTimeout>;
       const debouncedLoadData = () => {
         clearTimeout(loadTimeout);
         loadTimeout = setTimeout(() => {
