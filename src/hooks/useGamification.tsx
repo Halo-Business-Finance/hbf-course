@@ -215,7 +215,9 @@ export function useGamification() {
   const generateCertificate = async (courseId: string, finalScore?: number) => {
     if (!user) return null;
 
-    const certificateNumber = `CERT-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+    const randomBytes = crypto.getRandomValues(new Uint8Array(8));
+    const randomPart = Array.from(randomBytes).map(b => b.toString(36)).join('').substring(0, 9).toUpperCase();
+    const certificateNumber = `CERT-${Date.now()}-${randomPart}`;
 
     try {
       const { data, error } = await supabase

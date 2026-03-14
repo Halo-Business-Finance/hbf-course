@@ -5,11 +5,14 @@ import type { SecureFormData, ValidationResult } from '@/types/interfaces';
 export const sanitizeInput = (input: string): string => {
   if (!input || typeof input !== 'string') return '';
   
+  // Use DOMPurify-style entity encoding for complete sanitization
   return input
     .trim()
-    .replace(/[<>]/g, '') // Remove potential HTML tags
-    .replace(/javascript:/gi, '') // Remove javascript protocols
-    .replace(/on\w+=/gi, '') // Remove event handlers
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;')
     .substring(0, 10000); // Limit length
 };
 
