@@ -37,7 +37,7 @@ export interface CourseModuleManagerHandle {
   openCreate: (prefillCourseId?: string) => void;
 }
 
-export const CourseModuleManager = forwardRef<CourseModuleManagerHandle, {}>((_, ref) => {
+export const CourseModuleManager = forwardRef<CourseModuleManagerHandle>((_, ref) => {
   const [modules, setModules] = useState<CourseModule[]>([]);
   const [showAddDialog, setShowAddDialog] = useState(false);
   const [editingModule, setEditingModule] = useState<CourseModule | null>(null);

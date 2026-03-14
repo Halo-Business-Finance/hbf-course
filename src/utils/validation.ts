@@ -43,6 +43,7 @@ export const sanitizeInput = (input: string): string => {
   return input
     .trim()
     // Remove null bytes and control characters first
+    // eslint-disable-next-line no-control-regex
     .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '')
     // Remove Unicode zero-width characters
     .replace(/[\u200B-\u200D\uFEFF]/g, '')
@@ -67,19 +68,20 @@ export const validateSecureInput = (input: string, context: 'email' | 'name' | '
   
   // Context-specific validation
   switch (context) {
-    case 'email':
+    case 'email': {
       const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       if (!emailRegex.test(sanitized)) {
         return { isValid: false, sanitized, message: 'Invalid email format' };
       }
       break;
-      
-    case 'name':
-      const nameRegex = /^[a-zA-Z\s\-'\.]{2,50}$/;
+    }
+    case 'name': {
+      const nameRegex = /^[a-zA-Z\s\-'.]{2,50}$/;
       if (!nameRegex.test(sanitized)) {
         return { isValid: false, sanitized, message: 'Name contains invalid characters or invalid length' };
       }
       break;
+    }
       
     case 'url':
       try {

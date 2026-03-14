@@ -210,20 +210,23 @@ export const EnhancedQuiz = ({
       case 'multiple-choice':
       case 'true-false':
         return userAnswer === question.correctAnswers[0];
-      case 'multiple-select':
+      case 'multiple-select': {
         const userSet = new Set(userAnswer);
         const correctSet = new Set(question.correctAnswers);
         return userSet.size === correctSet.size && [...userSet].every(x => correctSet.has(x as string | number));
+      }
       case 'short-answer':
         return question.correctAnswers.some(correct => userAnswer.toLowerCase().trim() === String(correct).toLowerCase().trim());
-      case 'slider':
+      case 'slider': {
         const tolerance = ((question.max || 100) - (question.min || 0)) * 0.05; // 5% tolerance
         const targetValue = Number(question.correctAnswers[0]);
         const userValue = Number(userAnswer);
         return Math.abs(userValue - targetValue) <= tolerance;
-      case 'fill-blank':
+      }
+      case 'fill-blank': {
         const userBlanks = userAnswer || [];
         return question.correctAnswers.every((correct: any, index: number) => userBlanks[index]?.toLowerCase().trim() === String(correct).toLowerCase().trim());
+      }
       default:
         return false;
     }

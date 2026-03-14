@@ -53,25 +53,25 @@ export const validateForm = (
 
       // Type-specific validation
       switch (rules.type) {
-        case 'email':
+        case 'email': {
           const emailResult = validateEmail(stringValue);
           if (!emailResult.isValid) {
             fieldErrors.push(emailResult.message || 'Invalid email format');
             isFormValid = false;
           }
           break;
-
-        case 'password':
+        }
+        case 'password': {
           const passwordResult = validatePassword(stringValue);
           if (!passwordResult.isValid) {
             fieldErrors.push(passwordResult.message || 'Password does not meet requirements');
             isFormValid = false;
           }
           break;
-
+        }
         case 'name':
         case 'text':
-        case 'url':
+        case 'url': {
           const textResult = validateSecureInput(stringValue, rules.type);
           if (!textResult.isValid) {
             fieldErrors.push(textResult.message || `Invalid ${rules.type} format`);
@@ -79,6 +79,7 @@ export const validateForm = (
           }
           sanitizedData[fieldName] = textResult.sanitized;
           break;
+        }
 
         default:
           // Default sanitization
