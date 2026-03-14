@@ -29,6 +29,16 @@ interface InteractiveLessonPlayerProps {
   onComplete: (lessonId: string, score: number, timeSpent: number) => void;
 }
 
+type InteractiveElementType = 'drag-drop' | 'scenario-simulation' | 'knowledge-check' | string;
+
+interface InteractiveElement {
+  type: InteractiveElementType;
+  title?: string;
+  // Additional properties specific to each interactive element type
+  // can be added here as needed without affecting existing behavior.
+  [key: string]: unknown;
+}
+
 export const InteractiveLessonPlayer = ({ lesson, learningProfile, onComplete }: InteractiveLessonPlayerProps) => {
   const [currentSection, setCurrentSection] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -95,7 +105,7 @@ export const InteractiveLessonPlayer = ({ lesson, learningProfile, onComplete }:
     const difficulty = lesson.difficulty_level;
     const style = profile.learning_style;
     
-    let content = lesson.adaptive_content.style_adaptations[style] || lesson.adaptive_content.main_content;
+    let content;
     
     if (difficulty <= 3) {
       content = lesson.adaptive_content.difficulty_variants.beginner;
@@ -228,7 +238,7 @@ export const InteractiveLessonPlayer = ({ lesson, learningProfile, onComplete }:
     }
   };
 
-  const renderInteractiveElement = (element: any, index: number) => {
+  const renderInteractiveElement = (element: InteractiveElement, index: number) => {
     switch (element.type) {
       case 'drag-drop':
         return <DragDropContainer element={element} onScore={handleSectionScore} />;
@@ -315,7 +325,16 @@ export const InteractiveLessonPlayer = ({ lesson, learningProfile, onComplete }:
 };
 
 // Section Components
-const IntroductionSection = ({ content }: { content: any }) => (
+interface IntroductionContent {
+  title: string;
+  personalizedMessage: string;
+  objectives: string[];
+  duration: string;
+  difficulty: string;
+  prerequisites: string[];
+}
+
+const IntroductionSection = ({ content }: { content: IntroductionContent }) => (
   <div className="space-y-6">
     <div className="text-center space-y-4">
       <h2 className="text-2xl font-bold">{content.title}</h2>

@@ -220,10 +220,9 @@ const AdminDashboard = () => {
       };
     };
 
-    // Only setup realtime if user is confirmed admin
-    if (isAdmin) {
-      setupRealtimeSubscriptions();
-    }
+    // At this point, isAdmin is guaranteed to be true due to the earlier check,
+    // so we can safely set up realtime subscriptions.
+    setupRealtimeSubscriptions();
 
     // Cleanup function
     return () => {
