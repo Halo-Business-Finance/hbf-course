@@ -174,7 +174,7 @@ export const validateFileUpload = (file: File, options: {
 export const validateForm = (data: SecureFormData, rules: Record<string, {
   required?: boolean;
   type?: 'email' | 'password' | 'phone' | 'name' | 'url' | 'text';
-  custom?: (value: any) => ValidationResult;
+  custom?: (value: unknown) => ValidationResult;
 }>): ValidationResult => {
   const errors: string[] = [];
   

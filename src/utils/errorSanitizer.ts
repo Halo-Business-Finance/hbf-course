@@ -36,24 +36,29 @@ const SUPABASE_ERROR_CODES: Record<string, string> = {
 /**
  * Sanitize an error object or message to remove sensitive information
  */
-export function sanitizeError(error: any): SanitizedError {
+export function sanitizeError(error: unknown): SanitizedError {
   let message = 'An unexpected error occurred';
-  let originalCode: string | undefined;
+
+  const err = error as Record<string, unknown> | null | undefined;
 
   // Extract error message
   if (typeof error === 'string') {
     message = error;
-  } else if (error?.message) {
-    message = error.message;
-  } else if (error?.error?.message) {
-    message = error.error.message;
+  } else if (typeof err?.message === 'string') {
+    message = err.message;
+  } else if (
+    err?.error &&
+    typeof (err.error as Record<string, unknown>)?.message === 'string'
+  ) {
+    message = (err.error as Record<string, unknown>).message as string;
   }
 
   // Check for known error codes
-  if (error?.code && SUPABASE_ERROR_CODES[error.code]) {
+  const code = typeof err?.code === 'string' ? err.code : '';
+  if (code && SUPABASE_ERROR_CODES[code]) {
     return {
-      message: SUPABASE_ERROR_CODES[error.code],
-      originalCode: error.code,
+      message: SUPABASE_ERROR_CODES[code],
+      originalCode: code,
     };
   }
 
@@ -78,13 +83,13 @@ export function sanitizeError(error: any): SanitizedError {
     message = 'An unexpected error occurred. Please try again.';
   }
 
-  return { message, originalCode: error?.code };
+  return { message, originalCode: code || undefined };
 }
 
 /**
  * Sanitize database permission errors specifically
  */
-export function sanitizePermissionError(error: any): string {
+export function sanitizePermissionError(error: unknown): string {
   const sanitized = sanitizeError(error);
   
   // Override with more specific permission messages if needed
@@ -99,9 +104,10 @@ export function sanitizePermissionError(error: any): string {
 /**
  * Check if an error is authentication-related
  */
-export function isAuthError(error: any): boolean {
-  const code = error?.code || '';
-  const message = error?.message || '';
+export function isAuthError(error: unknown): boolean {
+  const err = error as Record<string, unknown> | null | undefined;
+  const code = typeof err?.code === 'string' ? err.code : '';
+  const message = typeof err?.message === 'string' ? err.message : '';
   
   return (
     code === 'PGRST301' ||
@@ -115,7 +121,7 @@ export function isAuthError(error: any): boolean {
 /**
  * Get a user-friendly error message for toast notifications
  */
-export function getToastErrorMessage(error: any, defaultMessage?: string): string {
+export function getToastErrorMessage(error: unknown, defaultMessage?: string): string {
   const sanitized = sanitizeError(error);
   
   // If we have a default message and the error is generic, prefer the default

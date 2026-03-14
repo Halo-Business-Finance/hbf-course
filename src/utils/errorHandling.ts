@@ -5,9 +5,9 @@ import type { ApiError } from "@/types";
 
 export class AppError extends Error {
   public readonly code: string;
-  public readonly context?: Record<string, any>;
+  public readonly context?: Record<string, unknown>;
 
-  constructor(message: string, code: string = 'UNKNOWN_ERROR', context?: Record<string, any>) {
+  constructor(message: string, code: string = 'UNKNOWN_ERROR', context?: Record<string, unknown>) {
     super(message);
     this.name = 'AppError';
     this.code = code;
@@ -15,7 +15,7 @@ export class AppError extends Error {
   }
 }
 
-export const createApiError = (error: any, defaultMessage: string = 'An unexpected error occurred'): ApiError => {
+export const createApiError = (error: unknown, defaultMessage: string = 'An unexpected error occurred'): ApiError => {
   if (error instanceof AppError) {
     return {
       message: error.message,
@@ -24,10 +24,12 @@ export const createApiError = (error: any, defaultMessage: string = 'An unexpect
     };
   }
 
-  if (error?.message) {
+  const err = error as Record<string, unknown> | null | undefined;
+
+  if (err?.message) {
     return {
-      message: error.message,
-      code: error.code || 'API_ERROR',
+      message: String(err.message),
+      code: (err.code as string) || 'API_ERROR',
       details: error
     };
   }
@@ -40,7 +42,7 @@ export const createApiError = (error: any, defaultMessage: string = 'An unexpect
 };
 
 export const handleError = (
-  error: any,
+  error: unknown,
   context: string,
   options: {
     showToast?: boolean;
@@ -105,7 +107,7 @@ export const withRetry = async <T>(
   maxRetries: number = 3,
   delayMs: number = 1000
 ): Promise<T> => {
-  let lastError: any;
+  let lastError: unknown;
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
@@ -160,7 +162,7 @@ export const safeAsyncOperation = async <T>(
 };
 
 // Error boundary helper
-export const getErrorInfo = (error: Error, errorInfo?: any) => ({
+export const getErrorInfo = (error: Error, errorInfo?: { componentStack?: string }) => ({
   message: error.message,
   stack: error.stack,
   componentStack: errorInfo?.componentStack,
@@ -168,31 +170,38 @@ export const getErrorInfo = (error: Error, errorInfo?: any) => ({
 });
 
 // Network error handling
-export const isNetworkError = (error: any): boolean => {
-  return error?.code === 'NETWORK_ERROR' || 
-         error?.message?.includes('fetch') ||
-         error?.message?.includes('network');
+export const isNetworkError = (error: unknown): boolean => {
+  const err = error as Record<string, unknown> | null | undefined;
+  const message = typeof err?.message === 'string' ? err.message : '';
+  return err?.code === 'NETWORK_ERROR' ||
+         message.includes('fetch') ||
+         message.includes('network');
 };
 
-export const isAuthError = (error: any): boolean => {
-  return error?.code === 'PGRST301' || // JWT expired
-         error?.code === 'PGRST302' || // JWT invalid
-         error?.message?.includes('JWT') ||
-         error?.message?.includes('auth');
+export const isAuthError = (error: unknown): boolean => {
+  const err = error as Record<string, unknown> | null | undefined;
+  const message = typeof err?.message === 'string' ? err.message : '';
+  return err?.code === 'PGRST301' || // JWT expired
+         err?.code === 'PGRST302' || // JWT invalid
+         message.includes('JWT') ||
+         message.includes('auth');
 };
 
 export const getRetryDelay = (attempt: number, baseDelay: number = 1000): number => {
   return Math.min(baseDelay * Math.pow(2, attempt), 30000); // Max 30 seconds
 };
 
-export const shouldRetry = (error: any, attempt: number, maxRetries: number): boolean => {
+export const shouldRetry = (error: unknown, attempt: number, maxRetries: number): boolean => {
   if (attempt >= maxRetries) return false;
-  
+
+  const err = error as Record<string, unknown> | null | undefined;
+  const status = typeof err?.status === 'number' ? err.status : 0;
+
   // Don't retry auth errors or client errors
-  if (isAuthError(error) || error?.status >= 400 && error?.status < 500) {
+  if (isAuthError(error) || (status >= 400 && status < 500)) {
     return false;
   }
-  
+
   // Retry network errors and server errors
-  return isNetworkError(error) || error?.status >= 500;
+  return isNetworkError(error) || status >= 500;
 };

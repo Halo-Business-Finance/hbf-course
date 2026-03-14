@@ -9,7 +9,7 @@ interface ErrorContext {
   route?: string;
   action?: string;
   componentStack?: string;
-  [key: string]: any;
+  [key: string]: string | number | boolean | undefined;
 }
 
 interface ErrorLog {
