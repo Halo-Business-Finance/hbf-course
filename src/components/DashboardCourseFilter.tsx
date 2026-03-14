@@ -65,7 +65,7 @@ export function DashboardCourseFilter({
           onClick={() => onCategorySelect(null)}
           className={`h-10 sm:h-12 px-3 sm:px-6 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 shrink-0 ${
             selectedCategory === null
-              ? "border-2 border-foreground text-foreground shadow-sm"
+              ? "border-2 border-foreground text-foreground shadow-xs"
               : "border-2 border-border text-muted-foreground hover:border-foreground hover:text-foreground"
           }`}
         >
@@ -85,7 +85,7 @@ export function DashboardCourseFilter({
               disabled={count === 0}
               className={`h-10 sm:h-12 px-3 sm:px-6 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 gap-1.5 sm:gap-2 shrink-0 whitespace-nowrap ${
                 isSelected
-                  ? "border-2 border-foreground text-foreground shadow-sm"
+                  ? "border-2 border-foreground text-foreground shadow-xs"
                   : "border-2 border-border text-muted-foreground hover:border-foreground hover:text-foreground disabled:opacity-40"
               }`}
             >
@@ -116,7 +116,7 @@ export function DashboardCourseFilter({
               onClick={() => onTopicSelect(isSelected ? null : topic.label)}
               className={`inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 min-h-[40px] shrink-0 whitespace-nowrap ${
                 isSelected
-                  ? "border-2 border-foreground text-foreground shadow-sm"
+                  ? "border-2 border-foreground text-foreground shadow-xs"
                   : "border-2 border-border text-muted-foreground hover:border-foreground hover:text-foreground"
               }`}
             >

@@ -25,7 +25,7 @@ const typeConfig: Record<string, {icon: React.ElementType;color: string;label: s
 function NotificationIcon({ type }: {type: string;}) {
   const config = typeConfig[type] || typeConfig.info;
   const Icon = config.icon;
-  return <Icon className={cn("h-4 w-4 flex-shrink-0", config.color)} />;
+  return <Icon className={cn("h-4 w-4 shrink-0", config.color)} />;
 }
 
 function RelativeTime({ date }: {date: string;}) {
@@ -52,7 +52,7 @@ function NotificationItem({
       transition={{ duration: 0.2 }}
       className={cn(
         "group flex items-start gap-3 p-3 cursor-pointer transition-colors hover:bg-muted/60",
-        !notification.read && "bg-primary/[0.04]"
+        !notification.read && "bg-primary/4"
       )}
       onClick={onClick}>
       
@@ -65,7 +65,7 @@ function NotificationItem({
             {notification.title}
           </p>
           {!notification.read &&
-          <span className="mt-1.5 h-2 w-2 rounded-full bg-halo-navy flex-shrink-0" />
+          <span className="mt-1.5 h-2 w-2 rounded-full bg-halo-navy shrink-0" />
           }
         </div>
         <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">

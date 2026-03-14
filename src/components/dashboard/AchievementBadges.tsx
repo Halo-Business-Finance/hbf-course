@@ -61,7 +61,7 @@ export function AchievementBadges({ badges, className }: AchievementBadgesProps)
                     whileHover={{ scale: 1.15 }}
                     className={cn("relative flex items-center justify-center w-14 h-14 rounded-xl transition-all duration-300 cursor-pointer",
                     badge.unlocked ?
-                    `bg-gradient-to-br ${gradientClass} shadow-lg` :
+                    `bg-linear-to-br ${gradientClass} shadow-lg` :
                     "bg-muted/50 hover:bg-muted"
                     )}>
                     

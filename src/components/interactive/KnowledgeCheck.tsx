@@ -241,7 +241,7 @@ export const KnowledgeCheck = ({ element, onScore }: KnowledgeCheckProps) => {
             {question.options?.map((option, index) => (
               <Button
                 key={index}
-                variant={answers[currentQuestion] === index ? "default" : "outline"}
+                variant={answers[currentQuestion] === index ? "default" : "outline-solid"}
                 className="w-full justify-start text-left h-auto p-4"
                 onClick={() => handleAnswer(index)}
                 disabled={showFeedback[currentQuestion]}

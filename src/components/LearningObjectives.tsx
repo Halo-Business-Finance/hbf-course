@@ -21,7 +21,7 @@ const LearningObjectives = ({ objectives }: LearningObjectivesProps) => {
         <ul className="space-y-3">
           {objectives.map((objective, index) => (
             <li key={index} className="flex items-start gap-3">
-              <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
+              <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 shrink-0" />
               <span className="text-sm">{objective}</span>
             </li>
           ))}

@@ -58,7 +58,7 @@ export const CourseSelector = () => {
           {availableCourses.map((course) => (
             <Button
               key={course.id}
-              variant={selectedCourse?.id === course.id ? "default" : "outline"}
+              variant={selectedCourse?.id === course.id ? "default" : "outline-solid"}
               className="justify-between h-auto p-4"
               onClick={() => setSelectedCourse(course)}
             >

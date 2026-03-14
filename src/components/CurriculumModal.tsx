@@ -162,7 +162,7 @@ export const CurriculumModal = ({ open, onOpenChange, learningPath }: Curriculum
             <div className="grid gap-3">
               {curriculum.outcomes.map((outcome, index) => (
                 <div key={index} className="flex items-center gap-3">
-                  <CheckCircle className="h-5 w-5 text-primary flex-shrink-0" />
+                  <CheckCircle className="h-5 w-5 text-primary shrink-0" />
                   <span className="text-sm text-foreground">{outcome}</span>
                 </div>
               ))}
@@ -170,7 +170,7 @@ export const CurriculumModal = ({ open, onOpenChange, learningPath }: Curriculum
           </div>
 
           {/* Call to Action */}
-          <div className="bg-gradient-to-r from-primary/5 to-accent/5 rounded-lg p-6 text-center space-y-4">
+          <div className="bg-linear-to-r from-primary/5 to-accent/5 rounded-lg p-6 text-center space-y-4">
             <div className="flex items-center justify-center gap-2 text-sm">
               <Users className="h-4 w-4 text-black" />
               <span className="text-black">Join hundreds of professionals who have advanced their careers</span>

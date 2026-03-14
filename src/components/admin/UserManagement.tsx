@@ -146,9 +146,9 @@ export function UserManagement({
       case "admin":
         return "secondary";
       case "tech_support_admin":
-        return "outline";
+        return "outline-solid";
       default:
-        return "outline";
+        return "outline-solid";
     }
   };
 
@@ -253,7 +253,7 @@ export function UserManagement({
 
       {/* Main Table Card */}
       <Card className="border-border/50 shadow-elegant">
-        <CardHeader className="bg-gradient-to-r from-card to-card/80 border-b border-border/20">
+        <CardHeader className="bg-linear-to-r from-card to-card/80 border-b border-border/20">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
             <div>
               <CardTitle className="text-xl flex items-center gap-2">
@@ -266,7 +266,7 @@ export function UserManagement({
             </div>
             <Dialog>
               <DialogTrigger asChild>
-                <Button className="shadow-sm hover:shadow-md transition-all">
+                <Button className="shadow-xs hover:shadow-md transition-all">
                   <UserPlus className="w-4 h-4 mr-2" />
                   Create User
                 </Button>
@@ -656,7 +656,7 @@ export function UserManagement({
                       return (
                         <Button
                           key={pageNum}
-                          variant={currentPage === pageNum ? "default" : "outline"}
+                          variant={currentPage === pageNum ? "default" : "outline-solid"}
                           size="sm"
                           onClick={() => setCurrentPage(pageNum)}
                           className="w-8 h-8 p-0">

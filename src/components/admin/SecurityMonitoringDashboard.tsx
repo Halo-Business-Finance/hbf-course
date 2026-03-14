@@ -347,13 +347,13 @@ export const SecurityMonitoringDashboard = () => {
   };
 
   const getSeverityBadge = (severity: string) => {
-    const variants: Record<string, 'destructive' | 'default' | 'secondary' | 'outline'> = {
+    const variants: Record<string, 'destructive' | 'default' | 'secondary' | 'outline-solid'> = {
       critical: 'destructive',
       high: 'destructive',
       medium: 'default',
       low: 'secondary'
     };
-    return variants[severity] || 'outline';
+    return variants[severity] || 'outline-solid';
   };
 
   const pieData = [
@@ -400,7 +400,7 @@ export const SecurityMonitoringDashboard = () => {
             Refresh
           </Button>
           <Button
-            variant={isMonitoring ? "default" : "outline"}
+            variant={isMonitoring ? "default" : "outline-solid"}
             size="sm"
             onClick={() => setIsMonitoring(!isMonitoring)}
           >

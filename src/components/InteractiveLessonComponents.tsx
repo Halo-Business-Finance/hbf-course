@@ -345,7 +345,7 @@ export const InteractiveScenario = ({ onComplete }: InteractiveScenarioProps) =>
           {scenario.choices.map((choice) =>
           <Button
             key={choice.id}
-            variant={selectedChoice === choice.id ? "default" : "outline"}
+            variant={selectedChoice === choice.id ? "default" : "outline-solid"}
             className={`w-full text-left justify-start p-4 h-auto ${
             showFeedback && selectedChoice === choice.id ?
             choice.isCorrect ?
@@ -406,13 +406,13 @@ export const InteractiveLessonComponents = () => {
         <p className="text-muted-foreground">
         </p>
         <div className="flex justify-center gap-4 text-sm">
-          <Badge variant={completedComponents.has('calculator') ? 'default' : 'outline'}>
+          <Badge variant={completedComponents.has('calculator') ? 'default' : 'outline-solid'}>
             Calculator {completedComponents.has('calculator') && '✓'}
           </Badge>
-          <Badge variant={completedComponents.has('dragdrop') ? 'default' : 'outline'}>
+          <Badge variant={completedComponents.has('dragdrop') ? 'default' : 'outline-solid'}>
             Categorization {completedComponents.has('dragdrop') && '✓'}
           </Badge>
-          <Badge variant={completedComponents.has('scenario') ? 'default' : 'outline'}>
+          <Badge variant={completedComponents.has('scenario') ? 'default' : 'outline-solid'}>
             Scenario {completedComponents.has('scenario') && '✓'}
           </Badge>
         </div>

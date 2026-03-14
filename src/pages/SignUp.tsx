@@ -267,7 +267,7 @@ const SignUpPage = () => {
           <p className="text-white/70 mt-2">Create your account and start your 3-day free trial</p>
         </div>
 
-        <Card className="bg-halo-navy/80 border-white/10 backdrop-blur-sm">
+        <Card className="bg-halo-navy/80 border-white/10 backdrop-blur-xs">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl text-center flex items-center justify-center gap-2 text-white">
               <UserPlus className="h-5 w-5" />

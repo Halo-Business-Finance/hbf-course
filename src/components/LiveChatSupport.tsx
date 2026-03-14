@@ -270,7 +270,7 @@ export const LiveChatSupport = ({ isOpen, onOpenChange }: LiveChatSupportProps) 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md w-[95vw] h-[600px] p-0 gap-0 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 m-0 z-50">
-        <DialogHeader className="p-4 pb-2 border-b bg-gradient-to-r from-halo-navy to-halo-navy/90 text-white rounded-t-lg">
+        <DialogHeader className="p-4 pb-2 border-b bg-linear-to-r from-halo-navy to-halo-navy/90 text-white rounded-t-lg">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2">
@@ -332,7 +332,7 @@ export const LiveChatSupport = ({ isOpen, onOpenChange }: LiveChatSupportProps) 
                     className={`flex gap-2 ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                   >
                     {message.sender === 'support' && (
-                      <Avatar className="w-8 h-8 flex-shrink-0">
+                      <Avatar className="w-8 h-8 shrink-0">
                       <AvatarFallback className="bg-primary/15 text-primary text-xs">
                           S
                         </AvatarFallback>
@@ -357,7 +357,7 @@ export const LiveChatSupport = ({ isOpen, onOpenChange }: LiveChatSupportProps) 
                       </div>
                     </div>
                     {message.sender === 'user' && (
-                      <Avatar className="w-8 h-8 flex-shrink-0">
+                      <Avatar className="w-8 h-8 shrink-0">
                         <AvatarFallback className="bg-accent/15 text-accent text-xs">
                           {getUserName().charAt(0).toUpperCase()}
                         </AvatarFallback>
@@ -368,7 +368,7 @@ export const LiveChatSupport = ({ isOpen, onOpenChange }: LiveChatSupportProps) 
                 
                 {isTyping && (
                   <div className="flex gap-2 justify-start">
-                    <Avatar className="w-8 h-8 flex-shrink-0">
+                    <Avatar className="w-8 h-8 shrink-0">
                       <AvatarFallback className="bg-primary/15 text-primary text-xs">
                         S
                       </AvatarFallback>

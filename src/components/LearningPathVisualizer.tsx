@@ -127,7 +127,7 @@ export const LearningPathVisualizer = ({
               <CardContent className="p-6">
                 <div className="flex items-start gap-4">
                   {/* Status Icon */}
-                  <div className="flex-shrink-0 mt-1">
+                  <div className="shrink-0 mt-1">
                     {getStatusIcon(pathItem.status)}
                   </div>
                   
@@ -198,7 +198,7 @@ export const LearningPathVisualizer = ({
                         <ul className="text-sm text-muted-foreground space-y-1">
                           {pathItem.lesson.learning_objectives.slice(0, 2).map((objective: string, idx: number) => (
                             <li key={idx} className="flex items-start gap-2">
-                              <div className="w-1 h-1 bg-muted-foreground rounded-full mt-2 flex-shrink-0" />
+                              <div className="w-1 h-1 bg-muted-foreground rounded-full mt-2 shrink-0" />
                               {objective}
                             </li>
                           ))}

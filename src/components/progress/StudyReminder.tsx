@@ -213,7 +213,7 @@ export function StudyReminder() {
                 {dayOptions.map(day => (
                   <Button
                     key={day.value}
-                    variant={settings.days.includes(day.value) ? "default" : "outline"}
+                    variant={settings.days.includes(day.value) ? "default" : "outline-solid"}
                     size="sm"
                     onClick={() => handleDayToggle(day.value)}
                     className="w-10"

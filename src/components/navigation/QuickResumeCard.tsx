@@ -163,7 +163,7 @@ export function QuickResumeCard() {
           </div>
           <div className="h-2.5 bg-muted rounded-full overflow-hidden">
             <div 
-              className="h-full bg-gradient-to-r from-halo-navy to-halo-orange rounded-full transition-all duration-700"
+              className="h-full bg-linear-to-r from-halo-navy to-halo-orange rounded-full transition-all duration-700"
               style={{ width: `${lastActivity.progress}%` }}
             />
           </div>

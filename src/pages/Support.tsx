@@ -70,7 +70,7 @@ const Support = () => {
       />
       <div className="bg-background min-h-screen">
         {/* Hero */}
-        <div className="relative h-72 sm:h-80 md:h-[28rem] overflow-hidden">
+        <div className="relative h-72 sm:h-80 md:h-112 overflow-hidden">
           <motion.img
             src={supportHero}
             alt="Professional customer support"
@@ -79,7 +79,7 @@ const Support = () => {
             animate={{ scale: 1 }}
             transition={{ duration: 1.2, ease: [0.2, 0, 0.38, 0.9] }}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-halo-navy/85 via-halo-navy/60 to-transparent flex items-center">
+          <div className="absolute inset-0 bg-linear-to-r from-halo-navy/85 via-halo-navy/60 to-transparent flex items-center">
             <div className="page-container">
               <motion.div
                 className="max-w-2xl text-white"
@@ -87,7 +87,7 @@ const Support = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                <Badge className="mb-3 sm:mb-4 bg-white/15 text-white border border-white/30 backdrop-blur-sm text-xs sm:text-sm">
+                <Badge className="mb-3 sm:mb-4 bg-white/15 text-white border border-white/30 backdrop-blur-xs text-xs sm:text-sm">
                   <HelpCircle className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1.5 sm:mr-2" />
                   Support Center
                 </Badge>
@@ -150,7 +150,7 @@ const Support = () => {
               <AnimatedSection delay={0.1}>
                 <Card className="p-6 hover:shadow-lg transition-shadow h-full">
                   <div className="flex items-start gap-4 mb-6">
-                    <div className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div className="w-12 h-12 rounded-lg flex items-center justify-center shrink-0">
                       <Mail className="h-6 w-6 text-halo-orange" />
                     </div>
                     <div className="flex-1">
@@ -180,7 +180,7 @@ const Support = () => {
               <AnimatedSection delay={0.2}>
                 <Card className="p-6 hover:shadow-lg transition-shadow h-full">
                   <div className="flex items-start gap-4 mb-6">
-                    <div className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div className="w-12 h-12 rounded-lg flex items-center justify-center shrink-0">
                       <HelpCircle className="h-6 w-6 text-halo-orange" />
                     </div>
                     <div className="flex-1">

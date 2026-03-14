@@ -265,7 +265,7 @@ const Article = () => {
   return (
     <div className="bg-background min-h-screen">
       {/* Article Header */}
-      <div className="relative h-96 sm:h-[28rem] md:h-[32rem] overflow-hidden">
+      <div className="relative h-96 sm:h-112 md:h-128 overflow-hidden">
         <img 
           src={article.image} 
           alt={article.title}

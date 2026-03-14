@@ -7,7 +7,7 @@ export const HorizontalNav = () => {
     <div className="hidden lg:block px-8 py-3 w-full text-white">
       <div className="flex items-center gap-12 w-full max-w-7xl mx-auto">
         {/* Logo */}
-        <NavLink to="/" className="flex items-center gap-3 flex-shrink-0">
+        <NavLink to="/" className="flex items-center gap-3 shrink-0">
           <div className="w-10 h-10 bg-halo-navy rounded-sm flex items-center justify-center">
             <span className="text-white font-bold text-base">FP</span>
           </div>
@@ -39,7 +39,7 @@ export const HorizontalNav = () => {
         </div>
 
         {/* Auth Buttons */}
-        <div className="flex items-center gap-3 ml-4 pl-4 border-l border-white/30 flex-shrink-0">
+        <div className="flex items-center gap-3 ml-4 pl-4 border-l border-white/30 shrink-0">
           <Button size="sm" asChild className="bg-halo-orange hover:bg-halo-orange/90 text-white text-sm">
             <NavLink to="/signup" className="flex items-center gap-2">
               Start Free Trial

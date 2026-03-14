@@ -134,18 +134,18 @@ export function DashboardCourseGrid({
                         src={getCourseImage(course.title)}
                         alt={courseName}
                         className={`w-full h-full object-cover transition-transform duration-500 ${
-                          isLocked ? 'grayscale-[30%]' : 'group-hover:scale-105'
+                          isLocked ? 'grayscale-30' : 'group-hover:scale-105'
                         }`}
                         loading="lazy"
                       />
                       <div className="absolute top-4 left-4 flex items-center gap-2">
-                        <span className="px-3 py-1 bg-background/90 backdrop-blur-sm text-foreground text-xs font-semibold rounded-full uppercase tracking-wide">
+                        <span className="px-3 py-1 bg-background/90 backdrop-blur-xs text-foreground text-xs font-semibold rounded-full uppercase tracking-wide">
                           {details.difficulty}
                         </span>
                       </div>
                       {isLocked && (
                         <div className="absolute top-4 right-4">
-                          <div className="flex items-center gap-1.5 px-2.5 py-1.5 bg-muted/90 backdrop-blur-sm text-muted-foreground text-xs font-semibold rounded-full">
+                          <div className="flex items-center gap-1.5 px-2.5 py-1.5 bg-muted/90 backdrop-blur-xs text-muted-foreground text-xs font-semibold rounded-full">
                             <Lock className="h-3 w-3" />
                             Locked
                           </div>
@@ -275,7 +275,7 @@ export function DashboardCourseGrid({
                   />
                   <div className="absolute top-4 left-4">
                     <span
-                      className={`text-xs font-semibold tracking-wider border-l-4 pl-2 backdrop-blur-sm ${
+                      className={`text-xs font-semibold tracking-wider border-l-4 pl-2 backdrop-blur-xs ${
                         level === 'beginner'
                           ? 'text-accent border-accent'
                           : 'text-destructive border-destructive'

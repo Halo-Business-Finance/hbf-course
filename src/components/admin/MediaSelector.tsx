@@ -172,7 +172,7 @@ export function MediaSelector({
                     )}
 
                     {/* Image Info Overlay */}
-                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-2 rounded-b-lg opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/60 to-transparent p-2 rounded-b-lg opacity-0 group-hover:opacity-100 transition-opacity">
                       <p className="text-white text-xs font-medium truncate">
                         {item.original_name}
                       </p>
@@ -197,7 +197,7 @@ export function MediaSelector({
           {selectedItem && (
             <div className="border-t pt-4">
               <div className="flex items-center gap-4">
-                <div className="w-16 h-16 rounded border overflow-hidden flex-shrink-0">
+                <div className="w-16 h-16 rounded border overflow-hidden shrink-0">
                   <img
                     src={selectedItem.public_url}
                     alt={selectedItem.alt_text || selectedItem.original_name}

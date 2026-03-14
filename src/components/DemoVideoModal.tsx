@@ -23,7 +23,7 @@ export const DemoVideoModal = ({ isOpen, onClose }: DemoVideoModalProps) => {
           </DialogHeader>
           
           <div className="px-6 pb-6">
-            <div className="relative w-full aspect-video bg-gradient-to-br from-halo-navy to-primary rounded-lg overflow-hidden">
+            <div className="relative w-full aspect-video bg-linear-to-br from-halo-navy to-primary rounded-lg overflow-hidden">
               {/* Placeholder for demo video */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center text-white space-y-4">

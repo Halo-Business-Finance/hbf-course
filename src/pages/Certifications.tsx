@@ -108,7 +108,7 @@ export default function Certifications() {
                   <CardHeader>
                     <div className="flex items-start justify-between">
                       <div className="flex items-center gap-3">
-                        <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${spec.badgeColor} flex items-center justify-center text-2xl shadow-md`}>
+                        <div className={`w-14 h-14 rounded-xl bg-linear-to-br ${spec.badgeColor} flex items-center justify-center text-2xl shadow-md`}>
                           {spec.icon}
                         </div>
                         <div>

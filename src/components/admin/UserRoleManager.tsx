@@ -217,7 +217,7 @@ export const UserRoleManager = () => {
                       <TableCell className="text-sm text-muted-foreground">{u.email}</TableCell>
                       <TableCell>{getRoleBadge(u.role)}</TableCell>
                       <TableCell>
-                        <Badge variant={u.is_active ? "outline" : "secondary"} className="text-xs">
+                        <Badge variant={u.is_active ? "outline-solid" : "secondary"} className="text-xs">
                           {u.is_active ? "Active" : "Inactive"}
                         </Badge>
                       </TableCell>

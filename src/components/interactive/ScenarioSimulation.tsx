@@ -302,7 +302,7 @@ export const ScenarioSimulation = ({ element, onScore }: ScenarioSimulationProps
                       <ul className="space-y-1">
                         {selectedChoice.consequences.map((consequence, index) => (
                           <li key={index} className="text-sm text-muted-foreground flex items-start gap-2">
-                            <div className="w-1 h-1 bg-muted-foreground rounded-full mt-2 flex-shrink-0" />
+                            <div className="w-1 h-1 bg-muted-foreground rounded-full mt-2 shrink-0" />
                             {consequence}
                           </li>
                         ))}

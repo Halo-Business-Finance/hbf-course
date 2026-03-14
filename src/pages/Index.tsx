@@ -70,7 +70,7 @@ const Index = () => {
             loading="eager"
             className="absolute inset-0 w-full h-full object-cover object-[center_20%]"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-halo-navy/90 via-halo-navy/65 to-halo-navy/20" />
+          <div className="absolute inset-0 bg-linear-to-r from-halo-navy/90 via-halo-navy/65 to-halo-navy/20" />
           <div className="page-container relative z-10">
             <motion.div
               className="max-w-3xl text-left"
@@ -126,7 +126,7 @@ const Index = () => {
                   </Button>
                 </Link>
                 <Link to="/course-catalog">
-                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-white/30 text-white bg-white/5 hover:bg-white/15 backdrop-blur-sm font-medium text-sm sm:text-base px-8 py-6 min-h-[48px] hover:scale-[1.02] transition-transform">
+                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-white/30 text-white bg-white/5 hover:bg-white/15 backdrop-blur-xs font-medium text-sm sm:text-base px-8 py-6 min-h-[48px] hover:scale-[1.02] transition-transform">
                     <Play className="mr-2 h-4 w-4" />
                     Explore Courses
                   </Button>
@@ -212,7 +212,7 @@ const Index = () => {
                       <div className="space-y-3">
                         {path.features.map((feature, idx) => (
                           <div key={idx} className="flex items-center gap-3">
-                            <CheckCircle className="h-4 w-4 text-primary flex-shrink-0" />
+                            <CheckCircle className="h-4 w-4 text-primary shrink-0" />
                             <span className="text-responsive-sm text-foreground">{feature}</span>
                           </div>
                         ))}

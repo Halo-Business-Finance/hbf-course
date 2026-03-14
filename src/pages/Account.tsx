@@ -597,21 +597,21 @@ const AccountPage = (): JSX.Element => {
             
             <div className="space-y-2">
               <div className="flex items-center gap-2">
-                <Mail className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                <Mail className="h-3 w-3 text-muted-foreground shrink-0" />
                 <span className="text-xs truncate">{userInfo.email}</span>
               </div>
               <div className="flex items-center gap-2">
-                <Phone className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                <Phone className="h-3 w-3 text-muted-foreground shrink-0" />
                 <span className="text-xs">{formatPhoneNumber(userInfo.phone) || 'No phone number'}</span>
               </div>
               {userInfo.company && (
                 <div className="flex items-center gap-2">
-                  <Settings className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                  <Settings className="h-3 w-3 text-muted-foreground shrink-0" />
                   <span className="text-xs truncate">{userInfo.company}</span>
                 </div>
               )}
               <div className="flex items-center gap-2">
-                <MapPin className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                <MapPin className="h-3 w-3 text-muted-foreground shrink-0" />
                 <span className="text-xs">
                   {userInfo.city || userInfo.state ? 
                     `${userInfo.city}${userInfo.city && userInfo.state ? ', ' : ''}${userInfo.state}` : 
@@ -620,7 +620,7 @@ const AccountPage = (): JSX.Element => {
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <Calendar className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                <Calendar className="h-3 w-3 text-muted-foreground shrink-0" />
                 <span className="text-xs">Joined {userInfo.joinDate}</span>
               </div>
             </div>

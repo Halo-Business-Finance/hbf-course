@@ -143,7 +143,8 @@ export const CreditScoreSimulator = () => {
 
     if (!scenarioData) return;
 
-    let { impact, description, tips, timeToSeeChange } = scenarioData;
+    const { description, tips, timeToSeeChange } = scenarioData;
+    let { impact } = scenarioData;
 
     // Apply time factor
     const timeFactor = Math.max(0.5, 1 - (months - 1) * 0.1);
@@ -182,7 +183,7 @@ export const CreditScoreSimulator = () => {
 
   return (
     <div className="w-full max-w-6xl space-y-6">
-      <Card className="border-0 shadow-lg bg-gradient-to-br from-background to-primary/5">
+      <Card className="border-0 shadow-lg bg-linear-to-br from-background to-primary/5">
         <CardHeader>
           <CardTitle className="flex items-center gap-3 text-2xl">
             <div className="p-2 rounded-lg bg-primary/10">
@@ -372,7 +373,7 @@ export const CreditScoreSimulator = () => {
                     <div className="space-y-4">
                       {result.tips.map((tip, index) => (
                         <div key={index} className="flex items-start gap-3 p-3 bg-muted/30 rounded-lg">
-                          <CheckCircle className="h-5 w-5 text-accent mt-0.5 flex-shrink-0" />
+                          <CheckCircle className="h-5 w-5 text-accent mt-0.5 shrink-0" />
                           <span className="text-sm leading-relaxed">{tip}</span>
                         </div>
                       ))}

@@ -42,7 +42,7 @@ export function EnhancedCourseCard({
       className
     )}>
       {/* Subtle gradient overlay on hover */}
-      <div className="absolute inset-0 bg-gradient-to-br from-halo-navy/3 via-transparent to-halo-orange/3 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+      <div className="absolute inset-0 bg-linear-to-br from-halo-navy/3 via-transparent to-halo-orange/3 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
       
       {/* Image section with overlay */}
       <div className="relative h-48 overflow-hidden">
@@ -51,12 +51,12 @@ export function EnhancedCourseCard({
           alt={title}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-card via-card/50 to-transparent" />
         
         {/* Status badge */}
         <div className="absolute top-4 left-4">
           <span className={cn(
-            "px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-sm border",
+            "px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-xs border",
             difficulty === "Expert" 
               ? "bg-destructive/20 text-destructive border-destructive/30" 
               : difficulty === "Multiple Levels"
@@ -82,7 +82,7 @@ export function EnhancedCourseCard({
       <div className="relative p-5 space-y-4">
         {/* Institution badge */}
         <div className="flex items-center gap-2.5">
-          <div className="h-8 w-8 rounded-lg bg-halo-navy flex items-center justify-center text-white font-bold text-xs shadow-sm">
+          <div className="h-8 w-8 rounded-lg bg-halo-navy flex items-center justify-center text-white font-bold text-xs shadow-xs">
             FP
           </div>
           <span className="text-xs font-medium text-muted-foreground tracking-wide">FinPilot Academy</span>

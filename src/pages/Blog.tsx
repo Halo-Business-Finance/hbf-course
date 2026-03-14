@@ -96,7 +96,7 @@ const Blog = () => {
       />
       <div className="bg-background min-h-screen">
         {/* Hero */}
-        <div className="relative h-72 sm:h-80 md:h-[28rem] overflow-hidden">
+        <div className="relative h-72 sm:h-80 md:h-112 overflow-hidden">
           <motion.img
             src={blogHero}
             alt="Professional blog and knowledge sharing"
@@ -105,14 +105,14 @@ const Blog = () => {
             animate={{ scale: 1 }}
             transition={{ duration: 1.2, ease: [0.2, 0, 0.38, 0.9] }}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-halo-navy/85 via-halo-navy/60 to-transparent flex items-center justify-center">
+          <div className="absolute inset-0 bg-linear-to-r from-halo-navy/85 via-halo-navy/60 to-transparent flex items-center justify-center">
             <motion.div
               className="text-center text-white max-w-4xl mx-auto px-4"
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <Badge className="mb-3 sm:mb-4 bg-white/15 text-white border border-white/30 backdrop-blur-sm text-xs sm:text-sm">
+              <Badge className="mb-3 sm:mb-4 bg-white/15 text-white border border-white/30 backdrop-blur-xs text-xs sm:text-sm">
                 <BookOpen className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1.5 sm:mr-2" />
                 Industry Insights & Resources
               </Badge>
@@ -127,7 +127,7 @@ const Blog = () => {
         {/* Content */}
         <div className="page-container py-8 sm:py-12">
           <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
-            <AnimatedSection className="lg:w-80 flex-shrink-0">
+            <AnimatedSection className="lg:w-80 shrink-0">
               <BlogFilterSidebar
                 selectedCategory={selectedCategory}
                 onCategoryChange={handleCategoryChange}

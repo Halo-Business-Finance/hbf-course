@@ -234,7 +234,7 @@ export const DataRightsModal = ({ isOpen, onClose, requestType }: DataRightsModa
           
           <div className="bg-blue-50 p-4 rounded-lg">
             <div className="flex items-start gap-2">
-              <CheckCircle className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+              <CheckCircle className="h-5 w-5 text-blue-600 mt-0.5 shrink-0" />
               <div className="text-sm text-blue-800">
                 <p className="font-medium mb-1">Processing Timeline</p>
                 <p>We'll process your request within 30 days and contact you via email with updates or any additional information needed.</p>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
@@ -87,7 +87,7 @@ export const InteractiveFinancialTools = () => {
   const [projectedCashFlow, setProjectedCashFlow] = useState<CashFlowProjection[]>([]);
   const [loanPayments, setLoanPayments] = useState<unknown[]>([]);
 
-  const calculateLoanPayments = () => {
+  const calculateLoanPayments = useCallback(() => {
     const { principal, interestRate, termYears } = loanData;
     const monthlyRate = interestRate / 100 / 12;
     const totalPayments = termYears * 12;
@@ -113,9 +113,9 @@ export const InteractiveFinancialTools = () => {
     }
 
     setLoanPayments(payments);
-  };
+  }, [loanData]);
 
-  const generateCashFlowProjection = () => {
+  const generateCashFlowProjection = useCallback(() => {
     const { initialRevenue, revenueGrowth, fixedExpenses, variableExpenseRate, projectionMonths } = cashFlowData;
     const projections: CashFlowProjection[] = [];
     let cumulativeFlow = 0;
@@ -138,9 +138,9 @@ export const InteractiveFinancialTools = () => {
     }
 
     setProjectedCashFlow(projections);
-  };
+  }, [cashFlowData]);
 
-  const calculateBusinessValuation = () => {
+  const calculateBusinessValuation = useCallback(() => {
     const { revenue, ebitda, assets, liabilities, industry, method } = valuationData;
     let valuation = 0;
 
@@ -170,13 +170,13 @@ export const InteractiveFinancialTools = () => {
     }
 
     setValuationData((prev) => ({ ...prev, valuation }));
-  };
+  }, [valuationData.revenue, valuationData.ebitda, valuationData.assets, valuationData.liabilities, valuationData.industry, valuationData.method]);
 
   useEffect(() => {
     calculateLoanPayments();
     generateCashFlowProjection();
     calculateBusinessValuation();
-  }, [loanData, cashFlowData, valuationData]);
+  }, [calculateLoanPayments, generateCashFlowProjection, calculateBusinessValuation]);
 
   const calculateCreditScore = () => {
     const { paymentHistory, creditUtilization, creditHistory, creditMix, newCredit } = creditFactors;

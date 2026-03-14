@@ -196,7 +196,7 @@ const AdminAuthPage = () => {
   // Show loading while checking auth state
   if (loading) {
     return <div className="min-h-screen flex items-center justify-center bg-halo-navy">
-        <Card className="w-full max-w-md bg-halo-navy/80 border-white/10 backdrop-blur-sm">
+        <Card className="w-full max-w-md bg-halo-navy/80 border-white/10 backdrop-blur-xs">
           <CardContent className="p-8 text-center space-y-4">
             <div className="w-8 h-8 animate-spin rounded-full border-2 border-white border-t-transparent mx-auto" />
             <p className="text-white/70">Loading...</p>
@@ -225,7 +225,7 @@ const AdminAuthPage = () => {
             </CardContent>
           </Card>}
 
-        <Card className="bg-halo-navy/80 border-white/10 backdrop-blur-sm">
+        <Card className="bg-halo-navy/80 border-white/10 backdrop-blur-xs">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-white">
               {(showForgotPassword || step === 'password') && <Button variant="ghost" size="sm" onClick={() => {

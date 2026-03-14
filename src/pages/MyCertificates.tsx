@@ -137,7 +137,7 @@ export default function MyCertificates() {
                   <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
                     <Card className="overflow-hidden hover:shadow-lg transition-shadow border-2 border-transparent hover:border-halo-orange/20">
                       {/* Gold accent top */}
-                      <div className="h-1.5 bg-gradient-to-r from-halo-navy via-accent-foreground to-halo-navy" />
+                      <div className="h-1.5 bg-linear-to-r from-halo-navy via-accent-foreground to-halo-navy" />
 
                       <CardContent className="p-6">
                         {/* Certificate badge */}

@@ -101,7 +101,7 @@ export function MobileNavigationControls({
   nextLabel = "Next"
 }: MobileNavigationControlsProps) {
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-t safe-area-pb">
+    <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-background/95 backdrop-blur-sm supports-backdrop-filter:bg-background/80 border-t safe-area-pb">
       <div className="flex items-center justify-between p-2 gap-2">
         {showPrevious ? (
           <Button

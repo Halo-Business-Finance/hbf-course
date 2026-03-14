@@ -139,7 +139,7 @@ export function Leaderboard() {
 
   if (isLoading) {
     return (
-      <Card className="bg-card/50 backdrop-blur border-border/50">
+      <Card className="bg-card/50 backdrop-blur-sm border-border/50">
         <CardContent className="p-6">
           <div className="animate-pulse space-y-3">
             {[1, 2, 3, 4, 5].map(i => (
@@ -152,7 +152,7 @@ export function Leaderboard() {
   }
 
   return (
-    <Card className="bg-card/50 backdrop-blur border-border/50">
+    <Card className="bg-card/50 backdrop-blur-sm border-border/50">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Trophy className="w-5 h-5 text-primary" />

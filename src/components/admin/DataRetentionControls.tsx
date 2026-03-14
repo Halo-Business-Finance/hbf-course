@@ -140,7 +140,7 @@ export const DataRetentionControls = () => {
                     <p className="text-xs text-muted-foreground mt-0.5">{policy.description}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 flex-shrink-0">
+                <div className="flex items-center gap-3 shrink-0">
                   <Badge variant="outline" className="whitespace-nowrap">
                     {policy.currentDays} days
                   </Badge>

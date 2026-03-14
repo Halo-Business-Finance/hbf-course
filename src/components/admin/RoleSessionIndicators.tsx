@@ -75,7 +75,7 @@ export const RoleSessionIndicators = () => {
       case "super_admin": return "destructive";
       case "admin": return "default";
       case "tech_support_admin": return "secondary";
-      case "instructor": return "outline";
+      case "instructor": return "outline-solid";
       default: return "secondary";
     }
   };
@@ -177,7 +177,7 @@ export const RoleSessionIndicators = () => {
                     {idx === 0 && (
                       <Badge variant="default" className="text-xs">Current</Badge>
                     )}
-                    <Badge variant={session.is_active ? "outline" : "secondary"} className="text-xs">
+                    <Badge variant={session.is_active ? "outline-solid" : "secondary"} className="text-xs">
                       {session.is_active ? "Active" : "Expired"}
                     </Badge>
                   </div>

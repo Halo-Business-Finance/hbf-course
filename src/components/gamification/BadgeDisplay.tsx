@@ -47,7 +47,7 @@ export function BadgeDisplay({ badges, userBadges, showLocked = true }: BadgeDis
   return (
     <div className="space-y-6">
       {Object.entries(categorizedBadges).map(([category, categoryBadges]) => (
-        <Card key={category} className="bg-card/50 backdrop-blur border-border/50">
+        <Card key={category} className="bg-card/50 backdrop-blur-sm border-border/50">
           <CardHeader className="pb-3">
             <CardTitle className="text-lg font-semibold text-foreground">
               {categoryLabels[category] || category}
@@ -72,7 +72,7 @@ export function BadgeDisplay({ badges, userBadges, showLocked = true }: BadgeDis
                           className={`
                             relative flex flex-col items-center p-4 rounded-xl cursor-pointer transition-all
                             ${isEarned 
-                              ? 'bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/30 shadow-lg shadow-primary/10' 
+                              ? 'bg-linear-to-br from-primary/20 to-primary/5 border border-primary/30 shadow-lg shadow-primary/10' 
                               : 'bg-muted/30 border border-border/30 opacity-50 grayscale'
                             }
                           `}

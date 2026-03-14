@@ -336,7 +336,7 @@ const Dashboard = () => {
               
               <div className="h-2.5 bg-muted rounded-full overflow-hidden">
                 <motion.div
-                  className="h-full bg-gradient-to-r from-halo-navy to-halo-orange rounded-full"
+                  className="h-full bg-linear-to-r from-halo-navy to-halo-orange rounded-full"
                   initial={{ width: 0 }}
                   animate={{ width: `${overallProgress}%` }}
                   transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }} />
@@ -366,15 +366,15 @@ const Dashboard = () => {
           <Tabs defaultValue="courses" className="w-full">
               <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
                 <TabsList className="w-full sm:w-auto sm:max-w-md bg-muted/50 p-1 rounded-lg inline-flex">
-                  <TabsTrigger value="courses" className="flex-1 gap-1.5 sm:gap-2 text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm whitespace-nowrap">
+                  <TabsTrigger value="courses" className="flex-1 gap-1.5 sm:gap-2 text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-xs whitespace-nowrap">
                     <BookOpen className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                     Courses
                   </TabsTrigger>
-                  <TabsTrigger value="analytics" className="flex-1 gap-1.5 sm:gap-2 text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm whitespace-nowrap">
+                  <TabsTrigger value="analytics" className="flex-1 gap-1.5 sm:gap-2 text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-xs whitespace-nowrap">
                     <BarChart3 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                     Analytics
                   </TabsTrigger>
-                  <TabsTrigger value="community" className="flex-1 gap-1.5 sm:gap-2 text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm whitespace-nowrap">
+                  <TabsTrigger value="community" className="flex-1 gap-1.5 sm:gap-2 text-xs sm:text-sm data-[state=active]:bg-background data-[state=active]:shadow-xs whitespace-nowrap">
                     <MessageSquare className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                     Community
                   </TabsTrigger>

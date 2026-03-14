@@ -745,7 +745,7 @@ export function VideoManager() {
                   </TableCell>
                   <TableCell>
                     <div className="flex items-start gap-3">
-                      <div className="flex-shrink-0">
+                      <div className="shrink-0">
                         {video.thumbnail_url ? (
                           <img 
                             src={video.thumbnail_url} 

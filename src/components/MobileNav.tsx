@@ -20,15 +20,15 @@ export const MobileNav = () => {
     <div className="lg:hidden w-full">
       <div className="flex items-center justify-between w-full px-4 py-4 gap-2">
         {/* Logo */}
-        <NavLink to="/" className="flex items-center gap-2 flex-shrink-0 min-w-0">
-          <div className="w-10 h-10 bg-halo-navy rounded-sm flex items-center justify-center flex-shrink-0">
+        <NavLink to="/" className="flex items-center gap-2 shrink-0 min-w-0">
+          <div className="w-10 h-10 bg-halo-navy rounded-sm flex items-center justify-center shrink-0">
             <span className="text-white font-bold text-base">FP</span>
           </div>
           <span className="text-xl md:text-2xl font-bold truncate text-white">FinPilot</span>
         </NavLink>
 
         {/* Action Buttons and Menu */}
-        <div className="flex items-center gap-1 md:gap-2 flex-shrink-0">
+        <div className="flex items-center gap-1 md:gap-2 shrink-0">
           <div className="hidden md:flex items-center gap-1">
           <Button variant="outline" size="sm" asChild className="text-xs border-border text-foreground hover:bg-muted px-3 py-1.5 min-h-[36px]">
               <NavLink to="/auth" className="flex items-center gap-1.5">
@@ -54,7 +54,7 @@ export const MobileNav = () => {
               <SheetHeader>
                 <SheetTitle className="text-left">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-halo-navy rounded-sm flex items-center justify-center flex-shrink-0">
+                    <div className="w-8 h-8 bg-halo-navy rounded-sm flex items-center justify-center shrink-0">
                       <span className="text-white font-bold text-sm">FP</span>
                     </div>
                     <span className="text-xl font-bold text-foreground">FinPilot</span>

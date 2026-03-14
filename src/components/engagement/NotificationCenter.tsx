@@ -191,7 +191,7 @@ export function NotificationCenter() {
                               {notification.title}
                             </p>
                             {!notification.is_read && (
-                              <span className="h-2 w-2 rounded-full bg-primary flex-shrink-0 mt-1" />
+                              <span className="h-2 w-2 rounded-full bg-primary shrink-0 mt-1" />
                             )}
                           </div>
                           <p className="text-xs text-muted-foreground line-clamp-2 mt-0.5">

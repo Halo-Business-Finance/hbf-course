@@ -247,7 +247,7 @@ export const InteractiveLessonPlayer = ({ lesson, learningProfile, onComplete }:
       />
 
       {/* Main Content */}
-      <Card className="min-h-[500px] border-2 border-border shadow-sm">
+      <Card className="min-h-[500px] border-2 border-border shadow-xs">
         <CardContent className="p-6 sm:p-8">
           {renderSectionContent(currentSectionData)}
         </CardContent>
@@ -466,7 +466,7 @@ const SummarySection = ({ content, onScore }: { content: unknown; onScore: (scor
                 {question.options.map((option: string, oIndex: number) => (
                   <Button
                     key={oIndex}
-                    variant={answers[qIndex] === oIndex ? "default" : "outline"}
+                    variant={answers[qIndex] === oIndex ? "default" : "outline-solid"}
                     className="w-full justify-start"
                     onClick={() => !showResults && setAnswers({...answers, [qIndex]: oIndex})}
                     disabled={showResults}

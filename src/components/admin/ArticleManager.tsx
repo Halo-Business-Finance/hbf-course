@@ -257,9 +257,9 @@ export function ArticleManager() {
     switch (category) {
       case "tutorial": return "default";
       case "guide": return "secondary";
-      case "reference": return "outline";
+      case "reference": return "outline-solid";
       case "case-study": return "destructive";
-      default: return "outline";
+      default: return "outline-solid";
     }
   };
 

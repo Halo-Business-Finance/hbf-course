@@ -28,7 +28,7 @@ const DataSecurity = () => {
       <div className="min-h-screen bg-background">
         {/* Hero Section */}
         <section className="relative bg-halo-navy text-white py-20">
-          <div className="absolute inset-0 bg-gradient-to-r from-halo-navy/90 to-halo-navy/70"></div>
+          <div className="absolute inset-0 bg-linear-to-r from-halo-navy/90 to-halo-navy/70"></div>
           <div className="relative container mx-auto px-4 text-center">
             <Badge className="mb-4 bg-white/20 text-white border-white/30">
               Data & Security

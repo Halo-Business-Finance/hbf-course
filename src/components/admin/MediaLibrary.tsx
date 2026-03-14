@@ -641,14 +641,14 @@ export function MediaLibrary() {
 
         <div className="flex items-center space-x-2">
           <Button
-            variant={viewMode === 'grid' ? 'default' : 'outline'}
+            variant={viewMode === 'grid' ? 'default' : 'outline-solid'}
             size="sm"
             onClick={() => setViewMode('grid')}
           >
             <Grid className="h-4 w-4" />
           </Button>
           <Button
-            variant={viewMode === 'list' ? 'default' : 'outline'}
+            variant={viewMode === 'list' ? 'default' : 'outline-solid'}
             size="sm"
             onClick={() => setViewMode('list')}
           >
@@ -709,7 +709,7 @@ export function MediaLibrary() {
                             type="checkbox"
                             checked={selectedItems.has(item.id)}
                             onChange={() => handleSelectItem(item.id)}
-                            className="w-4 h-4 rounded border-gray-300 bg-white/80 backdrop-blur-sm"
+                            className="w-4 h-4 rounded border-gray-300 bg-white/80 backdrop-blur-xs"
                           />
                         </div>
                         <CardContent className="p-4">

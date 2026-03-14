@@ -44,15 +44,15 @@ export const FinPilotBrandFooter = () => {
               <h4 className="text-sm font-semibold text-foreground mb-3 sm:mb-4 uppercase tracking-wider">Contact</h4>
               <div className="space-y-2.5 sm:space-y-3">
                 <div className="flex items-center gap-3 text-xs sm:text-sm text-muted-foreground">
-                  <Globe className="h-4 w-4 text-primary flex-shrink-0" />
+                  <Globe className="h-4 w-4 text-primary shrink-0" />
                   <span>www.finpilot.com</span>
                 </div>
                 <div className="flex items-center gap-3 text-xs sm:text-sm text-muted-foreground">
-                  <Mail className="h-4 w-4 text-primary flex-shrink-0" />
+                  <Mail className="h-4 w-4 text-primary shrink-0" />
                   <span>training@finpilot.com</span>
                 </div>
                 <div className="flex items-center gap-3 text-xs sm:text-sm text-muted-foreground">
-                  <Phone className="h-4 w-4 text-primary flex-shrink-0" />
+                  <Phone className="h-4 w-4 text-primary shrink-0" />
                   <span>1-800-FINPILOT</span>
                 </div>
               </div>

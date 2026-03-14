@@ -197,7 +197,7 @@ const AuthPage = () => {
             </CardContent>
           </Card>}
 
-        <Card className="bg-halo-navy/80 border-white/10 backdrop-blur-sm">
+        <Card className="bg-halo-navy/80 border-white/10 backdrop-blur-xs">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-white">
               {(showForgotPassword || step === 'password') && <Button variant="ghost" size="sm" onClick={() => {

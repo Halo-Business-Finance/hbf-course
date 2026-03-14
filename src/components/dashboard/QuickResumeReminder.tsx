@@ -287,7 +287,7 @@ export function QuickResumeReminder() {
                       {dayOptions.map((day) =>
                     <Button
                       key={day.value}
-                      variant={settings.days.includes(day.value) ? 'default' : 'outline'}
+                      variant={settings.days.includes(day.value) ? 'default' : 'outline-solid'}
                       size="sm"
                       onClick={() => handleDayToggle(day.value)}
                       className={`w-10 ${!settings.days.includes(day.value) ? 'border-white/20 text-white/70 hover:bg-white/10' : ''}`}>

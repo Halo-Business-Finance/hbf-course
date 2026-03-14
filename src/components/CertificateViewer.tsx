@@ -237,11 +237,11 @@ export const CertificateViewer = ({
               {courseTitle}
             </p>
             {finalScore ? (
-              <span className="inline-block bg-gradient-to-r from-[hsl(38,40%,53%)] to-[hsl(38,50%,60%)] text-white px-5 py-1 rounded-sm text-xs font-semibold tracking-wider">
+              <span className="inline-block bg-linear-to-r from-[hsl(38,40%,53%)] to-[hsl(38,50%,60%)] text-white px-5 py-1 rounded-sm text-xs font-semibold tracking-wider">
                 Final Score: {finalScore}%
               </span>
             ) : (
-              <span className="inline-block bg-gradient-to-r from-[hsl(38,40%,53%)] to-[hsl(38,50%,60%)] text-white px-5 py-1 rounded-sm text-xs font-semibold tracking-wider">
+              <span className="inline-block bg-linear-to-r from-[hsl(38,40%,53%)] to-[hsl(38,50%,60%)] text-white px-5 py-1 rounded-sm text-xs font-semibold tracking-wider">
                 Completion: {completionPercentage}%
               </span>
             )}

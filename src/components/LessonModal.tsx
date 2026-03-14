@@ -220,7 +220,7 @@ export const LessonModal = ({ isOpen, onClose, lesson, moduleTitle, moduleId }: 
             
             <div className="flex items-center gap-2 ml-4">
               {progressStats.isCompleted ? (
-                <Badge className="bg-gradient-to-r from-green-500 to-emerald-500 text-white">
+                <Badge className="bg-linear-to-r from-green-500 to-emerald-500 text-white">
                   <CheckCircle className="h-3 w-3 mr-1" />
                   Completed
                 </Badge>

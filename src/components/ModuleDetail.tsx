@@ -63,7 +63,7 @@ const ModuleDetail = ({ module, onClose }: ModuleDetailProps) => {
         <CardHeader className="space-y-4 p-4 sm:p-6">
           <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
             <div className="min-w-0 flex-1">
-              <CardTitle className="text-lg sm:text-xl break-words">{module.title}</CardTitle>
+              <CardTitle className="text-lg sm:text-xl wrap-break-word">{module.title}</CardTitle>
               <div className="flex flex-wrap items-center gap-2 sm:gap-4 mt-2 text-sm text-muted-foreground">
                 <span>{module.duration}</span>
                 <span>{module.lessons} lessons</span>
@@ -97,7 +97,7 @@ const ModuleDetail = ({ module, onClose }: ModuleDetailProps) => {
                 <h4 className="font-semibold mb-3 text-sm sm:text-base">Learning Topics</h4>
                 <div className="flex flex-wrap gap-2">
                   {module.topics.map((topic, index) => (
-                    <Badge key={index} variant="outline" className="text-xs break-words">
+                    <Badge key={index} variant="outline" className="text-xs wrap-break-word">
                       {topic}
                     </Badge>
                   ))}
@@ -116,7 +116,7 @@ const ModuleDetail = ({ module, onClose }: ModuleDetailProps) => {
                         lesson.completed ? "bg-accent/10" : "bg-muted/20"
                       }`}
                     >
-                      <div className={`flex-shrink-0 ${lesson.completed ? "text-accent" : "text-muted-foreground"}`}>
+                      <div className={`shrink-0 ${lesson.completed ? "text-accent" : "text-muted-foreground"}`}>
                         {lesson.completed ? (
                           <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5" />
                         ) : (
@@ -124,11 +124,11 @@ const ModuleDetail = ({ module, onClose }: ModuleDetailProps) => {
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="font-medium text-sm break-words">{lesson.title}</div>
+                        <div className="font-medium text-sm wrap-break-word">{lesson.title}</div>
                         <div className="text-xs text-muted-foreground">{lesson.duration}</div>
                       </div>
                       {lesson.completed && (
-                        <Badge variant="success" className="text-xs flex-shrink-0">
+                        <Badge variant="success" className="text-xs shrink-0">
                           Complete
                         </Badge>
                       )}

@@ -377,7 +377,7 @@ export const AdaptiveLearningEngine = () => {
 
   return (
     <div className="space-y-6">
-      <Card className="bg-gradient-to-r from-purple-50 to-blue-50">
+      <Card className="bg-linear-to-r from-purple-50 to-blue-50">
         <CardHeader>
           <CardTitle className="flex items-center gap-2"><Brain className="h-6 w-6 text-purple-600" />AI-Powered Adaptive Learning</CardTitle>
           <p className="text-muted-foreground">Personalized learning recommendations based on your progress, preferences, and goals</p>

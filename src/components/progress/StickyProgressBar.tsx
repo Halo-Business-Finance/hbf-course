@@ -19,7 +19,7 @@ export function StickyProgressBar({
   const isComplete = progress >= 100;
 
   return (
-    <div className="sticky top-[65px] z-30 bg-card/95 backdrop-blur-sm border-b py-3 px-4 sm:px-6">
+    <div className="sticky top-[65px] z-30 bg-card/95 backdrop-blur-xs border-b py-3 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-start sm:items-center gap-3">
         <div className="flex-1 min-w-0 w-full">
           <div className="flex items-center justify-between text-sm mb-1.5">

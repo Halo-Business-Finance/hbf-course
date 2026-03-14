@@ -22,7 +22,7 @@ export const LessonSectionNav = ({ sections, currentSection, onSectionSelect }: 
         return (
           <Button
             key={index}
-            variant={index === currentSection ? "navy" : index < currentSection ? "outline" : "ghost"}
+            variant={index === currentSection ? "navy" : index < currentSection ? "outline-solid" : "ghost"}
             size="sm"
             className={`flex items-center gap-2 whitespace-nowrap transition-all ${
               index < currentSection ? "border-primary/30 text-primary" : ""

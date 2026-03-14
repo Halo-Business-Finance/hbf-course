@@ -316,7 +316,7 @@ export const AdvancedAssessmentSystem = () => {
 
   return (
     <div className="space-y-6">
-      <Card className="bg-gradient-to-r from-primary/5 to-primary/10">
+      <Card className="bg-linear-to-r from-primary/5 to-primary/10">
         <CardHeader>
           <CardTitle className="flex items-center gap-2"><Brain className="h-6 w-6 text-primary" />Advanced Assessment System</CardTitle>
           <p className="text-muted-foreground">Test your knowledge with adaptive assessments powered by real course content</p>

@@ -136,7 +136,7 @@ export const DragDropContainer = ({ element, onScore }: DragDropContainerProps) 
                 draggable={!isComplete}
                 onDragStart={(e) => handleDragStart(e, item.id)}
                 className={`
-                  p-3 bg-white border rounded-lg shadow-sm cursor-move
+                  p-3 bg-white border rounded-lg shadow-xs cursor-move
                   hover:shadow-md transition-shadow select-none
                   ${isComplete ? 'opacity-50 cursor-not-allowed' : ''}
                 `}
@@ -169,7 +169,7 @@ export const DragDropContainer = ({ element, onScore }: DragDropContainerProps) 
                   <div
                     key={itemId}
                     className={`
-                      p-2 bg-white border rounded shadow-sm flex items-center justify-between
+                      p-2 bg-white border rounded shadow-xs flex items-center justify-between
                       ${isCorrect ? 'border-green-500 bg-green-50' : ''}
                       ${isIncorrect ? 'border-red-500 bg-red-50' : ''}
                     `}

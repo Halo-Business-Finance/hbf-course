@@ -788,7 +788,7 @@ const AdminDashboard = () => {
 
         {/* Enhanced Dashboard Stats */}
         {!loading && <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-            <Card className="relative overflow-hidden group hover:shadow-elegant transition-all duration-500 bg-gradient-to-br from-card to-card/80 border-border/50">
+            <Card className="relative overflow-hidden group hover:shadow-elegant transition-all duration-500 bg-linear-to-br from-card to-card/80 border-border/50">
               <div className="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-10 transition-opacity duration-500 bg-white border border-black border-solid shadow-none"></div>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 relative z-10">
                 <CardTitle className="text-sm font-semibold text-muted-foreground">Total Users</CardTitle>
@@ -799,7 +799,7 @@ const AdminDashboard = () => {
               </CardContent>
             </Card>
             
-            <Card className="relative overflow-hidden group hover:shadow-elegant transition-all duration-500 bg-gradient-to-br from-card to-card/80 border-border/50">
+            <Card className="relative overflow-hidden group hover:shadow-elegant transition-all duration-500 bg-linear-to-br from-card to-card/80 border-border/50">
               <div className="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 relative z-10">
                 <CardTitle className="text-sm font-semibold text-muted-foreground">Active Admins</CardTitle>
@@ -810,7 +810,7 @@ const AdminDashboard = () => {
               </CardContent>
             </Card>
             
-            <Card className="relative overflow-hidden group hover:shadow-elegant transition-all duration-500 bg-gradient-to-br from-card to-card/80 border-border/50">
+            <Card className="relative overflow-hidden group hover:shadow-elegant transition-all duration-500 bg-linear-to-br from-card to-card/80 border-border/50">
               <div className="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 relative z-10">
                 <CardTitle className="text-sm font-semibold text-muted-foreground">Security Events</CardTitle>
@@ -821,7 +821,7 @@ const AdminDashboard = () => {
               </CardContent>
             </Card>
             
-            <Card className="relative overflow-hidden group hover:shadow-elegant transition-all duration-500 bg-gradient-to-br from-card to-card/80 border-border/50">
+            <Card className="relative overflow-hidden group hover:shadow-elegant transition-all duration-500 bg-linear-to-br from-card to-card/80 border-border/50">
               <div className="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 relative z-10">
                 <CardTitle className="text-sm font-semibold text-muted-foreground">System Health</CardTitle>
@@ -835,7 +835,7 @@ const AdminDashboard = () => {
 
         {/* Modern Tabs Interface */}
         <Tabs defaultValue="overview" className="space-y-8">
-          <div className="bg-card/50 backdrop-blur-sm p-3 border-0 border-white rounded-none shadow-none">
+          <div className="bg-card/50 backdrop-blur-xs p-3 border-0 border-white rounded-none shadow-none">
             <TabsList className="flex flex-wrap gap-2 bg-transparent w-full">
               <TabsTrigger value="overview" className="data-[state=active]:bg-background data-[state=active]:shadow-elegant transition-all duration-300 rounded-xl">
                 <span>Overview</span>

@@ -225,19 +225,19 @@ const ProgressPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-background via-background to-primary/5 flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>);
 
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
+    <div className="min-h-screen bg-linear-to-br from-background via-background to-primary/5">
       <div className="border-b border-white/30 bg-black">
         <div className="px-4 sm:px-6 lg:px-10 py-6 sm:py-8 max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-halo-navy flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 rounded-lg bg-halo-navy flex items-center justify-center shrink-0">
                 <Target className="h-5 w-5 text-white" />
               </div>
               <div>
@@ -257,7 +257,7 @@ const ProgressPage = () => {
             </div>
             <div className="h-2.5 bg-muted rounded-full overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-halo-navy to-halo-orange rounded-full transition-all duration-700"
+                className="h-full bg-linear-to-r from-halo-navy to-halo-orange rounded-full transition-all duration-700"
                 style={{ width: `${overallProgress}%` }}
               />
             </div>
@@ -284,7 +284,7 @@ const ProgressPage = () => {
         </div>
 
         <Tabs defaultValue="progress" className="w-full space-y-8 bg-white">
-          <TabsList className="grid w-full grid-cols-5 h-12 bg-background/50 backdrop-blur-sm border border-border/50">
+          <TabsList className="grid w-full grid-cols-5 h-12 bg-background/50 backdrop-blur-xs border border-border/50">
             <TabsTrigger value="progress" className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary text-foreground">
               Learning Progress
             </TabsTrigger>
@@ -304,8 +304,8 @@ const ProgressPage = () => {
           
           <TabsContent value="progress" className="space-y-8 animate-fade-in">
             {/* Overall Progress Card */}
-            <Card className="relative overflow-hidden border-0 shadow-lg bg-gradient-to-br from-background to-primary/5">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-50 bg-white" />
+            <Card className="relative overflow-hidden border-0 shadow-lg bg-linear-to-br from-background to-primary/5">
+              <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-transparent to-accent/5 opacity-50 bg-white" />
               <CardHeader className="relative z-10">
                 <CardTitle className="flex items-center gap-3 text-2xl">
                   <div className="p-2 rounded-lg bg-white">
@@ -325,7 +325,7 @@ const ProgressPage = () => {
                   </div>
                   <div className="relative">
                     <Progress value={overallProgress} className="h-4 bg-muted/50" />
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary/20 to-accent/20 opacity-30" />
+                    <div className="absolute inset-0 rounded-full bg-linear-to-r from-primary/20 to-accent/20 opacity-30" />
                   </div>
                 </div>
                 
@@ -371,7 +371,7 @@ const ProgressPage = () => {
                   {moduleProgress.map((module, index) =>
                   <div
                     key={module.name}
-                    className="group border rounded-xl p-6 space-y-4 hover:shadow-md transition-all duration-200 hover:border-primary/20 bg-gradient-to-r from-background to-background/50">
+                    className="group border rounded-xl p-6 space-y-4 hover:shadow-md transition-all duration-200 hover:border-primary/20 bg-linear-to-r from-background to-background/50">
                     
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
@@ -416,7 +416,7 @@ const ProgressPage = () => {
                           </div>
                           <div className="relative">
                             <Progress value={module.progress} className="h-3 bg-muted/50" />
-                            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary/10 to-accent/10 opacity-50" />
+                            <div className="absolute inset-0 rounded-full bg-linear-to-r from-primary/10 to-accent/10 opacity-50" />
                           </div>
                         </div>
                     }
@@ -437,8 +437,8 @@ const ProgressPage = () => {
           
           <TabsContent value="certificates" className="space-y-8 animate-fade-in">
             {/* Summary Card */}
-            <Card className="relative overflow-hidden border-0 shadow-lg bg-gradient-to-br from-background to-accent/5">
-              <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-primary/5 opacity-50" />
+            <Card className="relative overflow-hidden border-0 shadow-lg bg-linear-to-br from-background to-accent/5">
+              <div className="absolute inset-0 bg-linear-to-br from-accent/5 via-transparent to-primary/5 opacity-50" />
               <CardHeader className="relative z-10">
                 <CardTitle className="flex items-center gap-3 text-2xl">
                   <div className="p-2 rounded-lg bg-accent/10">
@@ -476,7 +476,7 @@ const ProgressPage = () => {
                 certificate.status === "earned" ? "bg-accent/5 border-accent/20" :
                 certificate.status === "in-progress" ? "bg-primary/5 border-primary/20" :
                 certificate.status === "available" ? "bg-halo-orange/5 border-halo-orange/20" :
-                "bg-gradient-to-r from-background to-muted/20"}`
+                "bg-linear-to-r from-background to-muted/20"}`
                 }>
                 
                   <CardHeader>
@@ -527,7 +527,7 @@ const ProgressPage = () => {
                     {certificate.status === "available" &&
                   <Button
                     size="lg"
-                    className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
+                    className="w-full bg-linear-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
                     onClick={() => navigate("/dashboard")}>
                     
                         <Star className="h-4 w-4 mr-2" />
@@ -561,8 +561,8 @@ const ProgressPage = () => {
           </TabsContent>
 
           <TabsContent value="gamification" className="space-y-8 animate-fade-in">
-            <Card className="relative overflow-hidden border-0 shadow-lg bg-gradient-to-br from-background to-accent/5">
-              <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-primary/5 opacity-50" />
+            <Card className="relative overflow-hidden border-0 shadow-lg bg-linear-to-br from-background to-accent/5">
+              <div className="absolute inset-0 bg-linear-to-br from-accent/5 via-transparent to-primary/5 opacity-50" />
               <CardHeader className="relative z-10">
                 <CardTitle className="flex items-center gap-3 text-2xl">
                   <div className="p-2 rounded-lg bg-accent/10">

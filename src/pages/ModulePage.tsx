@@ -370,7 +370,7 @@ const ModulePage = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Top Navigation Bar */}
-      <div className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-40">
+      <div className="border-b bg-card/50 backdrop-blur-xs sticky top-0 z-40">
         <div className="px-3 sm:px-4 lg:px-6 max-w-7xl mx-auto py-2.5 sm:py-3">
           <div className="flex items-center gap-2 sm:gap-4">
             <Button variant="ghost" size="sm" onClick={() => navigate("/dashboard")} className="flex items-center gap-1.5 sm:gap-2 shrink-0 h-8 sm:h-9 px-2 sm:px-3">
@@ -432,7 +432,7 @@ const ModulePage = () => {
                     <CardDescription className="mt-2 text-white/80">{module.description}</CardDescription>
                   </div>
                   {module.skill_level && module.skill_level.toLowerCase() !== "beginner" &&
-                    <Badge variant={module.skill_level.toLowerCase() === "expert" ? "success" : "outline"}>
+                    <Badge variant={module.skill_level.toLowerCase() === "expert" ? "success" : "outline-solid"}>
                       {module.skill_level.charAt(0).toUpperCase() + module.skill_level.slice(1)}
                     </Badge>
                     }
@@ -517,7 +517,7 @@ const ModulePage = () => {
                                 </div>
                                 <Button
                             size="sm"
-                            variant={lesson.completed ? "outline" : "default"}
+                            variant={lesson.completed ? "outline-solid" : "default"}
                             className="h-8 sm:h-9 px-2.5 sm:px-3 text-xs shrink-0 min-w-[60px] sm:min-w-[72px] hover:scale-[1.03] transition-transform"
                             onClick={() => handleLessonStart(lesson)}>
                             

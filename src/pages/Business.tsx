@@ -134,13 +134,13 @@ const Business = () => {
       />
       <div className="bg-background min-h-screen">
       {/* Hero Section */}
-      <div className="relative h-96 sm:h-[28rem] md:h-[32rem] lg:h-[32rem] overflow-hidden">
+      <div className="relative h-96 sm:h-112 md:h-128 lg:h-128 overflow-hidden">
         <img 
           src={businessHero} 
           alt="Professional corporate training environment" 
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-halo-navy/85 via-halo-navy/60 to-transparent flex items-center justify-center">
+        <div className="absolute inset-0 bg-linear-to-r from-halo-navy/85 via-halo-navy/60 to-transparent flex items-center justify-center">
           <div className="text-center text-white max-w-4xl mx-auto px-4">
             <Badge className="mb-3 md:mb-4 bg-white/20 text-white border-white/30 text-sm">Enterprise</Badge>
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4 leading-tight">Transform Your Team's Skills</h1>
@@ -185,7 +185,7 @@ const Business = () => {
             return (
               <Card key={index} className="p-6 hover:shadow-lg transition-shadow">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 rounded-lg flex items-center justify-center shrink-0">
                     <Icon className="h-6 w-6 text-halo-orange" />
                   </div>
                   <div className="flex-1">
@@ -195,7 +195,7 @@ const Business = () => {
                     <div className="space-y-1">
                       {feature.benefits.map((benefit, idx) => (
                         <div key={idx} className="flex items-center gap-2 text-xs">
-                          <CheckCircle className="h-3 w-3 text-green-500 flex-shrink-0" />
+                          <CheckCircle className="h-3 w-3 text-green-500 shrink-0" />
                           <span className="text-foreground">{benefit}</span>
                         </div>
                       ))}
@@ -359,7 +359,7 @@ const Business = () => {
                   <ul className="space-y-3 mb-8">
                     {tier.features.map((feature, idx) => (
                       <li key={idx} className="flex items-start gap-3">
-                        <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                        <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 shrink-0" />
                         <span className="text-sm leading-relaxed">{feature}</span>
                       </li>
                     ))}

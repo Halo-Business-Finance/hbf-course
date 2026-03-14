@@ -74,7 +74,7 @@ export function CourseCard({
   return (
     <Card 
       className={cn(
-        "relative border border-border shadow-sm hover:shadow-elevated transition-all duration-300 bg-card overflow-hidden group hover:-translate-y-1",
+        "relative border border-border shadow-xs hover:shadow-elevated transition-all duration-300 bg-card overflow-hidden group hover:-translate-y-1",
         isHovered && "border-primary/20",
         className
       )}
@@ -120,7 +120,7 @@ export function CourseCard({
           <ul className="space-y-2.5">
             {displayTopics.map((topic, idx) => (
               <li key={idx} className="flex items-start gap-2.5">
-                <Check className="h-4 w-4 text-success mt-0.5 flex-shrink-0" />
+                <Check className="h-4 w-4 text-success mt-0.5 shrink-0" />
                 <span className="text-sm text-foreground line-clamp-1">{topic}</span>
               </li>
             ))}

@@ -96,7 +96,7 @@ export function AppSidebar({ onOpenSupport }: {onOpenSupport?: () => void;}) {
   const isActive = (url: string) => location.pathname === url;
 
   const navBtnClass = (url: string) =>
-  `w-full flex items-center ${collapsed ? "justify-center px-0" : "justify-start px-4 gap-3"} py-2 rounded-lg transition-all duration-200 min-h-[2.75rem] ${
+  `w-full flex items-center ${collapsed ? "justify-center px-0" : "justify-start px-4 gap-3"} py-2 rounded-lg transition-all duration-200 min-h-11 ${
   isActive(url) ?
   "bg-halo-navy text-white font-medium" :
   "text-foreground hover:bg-white/10"}`;
@@ -138,7 +138,7 @@ export function AppSidebar({ onOpenSupport }: {onOpenSupport?: () => void;}) {
                         aria-label={item.title}
                         aria-current={isActive(item.url) ? "page" : undefined}>
                         
-                          <item.icon className="h-5 w-5 flex-shrink-0 text-orange-500" />
+                          <item.icon className="h-5 w-5 shrink-0 text-orange-500" />
                           {!collapsed && <span className="text-xs font-medium text-white">{item.title}</span>}
                         </button>
                       </SidebarMenuButton>
@@ -166,7 +166,7 @@ export function AppSidebar({ onOpenSupport }: {onOpenSupport?: () => void;}) {
                         {selectedCourse?.title || "Course Modules"}
                       </span>
                       <ChevronDown
-                    className={`h-3.5 w-3.5 text-muted-foreground transition-transform duration-200 flex-shrink-0 ${
+                    className={`h-3.5 w-3.5 text-muted-foreground transition-transform duration-200 shrink-0 ${
                     modulesOpen ? "" : "-rotate-90"}`
                     } />
                   
@@ -191,7 +191,7 @@ export function AppSidebar({ onOpenSupport }: {onOpenSupport?: () => void;}) {
                               isModuleLocked ? "opacity-50 cursor-not-allowed" : "hover:bg-muted"} ${
                               isActive(moduleUrl) ? "bg-muted font-medium" : ""}`}>
                               
-                                  <div className="w-6 h-6 rounded-md flex items-center justify-center text-xs font-semibold text-primary-foreground bg-halo-navy flex-shrink-0">
+                                  <div className="w-6 h-6 rounded-md flex items-center justify-center text-xs font-semibold text-primary-foreground bg-halo-navy shrink-0">
                                     {isModuleLocked ?
                                 <Lock size={12} /> :
 
@@ -261,10 +261,10 @@ export function AppSidebar({ onOpenSupport }: {onOpenSupport?: () => void;}) {
                   <SidebarMenuButton asChild>
                     <button
                       onClick={() => handleNavigation("/admin/dashboard")}
-                      className={`w-full flex items-center justify-center px-2 py-2 rounded-lg transition-all duration-200 min-h-[2.75rem] ${
+                      className={`w-full flex items-center justify-center px-2 py-2 rounded-lg transition-all duration-200 min-h-11 ${
                         location.pathname.startsWith('/admin') ? "bg-halo-navy text-white font-medium" : "text-foreground hover:bg-muted"}`}
                       aria-label="Admin Dashboard">
-                      <ShieldCheck className="h-5 w-5 flex-shrink-0 text-orange-500" />
+                      <ShieldCheck className="h-5 w-5 shrink-0 text-orange-500" />
                     </button>
                   </SidebarMenuButton>
                 }
@@ -280,7 +280,7 @@ export function AppSidebar({ onOpenSupport }: {onOpenSupport?: () => void;}) {
                           aria-label={item.title}
                           aria-current={isActive(item.url) ? "page" : undefined}>
                           
-                              <item.icon className="h-5 w-5 flex-shrink-0 text-orange-500" />
+                              <item.icon className="h-5 w-5 shrink-0 text-orange-500" />
                               {!collapsed &&
                           <span className="text-xs font-medium text-white">{item.title}</span>
                           }

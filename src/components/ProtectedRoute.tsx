@@ -26,7 +26,7 @@ export const ProtectedRoute = ({ children, requireAuth = true }: ProtectedRouteP
   // Show loading state while checking authentication
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted">
+      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-background to-muted">
         <Card className="w-full max-w-md">
           <CardContent className="p-8 text-center space-y-4">
             <Loader2 className="h-8 w-8 animate-spin mx-auto text-primary" />
@@ -43,7 +43,7 @@ export const ProtectedRoute = ({ children, requireAuth = true }: ProtectedRouteP
   // Show access denied if authentication is required but user is not authenticated
   if (requireAuth && !user) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted p-4">
+      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-background to-muted p-4">
         <Card className="w-full max-w-md">
           <CardContent className="p-8 text-center space-y-6">
             <div className="w-16 h-16 bg-destructive/10 rounded-full flex items-center justify-center mx-auto">

@@ -108,7 +108,7 @@ export const AuditLogViewer = () => {
       case "critical": return "destructive";
       case "high": return "destructive";
       case "medium": return "secondary";
-      case "low": return "outline";
+      case "low": return "outline-solid";
       default: return "secondary";
     }
   };

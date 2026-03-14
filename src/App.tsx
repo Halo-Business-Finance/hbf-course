@@ -111,7 +111,7 @@ const HeaderContent = ({
   };
   return <header className="sticky top-0 h-[56px] sm:h-[70px] flex flex-col border-b border-white/10 bg-black z-50 px-2 sm:px-4">
       <div className="flex-1 flex items-center justify-between gap-1 sm:gap-2 md:gap-4 min-h-0 bg-black">
-        <div className="flex items-center gap-1 sm:gap-2 md:gap-4 flex-shrink-0 rounded-2xl border-white border-0">
+        <div className="flex items-center gap-1 sm:gap-2 md:gap-4 shrink-0 rounded-2xl border-white border-0">
           {user && <SidebarTrigger variant="ghost" size="icon" className="ml-1 sm:ml-2 h-9 w-9 sm:h-10 sm:w-10 p-0 text-white hover:bg-white/10 hover:text-white" />}
           
           {user && <div className="hidden sm:flex items-center gap-1 sm:gap-2">
@@ -125,8 +125,8 @@ const HeaderContent = ({
         </div>
 
         {user && <div className="flex-1 flex items-center justify-center min-w-0 text-white">
-            <NavLink to="/" className="flex items-center gap-2 sm:gap-4 flex-shrink-0 min-w-0">
-              <img src={finpilotLogo} alt="FinPilot" className="w-8 h-8 sm:w-12 sm:h-12 md:w-14 md:h-14 object-cover flex-shrink-0" />
+            <NavLink to="/" className="flex items-center gap-2 sm:gap-4 shrink-0 min-w-0">
+              <img src={finpilotLogo} alt="FinPilot" className="w-8 h-8 sm:w-12 sm:h-12 md:w-14 md:h-14 object-cover shrink-0" />
               <span className="text-base sm:text-2xl md:text-3xl font-bold truncate text-white">FinPilot</span>
             </NavLink>
           </div>}
@@ -140,7 +140,7 @@ const HeaderContent = ({
             </div>
           </div>}
         
-        {user && <div className="flex items-center gap-0.5 sm:gap-1 flex-shrink-0">
+        {user && <div className="flex items-center gap-0.5 sm:gap-1 shrink-0">
             <Button
           variant="ghost"
           size="icon"

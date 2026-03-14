@@ -206,7 +206,7 @@ export const EnhancedVideoSection = ({
                           isActive ? 'bg-primary/10 border-l-2 border-primary' : ''
                         }`}
                       >
-                        <div className="flex-shrink-0 w-6 h-6 flex items-center justify-center">
+                        <div className="shrink-0 w-6 h-6 flex items-center justify-center">
                           {isCompleted ? (
                             <CheckCircle2 className="h-5 w-5 text-green-600" />
                           ) : isActive ? (
@@ -221,7 +221,7 @@ export const EnhancedVideoSection = ({
                           </p>
                         </div>
                         {video.duration_seconds && (
-                          <span className="text-xs text-muted-foreground flex-shrink-0">
+                          <span className="text-xs text-muted-foreground shrink-0">
                             {formatDuration(video.duration_seconds)}
                           </span>
                         )}

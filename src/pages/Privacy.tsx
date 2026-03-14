@@ -11,7 +11,7 @@ const Privacy = () => {
         keywords="privacy policy, data protection, FinPilot, financial training, user privacy"
       />
       
-      <div className="min-h-screen bg-gradient-to-br from-background to-muted/20">
+      <div className="min-h-screen bg-linear-to-br from-background to-muted/20">
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-4xl mx-auto">
             <Card className="shadow-lg">

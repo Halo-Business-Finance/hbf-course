@@ -77,7 +77,7 @@ export const LoanExamples = ({ examples, moduleTitle }: LoanExamplesProps) => {
                 <ul className="space-y-2">
                   {example.keyLearningPoints.map((point, pointIndex) => (
                     <li key={pointIndex} className="flex items-start gap-2 text-sm">
-                      <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0" />
+                      <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 shrink-0" />
                       <span className="text-muted-foreground leading-relaxed">
                         {point}
                       </span>

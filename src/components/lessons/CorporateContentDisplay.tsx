@@ -114,12 +114,12 @@ export const CorporateContentDisplay = ({ lesson, content }: CorporateContentDis
                   </TabsList>
                   
                   <TabsContent value="fundamentals" className="space-y-4">
-                    <div className="jp-card p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-l-primary">
+                    <div className="jp-card p-4 bg-linear-to-r from-blue-50 to-indigo-50 border-l-4 border-l-primary">
                       <h4 className="jp-subheading mb-3 text-navy-900">Essential Principles</h4>
                       <ul className="space-y-2">
                         {content.objectives.slice(0, 2).map((objective, index) => (
                           <li key={index} className="flex items-start gap-2 jp-body text-sm">
-                            <CheckCircle className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                            <CheckCircle className="h-4 w-4 text-primary mt-0.5 shrink-0" />
                             {objective}
                           </li>
                         ))}
@@ -143,7 +143,7 @@ export const CorporateContentDisplay = ({ lesson, content }: CorporateContentDis
                   
                   <TabsContent value="application" className="space-y-4">
                     {content.scenario && (
-                      <div className="jp-card p-4 bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-l-green-500">
+                      <div className="jp-card p-4 bg-linear-to-r from-green-50 to-emerald-50 border-l-4 border-l-green-500">
                         <h4 className="jp-subheading mb-3 text-green-800">Real-World Application</h4>
                         <h5 className="font-semibold text-green-700 mb-2">{content.scenario.title}</h5>
                         <p className="jp-body text-sm text-green-600 mb-3">{content.scenario.description}</p>
@@ -153,7 +153,7 @@ export const CorporateContentDisplay = ({ lesson, content }: CorporateContentDis
                           <ul className="space-y-1">
                             {content.scenario.details.map((detail, index) => (
                               <li key={index} className="jp-caption text-green-700 flex items-start gap-2">
-                                <div className="w-1 h-1 bg-green-500 rounded-full mt-2 flex-shrink-0" />
+                                <div className="w-1 h-1 bg-green-500 rounded-full mt-2 shrink-0" />
                                 {detail}
                               </li>
                             ))}
@@ -189,7 +189,7 @@ export const CorporateContentDisplay = ({ lesson, content }: CorporateContentDis
                   </TabsContent>
                   
                   <TabsContent value="advanced" className="space-y-4">
-                    <div className="jp-card p-4 bg-gradient-to-r from-purple-50 to-pink-50 border-l-4 border-l-purple-500">
+                    <div className="jp-card p-4 bg-linear-to-r from-purple-50 to-pink-50 border-l-4 border-l-purple-500">
                       <h4 className="jp-subheading mb-3 text-purple-800">Advanced Considerations</h4>
                       <div className="space-y-3">
                         <div className="bg-white/60 rounded-lg p-3 border border-purple-200">
@@ -267,7 +267,7 @@ export const CorporateContentDisplay = ({ lesson, content }: CorporateContentDis
           </Card>
 
           {/* Quick Reference */}
-          <Card className="jp-card bg-gradient-to-b from-primary/5 to-navy-900/5">
+          <Card className="jp-card bg-linear-to-b from-primary/5 to-navy-900/5">
             <CardHeader>
               <CardTitle className="jp-heading text-navy-900 text-sm">Quick Reference</CardTitle>
             </CardHeader>

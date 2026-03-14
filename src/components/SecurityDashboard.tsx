@@ -177,7 +177,7 @@ export const SecurityDashboard = () => {
       case 'high': return 'destructive';
       case 'medium': return 'default';
       case 'low': return 'secondary';
-      default: return 'outline';
+      default: return 'outline-solid';
     }
   };
 

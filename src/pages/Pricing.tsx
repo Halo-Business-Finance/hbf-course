@@ -59,7 +59,7 @@ const Pricing = () => {
       />
       <div className="bg-background min-h-screen">
         {/* Hero */}
-        <div className="relative h-72 sm:h-80 md:h-[28rem] overflow-hidden">
+        <div className="relative h-72 sm:h-80 md:h-112 overflow-hidden">
           <motion.img
             src={pricingHero}
             alt="Professional learning online"
@@ -68,7 +68,7 @@ const Pricing = () => {
             animate={{ scale: 1 }}
             transition={{ duration: 1.2, ease: [0.2, 0, 0.38, 0.9] }}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-halo-navy/85 via-halo-navy/60 to-transparent flex items-center">
+          <div className="absolute inset-0 bg-linear-to-r from-halo-navy/85 via-halo-navy/60 to-transparent flex items-center">
             <div className="page-container">
               <motion.div
                 className="max-w-2xl text-white"
@@ -76,7 +76,7 @@ const Pricing = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                <Badge className="mb-3 sm:mb-4 bg-white/15 text-white border border-white/30 backdrop-blur-sm text-xs sm:text-sm">
+                <Badge className="mb-3 sm:mb-4 bg-white/15 text-white border border-white/30 backdrop-blur-xs text-xs sm:text-sm">
                   <Zap className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1.5 sm:mr-2" />
                   Pricing Plans
                 </Badge>
@@ -147,7 +147,7 @@ const Pricing = () => {
                       <ul className="space-y-3 mb-6">
                         {plan.features.map((feature, index) => (
                           <li key={index} className="flex items-start gap-2">
-                            <Check className="h-4 w-4 text-halo-orange mt-0.5 flex-shrink-0" />
+                            <Check className="h-4 w-4 text-halo-orange mt-0.5 shrink-0" />
                             <span className="text-sm text-foreground">{feature}</span>
                           </li>
                         ))}

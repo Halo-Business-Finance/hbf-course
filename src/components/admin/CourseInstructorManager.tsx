@@ -174,7 +174,7 @@ export function CourseInstructorManager({ courseId, courseTitle }: CourseInstruc
                   </div>
                   <Button 
                     onClick={() => setShowInstructorForm(true)} 
-                    className="shadow-sm hover:shadow-md transition-all duration-200"
+                    className="shadow-xs hover:shadow-md transition-all duration-200"
                   >
                     <Plus className="h-4 w-4 mr-2" />
                     Add Instructor
@@ -226,7 +226,7 @@ export function CourseInstructorManager({ courseId, courseTitle }: CourseInstruc
                             <TableCell className="py-4">{instructor.company}</TableCell>
                             <TableCell className="py-4">{instructor.years_experience}</TableCell>
                             <TableCell className="py-4">
-                              <Badge variant={instructor.is_active ? "default" : "secondary"} className="shadow-sm">
+                              <Badge variant={instructor.is_active ? "default" : "secondary"} className="shadow-xs">
                                 {instructor.is_active ? "Active" : "Inactive"}
                               </Badge>
                             </TableCell>
@@ -241,7 +241,7 @@ export function CourseInstructorManager({ courseId, courseTitle }: CourseInstruc
                                     setShowInstructorForm(true);
                                   }}
                                   title="Edit Instructor"
-                                  className="hover:shadow-sm transition-all duration-200"
+                                  className="hover:shadow-xs transition-all duration-200"
                                 >
                                   <Edit className="h-3 w-3" />
                                 </Button>
@@ -250,7 +250,7 @@ export function CourseInstructorManager({ courseId, courseTitle }: CourseInstruc
                                   variant="outline"
                                   onClick={() => toggleInstructorStatus(instructor.id, instructor.is_active)}
                                   title={instructor.is_active ? "Deactivate" : "Activate"}
-                                  className="hover:shadow-sm transition-all duration-200"
+                                  className="hover:shadow-xs transition-all duration-200"
                                 >
                                   {instructor.is_active ? (
                                     <Eye className="h-3 w-3" />
@@ -263,7 +263,7 @@ export function CourseInstructorManager({ courseId, courseTitle }: CourseInstruc
                                     <Button
                                       size="sm"
                                       variant="outline"
-                                      className="hover:bg-destructive hover:text-destructive-foreground hover:shadow-sm transition-all duration-200"
+                                      className="hover:bg-destructive hover:text-destructive-foreground hover:shadow-xs transition-all duration-200"
                                       title="Delete Instructor"
                                     >
                                       <Trash2 className="h-3 w-3" />

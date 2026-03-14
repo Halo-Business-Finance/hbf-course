@@ -78,11 +78,11 @@ const InstructorInfo = () => {
               </div>
               <div className="flex flex-col gap-0.5 text-[10px] text-muted-foreground">
                 <div className="flex items-center gap-1">
-                  <Award className="h-2.5 w-2.5 flex-shrink-0" />
+                  <Award className="h-2.5 w-2.5 shrink-0" />
                   <span className="truncate">{instructor.years_experience}</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <MapPin className="h-2.5 w-2.5 flex-shrink-0" />
+                  <MapPin className="h-2.5 w-2.5 shrink-0" />
                   <span className="truncate">{instructor.company}</span>
                 </div>
               </div>

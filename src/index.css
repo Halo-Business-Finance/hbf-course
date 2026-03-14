@@ -1,12 +1,423 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap");
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap')
+layer(base);
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap')
+layer(base);
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap')
+layer(base);
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap')
+layer(base);
+@import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&display=swap')
+layer(base);
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap')
+layer(base);
+@import 'tailwindcss';
+
+@plugin 'tailwindcss-animate';
+
+@custom-variant dark (&:is(.dark *));
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 0;
+  @media (width >= --theme(--breakpoint-sm)) {
+    max-width: none;
+  }
+  @media (width >= 1440px) {
+    max-width: 1440px;
+  }
+}
+
+@theme {
+  --font-sans:
+    Roboto, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    Segoe UI, Helvetica Neue, Arial, Noto Sans, sans-serif;
+  --font-mono:
+    Roboto Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    Liberation Mono, Courier New, monospace;
+  --font-inter:
+    Inter, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    sans-serif;
+  --font-playfair: Playfair Display, Georgia, serif;
+  --font-carbon: IBM Plex Sans, Helvetica Neue, Arial, sans-serif;
+  --font-serif:
+    Libre Caslon Text, ui-serif, Georgia, Cambria, Times New Roman, Times, serif;
+
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-primary-hover: hsl(var(--primary-hover));
+  --color-primary-muted: hsl(var(--primary-muted));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-secondary-hover: hsl(var(--secondary-hover));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --color-sidebar: hsl(var(--sidebar-background));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-accent: hsl(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+  --color-sidebar-ring: hsl(var(--sidebar-ring));
+
+  --color-halo-navy: hsl(var(--halo-navy));
+  --color-halo-orange: hsl(var(--halo-orange));
+  --color-halo-light-blue: hsl(var(--halo-light-blue));
+  --color-duke-blue: hsl(var(--duke-blue));
+  --color-enterprise-blue: hsl(var(--enterprise-blue));
+  --color-navy-blue: hsl(var(--navy-blue));
+
+  --color-navy-700: hsl(var(--navy-700));
+  --color-navy-800: hsl(var(--navy-800));
+  --color-navy-900: hsl(var(--navy-900));
+
+  --color-carbon-dashboard: hsl(var(--carbon-dashboard-bg));
+  --color-carbon-widget: hsl(var(--carbon-widget-bg));
+  --color-carbon-border: hsl(var(--carbon-widget-border));
+  --color-carbon-hover: hsl(var(--carbon-widget-hover));
+  --color-carbon-text: hsl(var(--carbon-text-primary));
+  --color-carbon-text-secondary: hsl(var(--carbon-text-secondary));
+  --color-carbon-accent: hsl(var(--carbon-accent-blue));
+  --color-carbon-success: hsl(var(--carbon-success));
+  --color-carbon-warning: hsl(var(--carbon-warning));
+  --color-carbon-danger: hsl(var(--carbon-danger));
+
+  --color-course-card: hsl(var(--course-card-bg));
+  --color-course-card-foreground: hsl(var(--course-card-foreground));
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  --background-image-gradient-primary: var(--gradient-primary);
+  --background-image-gradient-success: var(--gradient-success);
+  --background-image-gradient-hero: var(--gradient-hero);
+  --background-image-gradient-duke: var(--gradient-duke);
+  --background-image-gradient-enterprise: var(--gradient-enterprise);
+
+  --shadow-card: var(--shadow-card);
+  --shadow-elevated: var(--shadow-elevated);
+  --shadow-hero: var(--shadow-hero);
+  --shadow-elegant: var(--shadow-elegant);
+
+  --ease-smooth: var(--transition-smooth);
+  --ease-spring: var(--transition-spring);
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-fade-in: fade-in 0.3s ease-out;
+  --animate-scale-in: scale-in 0.2s ease-out;
+  --animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-pulse-extra-slow: pulse 10s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes scale-in {
+    0% {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+/* Removed global a11y font-scaling selectors due Lightning CSS selector merge bug in Vite 8 */
+
+/* JP Morgan-inspired component utilities */
+@utility container {
+  /* Container Override - Unified container styles */
+  width: 95% !important;
+  max-width: 1440px !important;
+  margin: 0 auto !important;
+  @media (max-width: 768px) {
+    width: 95% !important;
+  }
+}
+@utility mobile-container {
+  width: 95% !important;
+  max-width: 1440px !important;
+  margin: 0 auto !important;
+  @media (max-width: 768px) {
+    width: 95% !important;
+  }
+
+  /* Mobile-optimized utilities */
+  @apply px-4 sm:px-6 lg:px-8;
+}
+@utility jp-container {
+  width: 95% !important;
+  max-width: 1440px !important;
+  margin: 0 auto !important;
+  @media (max-width: 768px) {
+    width: 95% !important;
+  }
+
+  /* Professional Layout Utilities */
+  @apply max-w-7xl mx-auto px-4 lg:px-8;
+}
+@utility jp-card {
+  /* Mobile responsiveness for containers */
+
+  /* Professional Card Styles */
+  @apply bg-card border border-border rounded-lg shadow-card backdrop-blur-xs;
+  background: var(--gradient-card);
+  transition: var(--transition-smooth);
+}
+@utility jp-card-hover {
+  @apply jp-card hover:shadow-elevated hover:-translate-y-1;
+  transition: var(--transition-smooth);
+}
+@utility jp-card-interactive {
+  @apply jp-card-hover cursor-pointer;
+}
+@utility jp-card-elegant {
+  @apply bg-card border-0 rounded-xl shadow-elegant;
+  background: linear-gradient(
+    145deg,
+    hsl(var(--card)) 0%,
+    hsl(var(--muted)) 100%
+  );
+}
+@utility jp-button-primary {
+  /* Professional Button Variants */
+  @apply bg-primary hover:bg-primary-hover text-primary-foreground;
+  box-shadow: var(--shadow-md);
+  transition: var(--transition-smooth);
+}
+@utility jp-button-secondary {
+  @apply bg-secondary hover:bg-secondary-hover text-secondary-foreground border border-border;
+  transition: var(--transition-smooth);
+}
+@utility jp-button-elegant {
+  @apply bg-linear-to-r from-primary to-primary-hover text-primary-foreground;
+  box-shadow: var(--shadow-elegant);
+  transition: var(--transition-smooth);
+}
+@utility jp-heading {
+  /* Professional Typography */
+  @apply font-semibold text-foreground;
+  letter-spacing: -0.025em;
+}
+@utility jp-subheading {
+  @apply text-muted-foreground font-medium;
+}
+@utility jp-body {
+  @apply text-foreground leading-relaxed;
+}
+@utility jp-caption {
+  @apply text-sm text-muted-foreground;
+}
+@utility jp-section {
+  @apply py-12 lg:py-16;
+}
+@utility jp-grid {
+  @apply grid gap-6 lg:gap-8;
+}
+@utility jp-hover-lift {
+  /* Professional Hover Effects */
+  @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-elevated;
+}
+@utility jp-hover-glow {
+  @apply transition-all duration-300 hover:shadow-elegant;
+}
+@utility jp-hover-scale {
+  @apply transition-transform duration-200 hover:scale-105;
+}
+@utility jp-focus {
+  /* Professional Focus States */
+  @apply focus:outline-hidden focus:ring-2 focus:ring-primary focus:ring-offset-2;
+}
+@utility jp-gradient-primary {
+  /* Professional Gradients */
+  background: var(--gradient-primary);
+}
+@utility jp-gradient-hero {
+  background: var(--gradient-hero);
+}
+@utility jp-gradient-subtle {
+  background: var(--gradient-subtle);
+}
+@utility jp-fade-in {
+  /* Professional Animations */
+  animation: fadeIn 0.5s ease-out;
+}
+@utility jp-slide-up {
+  animation: slideUp 0.6s ease-out;
+}
+@utility jp-scale-in {
+  animation: scaleIn 0.4s ease-out;
+}
+@utility jp-border-subtle {
+  /* Professional Border Styles */
+  @apply border border-border;
+}
+@utility jp-border-elegant {
+  border: 1px solid hsl(var(--border) / 0.6);
+  background: linear-gradient(
+    145deg,
+    hsl(var(--card)) 0%,
+    hsl(var(--muted) / 0.3) 100%
+  );
+}
+@utility story-link {
+  /* Interactive Elements */
+  @apply relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
+}
+@utility elegant-underline {
+  @apply relative after:content-[''] after:absolute after:w-0 after:h-px after:bottom-0 after:left-0 after:bg-linear-to-r after:from-primary after:to-accent after:transition-all after:duration-300 hover:after:w-full;
+}
+@utility jp-space-y-professional {
+  /* Professional Spacing */
+  & > * + * {
+    margin-top: var(--spacing-lg);
+  }
+}
+@utility jp-space-x-professional {
+  & > * + * {
+    margin-left: var(--spacing-lg);
+  }
+}
+@utility mobile-section {
+  @apply py-10 sm:py-14 lg:py-20;
+}
+@utility mobile-grid {
+  @apply grid gap-4 sm:gap-6 lg:gap-8;
+}
+@utility mobile-card {
+  @apply p-4 sm:p-6;
+}
+@utility mobile-button {
+  @apply px-5 py-3 text-sm font-medium;
+  min-height: var(--touch-target-min);
+}
+@utility mobile-input {
+  @apply px-3 py-3 text-base;
+  min-height: var(--touch-target-min);
+}
+@utility touch-target {
+  /* Touch-friendly interactive elements */
+  min-height: var(--touch-target-min);
+  min-width: var(--touch-target-min);
+  @apply flex items-center justify-center;
+}
+@utility page-container {
+  /* Page-level responsive wrapper */
+  @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+@utility hero-title {
+  /* Responsive hero text helpers */
+  @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight;
+}
+@utility section-title {
+  @apply text-2xl sm:text-3xl md:text-4xl font-bold;
+}
+@utility card-grid-2 {
+  /* Responsive card grids */
+  @apply grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6;
+}
+@utility card-grid-3 {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6;
+}
+@utility card-grid-4 {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6;
+}
+@utility text-responsive-xs {
+  /* Responsive text sizing */
+  @apply text-xs sm:text-sm;
+}
+@utility text-responsive-sm {
+  @apply text-sm sm:text-base;
+}
+@utility text-responsive-base {
+  @apply text-base sm:text-lg;
+}
+@utility text-responsive-lg {
+  @apply text-lg sm:text-xl;
+}
+@utility text-responsive-xl {
+  @apply text-xl sm:text-2xl;
+}
+@utility text-responsive-2xl {
+  @apply text-2xl sm:text-3xl;
+}
+@utility text-responsive-3xl {
+  @apply text-3xl sm:text-4xl lg:text-5xl;
+}
+@utility scrollbar-none {
+  /* Hide scrollbar for horizontal scroll areas */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
 
 /* IBM Carbon Design System inspired foundation */
 
@@ -242,153 +653,6 @@
   }
 }
 
-/* Removed global a11y font-scaling selectors due Lightning CSS selector merge bug in Vite 8 */
-
-/* JP Morgan-inspired component utilities */
-@layer components {
-  /* Container Override - Unified container styles */
-  .container,
-  .mobile-container,
-  .jp-container {
-    width: 95% !important;
-    max-width: 1440px !important;
-    margin: 0 auto !important;
-  }
-
-  /* Mobile responsiveness for containers */
-  @media (max-width: 768px) {
-    .container,
-    .mobile-container,
-    .jp-container {
-      width: 95% !important;
-    }
-  }
-
-  /* Professional Card Styles */
-  .jp-card {
-    @apply bg-card border border-border rounded-lg shadow-card backdrop-blur-sm;
-    background: var(--gradient-card);
-    transition: var(--transition-smooth);
-  }
-
-  .jp-card-hover {
-    @apply jp-card hover:shadow-elevated hover:-translate-y-1;
-    transition: var(--transition-smooth);
-  }
-
-  .jp-card-interactive {
-    @apply jp-card-hover cursor-pointer;
-  }
-
-  .jp-card-elegant {
-    @apply bg-card border-0 rounded-xl shadow-elegant;
-    background: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--muted)) 100%);
-  }
-
-  /* Professional Button Variants */
-  .jp-button-primary {
-    @apply bg-primary hover:bg-primary-hover text-primary-foreground;
-    box-shadow: var(--shadow-md);
-    transition: var(--transition-smooth);
-  }
-
-  .jp-button-secondary {
-    @apply bg-secondary hover:bg-secondary-hover text-secondary-foreground border border-border;
-    transition: var(--transition-smooth);
-  }
-
-  .jp-button-elegant {
-    @apply bg-gradient-to-r from-primary to-primary-hover text-primary-foreground;
-    box-shadow: var(--shadow-elegant);
-    transition: var(--transition-smooth);
-  }
-
-  /* Professional Typography */
-  .jp-heading {
-    @apply font-semibold text-foreground;
-    letter-spacing: -0.025em;
-  }
-
-  .jp-subheading {
-    @apply text-muted-foreground font-medium;
-  }
-
-  .jp-body {
-    @apply text-foreground leading-relaxed;
-  }
-
-  .jp-caption {
-    @apply text-sm text-muted-foreground;
-  }
-
-  /* Professional Layout Utilities */
-  .jp-container {
-    @apply max-w-7xl mx-auto px-4 lg:px-8;
-  }
-
-  .jp-section {
-    @apply py-12 lg:py-16;
-  }
-
-  .jp-grid {
-    @apply grid gap-6 lg:gap-8;
-  }
-
-  /* Professional Hover Effects */
-  .jp-hover-lift {
-    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-elevated;
-  }
-
-  .jp-hover-glow {
-    @apply transition-all duration-300 hover:shadow-elegant;
-  }
-
-  .jp-hover-scale {
-    @apply transition-transform duration-200 hover:scale-105;
-  }
-
-  /* Professional Focus States */
-  .jp-focus {
-    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
-  }
-
-  /* Professional Gradients */
-  .jp-gradient-primary {
-    background: var(--gradient-primary);
-  }
-
-  .jp-gradient-hero {
-    background: var(--gradient-hero);
-  }
-
-  .jp-gradient-subtle {
-    background: var(--gradient-subtle);
-  }
-
-  /* Professional Animations */
-  .jp-fade-in {
-    animation: fadeIn 0.5s ease-out;
-  }
-
-  .jp-slide-up {
-    animation: slideUp 0.6s ease-out;
-  }
-
-  .jp-scale-in {
-    animation: scaleIn 0.4s ease-out;
-  }
-
-  /* Professional Border Styles */
-  .jp-border-subtle {
-    @apply border border-border;
-  }
-
-  .jp-border-elegant {
-    border: 1px solid hsl(var(--border) / 0.6);
-    background: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--muted) / 0.3) 100%);
-  }
-}
-
 /* Professional Animations */
 @layer utilities {
   @keyframes fadeIn {
@@ -422,123 +686,6 @@
       opacity: 1;
       transform: scale(1);
     }
-  }
-
-  /* Interactive Elements */
-  .story-link {
-    @apply relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
-  }
-
-  .elegant-underline {
-    @apply relative after:content-[''] after:absolute after:w-0 after:h-px after:bottom-0 after:left-0 after:bg-gradient-to-r after:from-primary after:to-accent after:transition-all after:duration-300 hover:after:w-full;
-  }
-
-  /* Professional Spacing */
-  .jp-space-y-professional > * + * {
-    margin-top: var(--spacing-lg);
-  }
-
-  .jp-space-x-professional > * + * {
-    margin-left: var(--spacing-lg);
-  }
-
-  /* Mobile-optimized utilities */
-  .mobile-container {
-    @apply px-4 sm:px-6 lg:px-8;
-  }
-
-  .mobile-section {
-    @apply py-10 sm:py-14 lg:py-20;
-  }
-
-  .mobile-grid {
-    @apply grid gap-4 sm:gap-6 lg:gap-8;
-  }
-
-  .mobile-card {
-    @apply p-4 sm:p-6;
-  }
-
-  .mobile-button {
-    @apply px-5 py-3 text-sm font-medium;
-    min-height: var(--touch-target-min);
-  }
-
-  .mobile-input {
-    @apply px-3 py-3 text-base;
-    min-height: var(--touch-target-min);
-  }
-
-  /* Touch-friendly interactive elements */
-  .touch-target {
-    min-height: var(--touch-target-min);
-    min-width: var(--touch-target-min);
-    @apply flex items-center justify-center;
-  }
-
-  /* Page-level responsive wrapper */
-  .page-container {
-    @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
-  }
-
-  /* Responsive hero text helpers */
-  .hero-title {
-    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight;
-  }
-
-  .section-title {
-    @apply text-2xl sm:text-3xl md:text-4xl font-bold;
-  }
-
-  /* Responsive card grids */
-  .card-grid-2 {
-    @apply grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6;
-  }
-
-  .card-grid-3 {
-    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6;
-  }
-
-  .card-grid-4 {
-    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6;
-  }
-
-  /* Responsive text sizing */
-  .text-responsive-xs {
-    @apply text-xs sm:text-sm;
-  }
-
-  .text-responsive-sm {
-    @apply text-sm sm:text-base;
-  }
-
-  .text-responsive-base {
-    @apply text-base sm:text-lg;
-  }
-
-  .text-responsive-lg {
-    @apply text-lg sm:text-xl;
-  }
-
-  .text-responsive-xl {
-    @apply text-xl sm:text-2xl;
-  }
-
-  .text-responsive-2xl {
-    @apply text-2xl sm:text-3xl;
-  }
-
-  .text-responsive-3xl {
-    @apply text-3xl sm:text-4xl lg:text-5xl;
-  }
-
-  /* Hide scrollbar for horizontal scroll areas */
-  .scrollbar-none {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  .scrollbar-none::-webkit-scrollbar {
-    display: none;
   }
 }
 

@@ -363,11 +363,11 @@ export default function TeamAnalytics() {
                                 <p className="text-sm text-muted-foreground">{member.role}</p>
                               </div>
                               <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-sm">
-                                <div className="text-center min-w-[3rem]">
+                                <div className="text-center min-w-12">
                                   <p className="font-semibold text-foreground">{member.modulesCompleted}</p>
                                   <p className="text-xs text-muted-foreground">Done</p>
                                 </div>
-                                <div className="text-center min-w-[3rem]">
+                                <div className="text-center min-w-12">
                                   <p className="font-semibold text-foreground">{member.avgScore > 0 ? `${member.avgScore}%` : '—'}</p>
                                   <p className="text-xs text-muted-foreground">Score</p>
                                 </div>

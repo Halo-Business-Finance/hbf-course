@@ -157,7 +157,7 @@ export const BusinessValuationTool = () => {
 
   return (
     <div className="w-full max-w-6xl space-y-6">
-      <Card className="border-0 shadow-lg bg-gradient-to-br from-background to-primary/5">
+      <Card className="border-0 shadow-lg bg-linear-to-br from-background to-primary/5">
         <CardHeader>
           <CardTitle className="flex items-center gap-3 text-2xl">
             <div className="p-2 rounded-lg bg-primary/10">
@@ -260,7 +260,7 @@ export const BusinessValuationTool = () => {
             </Select>
           </div>
 
-          <Button onClick={calculateValuation} className="w-full h-12 text-lg bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70">
+          <Button onClick={calculateValuation} className="w-full h-12 text-lg bg-linear-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70">
             <Zap className="h-5 w-5 mr-2" />
             Calculate Business Valuation
           </Button>

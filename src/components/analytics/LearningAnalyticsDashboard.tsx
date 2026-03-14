@@ -148,7 +148,7 @@ export function LearningAnalyticsDashboard() {
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.1 }}>
-          <Card className="bg-gradient-to-br from-blue-500/20 to-cyan-500/10 border-blue-500/30">
+          <Card className="bg-linear-to-br from-blue-500/20 to-cyan-500/10 border-blue-500/30">
             <CardContent className="p-6">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
@@ -164,7 +164,7 @@ export function LearningAnalyticsDashboard() {
         </motion.div>
 
         <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }}>
-          <Card className="bg-gradient-to-br from-green-500/20 to-emerald-500/10 border-green-500/30">
+          <Card className="bg-linear-to-br from-green-500/20 to-emerald-500/10 border-green-500/30">
             <CardContent className="p-6">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
@@ -180,7 +180,7 @@ export function LearningAnalyticsDashboard() {
         </motion.div>
 
         <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.3 }}>
-          <Card className="bg-gradient-to-br from-purple-500/20 to-pink-500/10 border-purple-500/30">
+          <Card className="bg-linear-to-br from-purple-500/20 to-pink-500/10 border-purple-500/30">
             <CardContent className="p-6">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center">
@@ -196,7 +196,7 @@ export function LearningAnalyticsDashboard() {
         </motion.div>
 
         <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4 }}>
-          <Card className="bg-gradient-to-br from-yellow-500/20 to-orange-500/10 border-yellow-500/30">
+          <Card className="bg-linear-to-br from-yellow-500/20 to-orange-500/10 border-yellow-500/30">
             <CardContent className="p-6">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center">
@@ -215,7 +215,7 @@ export function LearningAnalyticsDashboard() {
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Weekly Activity */}
-        <Card className="bg-card/50 backdrop-blur border-border/50">
+        <Card className="bg-card/50 backdrop-blur-sm border-border/50">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <BarChart3 className="w-5 h-5 text-primary" />
@@ -243,7 +243,7 @@ export function LearningAnalyticsDashboard() {
         </Card>
 
         {/* Course Progress */}
-        <Card className="bg-card/50 backdrop-blur border-border/50">
+        <Card className="bg-card/50 backdrop-blur-sm border-border/50">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <TrendingUp className="w-5 h-5 text-primary" />
@@ -273,7 +273,7 @@ export function LearningAnalyticsDashboard() {
       </div>
 
       {/* Recommendations */}
-      <Card className="bg-gradient-to-r from-primary/5 to-primary/10 border-primary/20">
+      <Card className="bg-linear-to-r from-primary/5 to-primary/10 border-primary/20">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <TrendingUp className="w-5 h-5 text-primary" />

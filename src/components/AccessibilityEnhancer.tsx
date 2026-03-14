@@ -251,7 +251,7 @@ export const AccessibilityEnhancer = () => {
                 ].map((option) => (
                   <Button
                     key={option.value}
-                    variant={settings.colorBlindness === option.value ? 'default' : 'outline'}
+                    variant={settings.colorBlindness === option.value ? 'default' : 'outline-solid'}
                     size="sm"
                     onClick={() => updateSetting('colorBlindness', option.value as unknown)}
                   >

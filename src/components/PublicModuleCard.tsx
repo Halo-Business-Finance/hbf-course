@@ -161,7 +161,7 @@ const PublicModuleCard = ({
 
         {/* Marketing Banner for Unauthenticated Users */}
         {!isAuthenticated && (
-          <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg p-3 text-center">
+          <div className="bg-linear-to-r from-primary/10 to-secondary/10 rounded-lg p-3 text-center">
             <p className="text-sm font-medium text-foreground mb-1">
               🎓 Start Your Finance Career Today
             </p>

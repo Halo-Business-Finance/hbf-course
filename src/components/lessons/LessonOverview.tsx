@@ -112,7 +112,7 @@ export const LessonOverview = ({ lesson, moduleTitle, content }: LessonOverviewP
               <ul className="space-y-3">
                 {content.objectives.map((objective, index) => (
                   <li key={index} className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center mt-0.5">
+                    <div className="shrink-0 w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center mt-0.5">
                       <span className="text-xs font-semibold text-primary">{index + 1}</span>
                     </div>
                     <span className="jp-body text-sm">{objective}</span>
@@ -126,7 +126,7 @@ export const LessonOverview = ({ lesson, moduleTitle, content }: LessonOverviewP
               <ul className="space-y-3">
                 {content.keyPoints.map((point, index) => (
                   <li key={index} className="flex items-start gap-3">
-                    <CheckCircle className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                    <CheckCircle className="h-4 w-4 text-primary mt-0.5 shrink-0" />
                     <span className="jp-body text-sm">{point}</span>
                   </li>
                 ))}
@@ -138,7 +138,7 @@ export const LessonOverview = ({ lesson, moduleTitle, content }: LessonOverviewP
 
       {/* Industry Context (if scenario exists) */}
       {content.scenario && (
-        <Card className="jp-card bg-gradient-to-r from-navy-900/5 to-primary/5">
+        <Card className="jp-card bg-linear-to-r from-navy-900/5 to-primary/5">
           <CardHeader>
             <CardTitle className="jp-heading text-navy-900">
               Industry Application: {content.scenario.title}
@@ -152,7 +152,7 @@ export const LessonOverview = ({ lesson, moduleTitle, content }: LessonOverviewP
               <div className="grid gap-2">
                 {content.scenario.details.map((detail, index) => (
                   <div key={index} className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0" />
+                    <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 shrink-0" />
                     <span className="jp-caption">{detail}</span>
                   </div>
                 ))}

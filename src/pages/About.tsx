@@ -56,7 +56,7 @@ const About = () => {
       />
       <div className="bg-background min-h-screen">
         {/* Hero Section */}
-        <div className="relative h-72 sm:h-80 md:h-[28rem] overflow-hidden">
+        <div className="relative h-72 sm:h-80 md:h-112 overflow-hidden">
           <motion.img
             src={aboutHero}
             alt="Professional team collaboration"
@@ -65,7 +65,7 @@ const About = () => {
             animate={{ scale: 1 }}
             transition={{ duration: 1.2, ease: [0.2, 0, 0.38, 0.9] }}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-halo-navy/85 via-halo-navy/60 to-transparent flex items-center">
+          <div className="absolute inset-0 bg-linear-to-r from-halo-navy/85 via-halo-navy/60 to-transparent flex items-center">
             <div className="page-container">
               <motion.div
                 className="max-w-2xl text-white"
@@ -73,7 +73,7 @@ const About = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2, ease: [0.2, 0, 0.38, 0.9] }}
               >
-                <Badge className="mb-3 sm:mb-4 bg-white/15 text-white border border-white/30 backdrop-blur-sm text-xs sm:text-sm">
+                <Badge className="mb-3 sm:mb-4 bg-white/15 text-white border border-white/30 backdrop-blur-xs text-xs sm:text-sm">
                   <Zap className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1.5 sm:mr-2" />
                   About Us
                 </Badge>
@@ -134,7 +134,7 @@ const About = () => {
                   <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
                     <Card className="p-6 hover:shadow-lg transition-shadow h-full">
                       <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <div className="w-12 h-12 rounded-lg flex items-center justify-center shrink-0">
                           <Icon className="h-6 w-6 text-halo-navy" />
                         </div>
                         <div className="flex-1">
@@ -279,7 +279,7 @@ const About = () => {
             </StaggerContainer>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <AnimatedSection delay={0.1}>
-                <Card className="bg-gradient-to-br from-halo-orange/5 to-halo-navy/5 h-full">
+                <Card className="bg-linear-to-br from-halo-orange/5 to-halo-navy/5 h-full">
                   <CardContent className="p-8">
                     <h3 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
                       <Globe className="h-5 w-5 text-halo-navy" />
@@ -292,7 +292,7 @@ const About = () => {
                 </Card>
               </AnimatedSection>
               <AnimatedSection delay={0.2}>
-                <Card className="bg-gradient-to-br from-halo-navy/5 to-halo-orange/5 h-full">
+                <Card className="bg-linear-to-br from-halo-navy/5 to-halo-orange/5 h-full">
                   <CardContent className="p-8">
                     <h3 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
                       <Database className="h-5 w-5 text-halo-navy" />

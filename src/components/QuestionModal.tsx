@@ -209,7 +209,7 @@ export const QuestionModal = ({ isOpen, onClose, moduleTitle, moduleId }: Questi
           {messages.map((msg, index) => (
             <div key={index} className={`flex gap-3 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
               {msg.role === 'assistant' && (
-                <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
+                <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-1">
                   <Bot className="h-4 w-4 text-primary" />
                 </div>
               )}
@@ -226,7 +226,7 @@ export const QuestionModal = ({ isOpen, onClose, moduleTitle, moduleId }: Questi
                 </div>
               </div>
               {msg.role === 'user' && (
-                <div className="w-7 h-7 rounded-full bg-halo-navy/10 flex items-center justify-center flex-shrink-0 mt-1">
+                <div className="w-7 h-7 rounded-full bg-halo-navy/10 flex items-center justify-center shrink-0 mt-1">
                   <User className="h-4 w-4 text-halo-navy" />
                 </div>
               )}
@@ -235,7 +235,7 @@ export const QuestionModal = ({ isOpen, onClose, moduleTitle, moduleId }: Questi
 
           {isLoading && messages[messages.length - 1]?.role !== 'assistant' && (
             <div className="flex gap-3">
-              <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+              <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
                 <Bot className="h-4 w-4 text-primary" />
               </div>
               <div className="bg-muted/50 rounded-lg px-4 py-3">
@@ -261,7 +261,7 @@ export const QuestionModal = ({ isOpen, onClose, moduleTitle, moduleId }: Questi
               onClick={handleSubmit}
               disabled={isLoading || !input.trim()}
               size="icon"
-              className="h-11 w-11 flex-shrink-0"
+              className="h-11 w-11 shrink-0"
             >
               {isLoading ? (
                 <Loader2 className="h-4 w-4 animate-spin" />

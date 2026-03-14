@@ -474,7 +474,7 @@ const Courses = () => {
                 </div>
                 <div className="h-2.5 bg-muted rounded-full overflow-hidden">
                   <motion.div
-                    className="h-full bg-gradient-to-r from-halo-navy to-halo-orange rounded-full"
+                    className="h-full bg-linear-to-r from-halo-navy to-halo-orange rounded-full"
                     initial={{ width: 0 }}
                     animate={{ width: `${getOverallProgress()}%` }}
                     transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }} />
@@ -512,7 +512,7 @@ const Courses = () => {
             </CardContent>
           </Card> : <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
             {/* Filters - Mobile sheet, Desktop sidebar */}
-            <div className="lg:w-80 flex-shrink-0">
+            <div className="lg:w-80 shrink-0">
               <DashboardCourseFilter 
                 selectedCategory={selectedCategory} 
                 onCategorySelect={setSelectedCategory}

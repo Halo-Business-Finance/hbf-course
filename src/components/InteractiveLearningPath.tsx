@@ -358,7 +358,7 @@ export const InteractiveLearningPath = () => {
                     }`}>
                       <CardContent className="p-6">
                         <div className="flex items-start gap-4">
-                          <div className="flex-shrink-0">
+                          <div className="shrink-0">
                             {getModuleIcon(module)}
                           </div>
                           

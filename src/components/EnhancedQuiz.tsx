@@ -257,7 +257,7 @@ export const EnhancedQuiz = ({
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.06, duration: 0.3 }}
-                className={`flex items-center space-x-3 p-3 rounded-lg border hover:bg-muted/50 transition-all min-h-[48px] cursor-pointer ${userAnswer === option ? 'border-primary bg-primary/5 shadow-sm' : 'hover:border-primary/30'}`} 
+                className={`flex items-center space-x-3 p-3 rounded-lg border hover:bg-muted/50 transition-all min-h-[48px] cursor-pointer ${userAnswer === option ? 'border-primary bg-primary/5 shadow-xs' : 'hover:border-primary/30'}`} 
                 onClick={() => handleAnswer(question.id, option)}
               >
                 <RadioGroupItem value={option} id={`${question.id}-${index}`} />
@@ -607,7 +607,7 @@ export const EnhancedQuiz = ({
             Previous
           </Button>
 
-          <div className="flex items-center justify-center gap-1 order-first sm:order-none py-2">
+          <div className="flex items-center justify-center gap-1 order-first sm:order-0 py-2">
             {/* Question Navigation Dots */}
             {questions.map((_, index) => <button key={index} onClick={() => setCurrentQuestion(index)} className={`w-3.5 h-3.5 rounded-full transition-colors ${index === currentQuestion ? "bg-primary ring-2 ring-primary/30" : answers[questions[index].id] ? "bg-accent" : flaggedQuestions.has(questions[index].id) ? "bg-halo-orange" : "bg-muted"}`} />)}
           </div>

@@ -188,8 +188,8 @@ export const ProfessionalAssessment = ({
 
             <Badge className={`px-4 py-2 text-base ${
               results.passed 
-                ? "bg-gradient-to-r from-green-500 to-emerald-500 text-white" 
-                : "bg-gradient-to-r from-orange-500 to-red-500 text-white"
+                ? "bg-linear-to-r from-green-500 to-emerald-500 text-white" 
+                : "bg-linear-to-r from-orange-500 to-red-500 text-white"
             }`}>
               {results.passed ? `✅ Passed (${passingScore}%+ required)` : `❌ Below ${passingScore}% - Review Required`}
             </Badge>
@@ -271,7 +271,7 @@ export const ProfessionalAssessment = ({
           </Card>
 
           {/* Next Steps */}
-          <Card className="jp-card bg-gradient-to-r from-primary/5 to-navy-900/5">
+          <Card className="jp-card bg-linear-to-r from-primary/5 to-navy-900/5">
             <CardHeader>
               <CardTitle className="jp-heading text-navy-900">Next Steps</CardTitle>
             </CardHeader>
