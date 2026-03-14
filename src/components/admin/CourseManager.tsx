@@ -37,9 +37,7 @@ import courseBridgeLoans from "@/assets/course-bridge-loans.jpg";
 import courseTermLoans from "@/assets/course-term-loans.jpg";
 import courseBusinessAcquisition from "@/assets/course-business-acquisition.jpg";
 
-interface CourseManagerProps {}
-
-export function CourseManager({}: CourseManagerProps) {
+export function CourseManager() {
   const { courses, loading, createCourse, updateCourse, deleteCourse, getCoursesByCategory } = useCourses();
   const { getModuleStats } = useModules();
   const [showAddDialog, setShowAddDialog] = useState(false);

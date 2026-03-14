@@ -404,7 +404,6 @@ export const InteractiveLessonComponents = () => {
         <h2 className="text-2xl font-bold">
 </h2>
         <p className="text-muted-foreground">
-          ​         
         </p>
         <div className="flex justify-center gap-4 text-sm">
           <Badge variant={completedComponents.has('calculator') ? 'default' : 'outline'}>

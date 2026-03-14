@@ -13,8 +13,6 @@ import { useToast } from "@/hooks/use-toast";
 import { useCourses } from "@/hooks/useCourses";
 import { useModules } from "@/hooks/useModules";
 
-interface ModuleEditorProps {}
-
 interface DbModule {
   id: string;
   title: string;
@@ -34,7 +32,7 @@ interface DbModule {
   topics?: string[];
 }
 
-export function ModuleEditor({}: ModuleEditorProps) {
+export function ModuleEditor() {
   const [allModules, setAllModules] = useState<DbModule[]>([]);
   const [filteredModules, setFilteredModules] = useState<DbModule[]>([]);
   const [showAddDialog, setShowAddDialog] = useState(false);

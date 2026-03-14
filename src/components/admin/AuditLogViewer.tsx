@@ -64,7 +64,7 @@ export const AuditLogViewer = () => {
         if (error) throw error;
         setEvents(data || []);
       } else {
-        let query = supabase
+        const query = supabase
           .from("admin_audit_log")
           .select("*")
           .order("created_at", { ascending: false })

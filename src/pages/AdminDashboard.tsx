@@ -300,7 +300,7 @@ const AdminDashboard = () => {
 
           // Convert map to array
           userRolesData = Array.from(userMap.values());
-        } else {}
+        }
       } catch (error) {
         // Silent fail - will use fallback data
         // Fallback to current user only if the secure function fails

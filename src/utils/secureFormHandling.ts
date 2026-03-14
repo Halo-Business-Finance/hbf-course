@@ -51,7 +51,7 @@ export const handleSecureFormSubmission = async (
     }
 
     // Additional security processing
-    let processedData = { ...validation.sanitizedData };
+    const processedData = { ...validation.sanitizedData };
 
     // HTML sanitization if requested
     if (options.sanitizeHtml) {
