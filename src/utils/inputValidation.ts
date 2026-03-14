@@ -30,7 +30,7 @@ export const sanitizePhone = (phone: string): string => {
   if (!phone || typeof phone !== 'string') return '';
   
   return phone
-    .replace(/[^0-9\s\-\(\)\+\.]/g, '') // Only allow phone number characters
+    .replace(/[^0-9\s\-()+.]/g, '') // Only allow phone number characters
     .trim()
     .substring(0, 20); // Reasonable phone number length
 };
@@ -74,7 +74,7 @@ export const validatePassword = (password: string): ValidationResult => {
     errors.push('Password must contain at least one number');
   }
   
-  if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
+  if (!/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password)) {
     errors.push('Password must contain at least one special character');
   }
   
@@ -93,7 +93,7 @@ export const validatePhone = (phone: string): ValidationResult => {
   }
   
   // Basic phone validation - adjust regex as needed for your requirements
-  const phoneRegex = /^[\+]?[1-9][\d\s\-\(\)\.]{7,20}$/;
+  const phoneRegex = /^[+]?[1-9][\d\s\-()+.]{7,20}$/;
   
   if (!phoneRegex.test(sanitized)) {
     return { isValid: false, errors: ['Please enter a valid phone number'] };

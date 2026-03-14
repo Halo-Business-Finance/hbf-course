@@ -160,7 +160,7 @@ export function useNotifications() {
 
     return () => {
       if (channel) {
-        try { supabase.removeChannel(channel); } catch {}
+        try { supabase.removeChannel(channel); } catch (_e) { /* ignore */ }
       }
     };
   }, [user]);

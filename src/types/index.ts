@@ -165,7 +165,7 @@ export interface LoadingState {
 }
 
 // Form interfaces
-export interface UserEditForm extends Omit<UserProfile, 'id' | 'user_id' | 'created_at' | 'updated_at'> {}
+export type UserEditForm = Omit<UserProfile, 'id' | 'user_id' | 'created_at' | 'updated_at'>;
 
 export interface AuthFormData {
   email: string;
