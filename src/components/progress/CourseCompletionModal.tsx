@@ -4,7 +4,6 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Award, Download, Share2, ArrowRight, Trophy, Star, Clock, BookOpen } from 'lucide-react';
-import { toast } from 'sonner';
 
 interface CourseCompletionModalProps {
   isOpen: boolean;

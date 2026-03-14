@@ -6,23 +6,8 @@ import { Progress } from "@/components/ui/progress";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { 
-  Trophy, 
-  Star, 
-  Flame, 
-  Target,
-  Award,
-  Zap,
-  Crown,
-  Gift,
-  TrendingUp,
-  Users,
-  BookOpen,
-  Clock,
-  CheckCircle,
-  Lock
-} from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Trophy, Star, Flame, Target, Award, Zap, Crown, Gift, Users, BookOpen, Clock, CheckCircle, Lock } from "lucide-react";
+import { AnimatePresence } from "framer-motion";
 
 interface Achievement {
   id: string;

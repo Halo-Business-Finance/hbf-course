@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Calendar, ArrowLeft, Share2, Bookmark } from "lucide-react";
 import { FinPilotBrandFooter } from "@/components/FinPilotBrandFooter";
 import { SecureHtmlRenderer } from "@/utils/secureHtmlRenderer";
-import { logger } from "@/utils/secureLogging";
 import fintechProfessional from "@/assets/fintech-professional.jpg";
 import creditAnalystProfessional from "@/assets/credit-analyst-professional.jpg";
 import riskManagementProfessional from "@/assets/risk-management-professional.jpg";

@@ -1,7 +1,6 @@
 // Secure form handling utilities
-import { validateForm, validateApiParams, validateFileUpload, validateUrl } from './secureValidation';
-import { sanitizeHtml, createSafeHtml } from './htmlSanitizer';
-import { logger } from './secureLogging';
+import { validateForm, validateFileUpload, validateUrl } from './secureValidation';
+import { sanitizeHtml } from './htmlSanitizer';
 
 export interface SecureFormOptions {
   sanitizeHtml?: boolean;

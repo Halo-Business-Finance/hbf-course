@@ -2,9 +2,8 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
-import { Shield, AlertTriangle, CheckCircle, Settings, Zap, Lock, Eye, Database, RefreshCw, Activity, Trash2, Clock } from 'lucide-react';
+import { Shield, AlertTriangle, CheckCircle, Settings, Zap, Eye, Database, RefreshCw, Activity } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 interface SecurityIssue {
   id: string;

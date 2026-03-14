@@ -6,11 +6,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { supabase } from '@/integrations/supabase/client';
-import { 
-  Shield, AlertTriangle, Activity, Eye, Lock, Zap, 
-  RefreshCw, Globe, Clock, UserX, TrendingUp, 
-  MapPin, Laptop, AlertCircle, CheckCircle, XCircle
-} from 'lucide-react';
+import { Shield, AlertTriangle, Activity, Eye, Lock, Zap, RefreshCw, Globe, Clock, UserX, TrendingUp, MapPin, AlertCircle, CheckCircle } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
 

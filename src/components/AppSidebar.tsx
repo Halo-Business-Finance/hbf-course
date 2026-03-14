@@ -1,4 +1,4 @@
-import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {
   BookOpen, Home, BarChart3, Award, FileText, User, LogIn, Lock, Trophy,
@@ -8,8 +8,6 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useCourseSelection } from "@/contexts/CourseSelectionContext";
 import { useAdminRole } from "@/hooks/useAdminRole";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
-import { logger } from "@/utils/secureLogging";
 import {
   Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel,
   SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from
@@ -26,7 +24,6 @@ const learningNavItems = [
 { title: "Achievements", url: "/achievements", icon: Trophy },
 { title: "Resources", url: "/resources", icon: FileText }];
 
-
 const adminNavItems = [
 { title: "Admin Dashboard", url: "/admin/dashboard", icon: Home },
 { title: "Team Analytics", url: "/team-analytics", icon: Users },
@@ -34,7 +31,6 @@ const adminNavItems = [
 { title: "Compliance", url: "/compliance", icon: ShieldCheck },
 { title: "Certifications", url: "/certifications", icon: GraduationCap },
 { title: "Branding", url: "/branding", icon: Palette }];
-
 
 export function AppSidebar({ onOpenSupport }: {onOpenSupport?: () => void;}) {
   const { state, toggleSidebar, isMobile } = useSidebar();
@@ -105,20 +101,11 @@ export function AppSidebar({ onOpenSupport }: {onOpenSupport?: () => void;}) {
   "bg-halo-navy text-white font-medium" :
   "text-foreground hover:bg-white/10"}`;
 
-
   return (
     <Sidebar collapsible="icon" variant="inset" className="bg-sidebar border-sidebar-border border-r">
       <SidebarContent className="pt-[56px] sm:pt-[70px] bg-black overflow-y-auto">
         {/* Welcome */}
         {user && !collapsed
-
-
-
-
-
-
-
-
 
         }
 

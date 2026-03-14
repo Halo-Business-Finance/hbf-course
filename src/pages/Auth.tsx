@@ -4,12 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
-import { LogIn, Mail, Lock, Eye, EyeOff, AlertTriangle, ArrowLeft } from "lucide-react";
-import { validateEmail, sanitizeInput, authRateLimiter } from "@/utils/validation";
-import { logger } from "@/utils/secureLogging";
+import { Mail, Lock, Eye, EyeOff, AlertTriangle, ArrowLeft } from "lucide-react";
+import { validateEmail, sanitizeInput } from "@/utils/validation";
 const AuthPage = () => {
   const navigate = useNavigate();
   const {

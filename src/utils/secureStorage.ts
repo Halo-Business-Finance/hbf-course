@@ -1,4 +1,3 @@
-import { logger } from './secureLogging';
 
 // Secure localStorage wrapper with encryption simulation
 class SecureStorage {

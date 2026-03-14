@@ -9,7 +9,6 @@ import { DemoVideoModal } from "@/components/DemoVideoModal";
 import { CurriculumModal } from "@/components/CurriculumModal";
 import { SEOHead } from "@/components/SEOHead";
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/PageTransition";
 import businessTeam from "@/assets/business-team.jpg";
 import careerSuccessImage from "@/assets/career-success.jpg";

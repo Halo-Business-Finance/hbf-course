@@ -7,12 +7,11 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { useNotifications, type AppNotification } from "@/hooks/useNotifications";
 import { formatDistanceToNow } from "date-fns";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 
 const typeConfig: Record<string, {icon: React.ElementType;color: string;label: string;}> = {
   success: { icon: CheckCircle, color: "text-emerald-500", label: "Success" },
@@ -42,10 +41,6 @@ function NotificationItem({
   onRead,
   onDelete,
   onClick
-
-
-
-
 
 }: {notification: AppNotification;onRead: () => void;onDelete: () => void;onClick: () => void;}) {
   return (
@@ -228,7 +223,6 @@ export const NotificationBell = () => {
               filterByTab(tab).length === 0 ?
               <EmptyState
                 message={tab === "unread" ? "You're all caught up!" : "No notifications yet"} /> :
-
 
               <div className="divide-y divide-border/50">
                     <AnimatePresence mode="popLayout">

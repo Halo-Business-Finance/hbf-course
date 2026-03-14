@@ -9,9 +9,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
-import { Clock, CheckCircle, XCircle, Trophy, Star, Brain, Target, Lightbulb, Timer, RotateCcw, ChevronRight, ChevronLeft, Award } from "lucide-react";
+import { Clock, XCircle, Trophy, Star, Brain, Target, Lightbulb, Timer, RotateCcw, ChevronRight, ChevronLeft, Award } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 export type QuestionType = 'multiple-choice' | 'multiple-select' | 'true-false' | 'short-answer' | 'essay' | 'drag-drop' | 'slider' | 'fill-blank' | 'scenario';
 export interface QuizQuestion {
   id: string;

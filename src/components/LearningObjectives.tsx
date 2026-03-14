@@ -1,6 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { CheckCircle2, Clock, Users, GraduationCap } from "lucide-react";
+import { CheckCircle2, GraduationCap } from "lucide-react";
 
 interface LearningObjectivesProps {
   objectives: string[];

@@ -15,7 +15,6 @@ import { NotesProvider } from "@/contexts/NotesContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { AdminProtectedRoute } from "@/components/AdminProtectedRoute";
 import { lazy, Suspense } from "react";
-import { errorMonitor } from "./utils/errorMonitoring";
 import { HorizontalNav } from "./components/HorizontalNav";
 import { MobileNav } from "./components/MobileNav";
 import { ScrollToTop } from "./components/ScrollToTop";

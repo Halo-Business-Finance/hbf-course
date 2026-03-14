@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Textarea } from "@/components/ui/textarea";
 import { Save, X } from "lucide-react";
 import type { UserProfile, UserEditForm } from "@/types";
 import { validateRequired, validateEmail, validatePhone } from "@/utils/errorHandling";

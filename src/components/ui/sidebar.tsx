@@ -1,4 +1,3 @@
-import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { VariantProps, cva } from "class-variance-authority";
 import { PanelLeft } from "lucide-react";
@@ -308,7 +307,6 @@ const SidebarRail = React.forwardRef<
         )}
         {...props} />);
 
-
   });
 SidebarRail.displayName = "SidebarRail";
 
@@ -325,7 +323,6 @@ const SidebarInset = React.forwardRef<
           className
         )}
         {...props} />);
-
 
   });
 SidebarInset.displayName = "SidebarInset";
@@ -344,7 +341,6 @@ const SidebarInput = React.forwardRef<
         )}
         {...props} />);
 
-
   });
 SidebarInput.displayName = "SidebarInput";
 
@@ -358,7 +354,6 @@ const SidebarHeader = React.forwardRef<
         data-sidebar="header"
         className={cn("flex flex-col gap-2 p-2", className)}
         {...props} />);
-
 
   });
 SidebarHeader.displayName = "SidebarHeader";
@@ -374,7 +369,6 @@ const SidebarFooter = React.forwardRef<
         className={cn("flex flex-col gap-2 p-2", className)}
         {...props} />);
 
-
   });
 SidebarFooter.displayName = "SidebarFooter";
 
@@ -388,7 +382,6 @@ const SidebarSeparator = React.forwardRef<
         data-sidebar="separator"
         className={cn("mx-2 w-auto bg-sidebar-border", className)}
         {...props} />);
-
 
   });
 SidebarSeparator.displayName = "SidebarSeparator";
@@ -407,7 +400,6 @@ const SidebarContent = React.forwardRef<
         )}
         {...props} />);
 
-
   });
 SidebarContent.displayName = "SidebarContent";
 
@@ -421,7 +413,6 @@ const SidebarGroup = React.forwardRef<
         data-sidebar="group"
         className={cn("relative flex w-full min-w-0 flex-col p-2", className)}
         {...props} />);
-
 
   });
 SidebarGroup.displayName = "SidebarGroup";
@@ -442,7 +433,6 @@ const SidebarGroupLabel = React.forwardRef<
           className
         )}
         {...props} />);
-
 
   });
 SidebarGroupLabel.displayName = "SidebarGroupLabel";
@@ -465,7 +455,6 @@ const SidebarGroupAction = React.forwardRef<
           className
         )}
         {...props} />);
-
 
   });
 SidebarGroupAction.displayName = "SidebarGroupAction";
@@ -563,8 +552,6 @@ const SidebarMenuButton = React.forwardRef<
       className={cn(sidebarMenuButtonVariants({ variant, size }), className)}
       {...props} />;
 
-
-
     if (!tooltip) {
       return button;
     }
@@ -616,7 +603,6 @@ const SidebarMenuAction = React.forwardRef<
           className
         )}
         {...props} />);
-
 
   });
 SidebarMenuAction.displayName = "SidebarMenuAction";
@@ -728,7 +714,6 @@ const SidebarMenuSubButton = React.forwardRef<
           className
         )}
         {...props} />);
-
 
   });
 SidebarMenuSubButton.displayName = "SidebarMenuSubButton";

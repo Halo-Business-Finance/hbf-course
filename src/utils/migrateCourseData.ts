@@ -1,5 +1,4 @@
 import { supabase } from '@/integrations/supabase/client';
-import { courseData } from '@/data/courseData';
 
 export async function migrateCourseDataToSupabase() {
   try {

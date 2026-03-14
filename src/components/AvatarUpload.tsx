@@ -10,7 +10,6 @@ import { supabase } from "@/integrations/supabase/client";
 import nflLogos from "@/assets/nfl-logos.jpg";
 import nbaLogos from "@/assets/nba-logos.jpg";
 import defaultAvatars from "@/assets/default-avatars.jpg";
-import avatarCollection from "@/assets/avatar-collection.jpg";
 
 interface AvatarUploadProps {
   currentAvatar: string;

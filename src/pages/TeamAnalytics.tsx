@@ -10,12 +10,8 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { EmptyState } from '@/components/common/EmptyState';
 import { TeamAnalyticsCharts } from '@/components/analytics/TeamAnalyticsCharts';
-import {
-  BarChart3, Users, TrendingUp, Clock, Download, Trophy,
-  BookOpen, Target, AlertTriangle, CheckCircle, Search, Loader2,
-} from 'lucide-react';
+import { BarChart3, Users, TrendingUp, Clock, Download, BookOpen, Target, AlertTriangle, Search, Loader2 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
-import { toast } from 'sonner';
 
 interface TeamMember {
   userId: string;

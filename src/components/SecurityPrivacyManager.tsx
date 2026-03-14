@@ -3,18 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
-import { 
-  Shield, 
-  Download, 
-  Trash2, 
-  Eye, 
-  EyeOff,
-  FileDown,
-  Clock,
-  CheckCircle,
-  AlertTriangle,
-  Lock
-} from 'lucide-react';
+import { Shield, Download, Trash2, Eye, FileDown, CheckCircle, Lock } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';

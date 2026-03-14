@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Users, MapPin, Award } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
 interface Instructor {
   id: string;
   name: string;

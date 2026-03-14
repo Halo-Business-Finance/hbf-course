@@ -4,15 +4,13 @@ import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Trophy, Clock, CheckCircle, Target, Award, Lock, Star, BookOpen, Calendar, TrendingUp, Zap, Loader2 } from "lucide-react";
-import { PageHeader } from "@/components/PageHeader";
+import { Trophy, Clock, CheckCircle, Target, Award, Lock, Star, BookOpen, Calendar, Zap, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { LiveLearningStats } from "@/components/LiveLearningStats";
 import { AdaptiveLearningEngine } from "@/components/AdaptiveLearningEngine";
 import { EnhancedProgressTracking } from "@/components/EnhancedProgressTracking";
 import { GamificationSystem } from "@/components/GamificationSystem";
 import { ProgressCharts } from "@/components/progress/ProgressCharts";
-import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 
 interface ModuleProgress {

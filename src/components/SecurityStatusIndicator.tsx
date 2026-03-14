@@ -1,5 +1,4 @@
-import React from 'react';
-import { Shield, AlertTriangle, Lock, Eye, EyeOff } from 'lucide-react';
+import { Shield, AlertTriangle, Lock, EyeOff } from 'lucide-react';
 
 interface SecurityStatusIndicatorProps {
   level: 'secure' | 'masked' | 'protected' | 'warning';

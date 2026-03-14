@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { Award, BookOpen, TrendingUp } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useGamification } from '@/hooks/useGamification';

@@ -9,7 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Edit, Trash2, Save, Tag, Palette } from "lucide-react";
+import { Plus, Edit, Trash2, Save, Tag } from "lucide-react";
 
 interface CMSTag {
   id: string;

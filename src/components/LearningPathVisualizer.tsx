@@ -1,18 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { 
-  CheckCircle, 
-  Circle, 
-  Lock, 
-  Play, 
-  Clock, 
-  Brain,
-  Target,
-  Zap,
-  ArrowDown,
-  Star
-} from 'lucide-react';
+import { CheckCircle, Circle, Lock, Play, Clock, Brain, Target, Zap, Star } from 'lucide-react';
 
 interface LearningPathVisualizerProps {
   learningPath: any[];

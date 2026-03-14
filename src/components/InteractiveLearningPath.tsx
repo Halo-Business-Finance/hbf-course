@@ -22,7 +22,6 @@ import {
   Users,
   Lightbulb
 } from "lucide-react";
-import { motion } from "framer-motion";
 
 interface LearningPathModule {
   id: string;

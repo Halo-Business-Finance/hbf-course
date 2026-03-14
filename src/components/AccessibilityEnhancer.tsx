@@ -3,18 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Slider } from '@/components/ui/slider';
-import {
-  Accessibility, 
-  Type, 
-  Eye, 
-  Ear, 
-  Mouse, 
-  Keyboard,
-  Settings,
-  Monitor,
-  Volume2,
-  Contrast
-} from 'lucide-react';
+import { Accessibility, Eye, Ear, Mouse, Keyboard, Settings, Contrast } from 'lucide-react';
 
 interface AccessibilitySettings {
   highContrast: boolean;

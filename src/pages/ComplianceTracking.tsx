@@ -1,17 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { SEOHead } from '@/components/SEOHead';
 import { FinPilotBrandFooter } from '@/components/FinPilotBrandFooter';
 import { PageHeader } from '@/components/PageHeader';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { 
-  AlertTriangle, Calendar, CheckCircle, Clock, Download, 
-  Shield, Users, Bell, Target, FileCheck, Loader2
-} from 'lucide-react';
-import { toast } from 'sonner';
-import { supabase } from '@/integrations/supabase/client';
+import { AlertTriangle, Calendar, CheckCircle, Download, Shield, Users, Bell, FileCheck, Loader2 } from 'lucide-react';
 
 const complianceRequirements = [
   {

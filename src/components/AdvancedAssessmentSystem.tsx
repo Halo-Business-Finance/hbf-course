@@ -6,15 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { useEnhancedLearning } from "@/hooks/useEnhancedLearning";
 import { supabase } from "@/integrations/supabase/client";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  Clock, CheckCircle, AlertCircle, Brain, Target, TrendingUp, RotateCcw,
-  Lightbulb, Timer, Award, BookOpen
-} from "lucide-react";
+import { CheckCircle, AlertCircle, Brain, Target, TrendingUp, Lightbulb, Timer, Award, BookOpen } from "lucide-react";
 
 interface Question {
   id: string;

@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { Flame, TrendingUp, Star, Calendar } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import type { LearningStreak } from '@/hooks/useGamification';

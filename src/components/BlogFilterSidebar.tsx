@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Card } from "@/components/ui/card";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import { Search, Filter, ChevronDown, ChevronUp, Calendar, Tag, SlidersHorizontal, BookOpen } from "lucide-react";
+import { Search, Filter, ChevronDown, ChevronUp, Calendar, Tag, SlidersHorizontal } from "lucide-react";
 
 interface BlogFilterSidebarProps {
   selectedCategory: string;

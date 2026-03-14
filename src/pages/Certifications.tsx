@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { SEOHead } from '@/components/SEOHead';
 import { FinPilotBrandFooter } from '@/components/FinPilotBrandFooter';
 import { PageHeader } from '@/components/PageHeader';
@@ -6,11 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  Award, Share2, Trophy, Star, Target, BookOpen, 
-  CheckCircle, Linkedin, ExternalLink, Lock 
-} from 'lucide-react';
+import { Award, Share2, Trophy, Star, Target, BookOpen, CheckCircle, Linkedin, Lock } from 'lucide-react';
 
 const specializations = [
   {

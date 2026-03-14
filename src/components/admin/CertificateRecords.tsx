@@ -5,9 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Award, Search, Download, RefreshCw, ExternalLink, Users, BookOpen, Calendar, Loader2 } from "lucide-react";
+import { Award, Search, Download, RefreshCw, ExternalLink, Users, Calendar, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { toast } from "sonner";
 
 interface CertificateRecord {
   id: string;

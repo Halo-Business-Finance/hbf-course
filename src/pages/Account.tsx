@@ -5,27 +5,22 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { User, Mail, Phone, MapPin, Calendar, Award, Target, Clock, Edit, Bell, Shield, Palette, Globe, Settings, CreditCard, MessageCircle, HelpCircle, Download, Trophy, X, Save, Brain, LogOut } from "lucide-react";
+import { User, Mail, Phone, MapPin, Calendar, Target, Edit, Bell, Shield, Palette, Globe, Settings, CreditCard, X, Save, Brain, LogOut } from "lucide-react";
 import { PageHeader } from "@/components/PageHeader";
-import { LiveLearningStats } from "@/components/LiveLearningStats";
 import { AvatarUpload } from "@/components/AvatarUpload";
 import { SEOHead } from "@/components/SEOHead";
 import { SecurityPrivacyManager } from "@/components/SecurityPrivacyManager";
-import { ProfileEditForm } from "@/components/profile/ProfileEditForm";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { LoadingSpinner } from "@/components/common/LoadingSpinner";
-import { ErrorBoundary } from "@/components/common/ErrorBoundary";
 import { AdaptiveLessonEngine } from "@/components/AdaptiveLessonEngine";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
-import type { UserPreferences, NotificationPreferences, UserProfile } from "@/types";
+import { UserPreferences, NotificationPreferences } from "@/types";
 
 // Phone number formatting utility
 const formatPhoneNumber = (phone: string): string => {

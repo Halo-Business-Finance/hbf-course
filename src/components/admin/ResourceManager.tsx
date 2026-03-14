@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -9,19 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
-import { supabase } from '@/integrations/supabase/client';
-import { 
-  FileText, 
-  Video, 
-  ExternalLink, 
-  Users, 
-  Plus, 
-  Edit, 
-  Trash2,
-  Upload,
-  Calendar,
-  Clock
-} from 'lucide-react';
+import { FileText, Video, ExternalLink, Users, Plus, Edit, Trash2, Upload } from 'lucide-react';
 
 interface Document {
   id: string;

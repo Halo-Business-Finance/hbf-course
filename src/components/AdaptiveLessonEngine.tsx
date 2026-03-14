@@ -1,14 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Brain, Target, TrendingUp, BookOpen } from 'lucide-react';
+import { Brain, Target, TrendingUp } from 'lucide-react';
 import { InteractiveLessonPlayer } from './InteractiveLessonPlayer';
 import { LearningPathVisualizer } from './LearningPathVisualizer';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { logger } from '@/utils/secureLogging';
 
 interface AdaptiveLessonEngineProps {
   moduleId: string;

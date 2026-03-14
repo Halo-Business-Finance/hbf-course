@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -8,7 +8,6 @@ import { HelpCircle, MessageCircle, Mail, Clock, CheckCircle, ArrowRight, Search
 import { FinPilotBrandFooter } from "@/components/FinPilotBrandFooter";
 import { SEOHead } from "@/components/SEOHead";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/PageTransition";
-import { motion } from "framer-motion";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
 import supportHero from "@/assets/support-hero.jpg";

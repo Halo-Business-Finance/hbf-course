@@ -1,5 +1,4 @@
 import DOMPurify from 'dompurify';
-import { logger } from './secureLogging';
 
 /**
  * SECURITY: This implementation uses DOMPurify, a battle-tested HTML sanitization library

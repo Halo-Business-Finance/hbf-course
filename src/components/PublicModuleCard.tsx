@@ -14,7 +14,6 @@ import { Button } from "@/components/ui/button";
 import { Clock, BookOpen, Users, Star } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
-import { supabase } from "@/integrations/supabase/client";
 
 type SkillLevel = 'beginner' | 'expert';
 

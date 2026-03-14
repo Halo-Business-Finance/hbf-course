@@ -1,4 +1,3 @@
-import { logger } from './secureLogging';
 import type { SecureFormData, ValidationResult } from '@/types/interfaces';
 
 // Input sanitization utilities

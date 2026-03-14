@@ -1,7 +1,6 @@
 // Centralized error handling utilities
 
 import { toast } from "@/hooks/use-toast";
-import { logger } from "./secureLogging";
 import type { ApiError } from "@/types";
 
 export class AppError extends Error {

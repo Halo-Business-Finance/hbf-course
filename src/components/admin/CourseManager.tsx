@@ -1,16 +1,14 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
-import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BookOpen, Plus, Edit, Trash2, Settings, GraduationCap, Users, BarChart3, Download, Upload, Eye, ImageIcon, Layers } from "lucide-react";
+import { Plus, Edit, Trash2, GraduationCap, BarChart3, Download, Eye, Layers } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useCourses, Course } from "@/hooks/useCourses";
 import { useModules } from "@/hooks/useModules";
@@ -19,7 +17,6 @@ import { CourseInstructorManager } from "./CourseInstructorManager";
 import { CourseModuleManager, CourseModuleManagerHandle } from "./CourseModuleManager";
 import { AssociatedModulesView } from "./AssociatedModulesView";
 import { runMigration } from "@/utils/migrateCourseData";
-import { supabase } from "@/integrations/supabase/client";
 
 // Import new course-specific images (no people)
 import courseSba7a from "@/assets/course-sba-7a.jpg";
@@ -70,12 +67,10 @@ export function CourseManager({}: CourseManagerProps) {
   { value: "beginner", label: "Beginner", icon: "🌱", color: "bg-emerald-100 text-emerald-800" },
   { value: "expert", label: "Expert", icon: "🌳", color: "bg-red-100 text-red-800" }];
 
-
   const courseTypes = [
   { value: "loan-originator", label: "Loan Originator" },
   { value: "loan-processing", label: "Loan Processing" },
   { value: "loan-underwriting", label: "Loan Underwriting" }];
-
 
   // Course image mapping function to match user dashboard
   const getCourseImage = (courseTitle: string) => {

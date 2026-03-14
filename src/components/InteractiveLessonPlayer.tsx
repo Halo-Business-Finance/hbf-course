@@ -1,24 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
-import { 
-  Play, 
-  Pause, 
-  SkipForward, 
-  CheckCircle, 
-  Brain, 
-  Lightbulb, 
-  Target,
-  Timer,
-  Star,
-  MessageSquare,
-  ChevronRight
-} from 'lucide-react';
+import { CheckCircle, Brain, Lightbulb, Target, Star, ChevronRight } from 'lucide-react';
 import { DragDropContainer } from './interactive/DragDropContainer';
 import { ScenarioSimulation } from './interactive/ScenarioSimulation';
 import { KnowledgeCheck } from './interactive/KnowledgeCheck';
-import { VideoPlayer } from './VideoPlayer';
 import { useToast } from '@/hooks/use-toast';
 import { LessonPlayerHeader } from './lesson/LessonPlayerHeader';
 import { LessonSectionNav } from './lesson/LessonSectionNav';

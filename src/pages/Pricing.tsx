@@ -5,7 +5,6 @@ import { Check, Mail, Star, Zap } from "lucide-react";
 import { FinPilotBrandFooter } from "@/components/FinPilotBrandFooter";
 import { SEOHead } from "@/components/SEOHead";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/PageTransition";
-import { motion } from "framer-motion";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import pricingHero from "@/assets/pricing-hero.jpg";

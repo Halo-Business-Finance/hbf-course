@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { AlertCircle, CheckCircle, Clock, Users, DollarSign } from 'lucide-react';
+import { AlertCircle, CheckCircle, Users } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface ScenarioSimulationProps {

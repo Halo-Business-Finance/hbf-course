@@ -4,7 +4,6 @@ import { Badge } from "@/components/ui/badge";
 import { VideoPlayer } from "@/components/VideoPlayer";
 import { PlayCircle, Clock, BookOpen } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface Video {

@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
-import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/PageTransition";
+import { AnimatedSection } from "@/components/PageTransition";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
@@ -28,7 +27,6 @@ import { useCourseCompletion } from "@/hooks/useCourseCompletion";
 import { CourseCompletionModal } from "@/components/progress/CourseCompletionModal";
 import { QuizScoreHistory } from "@/components/quiz/QuizScoreHistory";
 import { useNotificationTriggers } from "@/hooks/useNotificationTriggers";
-import { supabase } from "@/integrations/supabase/client";
 
 interface Lesson {
   id: string;
@@ -369,7 +367,6 @@ const ModulePage = () => {
   ...(courseName ? [{ label: courseName.split(' - ')[0], href: '/dashboard' }] : []),
   { label: module.title }];
 
-
   return (
     <div className="min-h-screen bg-background">
       {/* Top Navigation Bar */}
@@ -396,7 +393,6 @@ const ModulePage = () => {
         moduleTitle={module.title}
         estimatedTimeRemaining={estimatedTimeRemaining} />
       
-
       {!user &&
       <div className="container mx-auto px-4 mt-4">
           <Alert className="bg-primary/10 border-primary">
@@ -420,7 +416,6 @@ const ModulePage = () => {
             onSelect={handleLessonStart}
             className="w-56 lg:w-64 shrink-0 hidden lg:block" />
           
-
           {/* Main Content */}
           <div className="flex-1 min-w-0 space-y-6">
             {/* Module Header Card */}

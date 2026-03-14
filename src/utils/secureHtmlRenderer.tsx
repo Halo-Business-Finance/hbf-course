@@ -1,7 +1,5 @@
 // Secure HTML rendering utilities to replace dangerouslySetInnerHTML
-import React from 'react';
 import { sanitizeHtml } from './htmlSanitizer';
-import { logger } from './secureLogging';
 
 /**
  * SECURITY: This component uses DOMPurify for HTML sanitization.

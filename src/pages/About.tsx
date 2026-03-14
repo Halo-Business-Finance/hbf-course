@@ -1,12 +1,11 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, BookOpen, Users, Award, TrendingUp, CheckCircle, Building, Zap, Clock, Users2, Monitor, Cloud, Cpu, Server, Smartphone, Globe, Database, Lock, Shield } from "lucide-react";
+import { ArrowRight, BookOpen, Award, TrendingUp, CheckCircle, Building, Zap, Clock, Users2, Monitor, Cloud, Cpu, Server, Smartphone, Globe, Database, Lock, Shield } from "lucide-react";
 import { FinPilotBrandFooter } from "@/components/FinPilotBrandFooter";
 import { SEOHead } from "@/components/SEOHead";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/PageTransition";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import aboutHero from "@/assets/about-hero.jpg";
 import companStory from "@/assets/company-story.jpg";
 import teamSarah from "@/assets/team-sarah.jpg";

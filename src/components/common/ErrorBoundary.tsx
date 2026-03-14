@@ -2,7 +2,6 @@ import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, RefreshCw } from "lucide-react";
-import { logger } from "@/utils/secureLogging";
 import { getErrorInfo } from "@/utils/errorHandling";
 import { captureError } from "@/utils/errorMonitoring";
 

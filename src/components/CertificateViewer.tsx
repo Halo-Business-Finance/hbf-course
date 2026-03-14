@@ -1,7 +1,6 @@
 import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Download, Award, Share2, Printer, Linkedin, Copy, Check } from "lucide-react";
+import { Download, Share2, Printer, Linkedin, Copy, Check } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface CertificateViewerProps {

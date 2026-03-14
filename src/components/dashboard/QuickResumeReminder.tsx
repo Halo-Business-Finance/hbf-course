@@ -3,10 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
-import { PlayCircle, Clock, BookOpen, Bell, ChevronDown } from 'lucide-react';
-import { EmptyState } from '@/components/common/EmptyState';
+import { PlayCircle, Clock, Bell, ChevronDown } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
@@ -34,7 +32,6 @@ const dayOptions = [
 { value: 'fri', label: 'Fri' },
 { value: 'sat', label: 'Sat' },
 { value: 'sun', label: 'Sun' }];
-
 
 const dayToIndex: Record<string, number> = {
   sun: 0, mon: 1, tue: 2, wed: 3, thu: 4, fri: 5, sat: 6
@@ -205,8 +202,6 @@ export function QuickResumeReminder() {
       <div className="p-4 sm:p-5 px-0 py-[10px]">
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1 min-w-0">
-            
-
             
             <h3 className="font-semibold text-lg line-clamp-1 text-white">
               {lastActivity.courseTitle}

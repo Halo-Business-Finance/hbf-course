@@ -3,20 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  TrendingUp, 
-  TrendingDown, 
-  DollarSign, 
-  Percent,
-  BarChart3,
-  Activity,
-  Globe,
-  AlertTriangle,
-  RefreshCw,
-  Eye,
-  EyeOff
-} from "lucide-react";
-import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, AreaChart, Area } from 'recharts';
+import { TrendingUp, TrendingDown, BarChart3, Activity, Globe, AlertTriangle, RefreshCw, Eye, EyeOff } from "lucide-react";
+import { ResponsiveContainer, XAxis, YAxis, CartesianGrid, Tooltip, AreaChart, Area } from 'recharts';
 
 interface MarketData {
   symbol: string;

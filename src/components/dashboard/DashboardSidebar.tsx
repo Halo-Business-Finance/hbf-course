@@ -1,19 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { 
-  LayoutDashboard, 
-  BookOpen, 
-  Trophy, 
-  BarChart3, 
-  Settings, 
-  ChevronLeft,
-  ChevronRight,
-  User,
-  Flame,
-  HelpCircle,
-  Menu,
-  X
-} from "lucide-react";
+import { LayoutDashboard, BookOpen, Trophy, BarChart3, Settings, ChevronLeft, ChevronRight, User, Flame, HelpCircle, Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";

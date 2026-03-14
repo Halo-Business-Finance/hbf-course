@@ -12,7 +12,7 @@ import { useModules } from "@/hooks/useModules";
 import { useLearningStats } from "@/hooks/useLearningStats";
 import { useCourseProgress } from "@/hooks/useCourseProgress";
 import { useCourseSelection } from "@/contexts/CourseSelectionContext";
-import { BookOpen, Clock, Target, Flame, Award, BarChart3, MessageSquare, Lightbulb } from "lucide-react";
+import { BookOpen, Target, Flame, Award, BarChart3, MessageSquare } from "lucide-react";
 import { WelcomeWizard } from "@/components/onboarding/WelcomeWizard";
 import { QuickResumeReminder } from "@/components/dashboard/QuickResumeReminder";
 import { SmartRecommendations } from "@/components/recommendations/SmartRecommendations";
@@ -21,9 +21,7 @@ import { StreakCounter } from "@/components/dashboard/StreakCounter";
 import { AchievementBadges } from "@/components/dashboard/AchievementBadges";
 import { LearningAnalyticsCharts } from "@/components/dashboard/LearningAnalyticsCharts";
 import { DashboardCourseGrid } from "@/components/dashboard/DashboardCourseGrid";
-import { motion } from "framer-motion";
 import { useNotificationTriggers } from "@/hooks/useNotificationTriggers";
-import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/PageTransition";
 
 // Course images
 import courseSba7a from "@/assets/course-sba-7a.jpg";
@@ -335,12 +333,6 @@ const Dashboard = () => {
               animate={{ opacity: 1, scaleX: 1 }}
               transition={{ delay: 0.3, duration: 0.5 }}
               style={{ transformOrigin: "left" }}>
-              
-              
-
-
-
-
               
               <div className="h-2.5 bg-muted rounded-full overflow-hidden">
                 <motion.div

@@ -12,12 +12,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { EmptyState } from '@/components/common/EmptyState';
-import {
-  Users, Plus, Calendar, Target, Trophy, BookOpen,
-  Clock, CheckCircle, AlertTriangle, Settings, Loader2, UserPlus,
-} from 'lucide-react';
+import { Users, Plus, Target, Trophy, BookOpen, CheckCircle, AlertTriangle, Loader2, UserPlus } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
-import { toast } from 'sonner';
 
 interface Cohort {
   id: string;

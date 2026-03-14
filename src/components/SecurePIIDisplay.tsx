@@ -1,5 +1,3 @@
-import React from 'react';
-import { Eye, EyeOff, Shield, AlertTriangle } from 'lucide-react';
 import { SecurityStatusIndicator } from './SecurityStatusIndicator';
 
 interface SecurePIIDisplayProps {

@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { Trophy, Zap, BookOpen, Crown, Target, Flame, Calendar, Star, Sunrise, Moon, GraduationCap, Award, Lock } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
