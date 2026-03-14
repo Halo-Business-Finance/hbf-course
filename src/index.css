@@ -98,7 +98,7 @@
 
     /* Sidebar using Carbon layer tokens */
     --sidebar-background: 0 0% 0%;      /* Black */
-    --sidebar-foreground: 0 0% 9%;       /* Gray-100 */
+    --sidebar-foreground: 0 0% 98%;      /* Gray-100 */
     --sidebar-primary: 20 90% 48%;          /* Gray-100 */
     --sidebar-primary-foreground: 33 100% 96%;
     --sidebar-accent: 0 0% 32%;          /* Gray-20 */
