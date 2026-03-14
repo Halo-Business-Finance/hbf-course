@@ -47,8 +47,8 @@
     --muted-foreground: 0 0% 20%; /* Dark text on muted */
 
     /* Carbon support colors */
-    --accent: 47 100% 96%;       /* Blue-60 for consistency */
-    --accent-foreground: 37 92% 50%;
+    --accent: 47 100% 96%;       /* Blue-60 for consistency (background) */
+    --accent-foreground: 37 92% 50%; /* Intentional orange foreground to contrast with accent */
 
     /* Destructive using Carbon red */
     --destructive: 0 72% 50%;    /* Red-60 */
