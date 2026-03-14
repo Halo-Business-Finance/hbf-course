@@ -12,14 +12,14 @@ export interface SecureFormOptions {
 // Secure form submission handler
 export const handleSecureFormSubmission = async (
   formData: FormData,
-  validationRules: Record<string, any>,
+  validationRules: Record<string, unknown>,
   options: SecureFormOptions = {}
 ) => {
   const startTime = Date.now();
   
   try {
     // Convert FormData to regular object
-    const data: Record<string, any> = {};
+    const data: Record<string, unknown> = {};
     formData.forEach((value, key) => {
       if (data[key]) {
         // Handle multiple values (arrays)

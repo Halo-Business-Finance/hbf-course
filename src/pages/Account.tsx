@@ -52,8 +52,8 @@ const AccountPage = (): JSX.Element => {
 
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [showPasswordForm, setShowPasswordForm] = useState(false);
-  const [userInfo, setUserInfo] = useState<any>({});
-  const [editForm, setEditForm] = useState<any>({});
+  const [userInfo, setUserInfo] = useState<unknown>({});
+  const [editForm, setEditForm] = useState<unknown>({});
   const [currentModuleId, setCurrentModuleId] = useState<string>('');
   const [currentCourseId, setCurrentCourseId] = useState<string>('');
   

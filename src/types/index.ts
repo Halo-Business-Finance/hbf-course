@@ -72,7 +72,7 @@ export interface Lesson {
   type: 'video' | 'reading' | 'quiz' | 'document' | 'interactive';
   duration: string;
   completed: boolean;
-  content?: any;
+  content?: unknown;
   url?: string;
   order_index: number;
 }
@@ -156,7 +156,7 @@ export interface UserPreferences {
 export interface ApiError {
   message: string;
   code?: string;
-  details?: any;
+  details?: unknown;
 }
 
 export interface LoadingState {
@@ -176,7 +176,7 @@ export interface AuthFormData {
 export interface StatsCardProps {
   title: string;
   value: string | number;
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<unknown>;
   description?: string;
   trend?: 'up' | 'down' | 'neutral';
 }
@@ -212,7 +212,7 @@ export interface UseCourseProgressReturn {
   completeModule: (moduleId: string, courseIdOverride?: string) => Promise<boolean>;
   getOverallProgress: () => number;
   getCompletedModulesCount: () => number;
-  isModuleUnlocked: (moduleIndex: number, modules: any[]) => boolean;
+  isModuleUnlocked: (moduleIndex: number, modules: unknown[]) => boolean;
 }
 
 export interface UseLearningStatsReturn {

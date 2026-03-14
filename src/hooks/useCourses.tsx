@@ -51,11 +51,11 @@ export const useCourses = () => {
       const typedCourses = (data || []).map(course => ({
         ...course,
         level: course.level as 'beginner' | 'expert' | 'none',
-        prerequisite_course_ids: (course as any).prerequisite_course_ids || [],
+        prerequisite_course_ids: (course as unknown).prerequisite_course_ids || [],
       }));
 
       setCourses(typedCourses);
-    } catch (err: any) {
+    } catch (err: unknown) {
       const errorMessage = err.message || 'Failed to fetch courses';
       setError(errorMessage);
       console.error('Error fetching courses:', err);
@@ -92,7 +92,7 @@ export const useCourses = () => {
       });
 
       return typedCourse;
-    } catch (err: any) {
+    } catch (err: unknown) {
       const errorMessage = err.message || 'Failed to create course';
       toast({
         title: "Error",
@@ -133,7 +133,7 @@ export const useCourses = () => {
       });
 
       return typedCourse;
-    } catch (err: any) {
+    } catch (err: unknown) {
       const errorMessage = err.message || 'Failed to update course';
       toast({
         title: "Error",
@@ -163,7 +163,7 @@ export const useCourses = () => {
       });
 
       return true;
-    } catch (err: any) {
+    } catch (err: unknown) {
       const errorMessage = err.message || 'Failed to delete course';
       toast({
         title: "Error",

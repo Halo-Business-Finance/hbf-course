@@ -9,7 +9,7 @@ export function useNotificationTriggers(userId?: string) {
     title: string,
     message: string,
     type: string = 'info',
-    data?: Record<string, any>,
+    data?: Record<string, unknown>,
   ) => {
     if (!userId) return;
     try {

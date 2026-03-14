@@ -69,7 +69,7 @@ export const DataRetentionControls = () => {
         title: "Cleanup Complete",
         description: "Data retention policies have been applied successfully.",
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Cleanup error:", error);
       toast({
         title: "Cleanup Failed",

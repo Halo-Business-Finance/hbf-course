@@ -12,7 +12,7 @@ if (import.meta.env.PROD) {
   console.warn = noop;
   // Keep console.error for critical runtime errors only, but sanitize output
   const originalError = console.error;
-  console.error = (...args: any[]) => {
+  console.error = (...args: unknown[]) => {
     // Only output generic error indicator, no details
     originalError('[Application Error]');
   };

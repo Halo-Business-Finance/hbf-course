@@ -41,7 +41,7 @@ export function AppSidebar({ onOpenSupport }: {onOpenSupport?: () => void;}) {
   const { selectedCourse } = useCourseSelection();
   const { isAdmin } = useAdminRole();
   const { toast } = useToast();
-  const [selectedCourseModules, setSelectedCourseModules] = useState<any[]>([]);
+  const [selectedCourseModules, setSelectedCourseModules] = useState<unknown[]>([]);
   const [learningOpen, setLearningOpen] = useState(true);
   const [modulesOpen, setModulesOpen] = useState(true);
   const [adminOpen, setAdminOpen] = useState(false);
@@ -177,7 +177,7 @@ export function AppSidebar({ onOpenSupport }: {onOpenSupport?: () => void;}) {
                   <SidebarGroupContent>
                     {selectedCourseModules.length > 0 ?
                   <SidebarMenu className="space-y-0.5">
-                        {selectedCourseModules.map((module: any, index: number) => {
+                        {selectedCourseModules.map((module: unknown, index: number) => {
                       const isModuleLocked = module.is_locked;
                       const canAccess = !isModuleLocked || isAdmin;
                       const moduleUrl = `/module/${module.id}`;

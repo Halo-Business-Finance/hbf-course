@@ -137,7 +137,7 @@ export const AdaptiveLearningEngine = () => {
       return parts.slice(0, -1).map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' ');
     }).slice(0, 5);
 
-    const expLevel = (userProfile as any)?.experience_level || 'beginner';
+    const expLevel = (userProfile as unknown)?.experience_level || 'beginner';
     const diffPref = expLevel === 'expert' ? 'challenging' : expLevel === 'intermediate' ? 'balanced' : 'comfortable';
 
     setProfile({

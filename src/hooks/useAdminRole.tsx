@@ -56,7 +56,7 @@ export const useAdminRole = () => {
         const { data: statusData, error } = await Promise.race([
           adminCheckPromise,
           timeoutPromise
-        ]) as any;
+        ]) as unknown;
 
         if (error) {
           console.error('Error checking role status:', error);

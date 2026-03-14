@@ -33,7 +33,7 @@ import courseBridgeLoans from "@/assets/course-bridge-loans.jpg";
 import courseTermLoans from "@/assets/course-term-loans.jpg";
 import courseBusinessAcquisition from "@/assets/course-business-acquisition.jpg";
 interface CourseWithModules extends Course {
-  modules: any[];
+  modules: unknown[];
   keyTopics: string[];
 }
 const Courses = () => {

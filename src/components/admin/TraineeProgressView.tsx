@@ -27,7 +27,7 @@ interface TraineeProgress {
   in_progress_courses: number;
   overall_progress_percentage: number;
   last_activity?: string;
-  course_progress_details: any;
+  course_progress_details: unknown;
   is_masked?: boolean;
   role?: string;
 }
@@ -58,10 +58,10 @@ export const TraineeProgressView = () => {
       if (error) { console.error('Error fetching trainees:', error); throw error; }
 
       const profiles = data || [];
-      const userIds = profiles.map((p: any) => p.user_id);
+      const userIds = profiles.map((p: unknown) => p.user_id);
 
       // Fetch real progress data for all trainees
-      let progressData: any[] = [];
+      let progressData: unknown[] = [];
       if (userIds.length > 0) {
         const { data: progress } = await supabase
           .from('course_progress')
@@ -71,7 +71,7 @@ export const TraineeProgressView = () => {
       }
 
       // Fetch real learning stats for last activity
-      let statsData: any[] = [];
+      let statsData: unknown[] = [];
       if (userIds.length > 0) {
         const { data: lStats } = await supabase
           .from('learning_stats')
@@ -89,7 +89,7 @@ export const TraineeProgressView = () => {
         userProgressMap.get(p.user_id)!.push(p);
       });
 
-      const transformedData = profiles.map((profile: any) => {
+      const transformedData = profiles.map((profile: unknown) => {
         const userProgress = userProgressMap.get(profile.user_id) || [];
         
         // Get unique courses
@@ -163,7 +163,7 @@ export const TraineeProgressView = () => {
       const completedCoursesTotal = transformedData.reduce((sum, t) => sum + t.completed_courses, 0);
 
       setStats({ totalTrainees, activeTrainees, averageProgress, completedCourses: completedCoursesTotal });
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error loading trainee progress:', error);
       toast({ title: "Error", description: error?.message || "Failed to load trainee progress data", variant: "destructive" });
     } finally {
@@ -270,7 +270,7 @@ export const TraineeProgressView = () => {
                                 <div className="border rounded-lg p-4">
                                   <h4 className="font-medium mb-3">Course Details</h4>
                                   <div className="space-y-3">
-                                    {trainee.course_progress_details.map((detail: any, idx: number) => (
+                                    {trainee.course_progress_details.map((detail: unknown, idx: number) => (
                                       <div key={idx} className="flex items-center justify-between">
                                         <span className="text-sm">{detail.course_id}</span>
                                         <div className="flex items-center gap-2">

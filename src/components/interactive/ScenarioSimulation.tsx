@@ -6,7 +6,7 @@ import { AlertCircle, CheckCircle, Users } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface ScenarioSimulationProps {
-  element: any;
+  element: unknown;
   onScore: (score: number) => void;
 }
 

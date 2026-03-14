@@ -37,7 +37,7 @@ export const ProfessionalAssessment = ({
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [showResults, setShowResults] = useState(false);
-  const [results, setResults] = useState<{score: number; passed: boolean; details: any[]}>({
+  const [results, setResults] = useState<{score: number; passed: boolean; details: unknown[]}>({
     score: 0,
     passed: false,
     details: []
@@ -127,7 +127,7 @@ export const ProfessionalAssessment = ({
   const calculateResults = () => {
     let totalPoints = 0;
     let earnedPoints = 0;
-    const details: any[] = [];
+    const details: unknown[] = [];
 
     assessmentQuestions.forEach(question => {
       totalPoints += question.points;

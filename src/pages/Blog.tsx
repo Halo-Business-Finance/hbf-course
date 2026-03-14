@@ -52,7 +52,7 @@ const Blog = () => {
     return acc;
   }, {} as Record<string, number>);
 
-  const filterByDate = (post: any) => {
+  const filterByDate = (post: unknown) => {
     if (selectedDateRange === 'all') return true;
     const postDate = new Date(post.date);
     const now = new Date();

@@ -13,9 +13,9 @@ import { RealTimeMarketData } from "@/components/RealTimeMarketData";
 import { InteractiveFinancialTools } from "@/components/InteractiveFinancialTools";
 
 const ResourcesPage = () => {
-  const [documents, setDocuments] = useState<any[]>([]);
-  const [videos, setVideos] = useState<any[]>([]);
-  const [tools, setTools] = useState<any[]>([]);
+  const [documents, setDocuments] = useState<unknown[]>([]);
+  const [videos, setVideos] = useState<unknown[]>([]);
+  const [tools, setTools] = useState<unknown[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedTool, setSelectedTool] = useState<{type: string;title: string;} | null>(null);
   const { toast } = useToast();
@@ -70,7 +70,7 @@ const ResourcesPage = () => {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
   };
 
-  const handleDownload = async (document: any) => {
+  const handleDownload = async (document: unknown) => {
     try {
       // Update download count
       await supabase.

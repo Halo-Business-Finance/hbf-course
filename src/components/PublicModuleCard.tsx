@@ -64,7 +64,7 @@ const formatSkillLevel = (level: SkillLevel): string => {
 /**
  * Logs course access attempts for security monitoring
  */
-const logAccessAttempt = async (moduleId: string, user: any): Promise<void> => {
+const logAccessAttempt = async (moduleId: string, user: unknown): Promise<void> => {
   try {
     await supabase.rpc('log_course_access_attempt', {
       p_module_id: moduleId,

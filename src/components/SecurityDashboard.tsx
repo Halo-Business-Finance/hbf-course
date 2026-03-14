@@ -22,7 +22,7 @@ interface SecurityEvent {
   event_type: string;
   severity: string;
   created_at: string;
-  details: any;
+  details: unknown;
 }
 
 interface ThreatEvent {
@@ -32,7 +32,7 @@ interface ThreatEvent {
   source_ip: string;
   is_blocked: boolean;
   created_at: string;
-  threat_indicators: any;
+  threat_indicators: unknown;
 }
 
 export const SecurityDashboard = () => {
@@ -217,7 +217,7 @@ export const SecurityDashboard = () => {
       } else {
         throw new Error(data.message);
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast({
         title: "Remediation Failed",
         description: error.message || "Failed to remediate threat",

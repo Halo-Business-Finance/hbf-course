@@ -41,7 +41,7 @@ interface EnhancedQuizProps {
   timeLimit?: number; // Total quiz time in minutes
   passingScore?: number; // Percentage needed to pass
   maxAttempts?: number;
-  onComplete?: (passed: boolean, score: number, results: any) => void;
+  onComplete?: (passed: boolean, score: number, results: unknown) => void;
   showHints?: boolean;
   allowReview?: boolean;
 }
@@ -54,8 +54,8 @@ interface QuizResults {
   answersDetail: {
     questionId: string;
     correct: boolean;
-    userAnswer: any;
-    correctAnswer: any;
+    userAnswer: unknown;
+    correctAnswer: unknown;
     points: number;
   }[];
 }
@@ -71,7 +71,7 @@ export const EnhancedQuiz = ({
   allowReview = true
 }: EnhancedQuizProps) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState<Record<string, any>>({});
+  const [answers, setAnswers] = useState<Record<string, unknown>>({});
   const [quizStarted, setQuizStarted] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(timeLimit * 60);
@@ -132,7 +132,7 @@ export const EnhancedQuiz = ({
     setConfidence({});
     setFlaggedQuestions(new Set());
   };
-  const handleAnswer = (questionId: string, answer: any) => {
+  const handleAnswer = (questionId: string, answer: unknown) => {
     setAnswers(prev => ({
       ...prev,
       [questionId]: answer
@@ -204,7 +204,7 @@ export const EnhancedQuiz = ({
       answersDetail
     };
   };
-  const checkAnswer = (question: QuizQuestion, userAnswer: any): boolean => {
+  const checkAnswer = (question: QuizQuestion, userAnswer: unknown): boolean => {
     if (!userAnswer || !question.correctAnswers) return false;
     switch (question.type) {
       case 'multiple-choice':
@@ -225,7 +225,7 @@ export const EnhancedQuiz = ({
       }
       case 'fill-blank': {
         const userBlanks = userAnswer || [];
-        return question.correctAnswers.every((correct: any, index: number) => userBlanks[index]?.toLowerCase().trim() === String(correct).toLowerCase().trim());
+        return question.correctAnswers.every((correct: unknown, index: number) => userBlanks[index]?.toLowerCase().trim() === String(correct).toLowerCase().trim());
       }
       default:
         return false;

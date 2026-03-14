@@ -34,7 +34,7 @@ interface CMSPage {
 
 export const CMSPageManager = () => {
   const [pages, setPages] = useState<CMSPage[]>([]);
-  const [categories, setCategories] = useState<any[]>([]);
+  const [categories, setCategories] = useState<unknown[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingPage, setEditingPage] = useState<CMSPage | null>(null);
   const [loading, setLoading] = useState(false);

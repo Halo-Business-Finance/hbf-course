@@ -130,7 +130,7 @@ export function VideoManager() {
     e.preventDefault();
     
     try {
-      const videoData: any = {
+      const videoData: unknown = {
         module_id: formData.module_id,
         title: formData.title,
         description: formData.description,
@@ -176,7 +176,7 @@ export function VideoManager() {
 
       resetForm();
       loadData();
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast({
         title: "Error",
         description: error.message || "Failed to save video",
@@ -228,7 +228,7 @@ export function VideoManager() {
       });
       
       loadData();
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast({
         title: "Error",
         description: error.message || "Failed to delete video",
@@ -252,7 +252,7 @@ export function VideoManager() {
       });
       
       loadData();
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast({
         title: "Error",
         description: error.message || "Failed to update video status",
@@ -308,7 +308,7 @@ export function VideoManager() {
       
       setSelectedVideos([]);
       loadData();
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast({
         title: "Error",
         description: error.message || "Failed to delete videos",
@@ -333,7 +333,7 @@ export function VideoManager() {
       
       setSelectedVideos([]);
       loadData();
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast({
         title: "Error",
         description: error.message || "Failed to update videos",
@@ -363,7 +363,7 @@ export function VideoManager() {
       }
 
       if (data.status === 'complete') {
-        const summary = (data.result as any)?.summary;
+        const summary = (data.result as unknown)?.summary;
         toast({
           title: "YouTube Search Complete!",
           description: `Created: ${summary?.created || 0}, Errors: ${summary?.errors || 0}, No results: ${summary?.no_results || 0}`,
@@ -398,7 +398,7 @@ export function VideoManager() {
     setSearchingYouTube(true);
     
     try {
-      const body: any = { limit: searchLimit };
+      const body: unknown = { limit: searchLimit };
       
       if (selectedCourseForSearch !== 'all') {
         body.course_id = selectedCourseForSearch;
@@ -419,7 +419,7 @@ export function VideoManager() {
       } else {
         throw new Error('Failed to start search');
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error finding YouTube videos:', error);
       toast({
         title: "Error",
@@ -497,7 +497,7 @@ export function VideoManager() {
                   <Label htmlFor="video_type">Video Type</Label>
                   <Select 
                     value={formData.video_type} 
-                    onValueChange={(value: any) => setFormData({...formData, video_type: value})}
+                    onValueChange={(value: unknown) => setFormData({...formData, video_type: value})}
                   >
                     <SelectTrigger>
                       <SelectValue />

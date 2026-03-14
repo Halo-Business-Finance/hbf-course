@@ -31,15 +31,15 @@ interface AdaptiveLesson {
   estimated_duration: number;
   prerequisites: string[];
   learning_objectives: string[];
-  interactive_elements: any[];
-  adaptive_content: any;
+  interactive_elements: unknown[];
+  adaptive_content: unknown;
 }
 
 export const AdaptiveLessonEngine = ({ moduleId, userId, courseId }: AdaptiveLessonEngineProps) => {
   const [learningProfile, setLearningProfile] = useState<LearningProfile | null>(null);
   const [adaptiveLessons, setAdaptiveLessons] = useState<AdaptiveLesson[]>([]);
   const [currentLesson, setCurrentLesson] = useState<AdaptiveLesson | null>(null);
-  const [learningPath, setLearningPath] = useState<any[]>([]);
+  const [learningPath, setLearningPath] = useState<unknown[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [masteryScore, setMasteryScore] = useState(0);
   const { toast } = useToast();
@@ -74,13 +74,13 @@ export const AdaptiveLessonEngine = ({ moduleId, userId, courseId }: AdaptiveLes
       .maybeSingle();
 
     if (instance && instance.personalized_content) {
-      const content = instance.personalized_content as any;
+      const content = instance.personalized_content as unknown;
       return {
         learning_style: content.learning_style || 'visual',
         difficulty_preference: content.difficulty_preference || 'adaptive',
-        engagement_level: (instance.performance_metrics as any)?.engagement_level || 50,
-        knowledge_gaps: (instance.performance_metrics as any)?.knowledge_gaps || [],
-        strengths: (instance.performance_metrics as any)?.strengths || [],
+        engagement_level: (instance.performance_metrics as unknown)?.engagement_level || 50,
+        knowledge_gaps: (instance.performance_metrics as unknown)?.knowledge_gaps || [],
+        strengths: (instance.performance_metrics as unknown)?.strengths || [],
         current_mastery_level: instance.progress_percentage || 0
       };
     }
@@ -159,7 +159,7 @@ export const AdaptiveLessonEngine = ({ moduleId, userId, courseId }: AdaptiveLes
     }));
   };
 
-  const getOptimalContentType = (learningStyle: string, index: number): any => {
+  const getOptimalContentType = (learningStyle: string, index: number): unknown => {
     const map: Record<string, string[]> = {
       visual: ['video', 'interactive', 'simulation'],
       auditory: ['video', 'interactive'],
@@ -185,7 +185,7 @@ export const AdaptiveLessonEngine = ({ moduleId, userId, courseId }: AdaptiveLes
     return Math.round(baseTime * engagementMultiplier + index * 5);
   };
 
-  const createLearningPath = (lessons: AdaptiveLesson[], profile: LearningProfile): any[] => {
+  const createLearningPath = (lessons: AdaptiveLesson[], profile: LearningProfile): unknown[] => {
     return lessons.map((lesson, index) => ({
       step: index + 1, lesson, status: index === 0 ? 'current' : 'locked',
       estimatedCompletionTime: lesson.estimated_duration,

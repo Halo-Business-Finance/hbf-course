@@ -62,7 +62,7 @@ export function CourseImageEditor({ course, open, onOpenChange, onSave }: Course
     reader.readAsDataURL(file);
   };
 
-  const handleMediaSelect = (imageUrl: string, mediaItem: any) => {
+  const handleMediaSelect = (imageUrl: string, mediaItem: unknown) => {
     loadImageFromSrc(imageUrl, true);
     toast({
       title: "Image Loaded",

@@ -212,7 +212,7 @@ const SignUpPage = () => {
         navigate('/auth');
       }
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Unexpected sign up error:', error);
       toast({
         title: "Sign Up Error",

@@ -77,11 +77,11 @@ export function ResourceManager() {
   const [webinars, setWebinars] = useState<Webinar[]>([]);
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [editingItem, setEditingItem] = useState<any>(null);
+  const [editingItem, setEditingItem] = useState<unknown>(null);
   const { toast } = useToast();
 
   // Form states
-  const [formData, setFormData] = useState<any>({});
+  const [formData, setFormData] = useState<unknown>({});
 
   useEffect(() => {
     loadData();
@@ -224,7 +224,7 @@ export function ResourceManager() {
     }
   };
 
-  const handleEdit = (item: any) => {
+  const handleEdit = (item: unknown) => {
     setEditingItem(item);
     setFormData({ ...item, tags: item.tags?.join(', ') || '' });
     setDialogOpen(true);
@@ -264,7 +264,7 @@ export function ResourceManager() {
   };
 
   const renderResourceTable = (type: ResourceType) => {
-    let data: any[] = [];
+    let data: unknown[] = [];
     if (type === 'documents') data = documents;
     else if (type === 'videos') data = videos;
     else if (type === 'tools') data = tools;

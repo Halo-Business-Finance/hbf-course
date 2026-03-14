@@ -13,7 +13,7 @@ interface SecurityIssue {
   fixable: boolean;
   autoFix: string;
   count?: number;
-  data?: any;
+  data?: unknown;
 }
 interface FixResult {
   success: boolean;
@@ -183,7 +183,7 @@ export const SecurityFixCenter = () => {
           variant: "destructive"
         });
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error fixing security issue:', error);
       toast({
         title: "Fix Failed",
@@ -218,7 +218,7 @@ export const SecurityFixCenter = () => {
         message: 'No critical alerts to resolve',
         issuesFixed: 0
       };
-    } catch (error: any) {
+    } catch (error: unknown) {
       return {
         success: false,
         message: `Failed to resolve critical alerts: ${error.message}`,
@@ -250,7 +250,7 @@ export const SecurityFixCenter = () => {
         message: 'No high priority alerts to resolve',
         issuesFixed: 0
       };
-    } catch (error: any) {
+    } catch (error: unknown) {
       return {
         success: false,
         message: `Failed to resolve high alerts: ${error.message}`,
@@ -269,7 +269,7 @@ export const SecurityFixCenter = () => {
         message: 'Cleaned up outdated rate limit entries',
         issuesFixed: 1
       };
-    } catch (error: any) {
+    } catch (error: unknown) {
       return {
         success: false,
         message: `Failed to cleanup rate limits: ${error.message}`,
@@ -289,7 +289,7 @@ export const SecurityFixCenter = () => {
         message: 'Archived old security events to improve performance',
         issuesFixed: 1
       };
-    } catch (error: any) {
+    } catch (error: unknown) {
       return {
         success: false,
         message: `Failed to archive old events: ${error.message}`,

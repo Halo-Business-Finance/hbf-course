@@ -30,7 +30,7 @@ export async function migrateCourseDataToSupabase() {
     console.log(`Successfully inserted ${insertedCourses?.length || 0} courses`);
 
     // Now migrate all modules
-    const modulesToInsert: any[] = [];
+    const modulesToInsert: unknown[] = [];
     
     courseData.allCourses.forEach(course => {
       course.modules.forEach((module, index) => {
@@ -64,8 +64,8 @@ export async function migrateCourseDataToSupabase() {
     console.log(`Successfully inserted ${insertedModules?.length || 0} modules`);
 
     // Migrate quizzes
-    const quizzesToInsert: any[] = [];
-    const questionsToInsert: any[] = [];
+    const quizzesToInsert: unknown[] = [];
+    const questionsToInsert: unknown[] = [];
     
     courseData.allCourses.forEach(course => {
       course.modules.forEach(module => {
@@ -154,7 +154,7 @@ export async function migrateCourseDataToSupabase() {
     console.log(`Successfully inserted ${insertedQuestions?.length || 0} quiz questions`);
 
     // Migrate case studies
-    const caseStudiesToInsert: any[] = [];
+    const caseStudiesToInsert: unknown[] = [];
     
     courseData.allCourses.forEach(course => {
       course.modules.forEach(module => {

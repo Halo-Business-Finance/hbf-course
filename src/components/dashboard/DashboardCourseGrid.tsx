@@ -12,17 +12,17 @@ interface CourseWithModules {
   description: string;
   level: string;
   prerequisite_course_ids?: string[];
-  modules: any[];
+  modules: unknown[];
 }
 
 interface DashboardCourseGridProps {
   coursesWithModules: CourseWithModules[];
-  flattenedModules: any[];
+  flattenedModules: unknown[];
   filteredCoursesWithModules: CourseWithModules[];
-  filteredModules: any[];
+  filteredModules: unknown[];
   moduleProgress: ModuleProgress;
   currentFilterLevel: number;
-  filterNavigationPath: any[];
+  filterNavigationPath: unknown[];
   selectedCategory: string | null;
   selectedTopic: string | null;
   loading: boolean;
@@ -36,7 +36,7 @@ interface DashboardCourseGridProps {
   onBackToLevel1: () => void;
   getCourseDetails: (name: string) => { description: string; duration: string; difficulty: string; topics: string[]; outcome: string };
   getCourseImage: (title: string) => string;
-  isModuleUnlocked: (index: number, modules: any[]) => boolean;
+  isModuleUnlocked: (index: number, modules: unknown[]) => boolean;
 }
 
 export function DashboardCourseGrid({

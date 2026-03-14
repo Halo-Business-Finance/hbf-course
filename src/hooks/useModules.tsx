@@ -68,7 +68,7 @@ export const useModules = (courseId?: string) => {
       }));
 
       setModules(typedModules);
-    } catch (err: any) {
+    } catch (err: unknown) {
       const errorMessage = err.message || 'Failed to fetch modules';
       setError(errorMessage);
       console.error('Error fetching modules:', err);
@@ -107,7 +107,7 @@ export const useModules = (courseId?: string) => {
       });
 
       return typedModule;
-    } catch (err: any) {
+    } catch (err: unknown) {
       const errorMessage = err.message || 'Failed to create module';
       toast({
         title: "Error",
@@ -149,7 +149,7 @@ export const useModules = (courseId?: string) => {
       });
 
       return typedModule;
-    } catch (err: any) {
+    } catch (err: unknown) {
       const errorMessage = err.message || 'Failed to update module';
       toast({
         title: "Error",
@@ -179,7 +179,7 @@ export const useModules = (courseId?: string) => {
       });
 
       return true;
-    } catch (err: any) {
+    } catch (err: unknown) {
       const errorMessage = err.message || 'Failed to delete module';
       toast({
         title: "Error",

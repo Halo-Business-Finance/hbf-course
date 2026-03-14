@@ -12,7 +12,7 @@ const Certificate = () => {
   const { certificateId } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth();
-  const [certificate, setCertificate] = useState<any>(null);
+  const [certificate, setCertificate] = useState<unknown>(null);
   const [loading, setLoading] = useState(true);
   const [userName, setUserName] = useState("Student");
 
@@ -43,7 +43,7 @@ const Certificate = () => {
           .maybeSingle();
 
         if (course) {
-          setCertificate((prev: any) => ({ ...prev, course_title: course.title }));
+          setCertificate((prev: unknown) => ({ ...prev, course_title: course.title }));
         }
 
         // Fetch user name

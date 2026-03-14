@@ -560,7 +560,7 @@ export function CourseManager() {
               <select
                 id="course-type"
                 value={formData.courseType}
-                onChange={(e) => setFormData((prev) => ({ ...prev, courseType: e.target.value as any }))}
+                onChange={(e) => setFormData((prev) => ({ ...prev, courseType: e.target.value as unknown }))}
                 className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
                 
                 {courseTypes.map((type) =>
@@ -575,7 +575,7 @@ export function CourseManager() {
               <select
                 id="skill-level"
                 value={formData.level}
-                onChange={(e) => setFormData((prev) => ({ ...prev, level: e.target.value as any }))}
+                onChange={(e) => setFormData((prev) => ({ ...prev, level: e.target.value as unknown }))}
                 className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
                 
                 {skillLevels.

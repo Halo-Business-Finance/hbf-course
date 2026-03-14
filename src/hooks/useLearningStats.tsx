@@ -87,7 +87,7 @@ export const useLearningStats = (userId?: string) => {
           progressScore: 0
         });
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       const errorMessage = err.message || 'Failed to fetch learning stats';
       setError(errorMessage);
       console.error('Error fetching learning stats:', err);
@@ -118,7 +118,7 @@ export const useLearningStats = (userId?: string) => {
       }
 
       return true;
-    } catch (err: any) {
+    } catch (err: unknown) {
       const errorMessage = err.message || 'Failed to update learning stats';
       toast({
         title: "Error",

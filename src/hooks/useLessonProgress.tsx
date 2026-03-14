@@ -11,7 +11,7 @@ interface LessonStep {
 }
 
 export const useLessonProgress = (lessonId: string, moduleId: string) => {
-  const [progress, setProgress] = useState<any>(null);
+  const [progress, setProgress] = useState<unknown>(null);
   const [currentStep, setCurrentStep] = useState(0);
   const [loading, setLoading] = useState(true);
   const [steps, setSteps] = useState<LessonStep[]>([]);

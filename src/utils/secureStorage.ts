@@ -35,7 +35,7 @@ class SecureStorage {
     return `${this.prefix}${this.keyPrefix}${key}`;
   }
   
-  setItem(key: string, value: any, encrypt: boolean = true): boolean {
+  setItem(key: string, value: unknown, encrypt: boolean = true): boolean {
     try {
       if (!this.isStorageAvailable()) {
         logger.warn('localStorage not available');
@@ -61,7 +61,7 @@ class SecureStorage {
     }
   }
   
-  getItem<T = any>(key: string, defaultValue: T | null = null): T | null {
+  getItem<T = unknown>(key: string, defaultValue: T | null = null): T | null {
     try {
       if (!this.isStorageAvailable()) {
         return defaultValue;
@@ -191,7 +191,7 @@ class SecureStorage {
   }
   
   // Secure session management
-  setSession(sessionData: any, expirationMinutes: number = 480): boolean {
+  setSession(sessionData: unknown, expirationMinutes: number = 480): boolean {
     const expirationTime = Date.now() + (expirationMinutes * 60 * 1000);
     const sessionWithExpiry = {
       data: sessionData,
@@ -201,7 +201,7 @@ class SecureStorage {
     return this.setItem('session', sessionWithExpiry, true);
   }
   
-  getSession<T = any>(): T | null {
+  getSession<T = unknown>(): T | null {
     const session = this.getItem('session');
     
     if (!session || !session.expiresAt) {
@@ -223,12 +223,12 @@ class SecureStorage {
   }
   
   // Secure preferences management
-  setUserPreference(userId: string, key: string, value: any): boolean {
+  setUserPreference(userId: string, key: string, value: unknown): boolean {
     const prefKey = `user_${userId}_pref_${key}`;
     return this.setItem(prefKey, value, false); // Preferences don't need encryption
   }
   
-  getUserPreference<T = any>(userId: string, key: string, defaultValue: T | null = null): T | null {
+  getUserPreference<T = unknown>(userId: string, key: string, defaultValue: T | null = null): T | null {
     const prefKey = `user_${userId}_pref_${key}`;
     return this.getItem(prefKey, defaultValue);
   }
@@ -262,11 +262,11 @@ class SecureStorage {
 export const secureStorage = new SecureStorage();
 
 // Helper functions for common use cases
-export const storeUserData = (userId: string, data: any): boolean => {
+export const storeUserData = (userId: string, data: unknown): boolean => {
   return secureStorage.setItem(`user_${userId}`, data, true);
 };
 
-export const getUserData = <T = any>(userId: string): T | null => {
+export const getUserData = <T = unknown>(userId: string): T | null => {
   return secureStorage.getItem(`user_${userId}`);
 };
 
@@ -277,7 +277,7 @@ export const clearUserData = (userId: string): boolean => {
 };
 
 // Cache management with TTL
-export const setCachedData = (key: string, data: any, ttlMinutes: number = 60): boolean => {
+export const setCachedData = (key: string, data: unknown, ttlMinutes: number = 60): boolean => {
   const cacheData = {
     data,
     expiresAt: Date.now() + (ttlMinutes * 60 * 1000),
@@ -286,7 +286,7 @@ export const setCachedData = (key: string, data: any, ttlMinutes: number = 60): 
   return secureStorage.setItem(`cache_${key}`, cacheData, false);
 };
 
-export const getCachedData = <T = any>(key: string): T | null => {
+export const getCachedData = <T = unknown>(key: string): T | null => {
   const cached = secureStorage.getItem(`cache_${key}`);
   
   if (!cached || !cached.expiresAt) {

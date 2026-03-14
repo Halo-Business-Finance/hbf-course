@@ -6,14 +6,14 @@ type LogContext = {
   component?: string;
   userId?: string;
   action?: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
   error?: string;
   processingTime?: number;
   fileName?: string;
   fileSize?: number;
   fileType?: string;
   fieldCount?: number;
-  [key: string]: any; // Allow additional properties
+  [key: string]: unknown; // Allow additional properties
 };
 
 class SecureLogger {
@@ -42,21 +42,21 @@ class SecureLogger {
     this.logToSupabase('warn', message, context);
   }
 
-  error(message: string, error?: any, context?: LogContext) {
+  error(message: string, error?: unknown, context?: LogContext) {
     if (this.isDevelopment) {
       console.error(`[ERROR] ${message}`, error, context);
     }
     this.logToSupabase('error', message, { ...context, error: error?.message });
   }
 
-  debug(message: string, data?: any, context?: LogContext) {
+  debug(message: string, data?: unknown, context?: LogContext) {
     if (this.isDevelopment) {
       console.debug(`[DEBUG] ${message}`, data, context);
     }
   }
 
   // Security-specific logging
-  security(event: string, details: Record<string, any>) {
+  security(event: string, details: Record<string, unknown>) {
     const message = `Security Event: ${event}`;
     const context = { action: 'security_event', metadata: details };
     
@@ -71,8 +71,8 @@ export const logger = new SecureLogger();
 
 // Legacy compatibility - these will be no-ops in production
 export const cleanConsole = {
-  log: (message: string, ...args: any[]) => logger.debug(message, args),
-  warn: (message: string, ...args: any[]) => logger.warn(message),
-  error: (message: string, error?: any) => logger.error(message, error),
-  debug: (message: string, ...args: any[]) => logger.debug(message, args)
+  log: (message: string, ...args: unknown[]) => logger.debug(message, args),
+  warn: (message: string, ...args: unknown[]) => logger.warn(message),
+  error: (message: string, error?: unknown) => logger.error(message, error),
+  debug: (message: string, ...args: unknown[]) => logger.debug(message, args)
 };

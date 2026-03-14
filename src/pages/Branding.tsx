@@ -104,7 +104,7 @@ export default function Branding() {
       }
 
       toast.success(`${sectionLabel} saved successfully`);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Error saving settings:', err);
       toast.error(err?.message || 'Failed to save settings. Check admin permissions.');
     } finally {

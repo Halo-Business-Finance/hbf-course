@@ -43,7 +43,7 @@ interface SecurityEvent {
   user_id: string;
   event_type: string;
   severity: string;
-  details: any;
+  details: unknown;
   created_at: string;
 }
 interface AdminStats {
@@ -85,7 +85,7 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [deletingUser, setDeletingUser] = useState<string | null>(null);
   const [creatingUser, setCreatingUser] = useState(false);
-  const [realtimeChannel, setRealtimeChannel] = useState<any>(null);
+  const [realtimeChannel, setRealtimeChannel] = useState<unknown>(null);
   const [newUserData, setNewUserData] = useState({
     email: '',
     password: '',
@@ -238,7 +238,7 @@ const AdminDashboard = () => {
         }
         if (profilesWithRoles && profilesWithRoles.length > 0) {
           // Count active admins directly from the get_secure_admin_profiles response
-          const activeAdminsFromProfiles = profilesWithRoles.filter((profile: any) => {
+          const activeAdminsFromProfiles = profilesWithRoles.filter((profile: unknown) => {
             const isAdminRole = ['admin', 'super_admin', 'tech_support_admin'].includes(profile.role);
             return isAdminRole;
           });
@@ -246,7 +246,7 @@ const AdminDashboard = () => {
 
           // Group by user_id to consolidate users with multiple roles
           const userMap = new Map();
-          profilesWithRoles.forEach((item: any) => {
+          profilesWithRoles.forEach((item: unknown) => {
             const userId = item.user_id;
             if (userMap.has(userId)) {
               // User already exists, keep the highest priority role
@@ -373,7 +373,7 @@ const AdminDashboard = () => {
 
       // Reset access error since we successfully loaded data
       setHasAccessError(false);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error loading dashboard data:', error);
 
       // Check if it's a permission error
@@ -502,7 +502,7 @@ const AdminDashboard = () => {
 
       // Reload data to reflect changes
       await loadDashboardData();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error assigning role:', error);
       let errorMessage = 'Failed to assign role';
       if (error?.message?.includes('super_admin')) {
@@ -561,7 +561,7 @@ const AdminDashboard = () => {
 
       // Reload data to reflect changes
       await loadDashboardData();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error revoking role:', error);
       toast({
         title: "Error",
@@ -655,7 +655,7 @@ const AdminDashboard = () => {
 
       // Reload dashboard data
       await loadDashboardData();
-    } catch (error: any) {
+    } catch (error: unknown) {
       // Error logged to security events via edge function
       let errorMessage = 'Failed to create user account';
       if (error?.message?.includes('already registered')) {
@@ -694,7 +694,7 @@ const AdminDashboard = () => {
 
       // Reload the dashboard data
       await loadDashboardData();
-    } catch (error: any) {
+    } catch (error: unknown) {
       // Error logged to security events via edge function
       toast({
         title: "Error",

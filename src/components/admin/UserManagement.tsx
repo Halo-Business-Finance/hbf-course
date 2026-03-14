@@ -36,7 +36,7 @@ interface UserManagementProps {
   onAssignRole: (userId: string, role: string) => Promise<void>;
   onRevokeRole: (userId: string) => Promise<void>;
   onDeleteUser: (userId: string) => Promise<void>;
-  onCreateUser: (userData: any) => Promise<void>;
+  onCreateUser: (userData: unknown) => Promise<void>;
   deletingUser: string | null;
   creatingUser: boolean;
 }
@@ -98,7 +98,7 @@ export function UserManagement({
 
     // Apply sorting
     filtered.sort((a, b) => {
-      let aVal: any, bVal: any;
+      let aVal: unknown, bVal: unknown;
 
       switch (sortField) {
         case "name":

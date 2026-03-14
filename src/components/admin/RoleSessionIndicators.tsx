@@ -40,7 +40,7 @@ export const RoleSessionIndicators = () => {
         .limit(5);
 
       if (!error && data) {
-        setSessions(data.map((s: any) => ({
+        setSessions(data.map((s: unknown) => ({
           id: s.id,
           ip_address: s.ip_address as string | null,
           user_agent: s.user_agent as string | null,
@@ -103,7 +103,7 @@ export const RoleSessionIndicators = () => {
           <div className="flex items-center gap-3">
             <User className="h-4 w-4 text-muted-foreground" />
             <span className="text-sm">{user?.email}</span>
-            <Badge variant={getRoleBadgeVariant(userRole) as any} className="capitalize">
+            <Badge variant={getRoleBadgeVariant(userRole) as unknown} className="capitalize">
               {userRole?.replace(/_/g, " ") || "trainee"}
             </Badge>
           </div>

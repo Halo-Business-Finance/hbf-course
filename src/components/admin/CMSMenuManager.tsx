@@ -39,7 +39,7 @@ interface CMSMenuItem {
 export const CMSMenuManager = () => {
   const [menus, setMenus] = useState<CMSMenu[]>([]);
   const [menuItems, setMenuItems] = useState<CMSMenuItem[]>([]);
-  const [pages, setPages] = useState<any[]>([]);
+  const [pages, setPages] = useState<unknown[]>([]);
   const [selectedMenu, setSelectedMenu] = useState<string>('');
   const [isMenuDialogOpen, setIsMenuDialogOpen] = useState(false);
   const [isItemDialogOpen, setIsItemDialogOpen] = useState(false);

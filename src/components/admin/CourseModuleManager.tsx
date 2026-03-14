@@ -93,7 +93,7 @@ export const CourseModuleManager = forwardRef<CourseModuleManagerHandle, Record<
       }));
       
       setModules(normalizedModules);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error loading modules:', error);
       toast({
         title: "Error",
@@ -121,7 +121,7 @@ export const CourseModuleManager = forwardRef<CourseModuleManagerHandle, Record<
       
       // Reload modules after migration
       loadModules();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Migration failed:', error);
       toast({
         title: "Migration Failed",
@@ -244,7 +244,7 @@ export const CourseModuleManager = forwardRef<CourseModuleManagerHandle, Record<
       setShowAddDialog(false);
       resetForm();
       loadModules();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error saving module:', error);
       toast({
         title: "Error",
@@ -269,7 +269,7 @@ export const CourseModuleManager = forwardRef<CourseModuleManagerHandle, Record<
       });
       
       loadModules();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error deleting module:', error);
       toast({
         title: "Error",
@@ -294,7 +294,7 @@ export const CourseModuleManager = forwardRef<CourseModuleManagerHandle, Record<
       });
       
       loadModules();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error updating module status:', error);
       toast({
         title: "Error",

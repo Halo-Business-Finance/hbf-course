@@ -333,7 +333,7 @@ export const ModuleQuiz: React.FC<ModuleQuizProps> = ({
     }
   };
 
-  const handleQuizComplete = async (passed: boolean, score: number, results: any) => {
+  const handleQuizComplete = async (passed: boolean, score: number, results: unknown) => {
     if (!user?.id) return;
 
     try {

@@ -74,7 +74,7 @@ export function LearningAnalyticsDashboard() {
       // Group progress by course
       const courseProgressMap = new Map<string, number[]>();
       progressData?.forEach(p => {
-        const courseName = (p.courses as any)?.title || p.course_id;
+        const courseName = (p.courses as unknown)?.title || p.course_id;
         if (!courseProgressMap.has(courseName)) {
           courseProgressMap.set(courseName, []);
         }

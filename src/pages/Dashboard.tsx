@@ -97,7 +97,7 @@ const Dashboard = () => {
 
   const [selectedModule, setSelectedModule] = useState<string | null>(null);
   const [currentFilterLevel, setCurrentFilterLevel] = useState(0);
-  const [filterNavigationPath, setFilterNavigationPath] = useState<any[]>([]);
+  const [filterNavigationPath, setFilterNavigationPath] = useState<unknown[]>([]);
   const [selectedSkillLevelForCourse, setSelectedSkillLevelForCourse] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
@@ -235,7 +235,7 @@ const Dashboard = () => {
       description: sampleCourse?.description || "Comprehensive training program with practical applications",
       duration: "6-8 weeks",
       difficulty,
-      topics: sampleCourse?.modules?.flatMap((m: any) => m.topics || []).slice(0, 6) || ["Core Concepts"],
+      topics: sampleCourse?.modules?.flatMap((m: unknown) => m.topics || []).slice(0, 6) || ["Core Concepts"],
       outcome: `Master ${courseName} with professional expertise`
     };
   };

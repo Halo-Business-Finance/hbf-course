@@ -23,7 +23,7 @@ interface CMSSetting {
 }
 
 export const CMSSettingsManager = () => {
-  const [settings, setSettings] = useState<Record<string, any>>({
+  const [settings, setSettings] = useState<Record<string, unknown>>({
     // Site Information
     site_title: 'Halo Business Finance Learning Platform',
     site_description: 'Professional commercial lending education platform',
@@ -116,7 +116,7 @@ export const CMSSettingsManager = () => {
     require_strong_passwords: { id: 'require_strong_passwords', name: 'Require Strong Passwords', value: settings.require_strong_passwords, type: 'boolean', category: 'security', description: 'Enforce strong password requirements' }
   };
 
-  const handleSettingChange = (key: string, value: any) => {
+  const handleSettingChange = (key: string, value: unknown) => {
     setSettings(prev => ({
       ...prev,
       [key]: value
@@ -136,7 +136,7 @@ export const CMSSettingsManager = () => {
       // Create settings table if it doesn't exist and insert/update settings
       for (const setting of settingsArray) {
         const { error } = await supabase
-          .from('cms_settings' as any)
+          .from('cms_settings' as unknown)
           .upsert({
             key: setting.key,
             value: setting.value,

@@ -260,7 +260,7 @@ export function MediaLibrary() {
       setShowUploadDialog(false);
       loadMedia();
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast({
         title: "Error",
         description: error.message || "Failed to upload files",
@@ -304,7 +304,7 @@ export function MediaLibrary() {
       setShowEditDialog(false);
       loadMedia();
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast({
         title: "Error",
         description: error.message || "Failed to update media item",
@@ -335,7 +335,7 @@ export function MediaLibrary() {
 
       loadMedia();
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast({
         title: "Error",
         description: error.message || "Failed to delete media item",
@@ -406,7 +406,7 @@ export function MediaLibrary() {
       setShowNewFolderDialog(false);
       loadMedia();
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast({
         title: "Error",
         description: error.message || "Failed to create folder",
@@ -464,7 +464,7 @@ export function MediaLibrary() {
       setShowBulkDeleteDialog(false);
       loadMedia();
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast({
         title: "Error",
         description: error.message || "Failed to delete selected items",

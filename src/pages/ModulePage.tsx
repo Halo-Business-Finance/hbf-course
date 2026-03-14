@@ -34,7 +34,7 @@ interface Lesson {
   type: 'video' | 'reading' | 'quiz' | 'document' | 'interactive';
   duration: string;
   completed: boolean;
-  content?: any;
+  content?: unknown;
   url?: string;
   order_index: number;
 }
@@ -48,7 +48,7 @@ const ModulePage = () => {
   const { moduleProgress } = useCourseProgress(user?.id);
   const { checkCourseCompletion, checking: checkingCompletion } = useCourseCompletion(user?.id);
   const notif = useNotificationTriggers(user?.id);
-  const [selectedLesson, setSelectedLesson] = useState<any>(null);
+  const [selectedLesson, setSelectedLesson] = useState<unknown>(null);
   const [isLessonModalOpen, setIsLessonModalOpen] = useState(false);
   const [courseName, setCourseName] = useState<string>("");
   const [courseId, setCourseId] = useState<string>("");
@@ -62,7 +62,7 @@ const ModulePage = () => {
   const { isNotesModalOpen, setIsNotesModalOpen, setCurrentContext, getNotesByModule } = useNotes();
   const [isQuestionModalOpen, setIsQuestionModalOpen] = useState(false);
   const moduleNotesCount = moduleId ? getNotesByModule(moduleId).length : 0;
-  const [module, setModule] = useState<any>(null);
+  const [module, setModule] = useState<unknown>(null);
   const [lessons, setLessons] = useState<Lesson[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -203,7 +203,7 @@ const ModulePage = () => {
 
   }
 
-  const handleLessonStart = (lesson: any) => {
+  const handleLessonStart = (lesson: unknown) => {
     if (!user) {
       toast({ title: "Sign In Required", description: "Please sign in to access course content", variant: "destructive" });
       navigate('/auth');
@@ -233,7 +233,7 @@ const ModulePage = () => {
     }
   };
 
-  const getModuleType = (module: any) => {
+  const getModuleType = (module: unknown) => {
     const title = module.title.toLowerCase();
     if (title.includes('sba 7(a)')) return 'sba-7a';
     if (title.includes('sba express')) return 'sba-express';
@@ -252,10 +252,10 @@ const ModulePage = () => {
     return 'general';
   };
 
-  const getModuleSpecificContent = (module: any) => {
+  const getModuleSpecificContent = (module: unknown) => {
     const moduleType = getModuleType(module);
     const isExpert = module.title.toLowerCase().includes('expert');
-    const content: Record<string, any> = {
+    const content: Record<string, unknown> = {
       'sba-7a': { title: 'SBA 7(a) Loan Program', description: 'Master the most popular SBA loan program with up to $5 million in financing for small businesses.', focus: isExpert ? 'Advanced underwriting, portfolio management, and complex deal structuring' : 'Program basics, eligibility requirements, and application processes' },
       'sba-express': { title: 'SBA Express Loans', description: 'Fast-track SBA financing with streamlined approval processes and reduced documentation.', focus: isExpert ? 'Portfolio optimization and risk management strategies' : 'Quick approval processes and basic eligibility criteria' },
       'sba-504': { title: 'SBA 504 Commercial Real Estate', description: 'Long-term, fixed-rate financing for commercial real estate and equipment purchases.', focus: isExpert ? 'Complex project management and portfolio strategies' : 'Program structure and basic property evaluation' },
@@ -274,7 +274,7 @@ const ModulePage = () => {
 
   };
 
-  const getModuleLearningObjectives = (module: any) => {
+  const getModuleLearningObjectives = (module: unknown) => {
     const moduleType = getModuleType(module);
     const isExpert = module.title.toLowerCase().includes('expert');
     const objectives: Record<string, string[]> = {
@@ -291,7 +291,7 @@ const ModulePage = () => {
     return objectives[moduleType] || ['Master core concepts and industry best practices', 'Develop practical application skills through case studies', 'Build analytical and decision-making capabilities', 'Enhance client service and relationship management skills'];
   };
 
-  const getModuleKeyTopics = (module: any) => {
+  const getModuleKeyTopics = (module: unknown) => {
     const moduleType = getModuleType(module);
     const topics: Record<string, string[]> = {
       'sba-7a': ['Program Overview & Structure', 'Eligibility Requirements', 'Loan Terms & Conditions', 'Application Process', 'Underwriting Guidelines', 'Documentation Requirements', 'Guaranty Procedures', 'Servicing & Compliance'],
@@ -301,7 +301,7 @@ const ModulePage = () => {
     return topics[moduleType] || ['Industry Overview', 'Market Analysis', 'Risk Assessment', 'Documentation', 'Compliance', 'Best Practices'];
   };
 
-  const getModulePrerequisites = (module: any) => {
+  const getModulePrerequisites = (module: unknown) => {
     const moduleType = getModuleType(module);
     const isExpert = module.title.toLowerCase().includes('expert');
     if (isExpert) {
@@ -315,14 +315,14 @@ const ModulePage = () => {
     return 'Basic understanding of commercial lending principles and business finance fundamentals. No prior specialized experience required.';
   };
 
-  const getModuleProfessionalSkills = (module: any) => {
+  const getModuleProfessionalSkills = (module: unknown) => {
     const isExpert = module.title.toLowerCase().includes('expert');
     return isExpert ?
     'Advanced analytical thinking, strategic portfolio management, complex problem-solving, and senior-level client relationship management.' :
     'Financial analysis fundamentals, client communication, documentation skills, and risk assessment basics.';
   };
 
-  const getModuleBusinessImpact = (module: any) => {
+  const getModuleBusinessImpact = (module: unknown) => {
     const moduleType = getModuleType(module);
     const isExpert = module.title.toLowerCase().includes('expert');
     if (isExpert) return 'Portfolio optimization, increased deal closure rates, enhanced risk management, and senior-level business development capabilities.';

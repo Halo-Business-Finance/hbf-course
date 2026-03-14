@@ -69,7 +69,7 @@ export const useCourseProgress = (userId?: string, courseId?: string) => {
       });
       
       setModuleProgress(moduleProgressMap);
-    } catch (err: any) {
+    } catch (err: unknown) {
       const errorMessage = err.message || 'Failed to fetch course progress';
       setError(errorMessage);
       console.error('Error fetching course progress:', err);
@@ -164,7 +164,7 @@ export const useCourseProgress = (userId?: string, courseId?: string) => {
       }
 
       return true;
-    } catch (err: any) {
+    } catch (err: unknown) {
       const errorMessage = err.message || 'Failed to update progress';
       toast({
         title: "Error",
@@ -231,7 +231,7 @@ export const useCourseProgress = (userId?: string, courseId?: string) => {
     return Math.round(totalProgress / totalModulesInCourse);
   };
 
-  const isModuleUnlocked = (moduleIndex: number, modules: any[]) => {
+  const isModuleUnlocked = (moduleIndex: number, modules: unknown[]) => {
     if (moduleIndex === 0) return true; // First module is always unlocked
     
     const previousModule = modules[moduleIndex - 1];

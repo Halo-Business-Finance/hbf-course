@@ -85,7 +85,7 @@ export const InteractiveFinancialTools = () => {
   });
 
   const [projectedCashFlow, setProjectedCashFlow] = useState<CashFlowProjection[]>([]);
-  const [loanPayments, setLoanPayments] = useState<any[]>([]);
+  const [loanPayments, setLoanPayments] = useState<unknown[]>([]);
 
   useEffect(() => {
     calculateLoanPayments();

@@ -44,7 +44,7 @@ export function AssociatedModulesView({ courseId, onAddFirstModule }: Associated
 
       if (error) throw error;
       setModules(data || []);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error loading associated modules:', error);
       toast({
         title: "Error",

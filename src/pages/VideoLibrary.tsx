@@ -46,7 +46,7 @@ const VideoLibraryPage = () => {
 
       if (error) throw error;
 
-      const videosWithModule = (data || []).map((video: any) => ({
+      const videosWithModule = (data || []).map((video: unknown) => ({
         id: video.id,
         title: video.title,
         description: video.description,
@@ -75,7 +75,7 @@ const VideoLibraryPage = () => {
       }));
 
       setCategories(categoryList);
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast.error("Failed to load videos");
     } finally {
       setLoading(false);

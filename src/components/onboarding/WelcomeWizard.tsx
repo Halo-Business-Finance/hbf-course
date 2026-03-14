@@ -122,7 +122,7 @@ export function WelcomeWizard({ onComplete }: WelcomeWizardProps) {
           professional_role: selectedRole,
           experience_level: selectedExperience,
           learning_goals: selectedGoals,
-        } as any)
+        } as unknown)
         .eq('user_id', user.id);
 
       toast.success('Welcome aboard! Your dashboard is personalized.');

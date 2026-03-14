@@ -9,7 +9,7 @@ interface AuthContextType {
   loading: boolean;
   signOut: (redirectPath?: string) => Promise<void>;
   updateLastActivity: () => void;
-  signIn: (email: string, password: string) => Promise<{ data: any; error: any }>;
+  signIn: (email: string, password: string) => Promise<{ data: unknown; error: unknown }>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -163,7 +163,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       }
       
       return { data, error: null };
-    } catch (error: any) {
+    } catch (error: unknown) {
       logger.error('Sign in error', error, { component: 'AuthContext' });
       // Sanitize error to prevent information leakage
       const errorMessage = getToastErrorMessage(error, 'Unable to sign in. Please check your credentials.');

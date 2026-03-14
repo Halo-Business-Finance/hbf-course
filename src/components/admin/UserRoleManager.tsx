@@ -51,7 +51,7 @@ export const UserRoleManager = () => {
         super_admin: 1, admin: 2, tech_support_admin: 3, instructor: 4, trainee: 5,
       };
 
-      (data || []).forEach((item: any) => {
+      (data || []).forEach((item: unknown) => {
         const existing = userMap.get(item.user_id);
         const currentPriority = rolePriority[item.role] ?? 99;
         const existingPriority = existing ? (rolePriority[existing.role] ?? 99) : Infinity;
@@ -69,7 +69,7 @@ export const UserRoleManager = () => {
       });
 
       setUsers(Array.from(userMap.values()));
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error loading users:", error);
       toast({ title: "Error", description: "Failed to load user roles.", variant: "destructive" });
     } finally {
@@ -96,7 +96,7 @@ export const UserRoleManager = () => {
 
       toast({ title: "Role Updated", description: `User role changed to ${newRole.replace(/_/g, " ")}.` });
       await loadUsers();
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast({ title: "Error", description: error?.message || "Failed to update role.", variant: "destructive" });
     } finally {
       setPendingRole(null);

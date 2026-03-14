@@ -29,7 +29,7 @@ interface SubscriptionOptions {
   table: string;
   event?: 'INSERT' | 'UPDATE' | 'DELETE' | '*';
   filter?: string;
-  callback: (payload: any) => void;
+  callback: (payload: unknown) => void;
 }
 
 /**
@@ -90,7 +90,7 @@ export async function createSecureSubscription(
   
   // Subscribe to postgres changes
   channel.on(
-    'postgres_changes' as any,
+    'postgres_changes' as unknown,
     {
       event: options.event || '*',
       schema: 'public',
@@ -146,7 +146,7 @@ export function getSubscriptionCount(): number {
 export async function subscribeToUserData(
   table: string,
   userId: string,
-  callback: (payload: any) => void
+  callback: (payload: unknown) => void
 ): Promise<RealtimeChannel | null> {
   // Verify the user is subscribing to their own data
   const { data: { user } } = await supabase.auth.getUser();

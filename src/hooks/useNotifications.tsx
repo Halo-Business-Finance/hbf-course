@@ -9,7 +9,7 @@ export interface AppNotification {
   type: string;
   read: boolean;
   user_id: string;
-  data?: any;
+  data?: unknown;
   created_at: string;
 }
 
@@ -103,7 +103,7 @@ export function useNotifications() {
     title: string;
     message: string;
     type?: string;
-    data?: any;
+    data?: unknown;
   }) => {
     if (!user) return;
     try {
@@ -127,7 +127,7 @@ export function useNotifications() {
   // Realtime subscription
   useEffect(() => {
     if (!user) return;
-    let channel: any = null;
+    let channel: unknown = null;
 
     try {
       channel = supabase
@@ -147,7 +147,7 @@ export function useNotifications() {
           table: 'notifications',
           filter: `user_id=eq.${user.id}`,
         }, (payload) => {
-          const deletedId = (payload.old as any)?.id;
+          const deletedId = (payload.old as unknown)?.id;
           if (deletedId) {
             setNotifications(prev => prev.filter(n => n.id !== deletedId));
           }

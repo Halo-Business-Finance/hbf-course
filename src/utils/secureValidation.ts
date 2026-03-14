@@ -9,7 +9,7 @@ export interface ValidationResult {
 }
 
 export interface SecureFormData {
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 // Comprehensive form validation
@@ -103,11 +103,11 @@ export const validateForm = (
 
 // Secure API parameter validation
 export const validateApiParams = (
-  params: Record<string, any>,
+  params: Record<string, unknown>,
   allowedParams: string[]
-): { isValid: boolean; sanitizedParams: Record<string, any>; errors: string[] } => {
+): { isValid: boolean; sanitizedParams: Record<string, unknown>; errors: string[] } => {
   const errors: string[] = [];
-  const sanitizedParams: Record<string, any> = {};
+  const sanitizedParams: Record<string, unknown> = {};
 
   // Check for unexpected parameters
   for (const key of Object.keys(params)) {

@@ -30,7 +30,7 @@ interface AssessmentSession {
   id: string;
   questions: Question[];
   currentQuestionIndex: number;
-  answers: Record<string, any>;
+  answers: Record<string, unknown>;
   startTime: Date;
   timeRemaining: number;
   isAdaptive: boolean;
@@ -127,7 +127,7 @@ export const AdvancedAssessmentSystem = () => {
 
     // Parse questions from course_assessments (stored as JSON)
     (assessments || []).forEach(assessment => {
-      const assessmentQuestions = assessment.questions as any[];
+      const assessmentQuestions = assessment.questions as unknown[];
       if (Array.isArray(assessmentQuestions)) {
         assessmentQuestions.forEach((q, idx) => {
           questions.push({
@@ -189,7 +189,7 @@ export const AdvancedAssessmentSystem = () => {
     }
   }, [session, selectedAnswer, confidence, trackLearningEvent]);
 
-  const finishAssessment = async (finalAnswers: Record<string, any>) => {
+  const finishAssessment = async (finalAnswers: Record<string, unknown>) => {
     if (!session) return;
     const endTime = new Date();
     const totalTimeSpent = Math.floor((endTime.getTime() - session.startTime.getTime()) / 1000 / 60);
@@ -199,7 +199,7 @@ export const AdvancedAssessmentSystem = () => {
     toast({ title: "Assessment Complete!", description: `You scored ${results.score}% in ${totalTimeSpent} minutes.` });
   };
 
-  const calculateDetailedResults = (session: AssessmentSession, answers: Record<string, any>, timeSpent: number): AssessmentResults => {
+  const calculateDetailedResults = (session: AssessmentSession, answers: Record<string, unknown>, timeSpent: number): AssessmentResults => {
     const questions = session.questions;
     let correctCount = 0;
     const topicBreakdown: Record<string, { correct: number; total: number; averageTime: number }> = {};
@@ -221,15 +221,15 @@ export const AdvancedAssessmentSystem = () => {
     return { score, timeSpent, correctAnswers: correctCount, totalQuestions: questions.length, topicBreakdown, difficultyBreakdown, recommendations, strengths, improvements, nextSteps };
   };
 
-  const generateRecommendations = (score: number, topics: any, difficulties: any): string[] => {
+  const generateRecommendations = (score: number, topics: unknown, difficulties: unknown): string[] => {
     const recs = [];
     if (score < 70) { recs.push("Focus on fundamental concepts before attempting advanced topics"); recs.push("Consider reviewing course materials and taking practice quizzes"); }
-    Object.entries(topics).forEach(([topic, data]: [string, any]) => { const pct = (data.correct / data.total) * 100; if (pct < 60) recs.push(`Review ${topic} concepts - current mastery: ${Math.round(pct)}%`); });
+    Object.entries(topics).forEach(([topic, data]: [string, unknown]) => { const pct = (data.correct / data.total) * 100; if (pct < 60) recs.push(`Review ${topic} concepts - current mastery: ${Math.round(pct)}%`); });
     if (score >= 90) recs.push("Excellent performance! Consider advancing to more challenging modules");
     return recs;
   };
-  const generateStrengths = (topics: any): string[] => { const s: string[] = []; Object.entries(topics).forEach(([topic, data]: [string, any]) => { const pct = (data.correct / data.total) * 100; if (pct >= 80) s.push(`Strong understanding of ${topic} (${Math.round(pct)}%)`); }); return s; };
-  const generateImprovements = (topics: any): string[] => { const i: string[] = []; Object.entries(topics).forEach(([topic, data]: [string, any]) => { const pct = (data.correct / data.total) * 100; if (pct < 70) i.push(`${topic} needs more practice (${Math.round(pct)}%)`); }); return i; };
+  const generateStrengths = (topics: unknown): string[] => { const s: string[] = []; Object.entries(topics).forEach(([topic, data]: [string, unknown]) => { const pct = (data.correct / data.total) * 100; if (pct >= 80) s.push(`Strong understanding of ${topic} (${Math.round(pct)}%)`); }); return s; };
+  const generateImprovements = (topics: unknown): string[] => { const i: string[] = []; Object.entries(topics).forEach(([topic, data]: [string, unknown]) => { const pct = (data.correct / data.total) * 100; if (pct < 70) i.push(`${topic} needs more practice (${Math.round(pct)}%)`); }); return i; };
   const generateNextSteps = (score: number, topic: string): string[] => {
     if (score >= 80) return ["Advance to the next module or take a more challenging assessment", "Apply knowledge through practical scenarios and case studies"];
     if (score >= 60) return ["Review incorrect answers and their explanations", "Practice similar questions to reinforce weak areas"];

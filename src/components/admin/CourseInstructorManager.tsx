@@ -53,7 +53,7 @@ export function CourseInstructorManager({ courseId, courseTitle }: CourseInstruc
 
       if (error) throw error;
       setInstructors(data || []);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error loading instructors:", error);
       toast({
         title: "Error",
@@ -97,7 +97,7 @@ export function CourseInstructorManager({ courseId, courseTitle }: CourseInstruc
         title: "Success",
         description: `Instructor ${!currentStatus ? "activated" : "deactivated"} successfully`,
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error updating instructor status:", error);
       toast({
         title: "Error",
@@ -121,7 +121,7 @@ export function CourseInstructorManager({ courseId, courseTitle }: CourseInstruc
         title: "Success",
         description: "Instructor deleted successfully",
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error deleting instructor:", error);
       toast({
         title: "Error",

@@ -13,7 +13,7 @@ interface Achievement {
   id: string;
   title: string;
   description: string;
-  icon: any;
+  icon: unknown;
   points: number;
   rarity: 'common' | 'rare' | 'epic' | 'legendary';
   category: string;
@@ -42,7 +42,7 @@ interface UserStats {
   unlockedAchievements: number;
 }
 
-const iconMap: Record<string, any> = {
+const iconMap: Record<string, unknown> = {
   BookOpen, Trophy, Flame, Users, Zap, Crown, Star, Target, Award, Gift, Clock, CheckCircle
 };
 

@@ -115,7 +115,7 @@ export function ArticleManager() {
     try {
       const readingTime = calculateReadingTime(formData.content);
       
-      const articleData: any = {
+      const articleData: unknown = {
         module_id: formData.module_id,
         title: formData.title,
         content: formData.content,
@@ -156,7 +156,7 @@ export function ArticleManager() {
 
       resetForm();
       loadData();
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast({
         title: "Error",
         description: error.message || "Failed to save article",
@@ -212,7 +212,7 @@ export function ArticleManager() {
       });
       
       loadData();
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast({
         title: "Error",
         description: error.message || "Failed to delete article",
@@ -223,7 +223,7 @@ export function ArticleManager() {
 
   const togglePublishStatus = async (articleId: string, isPublished: boolean) => {
     try {
-      const updateData: any = { 
+      const updateData: unknown = { 
         is_published: !isPublished 
       };
       
@@ -244,7 +244,7 @@ export function ArticleManager() {
       });
       
       loadData();
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast({
         title: "Error",
         description: error.message || "Failed to update article status",

@@ -14,7 +14,7 @@ interface AuditEvent {
   event_type: string;
   severity: string;
   user_id: string | null;
-  details: any;
+  details: unknown;
   created_at: string;
   data_classification?: string;
   logged_via_secure_function?: boolean;
@@ -26,7 +26,7 @@ interface AdminAuditEntry {
   admin_user_id: string;
   target_user_id: string | null;
   target_resource: string | null;
-  details: any;
+  details: unknown;
   ip_address: string | null;
   created_at: string;
 }
@@ -74,7 +74,7 @@ export const AuditLogViewer = () => {
         if (error) throw error;
         setEvents(data || []);
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error loading audit logs:", error);
       toast({
         title: "Error",
@@ -250,7 +250,7 @@ export const AuditLogViewer = () => {
                             {(event as AuditEvent).event_type.replace(/_/g, " ")}
                           </TableCell>
                           <TableCell>
-                            <Badge variant={getSeverityColor((event as AuditEvent).severity) as any}>
+                            <Badge variant={getSeverityColor((event as AuditEvent).severity) as unknown}>
                               {(event as AuditEvent).severity}
                             </Badge>
                           </TableCell>

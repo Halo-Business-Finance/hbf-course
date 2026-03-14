@@ -10,8 +10,8 @@ import { LessonPlayerHeader } from './lesson/LessonPlayerHeader';
 import { LessonSectionNav } from './lesson/LessonSectionNav';
 
 interface InteractiveLessonPlayerProps {
-  lesson: any;
-  learningProfile: any;
+  lesson: unknown;
+  learningProfile: unknown;
   onComplete: (lessonId: string, score: number, timeSpent: number) => void;
 }
 
@@ -37,7 +37,7 @@ export const InteractiveLessonPlayer = ({ lesson, learningProfile, onComplete }:
       icon: Brain,
       content: getAdaptiveContent(lesson, learningProfile)
     },
-    ...lesson.interactive_elements.map((element: any, index: number) => ({
+    ...lesson.interactive_elements.map((element: unknown, index: number) => ({
       type: 'interactive',
       title: element.title,
       icon: Lightbulb,
@@ -56,7 +56,7 @@ export const InteractiveLessonPlayer = ({ lesson, learningProfile, onComplete }:
     setProgress((currentSection / (sections.length - 1)) * 100);
   }, [currentSection, sections.length]);
 
-  function generateIntroContent(lesson: any, profile: any) {
+  function generateIntroContent(lesson: unknown, profile: unknown) {
     return {
       title: `Welcome to ${lesson.title}`,
       objectives: lesson.learning_objectives,
@@ -67,7 +67,7 @@ export const InteractiveLessonPlayer = ({ lesson, learningProfile, onComplete }:
     };
   }
 
-  function getPersonalizedMessage(profile: any) {
+  function getPersonalizedMessage(profile: unknown) {
     const messages = {
       visual: "This lesson includes visual diagrams and interactive elements perfect for your learning style.",
       auditory: "This lesson features audio explanations and discussion points tailored for you.",
@@ -77,7 +77,7 @@ export const InteractiveLessonPlayer = ({ lesson, learningProfile, onComplete }:
     return messages[profile.learning_style as keyof typeof messages] || messages.visual;
   }
 
-  function getAdaptiveContent(lesson: any, profile: any) {
+  function getAdaptiveContent(lesson: unknown, profile: unknown) {
     const difficulty = lesson.difficulty_level;
     const style = profile.learning_style;
     
@@ -149,7 +149,7 @@ export const InteractiveLessonPlayer = ({ lesson, learningProfile, onComplete }:
     };
   }
 
-  function generateSummaryContent(lesson: any) {
+  function generateSummaryContent(lesson: unknown) {
     return {
       title: 'Lesson Complete!',
       keyTakeaways: lesson.learning_objectives,
@@ -199,7 +199,7 @@ export const InteractiveLessonPlayer = ({ lesson, learningProfile, onComplete }:
     setSectionScores(newScores);
   };
 
-  const renderSectionContent = (section: any) => {
+  const renderSectionContent = (section: unknown) => {
     switch (section.type) {
       case 'introduction':
         return <IntroductionSection content={section.content} />;
@@ -214,7 +214,7 @@ export const InteractiveLessonPlayer = ({ lesson, learningProfile, onComplete }:
     }
   };
 
-  const renderInteractiveElement = (element: any, index: number) => {
+  const renderInteractiveElement = (element: unknown, index: number) => {
     switch (element.type) {
       case 'drag-drop':
         return <DragDropContainer element={element} onScore={handleSectionScore} />;
@@ -301,7 +301,7 @@ export const InteractiveLessonPlayer = ({ lesson, learningProfile, onComplete }:
 };
 
 // Section Components
-const IntroductionSection = ({ content }: { content: any }) => (
+const IntroductionSection = ({ content }: { content: unknown }) => (
   <div className="space-y-6">
     <div className="text-center space-y-4">
       <h2 className="text-2xl font-bold">{content.title}</h2>
@@ -368,7 +368,7 @@ const IntroductionSection = ({ content }: { content: any }) => (
   </div>
 );
 
-const MainContentSection = ({ content }: { content: any }) => (
+const MainContentSection = ({ content }: { content: unknown }) => (
   <div className="space-y-6">
     <div className="prose prose-gray max-w-none">
       <div className="text-lg leading-relaxed">
@@ -419,12 +419,12 @@ const MainContentSection = ({ content }: { content: any }) => (
   </div>
 );
 
-const SummarySection = ({ content, onScore }: { content: any; onScore: (score: number) => void }) => {
+const SummarySection = ({ content, onScore }: { content: unknown; onScore: (score: number) => void }) => {
   const [answers, setAnswers] = useState<{ [key: number]: number }>({});
   const [showResults, setShowResults] = useState(false);
 
   const handleSubmit = () => {
-    const correct = content.assessmentQuestions.reduce((count: number, question: any, index: number) => {
+    const correct = content.assessmentQuestions.reduce((count: number, question: unknown, index: number) => {
       return count + (answers[index] === question.correct ? 1 : 0);
     }, 0);
     
@@ -463,7 +463,7 @@ const SummarySection = ({ content, onScore }: { content: any; onScore: (score: n
           <CardTitle>Knowledge Check</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          {content.assessmentQuestions.map((question: any, qIndex: number) => (
+          {content.assessmentQuestions.map((question: unknown, qIndex: number) => (
             <div key={qIndex} className="space-y-3">
               <h4 className="font-medium">{question.question}</h4>
               <div className="space-y-2">

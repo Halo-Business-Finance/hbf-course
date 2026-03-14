@@ -38,7 +38,7 @@ export const SecurityEventManager: React.FC = () => {
       if (data && typeof data === 'object' && !Array.isArray(data)) {
         setStats(data as unknown as SecurityEventStats);
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to load security stats:', error);
       toast({
         title: "Error",
@@ -71,7 +71,7 @@ export const SecurityEventManager: React.FC = () => {
       // Reload stats after cleanup
       await loadSecurityStats();
       
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Cleanup failed:', error);
       toast({
         title: "Cleanup Failed",
@@ -120,7 +120,7 @@ export const SecurityEventManager: React.FC = () => {
         description: "Security monitoring has been optimized to reduce noise",
       });
       
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Optimization failed:', error);
       toast({
         title: "Optimization Failed",

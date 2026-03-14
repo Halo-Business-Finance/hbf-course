@@ -4,9 +4,9 @@ import { Progress } from '@/components/ui/progress';
 import { CheckCircle, Circle, Lock, Play, Clock, Brain, Target, Zap, Star } from 'lucide-react';
 
 interface LearningPathVisualizerProps {
-  learningPath: any[];
+  learningPath: unknown[];
   currentLessonId?: string;
-  onLessonSelect: (lesson: any) => void;
+  onLessonSelect: (lesson: unknown) => void;
 }
 
 export const LearningPathVisualizer = ({ 

@@ -120,8 +120,8 @@ export const SecurityMonitoringDashboard = () => {
 
       // Process failed logins
       const loginAttempts: FailedLogin[] = failedLoginEvents.slice(0, 20).map((event) => {
-        const details = event.details as Record<string, any> | null;
-        const geolocation = details?.geolocation as Record<string, any> | null;
+        const details = event.details as Record<string, unknown> | null;
+        const geolocation = details?.geolocation as Record<string, unknown> | null;
         return {
           id: event.id,
           email: details?.email || 'Unknown',
@@ -189,7 +189,7 @@ export const SecurityMonitoringDashboard = () => {
         table: 'security_events'
       }, (payload) => {
         if (isMonitoring) {
-          const event = payload.new as any;
+          const event = payload.new as unknown;
           if (event.severity === 'critical' || event.severity === 'high') {
             toast({
               title: "Security Alert",
@@ -229,7 +229,7 @@ export const SecurityMonitoringDashboard = () => {
     };
   }, [loadSecurityData, isMonitoring]);
 
-  const getPatternDescription = (type: string, data: any): string => {
+  const getPatternDescription = (type: string, data: unknown): string => {
     switch (type) {
       case 'impossible_travel':
         return `Login detected from geographically impossible location based on travel time`;
@@ -248,7 +248,7 @@ export const SecurityMonitoringDashboard = () => {
     }
   };
 
-  const extractIndicators = (anomaly: any): string[] => {
+  const extractIndicators = (anomaly: unknown): string[] => {
     const indicators: string[] = [];
     if (anomaly.location_data) indicators.push('Geographic anomaly');
     if (anomaly.device_data) indicators.push('Device fingerprint mismatch');
@@ -257,7 +257,7 @@ export const SecurityMonitoringDashboard = () => {
     return indicators;
   };
 
-  const generateThreatTrends = (events: any[], failedLogins: any[]): ThreatTrend[] => {
+  const generateThreatTrends = (events: unknown[], failedLogins: unknown[]): ThreatTrend[] => {
     const days = 7;
     const trends: ThreatTrend[] = [];
     
@@ -285,7 +285,7 @@ export const SecurityMonitoringDashboard = () => {
     return trends;
   };
 
-  const generateGeoThreats = (events: any[]): GeoThreat[] => {
+  const generateGeoThreats = (events: unknown[]): GeoThreat[] => {
     const geoMap = new Map<string, GeoThreat>();
     
     events.forEach(event => {

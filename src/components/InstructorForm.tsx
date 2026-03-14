@@ -74,7 +74,7 @@ export const InstructorForm = ({ instructor, onSave, onCancel }: InstructorFormP
       }
 
       onSave();
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast({
         title: "Error",
         description: error.message || "Failed to save instructor",

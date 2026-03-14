@@ -6,7 +6,7 @@ import { CheckCircle, X, HelpCircle, Lightbulb } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface KnowledgeCheckProps {
-  element: any;
+  element: unknown;
   onScore: (score: number) => void;
 }
 
@@ -23,7 +23,7 @@ interface Question {
 
 export const KnowledgeCheck = ({ element, onScore }: KnowledgeCheckProps) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState<{ [key: number]: any }>({});
+  const [answers, setAnswers] = useState<{ [key: number]: unknown }>({});
   const [showFeedback, setShowFeedback] = useState<{ [key: number]: boolean }>({});
   const [showHints, setShowHints] = useState<{ [key: number]: boolean }>({});
   const [isComplete, setIsComplete] = useState(false);
@@ -81,7 +81,7 @@ export const KnowledgeCheck = ({ element, onScore }: KnowledgeCheckProps) => {
   const progress = ((currentQuestion + 1) / questions.length) * 100;
   const question = questions[currentQuestion];
 
-  const handleAnswer = (answer: any) => {
+  const handleAnswer = (answer: unknown) => {
     setAnswers({ ...answers, [currentQuestion]: answer });
   };
 

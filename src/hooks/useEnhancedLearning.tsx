@@ -41,7 +41,7 @@ export const useEnhancedLearning = () => {
   const [metrics, setMetrics] = useState<LearningMetrics | null>(null);
   const [recommendations, setRecommendations] = useState<AdaptiveRecommendation[]>([]);
   const [currentSession, setCurrentSession] = useState<LearningSession | null>(null);
-  const [learningGoals, setLearningGoals] = useState<any[]>([]);
+  const [learningGoals, setLearningGoals] = useState<unknown[]>([]);
   const [loading, setLoading] = useState(true);
 
   // Real-time session tracking
@@ -129,7 +129,7 @@ export const useEnhancedLearning = () => {
       // Calculate comprehensive metrics
       const totalModules = 13; // From database count
       const completedModules = completions?.length || 0;
-      const totalTime = sessions?.reduce((sum: number, session: any) => sum + (session.duration_minutes || 0), 0) || 0;
+      const totalTime = sessions?.reduce((sum: number, session: unknown) => sum + (session.duration_minutes || 0), 0) || 0;
       const totalScores = assessments?.reduce((sum, assessment) => sum + assessment.score, 0) || 0;
       const assessmentCount = assessments?.length || 0;
 
@@ -191,8 +191,8 @@ export const useEnhancedLearning = () => {
   // AI-powered adaptive recommendations
   const generateAdaptiveRecommendations = async (
     metrics: LearningMetrics, 
-    completions: any[], 
-    assessments: any[]
+    completions: unknown[], 
+    assessments: unknown[]
   ) => {
     const recommendations: AdaptiveRecommendation[] = [];
 
@@ -268,7 +268,7 @@ export const useEnhancedLearning = () => {
   };
 
   // Learning event tracking for analytics
-  const trackLearningEvent = useCallback(async (eventType: string, metadata: any = {}) => {
+  const trackLearningEvent = useCallback(async (eventType: string, metadata: unknown = {}) => {
     if (!user?.id) return;
 
     try {
@@ -289,7 +289,7 @@ export const useEnhancedLearning = () => {
   }, [user?.id]);
 
   // Progress update with real-time sync
-  const updateProgress = useCallback(async (moduleId: string, progressData: any) => {
+  const updateProgress = useCallback(async (moduleId: string, progressData: unknown) => {
     if (!user?.id) return;
 
     try {

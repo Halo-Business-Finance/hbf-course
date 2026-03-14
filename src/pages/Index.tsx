@@ -19,7 +19,7 @@ const Index = () => {
   const { user } = useAuth();
   const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
   const [isCurriculumModalOpen, setIsCurriculumModalOpen] = useState(false);
-  const [selectedLearningPath, setSelectedLearningPath] = useState<any>(null);
+  const [selectedLearningPath, setSelectedLearningPath] = useState<unknown>(null);
 
   if (user) {
     return <Navigate to="/dashboard" replace />;

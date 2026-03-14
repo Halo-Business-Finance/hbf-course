@@ -5,7 +5,7 @@ import { CheckCircle, X, RotateCcw } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface DragDropContainerProps {
-  element: any;
+  element: unknown;
   onScore: (score: number) => void;
 }
 
