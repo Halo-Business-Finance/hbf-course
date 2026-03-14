@@ -32,7 +32,7 @@
     --foreground: 0 0% 0%;
 
     /* Carbon Blue palette */
-    --primary: 20 90% 48%;      /* Navy-900 */
+    --primary: 220 90% 48%;     /* Navy-900 */
     --primary-foreground: 33 100% 96%;
     --primary-hover: 220 98% 55%; /* Blue-70 */
     --primary-muted: 220 98% 85%;
@@ -47,8 +47,8 @@
     --muted-foreground: 0 0% 20%; /* Dark text on muted */
 
     /* Carbon support colors */
-    --accent: 47 100% 96%;       /* Blue-60 for consistency */
-    --accent-foreground: 37 92% 50%;
+    --accent: 47 100% 96%;       /* Blue-60 for consistency (background) */
+    --accent-foreground: 37 92% 50%; /* Intentional orange foreground to contrast with accent */
 
     /* Destructive using Carbon red */
     --destructive: 0 72% 50%;    /* Red-60 */
@@ -57,7 +57,7 @@
     /* Border and input using Carbon grays */
     --border: 0 0% 83%;          /* Gray-30 */
     --input: 0 0% 83%;           /* Gray-20 */
-    --ring: 20 90% 48%;         /* Blue-60 */
+    --ring: 220 98% 61%;         /* Blue-60 */
 
     /* Support colors */
     --success: 125 63% 41%;      /* Green-60 */
@@ -98,7 +98,7 @@
 
     /* Sidebar using Carbon layer tokens */
     --sidebar-background: 0 0% 0%;      /* Black */
-    --sidebar-foreground: 0 0% 9%;       /* Gray-100 */
+    --sidebar-foreground: 0 0% 98%;      /* Gray-100 */
     --sidebar-primary: 20 90% 48%;          /* Gray-100 */
     --sidebar-primary-foreground: 33 100% 96%;
     --sidebar-accent: 0 0% 32%;          /* Gray-20 */
