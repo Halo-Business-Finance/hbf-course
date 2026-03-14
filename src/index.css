@@ -32,7 +32,7 @@
     --foreground: 0 0% 0%;
 
     /* Carbon Blue palette */
-    --primary: 20 90% 48%;      /* Navy-900 */
+    --primary: 220 90% 48%;     /* Navy-900 */
     --primary-foreground: 33 100% 96%;
     --primary-hover: 220 98% 55%; /* Blue-70 */
     --primary-muted: 220 98% 85%;
