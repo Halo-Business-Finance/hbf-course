@@ -32,7 +32,7 @@
     --foreground: 0 0% 0%;
 
     /* Carbon Blue palette */
-    --primary: 220 90% 48%;     /* Navy-900 */
+    --primary: 220 90% 48%;     /* Primary blue */
     --primary-foreground: 33 100% 96%;
     --primary-hover: 220 98% 55%; /* Blue-70 */
     --primary-muted: 220 98% 85%;
@@ -99,12 +99,12 @@
     /* Sidebar using Carbon layer tokens */
     --sidebar-background: 0 0% 0%;      /* Black */
     --sidebar-foreground: 0 0% 98%;      /* Gray-100 */
-    --sidebar-primary: 20 90% 48%;          /* Gray-100 */
+    --sidebar-primary: 20 90% 48%;          /* Orange accent */
     --sidebar-primary-foreground: 33 100% 96%;
     --sidebar-accent: 0 0% 32%;          /* Gray-20 */
     --sidebar-accent-foreground: 0 0% 98%;
     --sidebar-border: 0 0% 83%;          /* Gray-30 */
-    --sidebar-ring: 20 90% 48%;         /* Blue-60 */
+    --sidebar-ring: 20 90% 48%;         /* Orange-60 */
 
     /* Carbon inspired gradients */
     --gradient-primary: linear-gradient(135deg, hsl(225, 73%, 57%) 0%, hsl(225, 73%, 62%) 100%);
