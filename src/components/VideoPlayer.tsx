@@ -134,7 +134,16 @@ export const VideoPlayer = ({
             ? `https://www.youtube-nocookie.com/embed/${id}?rel=0&modestbranding=1&playsinline=1${origin ? `&origin=${encodeURIComponent(origin)}` : ''}`
             : `https://piped.video/embed/${id}`
         )
-      : videoUrl.replace("watch?v=", "embed/").replace("&", "?").replace("www.youtube.com", "www.youtube-nocookie.com");
+      : (() => {
+          try {
+            const parsed = new URL(videoUrl);
+            if (!['https:', 'http:'].includes(parsed.protocol)) return '';
+            const host = parsed.hostname.replace('www.youtube.com', 'www.youtube-nocookie.com');
+            const vParam = parsed.searchParams.get('v');
+            if (vParam) return `https://${host}/embed/${encodeURIComponent(vParam)}?rel=0&modestbranding=1`;
+            return `https://${host}${parsed.pathname.replace('/watch', '/embed')}`;
+          } catch { return ''; }
+        })();
     
     const watchUrl = id
       ? `https://www.youtube.com/watch?v=${id}`

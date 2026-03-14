@@ -38,38 +38,21 @@ export const sanitizeInput = (input: string): string => {
     }
   }
   
+  // Use proper HTML entity encoding instead of regex-based tag stripping
+  // This prevents incomplete multi-character sanitization and bad HTML filtering
   return input
     .trim()
-    // Remove HTML/XML tags completely
-    .replace(/<[^>]*>/g, '')
-    // Remove script tags content
-    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
-    // Remove style content
-    .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '')
-    // Remove javascript: and other dangerous protocols
-    .replace(/javascript:/gi, '')
-    .replace(/vbscript:/gi, '')
-    .replace(/data:/gi, '')
-    .replace(/file:/gi, '')
-    // Remove on* event handlers
-    .replace(/\bon\w+\s*=/gi, '')
-    // Remove data URLs and base64 content
-    .replace(/data:\s*[^;]*;[^,]*,/gi, '')
-    // Remove expression() CSS
-    .replace(/expression\s*\([^)]*\)/gi, '')
-    // Remove import statements
-    .replace(/import\s+.*?from/gi, '')
-    // Encode HTML entities for security
-    .replace(/&(?!amp;|lt;|gt;|quot;|#x27;|#x2F;)/g, '&amp;')
+    // Remove null bytes and control characters first
+    .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '')
+    // Remove Unicode zero-width characters
+    .replace(/[\u200B-\u200D\uFEFF]/g, '')
+    // Encode all HTML entities completely (order matters: & first)
+    .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#x27;')
     .replace(/\//g, '&#x2F;')
-    // Remove null bytes and control characters
-    .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '')
-    // Remove Unicode zero-width characters
-    .replace(/[\u200B-\u200D\uFEFF]/g, '')
     // Limit length to prevent DoS
     .substring(0, 1000);
 };
