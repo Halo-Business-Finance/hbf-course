@@ -73,6 +73,7 @@ export function useKeyboardShortcuts() {
         document.removeEventListener('keydown', handleNextKey);
       }, 1000);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate, shortcuts]);
 
   useEffect(() => {

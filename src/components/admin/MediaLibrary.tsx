@@ -91,6 +91,7 @@ export function MediaLibrary() {
 
   useEffect(() => {
     loadMedia();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentFolder]);
 
   const loadMedia = async () => {

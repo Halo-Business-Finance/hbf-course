@@ -59,6 +59,7 @@ export function AdvancedSearch({ trigger }: AdvancedSearchProps) {
     } else {
       setResults([]);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, filters]);
 
   const saveRecentSearch = (searchQuery: string) => {

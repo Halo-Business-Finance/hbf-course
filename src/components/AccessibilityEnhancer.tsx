@@ -73,6 +73,7 @@ export const AccessibilityEnhancer = () => {
       setSettings(updatedSettings);
       applySettings(updatedSettings);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const applySettings = (newSettings: AccessibilitySettings) => {

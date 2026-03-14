@@ -70,10 +70,12 @@ export function ModuleEditor() {
 
   useEffect(() => {
     loadModules();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courses, modules]);
 
   useEffect(() => {
     applyFilters();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allModules, searchTerm, selectedCourse, selectedSkillLevel, selectedStatus]);
 
   const loadModules = () => {

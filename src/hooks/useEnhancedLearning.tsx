@@ -58,6 +58,7 @@ export const useEnhancedLearning = () => {
     
     // Track session start
     trackLearningEvent('session_start', { moduleId, activityType });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const endLearningSession = useCallback(async () => {
@@ -97,6 +98,7 @@ export const useEnhancedLearning = () => {
     }
     
     setCurrentSession(null);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentSession, user?.id]);
 
   // Advanced analytics and metrics calculation

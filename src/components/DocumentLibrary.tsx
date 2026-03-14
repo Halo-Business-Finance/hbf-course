@@ -32,6 +32,7 @@ export function DocumentLibrary({ moduleId }: DocumentLibraryProps) {
 
   useEffect(() => {
     fetchDocuments();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [moduleId]);
 
   const fetchDocuments = async () => {

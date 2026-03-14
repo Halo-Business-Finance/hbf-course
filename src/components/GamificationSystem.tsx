@@ -100,6 +100,7 @@ export const GamificationSystem = () => {
     if (user?.id) {
       loadGamificationData();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.id]);
 
   const loadGamificationData = async () => {

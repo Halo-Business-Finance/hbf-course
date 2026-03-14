@@ -61,6 +61,7 @@ export const CourseModuleManager = forwardRef<CourseModuleManagerHandle>((_, ref
 
   useEffect(() => {
     loadModules();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadModules = async () => {

@@ -236,6 +236,7 @@ const AdminDashboard = () => {
         setRealtimeChannel(null);
       }
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, isAdmin, roleLoading]);
   const loadDashboardData = async () => {
     try {

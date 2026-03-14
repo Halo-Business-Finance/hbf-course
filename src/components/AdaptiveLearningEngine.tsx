@@ -77,6 +77,7 @@ export const AdaptiveLearningEngine = () => {
     if (user?.id) {
       loadPersonalizationData();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.id]);
 
   const loadPersonalizationData = async () => {

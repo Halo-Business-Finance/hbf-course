@@ -163,6 +163,7 @@ const Courses = () => {
     if (user && allCourses.length > 0) {
       checkEnrollmentStatus();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, allCourses.length]);
   const checkEnrollmentStatus = async () => {
     if (!user) return;

@@ -121,6 +121,7 @@ export function MilestoneCelebration({
 }
 
 // Hook for triggering celebrations
+// eslint-disable-next-line react-refresh/only-export-components
 export function useMilestoneCelebration() {
   const [celebration, setCelebration] = useState<{
     type: MilestoneType;

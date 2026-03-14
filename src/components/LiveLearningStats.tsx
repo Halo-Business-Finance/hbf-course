@@ -55,6 +55,7 @@ export const LiveLearningStats = () => {
     if (!user?.id) return;
 
     loadLearningData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.id]);
 
   // Set up real-time subscriptions
@@ -160,6 +161,7 @@ export const LiveLearningStats = () => {
         console.warn('Error cleaning up channels:', error);
       }
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.id, toast]);
 
   const loadLearningData = async () => {

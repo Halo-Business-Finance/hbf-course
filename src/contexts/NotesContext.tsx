@@ -33,6 +33,7 @@ interface NotesContextType {
 
 const NotesContext = createContext<NotesContextType | undefined>(undefined);
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useNotes = () => {
   const context = useContext(NotesContext);
   if (!context) {
@@ -189,6 +190,7 @@ export const NotesProvider: React.FC<NotesProviderProps> = ({ children }) => {
 
   useEffect(() => {
     refreshNotes();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const value: NotesContextType = {

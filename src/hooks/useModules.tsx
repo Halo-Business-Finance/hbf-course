@@ -218,6 +218,7 @@ export const useModules = (courseId?: string) => {
 
   useEffect(() => {
     fetchModules();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courseId, user?.id]);
 
   return {

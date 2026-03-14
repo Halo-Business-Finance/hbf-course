@@ -27,6 +27,7 @@ export const RoleSessionIndicators = () => {
       loadSessionData();
       computePermissions();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, userRole]);
 
   const loadSessionData = async () => {

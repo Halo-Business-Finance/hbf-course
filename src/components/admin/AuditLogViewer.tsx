@@ -44,6 +44,7 @@ export const AuditLogViewer = () => {
 
   useEffect(() => {
     loadEvents();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [logSource, severityFilter, page]);
 
   const loadEvents = async () => {

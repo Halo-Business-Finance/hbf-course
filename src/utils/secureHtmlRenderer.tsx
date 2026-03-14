@@ -73,6 +73,7 @@ export const SecureHtmlRenderer: React.FC<SecureHtmlProps> = ({
 };
 
 // Hook for safe HTML rendering with additional security checks
+// eslint-disable-next-line react-refresh/only-export-components
 export const useSafeHtml = (content: string, options: {
   maxLength?: number;
   trackAccess?: boolean;
@@ -109,6 +110,7 @@ export const useSafeHtml = (content: string, options: {
 };
 
 // Safe text extractor that removes all HTML
+// eslint-disable-next-line react-refresh/only-export-components
 export const extractSafeText = (html: string, maxLength: number = 500): string => {
   if (!html || typeof html !== 'string') return '';
   

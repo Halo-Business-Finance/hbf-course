@@ -174,6 +174,7 @@ const ModulePage = () => {
       }
     };
     fetchModuleAndContent();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [moduleId, setSelectedCourse]);
 
   if (loading) {

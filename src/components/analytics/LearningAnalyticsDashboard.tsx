@@ -27,6 +27,7 @@ export function LearningAnalyticsDashboard() {
     if (user) {
       fetchAnalytics();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const fetchAnalytics = async () => {

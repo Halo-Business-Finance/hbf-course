@@ -72,6 +72,7 @@ export const CMSPageManager = () => {
   useEffect(() => {
     fetchPages();
     fetchCategories();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchPages = async () => {

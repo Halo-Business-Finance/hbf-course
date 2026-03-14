@@ -96,6 +96,7 @@ export const InteractiveFinancialTools = () => {
     calculateLoanPayments();
     generateCashFlowProjection();
     calculateBusinessValuation();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loanData, cashFlowData, valuationData]);
 
   const calculateLoanPayments = () => {

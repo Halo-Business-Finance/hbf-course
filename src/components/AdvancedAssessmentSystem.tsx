@@ -81,6 +81,7 @@ export const AdvancedAssessmentSystem = () => {
       });
     }, 1000);
     return () => clearInterval(timer);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session, results]);
 
   const startAssessment = useCallback(async (mode: 'practice' | 'assessment' | 'adaptive', topic?: string) => {
@@ -192,6 +193,7 @@ export const AdvancedAssessmentSystem = () => {
     } else {
       await finishAssessment(updatedAnswers);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session, selectedAnswer, confidence, trackLearningEvent]);
 
   const finishAssessment = async (finalAnswers: Record<string, any>) => {

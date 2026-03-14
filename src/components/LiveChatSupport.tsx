@@ -55,6 +55,7 @@ export const LiveChatSupport = ({ isOpen, onOpenChange }: LiveChatSupportProps) 
       // Initialize chat when opened
       initializeChat();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   const initializeChat = async () => {

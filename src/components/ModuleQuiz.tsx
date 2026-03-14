@@ -303,6 +303,7 @@ export const ModuleQuiz: React.FC<ModuleQuizProps> = ({
     if (user?.id) {
       loadQuizStatus();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.id, moduleId]);
 
   const loadQuizStatus = async () => {

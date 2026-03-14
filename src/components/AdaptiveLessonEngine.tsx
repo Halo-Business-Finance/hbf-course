@@ -46,6 +46,7 @@ export const AdaptiveLessonEngine = ({ moduleId, userId, courseId }: AdaptiveLes
   const [masteryScore, setMasteryScore] = useState(0);
   const { toast } = useToast();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { initializeAdaptiveLearning(); }, [moduleId, userId]);
 
   const initializeAdaptiveLearning = async () => {

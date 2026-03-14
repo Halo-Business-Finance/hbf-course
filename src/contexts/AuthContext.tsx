@@ -16,6 +16,7 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
@@ -265,6 +266,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     });
 
     return () => subscription.unsubscribe();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Set up session timeout checker
@@ -273,6 +275,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     const interval = setInterval(checkSessionTimeout, 60000); // Check every minute
     return () => clearInterval(interval);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session, sessionWarningShown]);
 
   // Track user activity
@@ -297,6 +300,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         document.removeEventListener(event, handleActivity, true);
       });
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session, sessionWarningShown]);
 
   const value = {

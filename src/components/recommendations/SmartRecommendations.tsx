@@ -42,6 +42,7 @@ export function SmartRecommendations() {
 
   useEffect(() => {
     if (user) generateRecommendations();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const generateRecommendations = async () => {

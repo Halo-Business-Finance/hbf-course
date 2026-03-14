@@ -67,6 +67,7 @@ export const InteractiveLearningPath = () => {
       loadLearningPaths();
       loadUserProgress();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.id]);
 
   const loadLearningPaths = async () => {

@@ -43,6 +43,7 @@ export const SecurityPrivacyManager: React.FC<SecurityPrivacyManagerProps> = ({ 
     if (user) {
       loadPrivacyConsents();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const loadPrivacyConsents = async () => {

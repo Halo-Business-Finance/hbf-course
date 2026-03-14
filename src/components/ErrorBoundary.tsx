@@ -129,6 +129,7 @@ export class ErrorBoundary extends Component<Props, State> {
 }
 
 // HOC for wrapping functional components with error boundary
+// eslint-disable-next-line react-refresh/only-export-components
 export function withErrorBoundary<P extends object>(
   Component: React.ComponentType<P>,
   fallback?: ReactNode,

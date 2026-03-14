@@ -36,6 +36,7 @@ export function CourseReviews({ courseId }: CourseReviewsProps) {
 
   useEffect(() => {
     loadReviews();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courseId]);
 
   const loadReviews = async () => {

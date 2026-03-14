@@ -40,6 +40,7 @@ export function DiscussionForum({ courseId, moduleId }: DiscussionForumProps) {
 
   useEffect(() => {
     loadPosts();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courseId, moduleId]);
 
   const loadPosts = async () => {

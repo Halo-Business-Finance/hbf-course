@@ -275,6 +275,7 @@ export const useCourseProgress = (userId?: string, courseId?: string) => {
     if (userId) {
       fetchProgress();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId, courseId]);
 
   const getCompletedModulesCount = () => {

@@ -25,6 +25,7 @@ interface CourseSelectionContextType {
 
 const CourseSelectionContext = createContext<CourseSelectionContextType | undefined>(undefined);
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useCourseSelection = () => {
   const context = useContext(CourseSelectionContext);
   if (context === undefined) {
@@ -155,6 +156,7 @@ export const CourseSelectionProvider: React.FC<{ children: React.ReactNode }> = 
 
   useEffect(() => {
     fetchCourses();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return (

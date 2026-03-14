@@ -63,6 +63,7 @@ export function AppSidebar({ onOpenSupport }: {onOpenSupport?: () => void;}) {
     } else {
       setSelectedCourseModules([]);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, selectedCourse]);
 
   const fetchSelectedCourseModules = async () => {

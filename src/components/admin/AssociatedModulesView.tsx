@@ -31,6 +31,7 @@ export function AssociatedModulesView({ courseId, onAddFirstModule }: Associated
 
   useEffect(() => {
     loadAssociatedModules();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courseId]);
 
   const loadAssociatedModules = async () => {

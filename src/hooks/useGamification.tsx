@@ -153,6 +153,7 @@ export function useGamification() {
     } catch (error) {
       console.error('Error updating streak:', error);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, streak]);
 
   const checkStreakBadges = async (streakDays: number) => {

@@ -80,12 +80,14 @@ export const CMSMenuManager = () => {
   useEffect(() => {
     fetchMenus();
     fetchPages();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (selectedMenu) {
       fetchMenuItems(selectedMenu);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedMenu]);
 
   const fetchMenus = async () => {

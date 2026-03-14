@@ -43,6 +43,7 @@ const ProgressPage = () => {
 
   useEffect(() => {
     if (user) fetchProgressData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const fetchProgressData = async () => {

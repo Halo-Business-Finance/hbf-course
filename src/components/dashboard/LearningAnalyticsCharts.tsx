@@ -33,6 +33,7 @@ export function LearningAnalyticsCharts({ className }: LearningAnalyticsChartsPr
   useEffect(() => {
     if (!user) return;
     fetchAnalyticsData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, timeRange]);
 
   const fetchAnalyticsData = async () => {

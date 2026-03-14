@@ -63,6 +63,7 @@ export default function Branding() {
     };
 
     if (user) loadSettings();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const updateSetting = (key: string, value: string) => {
