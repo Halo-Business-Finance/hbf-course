@@ -242,36 +242,7 @@
   }
 }
 
-/* Font size variations - outside @layer to avoid lightningcss selector merging */
-body.a11y-font-small,
-body.a11y-font-small * {
-  font-size: 0.875rem !important;
-  line-height: 1.5 !important;
-}
-
-body.a11y-font-medium,
-body.a11y-font-medium * {
-  font-size: 1rem !important;
-  line-height: 1.5 !important;
-}
-
-body.a11y-font-large,
-body.a11y-font-large * {
-  font-size: 1.25rem !important;
-  line-height: 1.4 !important;
-}
-
-body.a11y-font-small h1 { font-size: 1.875rem !important; }
-body.a11y-font-small h2 { font-size: 1.5rem !important; }
-body.a11y-font-small h3 { font-size: 1.25rem !important; }
-
-body.a11y-font-medium h1 { font-size: 2.25rem !important; }
-body.a11y-font-medium h2 { font-size: 1.875rem !important; }
-body.a11y-font-medium h3 { font-size: 1.5rem !important; }
-
-body.a11y-font-large h1 { font-size: 2.75rem !important; }
-body.a11y-font-large h2 { font-size: 2.25rem !important; }
-body.a11y-font-large h3 { font-size: 1.875rem !important; }
+/* Removed global a11y font-scaling selectors due Lightning CSS selector merge bug in Vite 8 */
 
 /* JP Morgan-inspired component utilities */
 @layer components {
