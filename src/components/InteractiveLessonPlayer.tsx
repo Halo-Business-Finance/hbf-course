@@ -29,6 +29,16 @@ interface InteractiveLessonPlayerProps {
   onComplete: (lessonId: string, score: number, timeSpent: number) => void;
 }
 
+type InteractiveElementType = 'drag-drop' | 'scenario-simulation' | 'knowledge-check' | string;
+
+interface InteractiveElement {
+  type: InteractiveElementType;
+  title?: string;
+  // Additional properties specific to each interactive element type
+  // can be added here as needed without affecting existing behavior.
+  [key: string]: unknown;
+}
+
 export const InteractiveLessonPlayer = ({ lesson, learningProfile, onComplete }: InteractiveLessonPlayerProps) => {
   const [currentSection, setCurrentSection] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -228,7 +238,7 @@ export const InteractiveLessonPlayer = ({ lesson, learningProfile, onComplete }:
     }
   };
 
-  const renderInteractiveElement = (element: any, index: number) => {
+  const renderInteractiveElement = (element: InteractiveElement, index: number) => {
     switch (element.type) {
       case 'drag-drop':
         return <DragDropContainer element={element} onScore={handleSectionScore} />;
