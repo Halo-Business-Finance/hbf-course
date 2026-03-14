@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Trophy, Star, Sparkles, PartyPopper, Share2 } from 'lucide-react';
@@ -35,21 +35,18 @@ export function MilestoneCelebration({
   onClose, 
   open 
 }: MilestoneCelebrationProps) {
-  const [confetti, setConfetti] = useState<Array<{ id: number; left: number; delay: number; duration: number }>>([]);
   const config = milestoneConfig[type];
   const Icon = config.icon;
 
-  useEffect(() => {
-    if (open) {
-      // Generate confetti particles
-      const particles = Array.from({ length: config.confettiCount }, (_, i) => ({
-        id: i,
-        left: Math.random() * 100,
-        delay: Math.random() * 0.5,
-        duration: 1 + Math.random() * 2,
-      }));
-      setConfetti(particles);
-    }
+  const confetti = useMemo(() => {
+    if (!open) return [];
+    // Generate confetti particles
+    return Array.from({ length: config.confettiCount }, (_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      delay: Math.random() * 0.5,
+      duration: 1 + Math.random() * 2,
+    }));
   }, [open, config.confettiCount]);
 
   return (

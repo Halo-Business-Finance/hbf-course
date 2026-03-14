@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -32,6 +32,7 @@ export const LiveChatSupport = ({ isOpen, onOpenChange }: LiveChatSupportProps) 
   const [connectionStatus, setConnectionStatus] = useState<'connecting' | 'connected' | 'disconnected'>('disconnected');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const messageIdCounterRef = useRef(0);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -49,13 +50,23 @@ export const LiveChatSupport = ({ isOpen, onOpenChange }: LiveChatSupportProps) 
     }
   }, [isOpen, isMinimized]);
 
-  const initializeChat = async () => {
+  const getUserName = useCallback(() => {
+    if (user?.user_metadata?.full_name) {
+      return user.user_metadata.full_name.split(' ')[0];
+    }
+    if (user?.email) {
+      return user.email.split('@')[0];
+    }
+    return 'there';
+  }, [user]);
+
+  const initializeChat = useCallback(async () => {
     setConnectionStatus('connecting');
-    
+
     // Simulate connection delay
     setTimeout(() => {
       setConnectionStatus('connected');
-      
+
       // Add welcome message
       const welcomeMessage: Message = {
         id: '1',
@@ -64,32 +75,22 @@ export const LiveChatSupport = ({ isOpen, onOpenChange }: LiveChatSupportProps) 
         timestamp: new Date(),
         senderName: 'Sarah from Support'
       };
-      
+
       setMessages([welcomeMessage]);
-      
+
       toast({
         title: "Connected to Support",
         description: "You're now connected to our live support team.",
       });
     }, 1500);
-  };
+  }, [getUserName, toast]);
 
   useEffect(() => {
     if (isOpen) {
       // Initialize chat when opened
       initializeChat();
     }
-  }, [isOpen]);
-
-  const getUserName = () => {
-    if (user?.user_metadata?.full_name) {
-      return user.user_metadata.full_name.split(' ')[0];
-    }
-    if (user?.email) {
-      return user.email.split('@')[0];
-    }
-    return 'there';
-  };
+  }, [isOpen, initializeChat]);
 
   const generateIntelligentResponse = (userMessage: string, conversationHistory: Message[]): string => {
     const message = userMessage.toLowerCase().trim();
@@ -215,8 +216,9 @@ export const LiveChatSupport = ({ isOpen, onOpenChange }: LiveChatSupportProps) 
   const handleSendMessage = async () => {
     if (!newMessage.trim() || connectionStatus !== 'connected') return;
 
+    messageIdCounterRef.current += 1;
     const userMessage: Message = {
-      id: Date.now().toString(),
+      id: String(messageIdCounterRef.current),
       content: newMessage.trim(),
       sender: 'user',
       timestamp: new Date(),
@@ -235,8 +237,9 @@ export const LiveChatSupport = ({ isOpen, onOpenChange }: LiveChatSupportProps) 
       setTimeout(() => {
         const intelligentResponse = generateIntelligentResponse(messageContent, updatedMessages);
         
+        messageIdCounterRef.current += 1;
         const supportMessage: Message = {
-          id: (Date.now() + 1).toString(),
+          id: String(messageIdCounterRef.current),
           content: intelligentResponse,
           sender: 'support',
           timestamp: new Date(),

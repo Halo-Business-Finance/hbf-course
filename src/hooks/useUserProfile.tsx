@@ -227,8 +227,10 @@ export const useUserProfile = (): UseUserProfileReturn => {
   }, [loadProfile]);
 
   useEffect(() => {
-    loadProfile();
-  }, [loadProfile]);
+    if (user) {
+      loadProfile();
+    }
+  }, [user, loadProfile]);
 
   return {
     profile,

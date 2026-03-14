@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -41,19 +41,19 @@ export const LessonModal = ({ isOpen, onClose, lesson, moduleTitle, moduleId }: 
     getProgressStats 
   } = useLessonProgress(lesson.id, moduleId || 'default');
   
+  const stepNames = useMemo(() => ['overview', 'video', 'content', 'assessment', 'summary'], []);
   const [activeTab, setActiveTab] = useState("overview");
+
+  // Sync tab with current step
+  useEffect(() => {
+    if (currentStep < stepNames.length) {
+      setActiveTab(stepNames[currentStep]);
+    }
+  }, [currentStep, stepNames]);
 
   // Get lesson-specific notes count
   const lessonNotesCount = moduleId ? getNotesByLesson(moduleId, lesson.id).length : 0;
   const progressStats = getProgressStats();
-
-  // Set tab based on current step
-  useEffect(() => {
-    const stepNames = ['overview', 'video', 'content', 'assessment', 'summary'];
-    if (currentStep < stepNames.length) {
-      setActiveTab(stepNames[currentStep]);
-    }
-  }, [currentStep]);
 
   const handleTakeNotes = () => {
     if (moduleId) {

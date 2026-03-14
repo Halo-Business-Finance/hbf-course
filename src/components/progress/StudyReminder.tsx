@@ -55,16 +55,14 @@ function saveSettings(settings: ReminderSettings) {
 
 export function StudyReminder() {
   const [settings, setSettings] = useState<ReminderSettings>(loadSettings);
-  const [notificationPermission, setNotificationPermission] = useState<NotificationPermission>('default');
+  const [notificationPermission, setNotificationPermission] = useState<NotificationPermission>(() => {
+    if (typeof window !== 'undefined' && 'Notification' in window) {
+      return Notification.permission;
+    }
+    return 'default';
+  });
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const lastFiredRef = useRef<string>('');
-
-  // Check notification permission on mount
-  useEffect(() => {
-    if ('Notification' in window) {
-      setNotificationPermission(Notification.permission);
-    }
-  }, []);
 
   // Core: schedule checker that fires notifications at the right time
   const startScheduler = useCallback(() => {

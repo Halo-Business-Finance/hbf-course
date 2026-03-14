@@ -143,11 +143,6 @@ const Courses = () => {
     };
     return imageMap[baseTitle] || courseSba7a; // Default to SBA 7(a) image
   };
-  useEffect(() => {
-    if (user && allCourses.length > 0) {
-      checkEnrollmentStatus();
-    }
-  }, [user, allCourses.length]);
   const checkEnrollmentStatus = async () => {
     if (!user) return;
     try {
@@ -172,6 +167,11 @@ const Courses = () => {
       console.error('Error checking enrollment status:', error);
     }
   };
+  useEffect(() => {
+    if (user && allCourses.length > 0) {
+      checkEnrollmentStatus();
+    }
+  }, [user, allCourses.length]);
   const handleEnroll = async (courseId: string) => {
     if (!user) {
       toast({

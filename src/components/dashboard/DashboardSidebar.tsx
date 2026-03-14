@@ -34,19 +34,24 @@ const secondaryNavItems: NavItem[] = [
   { icon: HelpCircle, label: "Support", href: "/support" },
 ];
 
-export function DashboardSidebar({ 
-  overallProgress = 0, 
-  currentStreak = 0,
-  className 
-}: DashboardSidebarProps) {
-  const [collapsed, setCollapsed] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
-  
-  const isActive = (href: string) => location.pathname === href;
+interface SidebarContentProps {
+  isMobile?: boolean;
+  overallProgress: number;
+  currentStreak: number;
+  isActive: (href: string) => boolean;
+  navigate: (href: string) => void;
+  setMobileOpen: (open: boolean) => void;
+}
 
-  const SidebarContent = ({ isMobile = false }: { isMobile?: boolean }) => (
+function SidebarContentInner({
+  isMobile = false,
+  overallProgress,
+  currentStreak,
+  isActive,
+  navigate,
+  setMobileOpen
+}: SidebarContentProps) {
+  return (
     <>
       {/* Progress section */}
       <div className="px-4 py-6 border-b border-border">
@@ -57,7 +62,7 @@ export function DashboardSidebar({
             <p className="text-xs text-muted-foreground mt-0.5">Keep learning!</p>
           </div>
         </div>
-        
+
         {/* Streak indicator */}
         <div className="flex items-center gap-2 mt-4 p-2 rounded-lg border border-border">
           <Flame className="h-4 w-4 text-halo-orange" />
@@ -70,7 +75,7 @@ export function DashboardSidebar({
         {mainNavItems.map((item) => {
           const Icon = item.icon;
           const active = isActive(item.href);
-          
+
           return (
             <Button
               key={item.label}
@@ -94,14 +99,14 @@ export function DashboardSidebar({
             </Button>
           );
         })}
-        
+
         <Separator className="my-4" />
-        
+
         <p className="text-xs font-medium text-muted-foreground px-3 mb-2">Quick Access</p>
-        
+
         {secondaryNavItems.map((item) => {
           const Icon = item.icon;
-          
+
           return (
             <Button
               key={item.label}
@@ -131,6 +136,19 @@ export function DashboardSidebar({
       </div>
     </>
   );
+}
+
+export function DashboardSidebar({
+  overallProgress = 0,
+  currentStreak = 0,
+  className
+}: DashboardSidebarProps) {
+  const [collapsed, setCollapsed] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const isActive = (href: string) => location.pathname === href;
 
   return (
     <TooltipProvider delayDuration={0}>
@@ -153,7 +171,7 @@ export function DashboardSidebar({
                   <span className="font-semibold text-foreground">FinPilot</span>
                 </div>
               </div>
-              <SidebarContent isMobile />
+              <SidebarContentInner isMobile overallProgress={overallProgress} currentStreak={currentStreak} isActive={isActive} navigate={navigate} setMobileOpen={setMobileOpen} />
             </div>
           </SheetContent>
         </Sheet>
@@ -190,7 +208,7 @@ export function DashboardSidebar({
         </div>
 
         {/* Expanded content */}
-        {!collapsed && <SidebarContent />}
+        {!collapsed && <SidebarContentInner overallProgress={overallProgress} currentStreak={currentStreak} isActive={isActive} navigate={navigate} setMobileOpen={setMobileOpen} />}
 
         {/* Collapsed content */}
         {collapsed && (

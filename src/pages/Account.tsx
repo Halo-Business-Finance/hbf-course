@@ -92,7 +92,6 @@ const AccountPage = (): JSX.Element => {
   // Sync local state with profile data
   useEffect(() => {
     if (profile) {
-      // Set user info for display
       const profileData = {
         name: profile.name || "",
         email: profile.email || "",
@@ -100,16 +99,16 @@ const AccountPage = (): JSX.Element => {
         location: profile.location || "",
         city: profile.city || "",
         state: profile.state || "",
-        joinDate: profile.created_at ? new Date(profile.created_at).toLocaleDateString('en-US', { 
-          year: 'numeric', 
-          month: 'long', 
-          day: 'numeric' 
+        joinDate: profile.created_at ? new Date(profile.created_at).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
         }) : "",
         title: profile.title || "",
         company: profile.company || "",
         avatar: profile.avatar_url || "/placeholder.svg"
       };
-      
+
       setUserInfo(profileData);
       setEditForm(profileData);
 

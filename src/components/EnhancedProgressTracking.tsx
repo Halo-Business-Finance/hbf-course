@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
@@ -31,40 +31,35 @@ interface ProgressGoal {
 export const EnhancedProgressTracking = () => {
   const { metrics, recommendations, currentSession, loading } = useEnhancedLearning();
   const [selectedTimeRange, setSelectedTimeRange] = useState<'week' | 'month' | 'quarter'>('week');
-  const [personalGoals, setPersonalGoals] = useState<ProgressGoal[]>([]);
-
-  useEffect(() => {
-    // Initialize personal goals based on current metrics
-    if (metrics && personalGoals.length === 0) {
-      const goals: ProgressGoal[] = [
-        {
-          id: '1',
-          title: 'Complete 3 modules this month',
-          target: 3,
-          current: Math.floor(metrics.learningVelocity * 4),
-          deadline: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString(),
-          type: 'modules'
-        },
-        {
-          id: '2',
-          title: 'Maintain 7-day learning streak',
-          target: 7,
-          current: metrics.currentStreak,
-          deadline: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString(),
-          type: 'streak'
-        },
-        {
-          id: '3',
-          title: 'Study 10 hours this month',
-          target: 10,
-          current: metrics.totalTime / 60,
-          deadline: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString(),
-          type: 'time'
-        }
-      ];
-      setPersonalGoals(goals);
-    }
-  }, [metrics, personalGoals.length]);
+  const personalGoals = useMemo<ProgressGoal[]>(() => {
+    if (!metrics) return [];
+    return [
+      {
+        id: '1',
+        title: 'Complete 3 modules this month',
+        target: 3,
+        current: Math.floor(metrics.learningVelocity * 4),
+        deadline: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString(),
+        type: 'modules'
+      },
+      {
+        id: '2',
+        title: 'Maintain 7-day learning streak',
+        target: 7,
+        current: metrics.currentStreak,
+        deadline: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString(),
+        type: 'streak'
+      },
+      {
+        id: '3',
+        title: 'Study 10 hours this month',
+        target: 10,
+        current: metrics.totalTime / 60,
+        deadline: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString(),
+        type: 'time'
+      }
+    ];
+  }, [metrics]);
 
   if (loading) {
     return (

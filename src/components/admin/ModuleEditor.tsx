@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -66,21 +66,13 @@ export function ModuleEditor() {
     { value: "completed", label: "Completed", color: "bg-green-100 text-green-800" },
   ];
 
-  useEffect(() => {
-    loadModules();
-  }, [courses, modules]);
-
-  useEffect(() => {
-    applyFilters();
-  }, [allModules, searchTerm, selectedCourse, selectedSkillLevel, selectedStatus]);
-
-  const loadModules = () => {
+  const loadModules = useCallback(() => {
     if (!courses.length || !modules.length) return;
-    
+
     try {
       // Get all modules from database with course context
       const modulesWithCourse: DbModule[] = [];
-      
+
       modules.forEach((module) => {
         const course = courses.find(c => c.id === module.course_id);
         if (course) {
@@ -100,7 +92,7 @@ export function ModuleEditor() {
       });
 
       setAllModules(modulesWithCourse);
-      
+
     } catch (error) {
       console.error("Error loading modules:", error);
       toast({
@@ -109,9 +101,9 @@ export function ModuleEditor() {
         variant: "destructive",
       });
     }
-  };
+  }, [courses, modules, toast]);
 
-  const applyFilters = () => {
+  const applyFilters = useCallback(() => {
     let filtered = [...allModules];
 
     // Search filter
@@ -139,7 +131,15 @@ export function ModuleEditor() {
     }
 
     setFilteredModules(filtered);
-  };
+  }, [allModules, searchTerm, selectedCourse, selectedSkillLevel, selectedStatus]);
+
+  useEffect(() => {
+    loadModules();
+  }, [loadModules]);
+
+  useEffect(() => {
+    applyFilters();
+  }, [applyFilters]);
 
   const resetForm = () => {
     setFormData({

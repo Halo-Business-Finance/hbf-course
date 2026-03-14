@@ -38,7 +38,13 @@ export const EnhancedVideoSection = ({
   const [videos, setVideos] = useState<ModuleVideo[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeVideoIndex, setActiveVideoIndex] = useState(0);
-  const [completedVideos, setCompletedVideos] = useState<Set<string>>(new Set());
+  const [completedVideos, setCompletedVideos] = useState<Set<string>>(() => {
+    const saved = localStorage.getItem(`module_videos_completed_${moduleId || lesson.id}`);
+    if (saved) {
+      return new Set(JSON.parse(saved));
+    }
+    return new Set();
+  });
   const [showPlaylist, setShowPlaylist] = useState(true);
 
   useEffect(() => {
@@ -58,12 +64,6 @@ export const EnhancedVideoSection = ({
       setLoading(false);
     };
     fetchVideos();
-
-    // Load completed videos from localStorage
-    const saved = localStorage.getItem(`module_videos_completed_${moduleId || lesson.id}`);
-    if (saved) {
-      setCompletedVideos(new Set(JSON.parse(saved)));
-    }
   }, [moduleId, lesson.id]);
 
   const markVideoCompleted = (videoId: string) => {

@@ -18,7 +18,7 @@ interface InteractiveLessonPlayerProps {
 export const InteractiveLessonPlayer = ({ lesson, learningProfile, onComplete }: InteractiveLessonPlayerProps) => {
   const [currentSection, setCurrentSection] = useState(0);
   const [progress, setProgress] = useState(0);
-  const [startTime] = useState(Date.now());
+  const [startTime] = useState(() => Date.now());
   const [sectionScores, setSectionScores] = useState<number[]>([]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showHints, setShowHints] = useState(false);

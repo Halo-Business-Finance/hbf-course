@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { cn } from '@/lib/utils';
 import { ChevronLeft, ChevronRight, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -9,27 +10,18 @@ interface SwipeableContainerProps {
   className?: string;
 }
 
-export function SwipeableContainer({ 
-  children, 
-  onSwipeLeft, 
-  onSwipeRight, 
-  className 
+export function SwipeableContainer({
+  children,
+  onSwipeLeft,
+  onSwipeRight,
+  className
 }: SwipeableContainerProps) {
-  let touchStartX = 0;
-  let touchEndX = 0;
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX = e.changedTouches[0].screenX;
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    touchEndX = e.changedTouches[0].screenX;
-    handleSwipe();
-  };
+  const touchStartXRef = useRef(0);
+  const touchEndXRef = useRef(0);
 
   const handleSwipe = () => {
     const swipeThreshold = 50;
-    const diff = touchStartX - touchEndX;
+    const diff = touchStartXRef.current - touchEndXRef.current;
 
     if (Math.abs(diff) > swipeThreshold) {
       if (diff > 0 && onSwipeLeft) {
@@ -38,6 +30,15 @@ export function SwipeableContainer({
         onSwipeRight();
       }
     }
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartXRef.current = e.changedTouches[0].screenX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    touchEndXRef.current = e.changedTouches[0].screenX;
+    handleSwipe();
   };
 
   return (
