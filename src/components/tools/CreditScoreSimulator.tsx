@@ -68,75 +68,82 @@ export const CreditScoreSimulator = () => {
     const score = parseInt(currentScore);
     const value = parseFloat(amount);
     const months = parseInt(timeframe);
-    let impact = 0;
-    let description = "";
-    let tips: string[] = [];
-    let timeToSeeChange = "";
+    const scenarioData = (() => {
+      switch (scenario) {
+        case "new-credit-card":
+          return {
+            impact: -5 - Math.floor(value / 5000) * 2,
+            description: "Opening a new credit card typically causes a temporary decrease due to hard inquiry and reduced average account age.",
+            tips: [
+              "Keep the new card's utilization below 10%",
+              "Don't close old cards to maintain credit history",
+              "Wait 6+ months before applying for more credit"
+            ],
+            timeToSeeChange: "2-3 months"
+          };
+        case "pay-down-debt":
+          return {
+            impact: Math.floor(value / 1000) * 3,
+            description: "Paying down debt reduces credit utilization ratio, which positively impacts your credit score.",
+            tips: [
+              "Pay down cards with highest utilization first",
+              "Keep paid-off cards open",
+              "Set up automatic payments to avoid late fees"
+            ],
+            timeToSeeChange: "1-2 months"
+          };
+        case "missed-payment":
+          return {
+            impact: -35 - Math.floor(value / 500) * 5,
+            description: "Missed payments have a significant negative impact on credit scores, especially for larger amounts.",
+            tips: [
+              "Contact your lender immediately to explain the situation",
+              "Make the payment as soon as possible",
+              "Consider setting up automatic payments"
+            ],
+            timeToSeeChange: "Immediate"
+          };
+        case "close-old-card":
+          return {
+            impact: -10 - Math.floor(value / 1000) * 2,
+            description: "Closing an old credit card reduces your credit history length and available credit.",
+            tips: [
+              "Keep old cards open, even if unused",
+              "Use old cards occasionally to keep them active",
+              "Consider downgrading instead of closing"
+            ],
+            timeToSeeChange: "2-3 months"
+          };
+        case "increase-limit":
+          return {
+            impact: Math.floor(value / 2000) * 2,
+            description: "Increasing credit limits improves your credit utilization ratio when balances remain the same.",
+            tips: [
+              "Don't increase spending with higher limits",
+              "Request increases on your oldest cards first",
+              "Aim for automatic increases rather than requesting"
+            ],
+            timeToSeeChange: "1-2 months"
+          };
+        case "debt-consolidation":
+          return {
+            impact: Math.floor(value / 5000) * 1,
+            description: "Debt consolidation can improve your score by reducing overall utilization and simplifying payments.",
+            tips: [
+              "Don't close the paid-off cards",
+              "Avoid accumulating new debt",
+              "Choose a consolidation method with lower interest rates"
+            ],
+            timeToSeeChange: "2-4 months"
+          };
+        default:
+          return null;
+      }
+    })();
 
-    switch (scenario) {
-      case "new-credit-card":
-        impact = -5 - Math.floor(value / 5000) * 2;
-        description = "Opening a new credit card typically causes a temporary decrease due to hard inquiry and reduced average account age.";
-        tips = [
-          "Keep the new card's utilization below 10%",
-          "Don't close old cards to maintain credit history",
-          "Wait 6+ months before applying for more credit"
-        ];
-        timeToSeeChange = "2-3 months";
-        break;
-      case "pay-down-debt":
-        impact = Math.floor(value / 1000) * 3;
-        description = "Paying down debt reduces credit utilization ratio, which positively impacts your credit score.";
-        tips = [
-          "Pay down cards with highest utilization first",
-          "Keep paid-off cards open",
-          "Set up automatic payments to avoid late fees"
-        ];
-        timeToSeeChange = "1-2 months";
-        break;
-      case "missed-payment":
-        impact = -35 - Math.floor(value / 500) * 5;
-        description = "Missed payments have a significant negative impact on credit scores, especially for larger amounts.";
-        tips = [
-          "Contact your lender immediately to explain the situation",
-          "Make the payment as soon as possible",
-          "Consider setting up automatic payments"
-        ];
-        timeToSeeChange = "Immediate";
-        break;
-      case "close-old-card":
-        impact = -10 - Math.floor(value / 1000) * 2;
-        description = "Closing an old credit card reduces your credit history length and available credit.";
-        tips = [
-          "Keep old cards open, even if unused",
-          "Use old cards occasionally to keep them active",
-          "Consider downgrading instead of closing"
-        ];
-        timeToSeeChange = "2-3 months";
-        break;
-      case "increase-limit":
-        impact = Math.floor(value / 2000) * 2;
-        description = "Increasing credit limits improves your credit utilization ratio when balances remain the same.";
-        tips = [
-          "Don't increase spending with higher limits",
-          "Request increases on your oldest cards first",
-          "Aim for automatic increases rather than requesting"
-        ];
-        timeToSeeChange = "1-2 months";
-        break;
-      case "debt-consolidation":
-        impact = Math.floor(value / 5000) * 1;
-        description = "Debt consolidation can improve your score by reducing overall utilization and simplifying payments.";
-        tips = [
-          "Don't close the paid-off cards",
-          "Avoid accumulating new debt",
-          "Choose a consolidation method with lower interest rates"
-        ];
-        timeToSeeChange = "2-4 months";
-        break;
-      default:
-        return;
-    }
+    if (!scenarioData) return;
+
+    let { impact, description, tips, timeToSeeChange } = scenarioData;
 
     // Apply time factor
     const timeFactor = Math.max(0.5, 1 - (months - 1) * 0.1);

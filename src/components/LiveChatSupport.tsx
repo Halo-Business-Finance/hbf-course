@@ -49,13 +49,6 @@ export const LiveChatSupport = ({ isOpen, onOpenChange }: LiveChatSupportProps) 
     }
   }, [isOpen, isMinimized]);
 
-  useEffect(() => {
-    if (isOpen) {
-      // Initialize chat when opened
-      initializeChat();
-    }
-  }, [isOpen]);
-
   const initializeChat = async () => {
     setConnectionStatus('connecting');
     
@@ -80,6 +73,13 @@ export const LiveChatSupport = ({ isOpen, onOpenChange }: LiveChatSupportProps) 
       });
     }, 1500);
   };
+
+  useEffect(() => {
+    if (isOpen) {
+      // Initialize chat when opened
+      initializeChat();
+    }
+  }, [isOpen]);
 
   const getUserName = () => {
     if (user?.user_metadata?.full_name) {

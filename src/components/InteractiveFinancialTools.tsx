@@ -87,12 +87,6 @@ export const InteractiveFinancialTools = () => {
   const [projectedCashFlow, setProjectedCashFlow] = useState<CashFlowProjection[]>([]);
   const [loanPayments, setLoanPayments] = useState<unknown[]>([]);
 
-  useEffect(() => {
-    calculateLoanPayments();
-    generateCashFlowProjection();
-    calculateBusinessValuation();
-  }, [loanData, cashFlowData, valuationData]);
-
   const calculateLoanPayments = () => {
     const { principal, interestRate, termYears } = loanData;
     const monthlyRate = interestRate / 100 / 12;
@@ -177,6 +171,12 @@ export const InteractiveFinancialTools = () => {
 
     setValuationData((prev) => ({ ...prev, valuation }));
   };
+
+  useEffect(() => {
+    calculateLoanPayments();
+    generateCashFlowProjection();
+    calculateBusinessValuation();
+  }, [loanData, cashFlowData, valuationData]);
 
   const calculateCreditScore = () => {
     const { paymentHistory, creditUtilization, creditHistory, creditMix, newCredit } = creditFactors;

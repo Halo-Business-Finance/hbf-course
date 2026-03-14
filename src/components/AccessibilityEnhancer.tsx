@@ -40,30 +40,6 @@ export const AccessibilityEnhancer = () => {
   
   const [isVisible, setIsVisible] = useState(false);
 
-  useEffect(() => {
-    // Load saved accessibility settings
-    const savedSettings = localStorage.getItem('accessibility-settings');
-    if (savedSettings) {
-      const parsed = JSON.parse(savedSettings);
-      setSettings(parsed);
-      applySettings(parsed);
-    }
-
-    // Check for system preferences
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const prefersHighContrast = window.matchMedia('(prefers-contrast: high)').matches;
-    
-    if (prefersReducedMotion || prefersHighContrast) {
-      const updatedSettings = {
-        ...settings,
-        reducedMotion: prefersReducedMotion,
-        highContrast: prefersHighContrast
-      };
-      setSettings(updatedSettings);
-      applySettings(updatedSettings);
-    }
-  }, []);
-
   const applySettings = (newSettings: AccessibilitySettings) => {
     const root = document.documentElement;
     
@@ -110,6 +86,28 @@ export const AccessibilityEnhancer = () => {
     // Save settings
     localStorage.setItem('accessibility-settings', JSON.stringify(newSettings));
   };
+
+  useEffect(() => {
+    const savedSettings = localStorage.getItem('accessibility-settings');
+    if (savedSettings) {
+      const parsed = JSON.parse(savedSettings);
+      setSettings(parsed);
+      applySettings(parsed);
+    }
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersHighContrast = window.matchMedia('(prefers-contrast: high)').matches;
+
+    if (prefersReducedMotion || prefersHighContrast) {
+      const updatedSettings = {
+        ...settings,
+        reducedMotion: prefersReducedMotion,
+        highContrast: prefersHighContrast
+      };
+      setSettings(updatedSettings);
+      applySettings(updatedSettings);
+    }
+  }, []);
 
   const updateSetting = <K extends keyof AccessibilitySettings>(
     key: K, 

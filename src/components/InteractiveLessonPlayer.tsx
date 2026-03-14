@@ -81,15 +81,11 @@ export const InteractiveLessonPlayer = ({ lesson, learningProfile, onComplete }:
     const difficulty = lesson.difficulty_level;
     const style = profile.learning_style;
     
-    let content = lesson.adaptive_content.style_adaptations[style] || lesson.adaptive_content.main_content;
-    
-    if (difficulty <= 3) {
-      content = lesson.adaptive_content.difficulty_variants.beginner;
-    } else if (difficulty <= 7) {
-      content = lesson.adaptive_content.difficulty_variants.intermediate;
-    } else {
-      content = lesson.adaptive_content.difficulty_variants.advanced;
-    }
+    const content = difficulty <= 3
+      ? lesson.adaptive_content.difficulty_variants.beginner
+      : difficulty <= 7
+        ? lesson.adaptive_content.difficulty_variants.intermediate
+        : lesson.adaptive_content.difficulty_variants.advanced;
     
     return {
       main: content,
