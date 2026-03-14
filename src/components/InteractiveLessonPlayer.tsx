@@ -315,7 +315,16 @@ export const InteractiveLessonPlayer = ({ lesson, learningProfile, onComplete }:
 };
 
 // Section Components
-const IntroductionSection = ({ content }: { content: any }) => (
+interface IntroductionContent {
+  title: string;
+  personalizedMessage: string;
+  objectives: string[];
+  duration: string;
+  difficulty: string;
+  prerequisites: string[];
+}
+
+const IntroductionSection = ({ content }: { content: IntroductionContent }) => (
   <div className="space-y-6">
     <div className="text-center space-y-4">
       <h2 className="text-2xl font-bold">{content.title}</h2>
